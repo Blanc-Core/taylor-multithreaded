@@ -54,6 +54,7 @@ class ModulePlanner:
         userPrompt = """
         Please follow the instructions in the prompt. I want extreme detailed and thought out answers. ENSURE TO WRITE LOGIC FOR EACH PAGE NEEDED WITHIN THE MODULE.
         Simply give me the output in the format of the prompt. I do not want additional text. JUST THE OUTPUT. Remember this is being done in Ant Design.
+        ***IF WORKING WITH CHARTS THINK ABOUT COOL STUFF LIKE TREES, HEAT MAP, ALL THAAT COOL STUFF FOR ECHARTS NOT THE BASIC BORING CHARTS YOU CAN HAVE THOSE BUT THINK OF UNQIUE CHARTS***
         """
         coder = ClientRequest(self.systemPrompt, self.model, userPrompt, True)
         generatedModulePlan = coder.generate()

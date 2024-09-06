@@ -25,7 +25,7 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-
+clear_file_if_not_empty("output.txt")
 def parseModulePlannerOutput(pageOutput):
     # Split the output into individual pages, keeping the delimiter
     pages = re.split(r'(?=### Page Name:)', pageOutput)

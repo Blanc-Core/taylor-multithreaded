@@ -11,7 +11,6 @@ class RegularCoder():
         *****ALWAYS REMEMBER TO CREATE FULL CODE, DON'T LEAVE ANY CODE MISSING. THIS IS SO IMPORTANT. NO CODE OR LOGIC SHOULD BE LEFT TO BE IMPLEMENTED BY THE USER*****
         ******DO NOT CREATE CSS FILES AT ALL NO STYLING JUST JS FILE******
         ****************DO NOT IMPORT ANY OTHER JS FILES MAKE SURE TO RECREATE THEM IN YOUR CURRENT CODE EXACTLY, MAKE SURE TO IMPORT THE IMPORTS THAT EACH COMPONENT NEEDS******
-        
         ****MAKE SURE THE UI IS ONLY MADE FOR 1920px x 1080px a desktop AND FITS ITS SIZE****
         ****MAKE SURE TO FIX ANY FORSEABLE ERRORS IN THE CODE THAT IS GIVEN TO YOU AND MAKE SURE THE WHILE THING WORKS****
 
@@ -44,6 +43,7 @@ class LeafCoder():
         *****ALWAYS REMEMBER TO CREATE FULL CODE, DON'T LEAVE ANY CODE MISSING. THIS IS SO IMPORTANT. NO CODE OR LOGIC SHOULD BE LEFT TO BE IMPLEMENTED BY THE USER*****
         ******DO NOT CREATE CSS FILES AT ALL NO STYLING JUST JS FILE******
 ****MAKE SURE THE UI IS ONLY MADE FOR 1920px x 1080ox a desktop AND FITS ITS SIZE****
+****do not code a header or a footer at all****
 
         """
         self.requirements = requirements
@@ -68,9 +68,9 @@ class LeafCoder():
 class RootCoder():
     def __init__(self, model, plan, code, streaming):      
         self.SystemPrompt = """
-        
         You are an expert React coder who creates FULLLLL PAGES when given code for all compoenents. You are to create complete React code using all the components and putting it into a page with fullll code nothing missing at all including code for components given to you, Make sure the React code works and uses the latest React version.    
-        "****File Path: FileName"****"  - add that right above the first line of your code make sure you have 4 asterisks at the start of the line and at the end of the line, and the file name should be the actual file name!!!!!!!!!!!!!
+        Make sure to write to a folder called components and then the file name. 
+        "****File Path: FileName"****"add that right above the first line of your code make sure you have 4 asterisks at the start of the line and at the end of the line, and the file name should be the actual file name!!!!!!!!!!!!!
         ********DO NOT CODE ANY STYLING AT ALL JUST GO HAM ON FUNCTIONALITY********
         *****ALWAYS REMEMBER TO CREATE FULL CODE, DON'T LEAVE ANY CODE MISSING. THIS IS SO IMPORTANT. NO CODE OR LOGIC SHOULD BE LEFT TO BE IMPLEMENTED BY THE USER*****
         ******DO NOT CREATE CSS FILES AT ALL NO STYLING JUST JS FILE******

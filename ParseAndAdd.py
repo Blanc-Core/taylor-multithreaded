@@ -127,6 +127,6 @@ class ParseAndAdd:
 #Testing
 
 #PARAMS are the text file with teh code and then the frontendPath defined in main
-parser = ParseAndAdd("output.txt", "prag/frontend")
+parser = ParseAndAdd("output.txt", "Akshay/frontend")
 parser.process_and_check()
 print(parser.getAllFilePaths())

@@ -1,441 +1,1299 @@
 
 
-****File PATH: OrderDetailContainer.js****
+****File PATH: ReportsOverviewPage.js****
+
 import React, { useState } from 'react';
+import { Layout, Card, Row, Col, DatePicker, Checkbox, Button, Tooltip, Input, Form, Modal, notification } from 'antd';
+import { PieChart, LineChart, BarChart } from 'echarts-for-react';
+import { FilePdfOutlined, FileExcelOutlined, BellOutlined } from '@ant-design/icons';
 
-const SupplierInfo = ({ supplier }) => (
-    <div>
-        <h3>Supplier Information</h3>
-        <p><strong>Name:</strong> {supplier.name || 'N/A'}</p>
-        <p><strong>Contact:</strong> {supplier.contact || 'N/A'}</p>
-    </div>
-);
+const { Header, Content, Sider } = Layout;
+const { RangePicker } = DatePicker;
+const { Search } = Input;
 
-const ItemList = ({ items }) => (
-    <div>
-        <h3>Item Details</h3>
-        {items.length > 0 ? (
-            items.map((item, index) => (
-                <div key={index}>
-                    <p><strong>Description:</strong> {item.description}</p>
-                    <p><strong>SKU:</strong> {item.sku}</p>
-                    <p><strong>Quantity:</strong> {item.quantity}</p>
-                    <p><strong>Unit Price:</strong> ${item.unitPrice.toFixed(2)}</p>
-                </div>
-            ))
-        ) : (
-            <p>No items in this order.</p>
-        )}
-    </div>
-);
+// Dummy Data
+const dummyKPIData = [
+  { title: 'Satisfaction Score', value: '85%', trend: 'up' },
+  { title: 'Number of Events', value: '120', trend: 'steady' },
+];
 
-const OrderStatus = ({ status }) => (
-    <div>
-        <h3>Order Status</h3>
-        <p>{status || 'Status not available'}</p>
-    </div>
-);
-
-const AdditionalInfo = ({ info }) => (
-    <div>
-        <h3>Additional Information</h3>
-        <p>{info || 'No additional information.'}</p>
-    </div>
-);
-
-const OrderDetail = ({ order }) => {
-    if (!order) {
-        console.error("Order data is missing");
-        return <p>Error: Order data is not available.</p>;
-    }
-
-    return (
-        <div>
-            <SupplierInfo supplier={order.supplier} />
-            <ItemList items={order.items} />
-            <OrderStatus status={order.status} />
-            <AdditionalInfo info={order.additionalInfo} />
-        </div>
-    );
+const dummyChartData = {
+  satisfactionBreakdown: [{ value: 335, name: 'Positive' }, { value: 310, name: 'Neutral' }, { value: 234, name: 'Negative' }],
+  trendData: [820, 932, 901, 934, 1290, 1330, 1320],
 };
 
-// EditOrderForm component
-const EditOrderForm = ({ orderDetails }) => {
-    const [quantity, setQuantity] = useState(orderDetails.items[0].quantity);
-    const [price, setPrice] = useState(orderDetails.items[0].unitPrice);
-    const [error, setError] = useState('');
+const ReportsOverviewPage = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [notifications, setNotifications] = useState([]);
 
-    const validateInputs = () => {
-        if (quantity <= 0 || price <= 0) {
-            setError('Quantity and Price must be positive numbers.');
-            return false;
-        }
-        setError('');
-        return true;
-    };
+  const showNotification = () => {
+    notification.open({
+      message: 'New Report Available',
+      description: 'Check out the latest report on event performance metrics.',
+      icon: <BellOutlined style={{ color: '#4A90E2' }} />,
+    });
+  };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (validateInputs()) {
-            console.log('Order Updated:', { quantity, price });
-            alert('Order details updated successfully!');
-        }
-    };
+  const handleModalOpen = () => setIsModalVisible(true);
+  const handleModalClose = () => setIsModalVisible(false);
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Quantity:
-                <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
-            </label>
-            <label>
-                Price:
-                <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
-            </label>
-            {error && <p className="error">{error}</p>}
-            <button type="submit">Update Order</button>
-        </form>
-    );
+  const handleDownload = (type) => {
+    notification.success({
+      message: `Report Downloaded`,
+      description: `Your report has been downloaded as a ${type}.`,
+    });
+  };
+
+  return (
+    <Layout style={{ height: '100vh', fontFamily: 'Roboto, sans-serif' }}>
+      <Header style={{ background: '#2E3B4E', padding: '0 16px' }}>
+        <Row justify="space-between" align="middle">
+          <Col>
+            <h1 style={{ color: '#fff' }}>Reports Overview</h1>
+          </Col>
+          <Col>
+            <Button icon={<BellOutlined />} onClick={showNotification} />
+          </Col>
+        </Row>
+      </Header>
+      <Layout>
+        <Sider width={300} style={{ background: '#fff', padding: '24px' }}>
+          <Form layout="vertical">
+            <Form.Item label="Date Range">
+              <RangePicker />
+            </Form.Item>
+            <Form.Item label="Event Type">
+              <Checkbox.Group options={['Conference', 'Workshop', 'Webinar']} />
+            </Form.Item>
+            <Form.Item label="Satisfaction Score">
+              <Checkbox.Group options={['High', 'Medium', 'Low']} />
+            </Form.Item>
+            <Button type="primary" block style={{ marginTop: '16px' }}>Apply Filters</Button>
+            <Button block style={{ marginTop: '8px' }}>Reset Filters</Button>
+          </Form>
+        </Sider>
+        <Content style={{ padding: '24px', background: '#F5F5F5' }}>
+          <Row gutter={[16, 16]}>
+            {dummyKPIData.map((kpi, index) => (
+              <Col span={6} key={index}>
+                <Card>
+                  <h3>{kpi.title}</h3>
+                  <p>{kpi.value}</p>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+          <Row gutter={[16, 16]} style={{ marginTop: '24px' }}>
+            <Col span={12}>
+              <Card>
+                <PieChart
+                  option={{
+                    title: { text: 'Satisfaction Breakdown', left: 'center' },
+                    series: [{ type: 'pie', data: dummyChartData.satisfactionBreakdown }],
+                  }}
+                />
+              </Card>
+            </Col>
+            <Col span={12}>
+              <Card>
+                <LineChart
+                  option={{
+                    title: { text: 'Trend Over Time', left: 'center' },
+                    xAxis: { type: 'category', data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
+                    yAxis: { type: 'value' },
+                    series: [{ type: 'line', data: dummyChartData.trendData }],
+                  }}
+                />
+              </Card>
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]} style={{ marginTop: '24px' }}>
+            <Col span={12}>
+              <Button icon={<FilePdfOutlined />} onClick={() => handleDownload('PDF')} style={{ width: '100%' }}>
+                Download as PDF
+              </Button>
+            </Col>
+            <Col span={12}>
+              <Button icon={<FileExcelOutlined />} onClick={() => handleDownload('CSV')} style={{ width: '100%' }}>
+                Download as CSV
+              </Button>
+            </Col>
+          </Row>
+          <Modal title="Submit Feedback" visible={isModalVisible} onCancel={handleModalClose} footer={null}>
+            <Form layout="vertical">
+              <Form.Item label="Rating">
+                <Checkbox.Group options={['1', '2', '3', '4', '5']} />
+              </Form.Item>
+              <Form.Item label="Comments">
+                <Input.TextArea rows={4} />
+              </Form.Item>
+              <Button type="primary" onClick={handleModalClose}>Submit</Button>
+            </Form>
+          </Modal>
+        </Content>
+      </Layout>
+    </Layout>
+  );
 };
 
-// BackButton component
-const BackButton = ({ onClick }) => (
-    <button onClick={onClick}>
-        Back
-    </button>
-);
+export default ReportsOverviewPage;
 
-// Main OrderDetailContainer component
-const OrderDetailContainer = () => {
-    const [order, setOrder] = useState(dummyOrderData); // Replace with dummy data
-    const [isEditing, setEditing] = useState(false);
+This code offers a refined and interactive dashboard as the central hub for client satisfaction and event performance reports, using Ant Design components and ECharts for visualization. It includes features like KPI cards, filtering options, custom report downloads, and a feedback modal, enhancing the user interface and experience.
 
-    const toggleEditing = () => setEditing(prev => !prev);
-    
-    const navigateBack = () => {
-        console.log("Navigating back to the dashboard...");
-    };
+****File PATH: VendorManagement.js****
 
-    return (
-        <div style={{ width: '1920px', height: '1080px' }}>
-            <OrderDetail order={order} />
-            {isEditing ? <EditOrderForm orderDetails={order} /> : null}
-            <BackButton onClick={navigateBack} />
-            <button onClick={toggleEditing}>{isEditing ? 'Cancel' : 'Edit'}</button>
-        </div>
-    );
-};
-
-// Dummy data for demonstration
-const dummyOrderData = {
-    supplier: {
-        name: "Supplier Inc.",
-        contact: "contact@supplier.com"
-    },
-    items: [
-        { description: "Item 1", sku: "SKU001", quantity: 5, unitPrice: 10.00 },
-        { description: "Item 2", sku: "SKU002", quantity: 3, unitPrice: 15.00 }
-    ],
-    status: "Pending",
-    additionalInfo: "Please deliver by end of the week."
-};
-
-// Example usage of OrderDetailContainer component
-const App = () => <OrderDetailContainer />;
-
-export default App;
-
-****File PATH: DashboardContainer.js****
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import * as XLSX from 'xlsx';
+import { Layout, Menu, Modal, Form, Input, DatePicker, Button, Table, Rate, Card, Row, Col, Tooltip, message } from 'antd';
+import { UserOutlined, CalendarOutlined, LineChartOutlined, FilterOutlined, StarOutlined, DashboardOutlined } from '@ant-design/icons';
+import echarts from 'echarts';
 
-// OrderForm Component
-const OrderForm = ({ addOrder }) => {
-    const [formData, setFormData] = useState({ supplier: '', item: '', quantity: '', price: '' });
-    const [errors, setErrors] = useState({});
+const { Content } = Layout;
+const { RangePicker } = DatePicker;
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+// Dummy Data for Vendors
+const vendors = [
+  { key: '1', name: 'Vendor A', price: 1000, services: 'Catering', rating: 4, availableDates: ['2023-12-01', '2023-12-10'], eventsServed: 20 },
+  { key: '2', name: 'Vendor B', price: 1500, services: 'Decoration', rating: 3, availableDates: ['2023-12-05', '2023-12-15'], eventsServed: 15 },
+  { key: '3', name: 'Vendor C', price: 1200, services: 'Photography', rating: 5, availableDates: ['2023-12-08', '2023-12-20'], eventsServed: 30 },
+  { key: '4', name: 'Vendor D', price: 2000, services: 'Music', rating: 2, availableDates: ['2023-12-02', '2023-12-12'], eventsServed: 10 },
+  { key: '5', name: 'Vendor E', price: 1800, services: 'Lighting', rating: 4, availableDates: ['2023-12-03', '2023-12-18'], eventsServed: 25 },
+];
 
-    const validateForm = () => {
-        let errors = {};
-        if (!formData.supplier) errors.supplier = "Supplier is required.";
-        if (!formData.item) errors.item = "Item is required.";
-        if (!Number.isInteger(Number(formData.quantity)) || formData.quantity <= 0) errors.quantity = "Quantity must be a positive integer.";
-        if (Number(formData.price) <= 0 || isNaN(Number(formData.price))) errors.price = "Price must be a positive number.";
-        return errors;
-    };
+const VendorManagement = () => {
+  const [selectedVendors, setSelectedVendors] = useState([]);
+  const [comparisonVisible, setComparisonVisible] = useState(false);
+  const [calendarDates, setCalendarDates] = useState([]);
+  const [reviewModalVisible, setReviewModalVisible] = useState(false);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const errors = validateForm();
-        if (Object.keys(errors).length === 0) {
-            addOrder(formData); 
-            setFormData({ supplier: '', item: '', quantity: '', price: '' });
-            setErrors({});
-        } else {
-            setErrors(errors);
-        }
-    };
+  const handleVendorSelection = (selectedKeys) => setSelectedVendors(selectedKeys);
+  const showComparison = () => setComparisonVisible(true);
+  const hideComparison = () => setComparisonVisible(false);
+  const handleCalendarChange = (dates) => setCalendarDates(dates);
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Supplier Name:</label>
-                <input type="text" name="supplier" value={formData.supplier} onChange={handleChange} />
-                {errors.supplier && <span>{errors.supplier}</span>}
-            </div>
-            <div>
-                <label>Item Name:</label>
-                <input type="text" name="item" value={formData.item} onChange={handleChange} />
-                {errors.item && <span>{errors.item}</span>}
-            </div>
-            <div>
-                <label>Quantity:</label>
-                <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} />
-                {errors.quantity && <span>{errors.quantity}</span>}
-            </div>
-            <div>
-                <label>Price:</label>
-                <input type="number" name="price" value={formData.price} onChange={handleChange} />
-                {errors.price && <span>{errors.price}</span>}
-            </div>
-            <button type="submit">Submit Order</button>
-        </form>
-    );
-};
+  const columns = [
+    { title: 'Name', dataIndex: 'name', key: 'name' },
+    { title: 'Price', dataIndex: 'price', key: 'price', sorter: (a, b) => a.price - b.price },
+    { title: 'Services', dataIndex: 'services', key: 'services' },
+    { title: 'Rating', dataIndex: 'rating', key: 'rating', render: (rating) => <Rate disabled defaultValue={rating} /> },
+  ];
 
-OrderForm.propTypes = {
-    addOrder: PropTypes.func.isRequired,
-};
+  const renderComparisonGrid = () => (
+    <Modal
+      title="Vendor Comparison"
+      visible={comparisonVisible}
+      onCancel={hideComparison}
+      footer={null}
+      width={800}
+    >
+      <Table dataSource={vendors.filter(v => selectedVendors.includes(v.key))} columns={columns} pagination={false} />
+    </Modal>
+  );
 
-// OrderList Component
-const OrderList = ({ orders, setOrders }) => {
-    const [editingOrder, setEditingOrder] = useState(null);
-    const [searchTerm, setSearchTerm] = useState('');
-    
-    const handleEdit = (updatedOrder) => {
-        setOrders(orders.map(order => order.id === updatedOrder.id ? updatedOrder : order));
-        setEditingOrder(null);
-    };
+  const renderAvailabilityCalendar = () => (
+    <Card title="Vendor Availability" style={{ marginBottom: '16px' }}>
+      <RangePicker onChange={handleCalendarChange} />
+      <Row gutter={16} style={{ marginTop: '16px' }}>
+        {vendors.map((vendor) => (
+          <Col key={vendor.key} span={8}>
+            <Tooltip title={`Available on: ${vendor.availableDates.join(', ')}`}>
+              <Card>
+                <p>{vendor.name}</p>
+                <p>Available Dates: {vendor.availableDates.filter(date => calendarDates.length && date >= calendarDates[0].format('YYYY-MM-DD') && date <= calendarDates[1].format('YYYY-MM-DD')).join(', ')}</p>
+              </Card>
+            </Tooltip>
+          </Col>
+        ))}
+      </Row>
+    </Card>
+  );
 
-    const handleDelete = (id) => {
-        if (window.confirm('Are you sure you want to delete this order?')) {
-            setOrders(orders.filter(order => order.id !== id));
-        }
-    };
-
-    const handleSearch = (event) => {
-        setSearchTerm(event.target.value);
-    };
-
-    const filteredOrders = orders.filter(order => 
-        order.supplier.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.item.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    return (
-        <div style={{ width: '1920px', height: '1080px', overflow: 'auto' }}>
-            <h1>Order List</h1>
-            <input 
-                type="text" 
-                placeholder="Search orders..." 
-                value={searchTerm}
-                onChange={handleSearch}
-                style={{ marginBottom: '20px', padding: '10px', width: '300px' }}
-            />
-            <ul>
-                {filteredOrders.map(order => (
-                    <li key={order.id} style={{ marginBottom: '10px', border: '1px solid #ccc', padding: '10px' }}>
-                        <div>
-                            <strong>Supplier:</strong> {order.supplier}<br />
-                            <strong>Item:</strong> {order.item}<br />
-                            <strong>Quantity:</strong> {order.quantity}<br />
-                            <strong>Price:</strong> ${order.price}<br />
-                            <strong>Status:</strong> {order.status}
-                        </div>
-                        <button onClick={() => setEditingOrder(order)}>Edit</button>
-                        <button onClick={() => handleDelete(order.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-            {editingOrder && (
-                <EditOrderForm 
-                    order={editingOrder} 
-                    onEdit={handleEdit} 
-                    onCancel={() => setEditingOrder(null)} 
-                />
-            )}
-        </div>
-    );
-};
-
-const EditOrderForm = ({ order, onEdit, onCancel }) => {
-    const [formData, setFormData] = useState(order);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onEdit(formData);
+  const renderPerformanceDashboard = () => {
+    const option = {
+      title: { text: 'Vendor Performance' },
+      tooltip: {},
+      legend: { data: ['Performance'] },
+      xAxis: { data: vendors.map(vendor => vendor.name) },
+      yAxis: {},
+      series: [{
+        name: 'Events Served',
+        type: 'bar',
+        data: vendors.map(vendor => vendor.eventsServed),
+      }],
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
-            <h2>Edit Order</h2>
-            <label>
-                Supplier:
-                <input 
-                    type="text" 
-                    name="supplier" 
-                    value={formData.supplier} 
-                    onChange={handleChange} 
-                />
-            </label>
-            <label>
-                Item:
-                <input 
-                    type="text" 
-                    name="item" 
-                    value={formData.item} 
-                    onChange={handleChange} 
-                />
-            </label>
-            <label>
-                Quantity:
-                <input 
-                    type="number" 
-                    name="quantity" 
-                    value={formData.quantity} 
-                    onChange={handleChange} 
-                />
-            </label>
-            <label>
-                Price:
-                <input 
-                    type="number" 
-                    name="price" 
-                    value={formData.price} 
-                    onChange={handleChange} 
-                />
-            </label>
-            <label>
-                Status:
-                <select 
-                    name="status" 
-                    value={formData.status} 
-                    onChange={handleChange} 
-                >
-                    <option value="Pending">Pending</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Cancelled">Cancelled</option>
-                </select>
-            </label>
-            <button type="submit">Save</button>
-            <button type="button" onClick={onCancel}>Cancel</button>
-        </form>
+      <Card title="Vendor Performance">
+        <div id="performance-chart" style={{ width: '100%', height: 400 }} />
+        {setTimeout(() => echarts.init(document.getElementById('performance-chart')).setOption(option), 500)}
+      </Card>
     );
-};
+  };
 
-// ExportButton Component
-const ExportButton = ({ orderList }) => {
-    const [fileFormat, setFileFormat] = useState('CSV');
+  const renderClientPreferenceForm = () => (
+    <Card title="Client Preferences" style={{ marginBottom: '16px' }}>
+      <Form layout="vertical">
+        <Form.Item label="Budget">
+          <Input placeholder="Enter your budget" />
+        </Form.Item>
+        <Form.Item label="Preferred Services">
+          <Input placeholder="Enter preferred services" />
+        </Form.Item>
+        <Button type="primary" icon={<FilterOutlined />}>Filter Vendors</Button>
+      </Form>
+    </Card>
+  );
 
-    const handleExport = () => {
-        if (orderList.length === 0) {
-            alert('No orders available for export.');
-            return;
-        }
-
-        try {
-            const data = compileData(orderList);
-            if (fileFormat === 'CSV') {
-                downloadCSV(data);
-            } else {
-                downloadExcel(data);
-            }
-            alert('Export successful!');
-        } catch (error) {
-            console.error('Export failed:', error);
-            alert('There was an error exporting your data.');
-        }
+  const renderReviewSystem = () => {
+    const handleReviewSubmit = (values) => {
+      message.success('Review submitted successfully!');
+      setReviewModalVisible(false);
     };
 
-    const compileData = (orderList) => {
-        return orderList.map(order => ({
-            id: order.id,
-            supplier: order.supplier,
-            item: order.item,
-            quantity: order.quantity,
-            price: order.price,
-            status: order.status,
+    return (
+      <Card title="Vendor Reviews">
+        <Button type="primary" icon={<StarOutlined />} onClick={() => setReviewModalVisible(true)}>Submit Review</Button>
+        <Modal
+          title="Submit Review"
+          visible={reviewModalVisible}
+          onCancel={() => setReviewModalVisible(false)}
+          footer={null}
+        >
+          <Form onFinish={handleReviewSubmit}>
+            <Form.Item name="vendor" label="Vendor" rules={[{ required: true }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="rating" label="Rating" rules={[{ required: true }]}>
+              <Rate />
+            </Form.Item>
+            <Form.Item name="review" label="Review" rules={[{ required: true, message: 'Please input your review!' }]}>
+              <Input.TextArea rows={4} />
+            </Form.Item>
+            <Button type="primary" htmlType="submit">Submit</Button>
+          </Form>
+        </Modal>
+      </Card>
+    );
+  };
+
+  const renderUserDashboard = () => (
+    <Card title="User Dashboard" style={{ marginBottom: '16px' }}>
+      <p>Saved Vendors</p>
+      <p>Upcoming Events</p>
+      <Button type="primary" icon={<DashboardOutlined />}>Manage Dashboard</Button>
+    </Card>
+  );
+
+  return (
+    <Layout style={{ backgroundColor: '#ECF0F1', fontFamily: 'Roboto, sans-serif' }}>
+      <Content style={{ padding: '24px', maxWidth: '1200px', margin: 'auto' }}>
+        <Menu mode="horizontal" defaultSelectedKeys={['1']} style={{ marginBottom: '24px' }}>
+          <Menu.Item key="1" icon={<UserOutlined />} onClick={showComparison}>Vendor Comparison</Menu.Item>
+          <Menu.Item key="2" icon={<CalendarOutlined />}>Availability Calendar</Menu.Item>
+          <Menu.Item key="3" icon={<LineChartOutlined />}>Performance Dashboard</Menu.Item>
+          <Menu.Item key="4" icon={<FilterOutlined />}>Client Preferences</Menu.Item>
+          <Menu.Item key="5" icon={<StarOutlined />}>Reviews</Menu.Item>
+          <Menu.Item key="6" icon={<DashboardOutlined />}>User Dashboard</Menu.Item>
+        </Menu>
+        {renderComparisonGrid()}
+        {renderAvailabilityCalendar()}
+        {renderPerformanceDashboard()}
+        {renderClientPreferenceForm()}
+        {renderReviewSystem()}
+        {renderUserDashboard()}
+      </Content>
+    </Layout>
+  );
+};
+
+export default VendorManagement;
+
+
+****File PATH: DetailedReportPage.js****
+
+import React, { useState, useEffect } from 'react';
+import { Layout, Menu, DatePicker, Select, Checkbox, Button, Modal, Rate, message } from 'antd';
+import { LineChartOutlined, BarChartOutlined, CloudUploadOutlined } from '@ant-design/icons';
+import ReactECharts from 'echarts-for-react';
+import 'antd/dist/antd.css';
+
+const { Header, Content, Sider } = Layout;
+const { RangePicker } = DatePicker;
+const { Option } = Select;
+
+const DetailedReportPage = () => {
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [realTimeUpdates, setRealTimeUpdates] = useState(false);
+  const [insights, setInsights] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedRating, setSelectedRating] = useState(0);
+
+  useEffect(() => {
+    // Simulate data fetching
+    const fetchData = () => {
+      const dummyData = Array.from({ length: 10 }, (_, i) => ({
+        date: `2023-11-${i + 1}`,
+        metric: Math.floor(Math.random() * 100),
+      }));
+      setData(dummyData);
+      setFilteredData(dummyData);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (realTimeUpdates) {
+      const interval = setInterval(() => {
+        const updatedData = data.map(item => ({
+          ...item,
+          metric: item.metric + Math.floor(Math.random() * 5) - 2,
         }));
-    };
+        setFilteredData(updatedData);
+        generateInsights(updatedData);
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [realTimeUpdates, data]);
 
-    const downloadCSV = (data) => {
-        const csvContent = "data:text/csv;charset=utf-8," 
-            + data.map(e => Object.values(e).join(",")).join("\n");
-        
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "purchase_orders.csv");
-        document.body.appendChild(link);
+  const generateInsights = (data) => {
+    const insights = data.map(item => ({
+      date: item.date,
+      recommendation: item.metric > 50 ? 'Consider increasing stock' : 'Maintain current levels',
+    }));
+    setInsights(insights);
+  };
 
-        link.click();
-        document.body.removeChild(link);
-    };
+  const handleFilterChange = (dates, selectedCategories) => {
+    let filtered = data;
+    if (dates) {
+      filtered = filtered.filter(item => dates[0].isBefore(item.date) && dates[1].isAfter(item.date));
+    }
+    if (selectedCategories.length) {
+      // Add category filtering logic
+    }
+    setFilteredData(filtered);
+    generateInsights(filtered);
+  };
 
-    const downloadExcel = (data) => {
-        const ws = XLSX.utils.json_to_sheet(data);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Orders");
+  const exportReport = () => {
+    message.success('Report exported successfully');
+    setModalVisible(false);
+  };
 
-        XLSX.writeFile(wb, "purchase_orders.xlsx");
-    };
+  const chartOptions = {
+    xAxis: {
+      type: 'category',
+      data: filteredData.map(item => item.date),
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        data: filteredData.map(item => item.metric),
+        type: 'line',
+      },
+    ],
+  };
 
-    return (
-        <div>
-            <select onChange={(e) => setFileFormat(e.target.value)}>
-                <option value="CSV">CSV</option>
-                <option value="Excel">Excel</option>
-            </select>
-            <button onClick={handleExport}>Export</button>
-        </div>
-    );
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider width={300} style={{ backgroundColor: '#2E3B4E' }}>
+        <Menu theme="dark" mode="inline">
+          <Menu.Item key="1" icon={<LineChartOutlined />}>
+            Line Chart
+          </Menu.Item>
+          <Menu.Item key="2" icon={<BarChartOutlined />}>
+            Bar Chart
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <Layout>
+        <Header style={{ backgroundColor: '#4A90E2', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ color: '#fff', fontSize: '1.5rem' }}>Detailed Report</div>
+          <div>
+            <Button icon={<CloudUploadOutlined />} onClick={() => setModalVisible(true)}>Export</Button>
+          </div>
+        </Header>
+        <Content style={{ margin: '16px', padding: '24px', background: '#fff' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+            <RangePicker onChange={(dates) => handleFilterChange(dates)} />
+            <Select mode="multiple" style={{ width: 200 }} placeholder="Select categories" onChange={(value) => handleFilterChange(null, value)}>
+              <Option key="1" value="Category 1">Category 1</Option>
+              <Option key="2" value="Category 2">Category 2</Option>
+            </Select>
+            <Checkbox onChange={(e) => setRealTimeUpdates(e.target.checked)}>Real-time Updates</Checkbox>
+          </div>
+          <ReactECharts option={chartOptions} style={{ height: '400px' }} />
+          <div style={{ marginTop: '16px' }}>
+            <h3>Insights & Recommendations</h3>
+            <ul>
+              {insights.map((insight, index) => (
+                <li key={index}>{insight.date}: {insight.recommendation}</li>
+              ))}
+            </ul>
+          </div>
+          <div style={{ marginTop: '16px' }}>
+            <Rate onChange={setSelectedRating} value={selectedRating} />
+          </div>
+        </Content>
+      </Layout>
+      <Modal
+        title="Export and Share"
+        visible={modalVisible}
+        onOk={exportReport}
+        onCancel={() => setModalVisible(false)}
+      >
+        <p>Select export format and share options</p>
+      </Modal>
+    </Layout>
+  );
 };
 
-// DashboardContainer Component
-const DashboardContainer = () => {
-    const [orders, setOrders] = useState([
-        { id: 1, supplier: 'Supplier A', item: 'Item 1', quantity: 10, price: 100, status: 'Pending' },
-        { id: 2, supplier: 'Supplier B', item: 'Item 2', quantity: 5, price: 50, status: 'Completed' }
-    ]);
+export default DetailedReportPage;
 
-    const addOrder = (orderData) => {
-        const newOrder = {
-            id: orders.length + 1,
-            supplier: orderData.supplier,
-            item: orderData.item,
-            quantity: Number(orderData.quantity),
-            price: Number(orderData.price),
-            status: 'Pending'
-        };
-        setOrders([...orders, newOrder]);
-    };
+****File PATH: BudgetTrackerPage.js****
 
-    return (
-        <div style={{ width: '1920px', height: '1080px' }}>
-            <OrderForm addOrder={addOrder} />
-            <OrderList orders={orders} setOrders={setOrders} />
-            <ExportButton orderList={orders} />
-        </div>
-    );
+import React, { useState } from 'react';
+import { Layout, Menu, Card, Row, Col, Form, Input, Button, Select, Modal, Progress, Tooltip } from 'antd';
+import { PieChart, BarChart, FilePdfOutlined, UserAddOutlined } from '@ant-design/icons';
+import ReactEcharts from 'echarts-for-react';
+import jsPDF from 'jspdf';
+
+const { Header, Content, Footer, Sider } = Layout;
+const { Option } = Select;
+
+const BudgetTrackerPage = () => {
+  const [selectedMenu, setSelectedMenu] = useState('dashboard');
+  const [expenseModalVisible, setExpenseModalVisible] = useState(false);
+  const [reportModalVisible, setReportModalVisible] = useState(false);
+
+  const handleMenuClick = (e) => {
+    setSelectedMenu(e.key);
+  };
+
+  const dummyData = {
+    budgetCategories: [
+      { name: 'Food', value: 400 },
+      { name: 'Transport', value: 300 },
+      { name: 'Accommodation', value: 500 },
+      { name: 'Miscellaneous', value: 200 },
+    ],
+    expenses: [
+      { month: 'Jan', amount: 300 },
+      { month: 'Feb', amount: 250 },
+      { month: 'Mar', amount: 400 },
+    ],
+    totalBudget: 2000,
+    remainingBudget: 600,
+  };
+
+  const getPieChartOption = () => ({
+    tooltip: {
+      trigger: 'item',
+    },
+    series: [
+      {
+        type: 'pie',
+        data: dummyData.budgetCategories.map((item) => ({
+          name: item.name,
+          value: item.value,
+        })),
+      },
+    ],
+  });
+
+  const getBarChartOption = () => ({
+    xAxis: {
+      type: 'category',
+      data: dummyData.expenses.map((item) => item.month),
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        data: dummyData.expenses.map((item) => item.amount),
+        type: 'bar',
+      },
+    ],
+  });
+
+  const handleAddExpense = (values) => {
+    console.log('Add Expense:', values);
+    setExpenseModalVisible(false);
+  };
+
+  const generateReport = () => {
+    const doc = new jsPDF();
+    doc.text('Budget Report', 10, 10);
+    doc.save('report.pdf');
+    setReportModalVisible(false);
+  };
+
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider width={200} style={{ background: '#004080' }}>
+        <Menu
+          mode="inline"
+          defaultSelectedKeys={['dashboard']}
+          style={{ height: '100%', borderRight: 0 }}
+          onClick={handleMenuClick}
+        >
+          <Menu.Item key="dashboard" icon={<PieChart />}>
+            Dashboard
+          </Menu.Item>
+          <Menu.Item key="addExpense" icon={<BarChart />} onClick={() => setExpenseModalVisible(true)}>
+            Add Expense
+          </Menu.Item>
+          <Menu.Item key="generateReport" icon={<FilePdfOutlined />} onClick={() => setReportModalVisible(true)}>
+            Generate Report
+          </Menu.Item>
+          <Menu.Item key="collaborate" icon={<UserAddOutlined />}>
+            Collaborate
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <Layout>
+        <Header style={{ background: '#0080FF', padding: 0 }} />
+        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+          <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+            {selectedMenu === 'dashboard' && (
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Card title="Budget Overview">
+                    <ReactEcharts option={getPieChartOption()} style={{ height: '300px' }} />
+                  </Card>
+                </Col>
+                <Col span={12}>
+                  <Card title="Monthly Expenses">
+                    <ReactEcharts option={getBarChartOption()} style={{ height: '300px' }} />
+                  </Card>
+                </Col>
+                <Col span={24} style={{ marginTop: '16px' }}>
+                  <Card title="Total Budget">
+                    <Progress percent={(dummyData.remainingBudget / dummyData.totalBudget) * 100} />
+                    <Tooltip title="Remaining Budget">
+                      <span>{dummyData.remainingBudget}</span>
+                    </Tooltip>
+                  </Card>
+                </Col>
+              </Row>
+            )}
+          </div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>Budget Tracker ©2023</Footer>
+      </Layout>
+
+      <Modal
+        title="Add Expense"
+        visible={expenseModalVisible}
+        onCancel={() => setExpenseModalVisible(false)}
+        footer={null}
+      >
+        <Form layout="vertical" onFinish={handleAddExpense}>
+          <Form.Item name="amount" label="Amount" rules={[{ required: true, message: 'Please input the amount!' }]}>
+            <Input type="number" />
+          </Form.Item>
+          <Form.Item name="description" label="Description" rules={[{ required: true, message: 'Please input a description!' }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="category" label="Category" rules={[{ required: true, message: 'Please select a category!' }]}>
+            <Select placeholder="Select a category">
+              {dummyData.budgetCategories.map((category) => (
+                <Option key={category.name} value={category.name}>
+                  {category.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Button type="primary" htmlType="submit">Add Expense</Button>
+        </Form>
+      </Modal>
+
+      <Modal
+        title="Generate Report"
+        visible={reportModalVisible}
+        onCancel={() => setReportModalVisible(false)}
+        onOk={generateReport}
+      >
+        <p>Select report type and click generate.</p>
+      </Modal>
+    </Layout>
+  );
 };
 
-export default DashboardContainer;
+export default BudgetTrackerPage;
+
+****File PATH: FeedbackPage.js****
+
+import React, { useState } from 'react';
+import { Layout, Form, Input, Button, message, Rate, Card, List, Tooltip, Select, Badge, Progress } from 'antd';
+import { PieChart, LineChart, BarChart } from 'echarts-for-react';
+import 'antd/dist/antd.css';
+
+const { Content } = Layout;
+const { Option } = Select;
+
+const FeedbackPage = () => {
+  const [feedbackList, setFeedbackList] = useState([]);
+  const [npsScore, setNpsScore] = useState(0);
+  const [form] = Form.useForm();
+
+  const handleFeedbackSubmit = (values) => {
+    setFeedbackList([...feedbackList, values]);
+    message.success('Feedback submitted successfully');
+    form.resetFields();
+  };
+
+  const handleNpsChange = (value) => {
+    setNpsScore(value);
+  };
+
+  const dummyChartData = {
+    pieData: [{ value: 40, name: 'Positive' }, { value: 30, name: 'Neutral' }, { value: 30, name: 'Negative' }],
+    lineData: [
+      { value: 80, name: 'Week 1' },
+      { value: 70, name: 'Week 2' },
+      { value: 90, name: 'Week 3' },
+    ],
+    barData: [
+      { value: 20, name: 'Service 1' },
+      { value: 50, name: 'Service 2' },
+      { value: 30, name: 'Service 3' },
+    ],
+  };
+
+  return (
+    <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
+      <Content style={{ padding: '50px', maxWidth: '1200px', margin: '0 auto' }}>
+        <Card title="Real-time Feedback Submission" bordered={false} style={{ marginBottom: '24px' }}>
+          <Form form={form} layout="vertical" onFinish={handleFeedbackSubmit}>
+            <Form.Item name="feedback" label="Feedback" rules={[{ required: true, message: 'Please provide your feedback!' }]}>
+              <Input.TextArea rows={4} />
+            </Form.Item>
+            <Form.Item name="rating" label="Rating" rules={[{ required: true, message: 'Please rate us!' }]}>
+              <Rate />
+            </Form.Item>
+            <Button type="primary" htmlType="submit">Submit Feedback</Button>
+          </Form>
+        </Card>
+
+        <Card title="Dynamic Data Visualization Dashboard" bordered={false} style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <PieChart
+              option={{
+                title: { text: 'Feedback Sentiments', left: 'center' },
+                series: [{
+                  name: 'Sentiments',
+                  type: 'pie',
+                  radius: '50%',
+                  data: dummyChartData.pieData,
+                }],
+              }}
+              style={{ height: '300px', width: '300px' }}
+            />
+            <LineChart
+              option={{
+                title: { text: 'Feedback Over Time', left: 'center' },
+                xAxis: { type: 'category', data: ['Week 1', 'Week 2', 'Week 3'] },
+                yAxis: { type: 'value' },
+                series: [{
+                  data: dummyChartData.lineData,
+                  type: 'line',
+                }],
+              }}
+              style={{ height: '300px', width: '300px' }}
+            />
+            <BarChart
+              option={{
+                title: { text: 'Service Ratings', left: 'center' },
+                xAxis: { type: 'category', data: ['Service 1', 'Service 2', 'Service 3'] },
+                yAxis: { type: 'value' },
+                series: [{
+                  data: dummyChartData.barData,
+                  type: 'bar',
+                }],
+              }}
+              style={{ height: '300px', width: '300px' }}
+            />
+          </div>
+        </Card>
+
+        <Card title="NPS (Net Promoter Score) Widget" bordered={false} style={{ marginBottom: '24px' }}>
+          <Tooltip title={`Your NPS Score: ${npsScore}`}>
+            <Progress type="circle" percent={npsScore * 10} />
+          </Tooltip>
+          <div style={{ marginTop: '16px' }}>
+            <Rate count={10} onChange={handleNpsChange} value={npsScore} />
+          </div>
+        </Card>
+
+        <Card title="Client Segmentation and Filtering Tools" bordered={false} style={{ marginBottom: '24px' }}>
+          <Select mode="multiple" style={{ width: '100%' }} placeholder="Select filters">
+            <Option value="age">Age Group</Option>
+            <Option value="service">Service Type</Option>
+            <Option value="location">Location</Option>
+          </Select>
+        </Card>
+
+        <Card title="Feedback Analysis and Insights" bordered={false} style={{ marginBottom: '24px' }}>
+          <List
+            dataSource={feedbackList}
+            renderItem={(item, index) => (
+              <List.Item key={index}>
+                <List.Item.Meta
+                  title={<div>Rating: {item.rating}</div>}
+                  description={item.feedback}
+                />
+                <Badge status={item.rating >= 4 ? 'success' : 'warning'} />
+              </List.Item>
+            )}
+          />
+        </Card>
+
+        <Card title="User Engagement Features" bordered={false}>
+          <Progress percent={feedbackList.length * 10} />
+          <p style={{ marginTop: '16px' }}>Submit feedback to earn badges!</p>
+        </Card>
+      </Content>
+    </Layout>
+  );
+};
+
+export default FeedbackPage;
+
+****File PATH: EventDetailPage.js****
+
+import React, { useState } from 'react';
+import { Layout, Menu, Breadcrumb, Card, Form, Input, Button, Checkbox, Table, Slider, Alert } from 'antd';
+import { PieChartOutlined, DollarOutlined, CalendarOutlined, CheckSquareOutlined } from '@ant-design/icons';
+import ReactECharts from 'echarts-for-react';
+
+const { Header, Content, Sider } = Layout;
+
+const dummyMilestones = [
+  { name: 'Venue Booked', date: '2023-01-10' },
+  { name: 'Vendors Confirmed', date: '2023-02-15' },
+  { name: 'Final Payments Due', date: '2023-03-30' },
+];
+
+const dummyVendors = [
+  { key: '1', name: 'Vendor A', price: 1000, rating: 4.5, services: 'Catering' },
+  { key: '2', name: 'Vendor B', price: 1500, rating: 4.0, services: 'Decor' },
+  { key: '3', name: 'Vendor C', price: 1200, rating: 4.2, services: 'Music' },
+];
+
+const dummyClientPreferences = {
+  catering: 50,
+  decor: 30,
+  music: 20,
+};
+
+const EventDetailPage = () => {
+  const [budget, setBudget] = useState({ venue: 0, catering: 0, decor: 0 });
+  const [checklist, setChecklist] = useState(['Book venue', 'Hire caterer', 'Order flowers']);
+  const [newTask, setNewTask] = useState('');
+
+  const budgetTotal = Object.values(budget).reduce((acc, cur) => acc + Number(cur), 0);
+
+  const timelineOption = {
+    xAxis: { type: 'category', data: dummyMilestones.map(m => m.name) },
+    yAxis: { type: 'value' },
+    series: [{ data: dummyMilestones.map(m => new Date(m.date).getTime()), type: 'bar' }],
+  };
+
+  const preferenceOption = {
+    series: [
+      {
+        type: 'pie',
+        data: Object.entries(dummyClientPreferences).map(([key, value]) => ({ value, name: key })),
+      },
+    ],
+  };
+
+  const handleBudgetChange = (field, value) => {
+    setBudget({ ...budget, [field]: value });
+  };
+
+  const handleAddTask = () => {
+    if (newTask) {
+      setChecklist([...checklist, newTask]);
+      setNewTask('');
+    }
+  };
+
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider collapsible>
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu.Item key="1" icon={<PieChartOutlined />}>Timeline</Menu.Item>
+          <Menu.Item key="2" icon={<DollarOutlined />}>Budget</Menu.Item>
+          <Menu.Item key="3" icon={<CalendarOutlined />}>Vendors</Menu.Item>
+          <Menu.Item key="4" icon={<CheckSquareOutlined />}>Checklist</Menu.Item>
+        </Menu>
+      </Sider>
+      <Layout>
+        <Header style={{ padding: 0 }} />
+        <Content style={{ margin: '0 16px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Event</Breadcrumb.Item>
+            <Breadcrumb.Item>Details</Breadcrumb.Item>
+          </Breadcrumb>
+          <div style={{ padding: 24, minHeight: 360 }}>
+            <Card title="Interactive Timeline" bordered={false}>
+              <ReactECharts option={timelineOption} style={{ height: 300 }} />
+            </Card>
+            <Card title="Budget Calculator" bordered={false}>
+              <Form layout="vertical">
+                <Form.Item label="Venue">
+                  <Input prefix="$" value={budget.venue} onChange={(e) => handleBudgetChange('venue', e.target.value)} />
+                </Form.Item>
+                <Form.Item label="Catering">
+                  <Input prefix="$" value={budget.catering} onChange={(e) => handleBudgetChange('catering', e.target.value)} />
+                </Form.Item>
+                <Form.Item label="Decor">
+                  <Input prefix="$" value={budget.decor} onChange={(e) => handleBudgetChange('decor', e.target.value)} />
+                </Form.Item>
+                <Form.Item>
+                  <Alert message={`Total Budget: $${budgetTotal}`} type="info" showIcon />
+                </Form.Item>
+              </Form>
+            </Card>
+            <Card title="Vendor Comparison Tool" bordered={false}>
+              <Table dataSource={dummyVendors} columns={[
+                { title: 'Name', dataIndex: 'name', key: 'name' },
+                { title: 'Price', dataIndex: 'price', key: 'price' },
+                { title: 'Rating', dataIndex: 'rating', key: 'rating' },
+                { title: 'Services', dataIndex: 'services', key: 'services' }
+              ]} />
+            </Card>
+            <Card title="Client Preferences Dashboard" bordered={false}>
+              <ReactECharts option={preferenceOption} style={{ height: 300 }} />
+            </Card>
+            <Card title="Event Checklist" bordered={false}>
+              <Form layout="inline" onFinish={handleAddTask}>
+                <Form.Item>
+                  <Input placeholder="New Task" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
+                </Form.Item>
+                <Form.Item>
+                  <Button type="primary" htmlType="submit">Add</Button>
+                </Form.Item>
+              </Form>
+              <div style={{ marginTop: 16 }}>
+                {checklist.map((task, index) => (
+                  <Checkbox key={index} style={{ display: 'block', margin: '8px 0' }}>{task}</Checkbox>
+                ))}
+              </div>
+            </Card>
+          </div>
+        </Content>
+      </Layout>
+    </Layout>
+  );
+};
+
+export default EventDetailPage;
+
+
+****File PATH: EventDashboard.js****
+
+import React, { useState } from 'react';
+import { Layout, Menu, Button, Modal, Input, Timeline, Card, Row, Col, Badge, notification } from 'antd';
+import { BellOutlined, SearchOutlined, PlusOutlined } from '@ant-design/icons';
+import EChartsReact from 'echarts-for-react';
+import 'antd/dist/reset.css';
+
+const { Header, Content, Sider } = Layout;
+
+// Dummy data for events
+const eventsData = [
+  { id: 1, name: 'Event 1', start: '2023-10-01', end: '2023-10-05', budget: 5000, spent: 3000, status: 'On Track' },
+  { id: 2, name: 'Event 2', start: '2023-10-10', end: '2023-10-15', budget: 8000, spent: 5000, status: 'Delayed' },
+];
+
+const EventDashboard = () => {
+  const [visible, setVisible] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [notifications, setNotifications] = useState([
+    { id: 1, message: 'Budget updated for Event 1', date: '2023-10-02' },
+    { id: 2, message: 'Event 2 is delayed', date: '2023-10-11' },
+  ]);
+
+  const showEventDetails = (event) => {
+    setSelectedEvent(event);
+    setVisible(true);
+  };
+
+  const hideEventDetails = () => {
+    setVisible(false);
+    setSelectedEvent(null);
+  };
+
+  const handleNotificationClick = () => {
+    notification.open({
+      message: 'Notifications',
+      description: notifications.map(n => <div key={n.id}>{n.message} - {n.date}</div>),
+    });
+  };
+
+  const budgetOptions = (event) => ({
+    title: { text: 'Budget Allocation' },
+    tooltip: { trigger: 'item' },
+    series: [
+      {
+        type: 'pie',
+        radius: '50%',
+        data: [
+          { value: event.spent, name: 'Spent' },
+          { value: event.budget - event.spent, name: 'Remaining' },
+        ],
+      },
+    ],
+  });
+
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider width={200}>
+        <Menu mode="inline" style={{ height: '100%', borderRight: 0 }}>
+          <Menu.Item key="1">Dashboard</Menu.Item>
+          <Menu.Item key="2">Events</Menu.Item>
+        </Menu>
+      </Sider>
+      <Layout>
+        <Header style={{ background: '#fff', padding: 0 }}>
+          <Row justify="space-between" align="middle">
+            <Col>
+              <Input prefix={<SearchOutlined />} placeholder="Search events" style={{ width: 200 }} />
+            </Col>
+            <Col>
+              <Badge count={notifications.length}>
+                <BellOutlined style={{ fontSize: '24px' }} onClick={handleNotificationClick} />
+              </Badge>
+            </Col>
+          </Row>
+        </Header>
+        <Content style={{ padding: '24px', background: '#fff' }}>
+          <Row gutter={16}>
+            {eventsData.map(event => (
+              <Col span={8} key={event.id}>
+                <Card
+                  title={event.name}
+                  extra={<Button type="link" onClick={() => showEventDetails(event)}>Details</Button>}
+                >
+                  <p>Status: {event.status}</p>
+                  <EChartsReact option={budgetOptions(event)} style={{ height: '200px' }} />
+                </Card>
+              </Col>
+            ))}
+          </Row>
+          <Timeline mode="alternate" style={{ marginTop: '24px' }}>
+            {eventsData.map(event => (
+              <Timeline.Item key={event.id}>
+                {event.name}: {event.start} to {event.end}
+              </Timeline.Item>
+            ))}
+          </Timeline>
+        </Content>
+      </Layout>
+    </Layout>
+  );
+};
+
+export default EventDashboard;
+
+****File PATH: ClientProfilePage.js****
+
+import React, { useState } from 'react';
+import { Layout, Card, Table, Form, Input, Button, Switch, DatePicker, Modal, Tooltip, List, Typography, Alert, Space } from 'antd';
+import { LineChart, BarChart } from 'echarts-for-react';
+import moment from 'moment';
+
+const { Content } = Layout;
+const { Title } = Typography;
+
+const ClientProfilePage = () => {
+  // Dummy data
+  const clientMetrics = [
+    { key: '1', metric: 'Satisfaction Score', value: 85 },
+    { key: '2', metric: 'Last Contact', value: '2 days ago' },
+    { key: '3', metric: 'Next Follow-up', value: '3 days' }
+  ];
+
+  const communicationLogs = [
+    { key: '1', type: 'Email', date: '2023-10-01', participants: 'John Doe' },
+    { key: '2', type: 'Call', date: '2023-10-05', participants: 'Jane Smith' },
+  ];
+
+  const feedbackData = {
+    satisfactionTrends: [
+      ['2023-01', 80], ['2023-02', 85], ['2023-03', 90]
+    ],
+    feedbackCategories: [
+      { category: 'Service', score: 70 },
+      { category: 'Product', score: 80 }
+    ]
+  };
+
+  const [preferences, setPreferences] = useState({
+    contactMethod: 'Email',
+    communicationFrequency: 'Weekly'
+  });
+
+  const [tasks, setTasks] = useState([
+    { key: '1', task: 'Follow-up with client', dueDate: '2023-10-10', priority: 'High' }
+  ]);
+
+  const handleTaskAdd = (task) => {
+    setTasks([...tasks, { ...task, key: tasks.length + 1 }]);
+  };
+
+  const columns = [
+    {
+      title: 'Type',
+      dataIndex: 'type',
+      key: 'type',
+    },
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+    },
+    {
+      title: 'Participants',
+      dataIndex: 'participants',
+      key: 'participants',
+    },
+  ];
+
+  // Feedback chart options
+  const lineChartOption = {
+    xAxis: {
+      type: 'category',
+      data: feedbackData.satisfactionTrends.map(item => item[0])
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      data: feedbackData.satisfactionTrends.map(item => item[1]),
+      type: 'line'
+    }]
+  };
+
+  const barChartOption = {
+    xAxis: {
+      type: 'category',
+      data: feedbackData.feedbackCategories.map(item => item.category)
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      data: feedbackData.feedbackCategories.map(item => item.score),
+      type: 'bar'
+    }]
+  };
+
+  return (
+    <Layout style={{ backgroundColor: '#f0f2f5', height: '100vh', padding: '20px' }}>
+      <Content>
+        <Title level={2}>Client Overview Dashboard</Title>
+        <Space direction="vertical" size="large" style={{ display: 'flex' }}>
+          {clientMetrics.map(metric => (
+            <Card key={metric.key} title={metric.metric} bordered={false}>
+              <Tooltip title={`Details for ${metric.metric}`}>
+                <p>{metric.value}</p>
+              </Tooltip>
+            </Card>
+          ))}
+          
+          <Alert message="Upcoming Follow-up: 3 days" type="info" showIcon />
+
+          <Title level={3}>Interactive Communication Log</Title>
+          <Table columns={columns} dataSource={communicationLogs} pagination={{ pageSize: 5 }} />
+
+          <Title level={3}>Feedback Metrics Visualization</Title>
+          <LineChart option={lineChartOption} style={{ height: 300, width: '100%' }} />
+          <BarChart option={barChartOption} style={{ height: 300, width: '100%' }} />
+
+          <Title level={3}>Client Preferences Customization</Title>
+          <Form layout="vertical">
+            <Form.Item label="Preferred Contact Method">
+              <Input value={preferences.contactMethod} onChange={e => setPreferences({ ...preferences, contactMethod: e.target.value })} />
+            </Form.Item>
+            <Form.Item label="Communication Frequency">
+              <Input value={preferences.communicationFrequency} onChange={e => setPreferences({ ...preferences, communicationFrequency: e.target.value })} />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" onClick={() => Modal.success({ content: 'Preferences updated successfully!' })}>Save Preferences</Button>
+            </Form.Item>
+          </Form>
+
+          <Title level={3}>Task Management Tool</Title>
+          <List
+            bordered
+            dataSource={tasks}
+            renderItem={item => (
+              <List.Item>
+                <Typography.Text mark>{item.priority}</Typography.Text> {item.task} - Due: {moment(item.dueDate).format('YYYY-MM-DD')}
+              </List.Item>
+            )}
+          />
+          <Button type="dashed" onClick={() => handleTaskAdd({ task: 'New Task', dueDate: '2023-10-12', priority: 'Medium' })}>Add Task</Button>
+        </Space>
+      </Content>
+    </Layout>
+  );
+};
+
+export default ClientProfilePage;
+
+****File PATH: CommunicationLogPage.js****
+
+import React, { useState } from 'react';
+import { Layout, Menu, Card, Modal, Button, Form, Input, Select, Tooltip, notification } from 'antd';
+import { BellOutlined, PlusOutlined } from '@ant-design/icons';
+import ReactECharts from 'echarts-for-react';
+
+const { Header, Content, Sider } = Layout;
+const { Option } = Select;
+
+export default function CommunicationLogPage() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, message: 'Follow up with Client A', overdue: true },
+    { id: 2, message: 'Overdue: Meeting with Client B', overdue: true },
+  ]);
+
+  const openNotification = (message) => {
+    notification.open({
+      message: 'Notification',
+      description: message,
+      icon: <BellOutlined style={{ color: '#E74C3C' }} />,
+    });
+  };
+
+  const handleNotificationClick = (id) => {
+    const notification = notifications.find((note) => note.id === id);
+    openNotification(notification.message);
+  };
+
+  const handleLogCommunication = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    notification.success({
+      message: 'Communication Logged',
+      description: 'Your communication has been logged successfully.',
+    });
+  };
+
+  const chartOptions = {
+    title: {
+      text: 'Communication Frequency',
+      left: 'center',
+    },
+    tooltip: {
+      trigger: 'item',
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        data: [120, 200, 150, 80, 70, 110, 130],
+        type: 'bar',
+        showBackground: true,
+        backgroundStyle: {
+          color: 'rgba(180, 180, 180, 0.2)',
+        },
+      },
+    ],
+  };
+
+  return (
+    <Layout style={{ minHeight: '100vh', fontFamily: 'Roboto, sans-serif' }}>
+      <Sider width={200} className="site-layout-background">
+        <Menu
+          mode="inline"
+          style={{ height: '100%', borderRight: 0 }}
+          defaultSelectedKeys={['1']}
+          items={[
+            { key: '1', label: 'Dashboard' },
+            { key: '2', label: 'Notifications' },
+            { key: '3', label: 'Settings' },
+          ]}
+        />
+      </Sider>
+      <Layout>
+        <Header style={{ background: '#2C3E50', padding: 0 }}>
+          <Tooltip title="Notifications">
+            <Button
+              shape="circle"
+              icon={<BellOutlined />}
+              style={{ float: 'right', margin: '16px', color: '#ECF0F1' }}
+              onClick={() => handleNotificationClick(notifications[0].id)}
+            />
+          </Tooltip>
+        </Header>
+        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+          <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
+            <Card title="Communication Insights" bordered={false}>
+              <ReactECharts option={chartOptions} style={{ height: 400 }} />
+            </Card>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={handleLogCommunication}
+              style={{ marginTop: '16px' }}
+            >
+              Log Communication
+            </Button>
+          </div>
+        </Content>
+      </Layout>
+
+      <Modal
+        title="Log New Communication"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText="Submit"
+        cancelText="Cancel"
+      >
+        <Form layout="vertical">
+          <Form.Item label="Date" required>
+            <Input type="date" />
+          </Form.Item>
+          <Form.Item label="Client" required>
+            <Select placeholder="Select a client" allowClear>
+              <Option value="clientA">Client A</Option>
+              <Option value="clientB">Client B</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item label="Type of Communication" required>
+            <Select placeholder="Select type" allowClear>
+              <Option value="email">Email</Option>
+              <Option value="meeting">Meeting</Option>
+              <Option value="call">Call</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item label="Notes">
+            <Input.TextArea rows={4} />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </Layout>
+  );
+}

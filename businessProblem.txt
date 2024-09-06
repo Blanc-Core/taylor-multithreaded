@@ -1,7 +1,54 @@
- **Business Problem***
- We run a medium-sized frame manufacturing company. Our business consists of assembling, glazing, installing these frames with glass, and then shipping them. We need an ERP system to help us with the following:
-    1. Purchase Order Management: Allow us to enter data into an exportable sheet.
- ***Requirements**
-    1. Our color scheme is red, white, and black.
-    2. We need a responsive and aesthetically pleasing modern UI.
-    3. PLEASE have a dashboard with graphs and a drawer navigator that can open and close, giving access to the rest of the modules.
+**Business Problem**
+We run a mid-sized event management company that organizes corporate events, weddings, and parties. Our business involves planning, coordinating, and executing events with multiple vendors, venues, and clients. We need an ERP system to help us with the following:
+
+#1. Client Management in Event Planning
+         - **Client Profiles**  
+            - Unique profile storing all relevant information for each client, ensuring personalized service.
+            - **Details included in Client Profiles**:
+               - Contact Information: Full name, email, phone number, and address.
+               - Preferences: 
+                     - Preferred venues
+                     - Favorite decor styles
+                     - Catering preferences (vegetarian, gluten-free, etc.)
+                     - Entertainment choices (DJ, live band, etc.)
+                     - Any dislikes or areas to avoid
+               - Event History: List of past events planned for the client, including dates, venues, and services provided.
+               - Client Tier: Based on engagement level (VIP, recurring client, etc.)
+
+         - **Communication Logs**  
+            - Maintains a history of all client communications for consistent messaging and team updates.
+            - **Key components**:
+               - Emails: Automatically log client emails.
+               - Phone Calls: Notes from phone conversations with timestamps.
+               - Meetings: Scheduled and past meetings with outcomes.
+               - Tasks and Reminders: Tasks related to client follow-ups or upcoming meetings.
+               - Feedback Forms: Post-event feedback, stored for future reference.
+
+         - **Preferences and Customization**  
+            - Tracks client preferences to ensure a customized event experience.
+            - **Preferences categories**:
+               - Catering: Dietary restrictions, favorite cuisines, dislikes.
+               - Venue Preferences: Type of venues (outdoor, indoor, formal, etc.).
+               - Entertainment: Music styles, performers, entertainment setups.
+               - Theme/Decor: Color schemes, design elements, overall event style.
+
+         - **Feedback and Satisfaction Metrics**  
+            - Ensures continuous improvement by tracking client feedback.
+            - **Features**:
+               - Event Surveys: Collect data from clients post-event.
+               - Satisfaction Score: Rates overall satisfaction based on feedback.
+               - Areas for Improvement: Detailed notes on what could be improved for future events.
+               - Historical Feedback: Log of feedback over multiple events to track trends in preferences and satisfaction.
+
+         - **Event History and Reports**  
+            - Monitors client event history for personalized recommendations.
+            - **Components**:
+               - Event Date and Venue: Logs of when and where each event occurred.
+               - Services Provided: Detailed breakdown of services used (e.g., catering, decor, entertainment).
+               - Budget Information: Tracking of the budget, payments, and profitability for each event.
+               - Reports: Generate summaries of client engagement and event profitability over time.
+
+**Requirements**
+1. The color scheme should be elegant and professional, with a mix of gold, dark blue, and white.
+2. We need a visually appealing UI that is easy for non-technical staff to use, with a focus on clarity and functionality.
+3. The dashboard should include an interactive event timeline, a budget overview, and a collapsible sidebar for navigation between different modules.

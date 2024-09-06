@@ -1,7 +1,7 @@
 import json
 from tree.Node import TreeNode
-from tree.TreeCoders import RegularCoder, LeafCoder, RootCoder
-from tree.planners import PlanImprover
+from tree.TreeCoders import RegularCoder, LeafCoder, RootCoder, UICoder
+from tree.planners import PlanImprover, IdeasPlanner
 
 class TreeProcessor:
     def __init__(self, json_data):
@@ -24,8 +24,9 @@ class TreeProcessor:
         # Then, process the current node
         if node.is_leaf():
             print(f"Visiting node: {node.getName()} (is leaf)")
-
-            planner = PlanImprover("gpt-4o-mini", node.getContent(), True)
+            ideasplanner = IdeasPlanner("gpt-4o-mini", node.getContent(), True)
+            ideasPlan = ideasplanner.generate()
+            planner = PlanImprover("gpt-4o-mini", ideasPlan, True)
             plan = planner.generate()
 
             requirements = f"Component Name: {node.getName()}, Component requirements: {plan}"
@@ -38,19 +39,23 @@ class TreeProcessor:
             parent.addCode(code)
         elif node.isRoot():
             print(f"Visiting node: {node.getName()} (is root)")
-            planner = PlanImprover("gpt-4o-mini", node.getContent(), True)
+            ideasplanner = IdeasPlanner("gpt-4o-mini", node.getContent(), True)
+            ideasPlan = ideasplanner.generate()
+            planner = PlanImprover("gpt-4o-mini", ideasPlan, True)
             plan = planner.generate()
 
             requirements = f"Component Name: {node.getName()}, Component requirements: {plan}"
 
-            coder = RootCoder("gpt-4o-mini", requirements, node.getCode(), True)
+            coder = RootCoder("gpt-4o-2024-08-06", requirements, node.getCode(), True)
             code = coder.generate()
-
-            self.writer(code)
+            uicoder = UICoder("gpt-4o-2024-08-06", requirements, True)
+            uicode = uicoder.generate()
+            self.writer(uicode)
         else:
             print(f"Visiting node: {node.getName()}")
-
-            planner = PlanImprover("gpt-4o-mini", node.getContent(), True)
+            ideasplanner = IdeasPlanner("gpt-4o-mini", node.getContent(), True)
+            ideasPlan = ideasplanner.generate()
+            planner = PlanImprover("gpt-4o-mini", ideasPlan, True)
             plan = planner.generate()
 
             requirements = f"Component Name: {node.getName()}, Component requirements: {plan}"

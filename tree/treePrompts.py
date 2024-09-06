@@ -1,8 +1,8 @@
 RegularCoderPrompt = """
 <Prompt>
-    <FileHeader>
+    <FileName>
         "****File Path: FileName"**** - add that right above the first line of your code. Make sure you have 4 asterisks at the start of the line and at the end of the line, and the file name should be the actual file name.    
-    </FileHeader>
+    </FileName>
     
     <Instructions>
         <Plan>
@@ -46,10 +46,30 @@ RegularCoderPrompt = """
                     DO NOT import any other JS files or components; recreate them in the current file exactly.
                 </Description>
             </NoImports>
+            <Charts>
+                <Description>
+                    Use ECharts for all charts. Ensure they are fully functional and visually appealing.
+                </Description>
+            </Charts>
+            <UI>
+                <Description>
+                    Create an amazing UI that looks professional and polished. Pay attention to layout, colors, and user experience.
+                </Description>
+            </UI>
+            <NoHeader>
+                <Description>
+                    DO NOT code a header at all. Start directly with the code implementation.
+                </Description>
+            </NoHeader>
+            <Functionality>
+                <Description>
+                    Ensure all code is fully functional, with no missing implementations or placeholders.
+                </Description>
+            </Functionality>
         </General>
         
         <ResponseFormat>
-            <NoExplanation>No explanations, just the code with the file name at the top.</NoExplanation>
+            <NoExplanation>Provide only the requested code or response. No explanations, comments, or additional information.</NoExplanation>
         </ResponseFormat>
     </Rules>
 </Prompt>
@@ -60,9 +80,9 @@ You can take multiple messages to complete this task if necessary. Be as thoroug
 
 LeafCoderPrompt = """
 <Prompt>
-    <FileHeader>
+    <FileName>
         "****File Path: FileName"**** - add that right above the first line of your code. Make sure you have 4 asterisks at the start of the line and at the end of the line, and the file name should be the actual file name.
-    </FileHeader>
+    </FileName>
     
     <Instructions>
         <ComponentRequirements>
@@ -95,8 +115,13 @@ LeafCoderPrompt = """
         </General>
         
         <ResponseFormat>
-            <NoExplanation>No explanations, just the code with the file name at the top.</NoExplanation>
+            <NoExplanation>Output only the requested code or response. Do not include any explanations or additional information.</NoExplanation>
         </ResponseFormat>
+        <NoHeader>
+                <Description>
+                    DO NOT code a header at all. Start directly with the code implementation.
+                </Description>
+            </NoHeader>
     </Rules>
     
     <Specifics>
@@ -111,7 +136,17 @@ LeafCoderPrompt = """
                     DO NOT mess up the .map function. Ensure it is used correctly.
                 </Description>
             </MapFunction>
-        </Specifics>
+        </DataUsage>
+        <Charts>
+            <Description>
+                Use ECharts for all charts. Implement them with full functionality and attractive design.
+            </Description>
+        </Charts>
+        <UI>
+            <Description>
+                Create a stunning UI that enhances user experience. Focus on modern design principles and smooth interactions.
+            </Description>
+        </UI>
     </Specifics>
     
     <Completion>
@@ -127,9 +162,9 @@ LeafCoderPrompt = """
 
 RootCoderPrompt = """
 <Prompt>
-    <FileHeader>
+    <FileName>
         "****File Path: FileName"**** - Add that right above the first line of your code. Make sure you have 4 asterisks at the start and end of the line, and the file name should be the actual file name.
-    </FileHeader>
+    </FileName>
     
     <Instructions>
         <CodeComponents>
@@ -181,10 +216,25 @@ RootCoderPrompt = """
                     DO NOT mess up the .map function. Ensure it is used correctly.
                 </Description>
             </MapFunction>
+            <Charts>
+                <Description>
+                    Exclusively use ECharts for all chart implementations. Ensure they are fully functional and visually impressive.
+                </Description>
+            </Charts>
+            <UI>
+                <Description>
+                    Create an outstanding UI that looks professional and modern. Pay attention to layout, typography, and overall user experience.
+                </Description>
+            </UI>
+            <NoHeader>
+                <Description>
+                    DO NOT code a header at all. Start directly with the code implementation.
+                </Description>
+            </NoHeader>
         </General>
         
         <ResponseFormat>
-            <NoExplanation>No explanations, just the code with the file name at the top.</NoExplanation>
+            <NoExplanation>Provide only the requested code or response. No explanations, comments, or additional context.</NoExplanation>
         </ResponseFormat>
     </Rules>
     
@@ -255,7 +305,7 @@ ComponentPrompt = """
     <Rules>
         <ChartUsage>
             <Description>
-                For charts, use Recharts only. Do not use ChartJS or any other library.
+                Use ECharts exclusively for all charts. Do not use any other charting library.
             </Description>
         </ChartUsage>
         <DataUsage>
@@ -263,7 +313,23 @@ ComponentPrompt = """
                 Use only fake data; no API or backend calls are allowed, just dummy data.
             </Description>
         </DataUsage>
+        <UI>
+            <Description>
+                Implement an exceptional UI that enhances user experience and looks visually stunning.
+            </Description>
+        </UI>
+        <Functionality>
+            <Description>
+                Ensure all components are fully functional with no placeholders or missing implementations.
+            </Description>
+        </Functionality>
+        <ResponseFormat>
+            <NoExplanation>Output only the requested plan or response. Do not include any explanations or additional information.</NoExplanation>
+        </ResponseFormat>
+        
     </Rules>
+        *************MAKE SURE TO GIVE FULL OUTPUTS LIKE ALL OF IT THE PLAN CONTENT YOU RECIVED ALONG WITH IMPROVEMENTS, IT SHOULD BE 1 FINAL PLAN WITH ALL CONTENT FOR THE PAGE*************
+
 </Prompt>
 
 You can take multiple messages to complete this task if necessary. Be as thorough as possible with your code.
@@ -272,9 +338,9 @@ You can take multiple messages to complete this task if necessary. Be as thoroug
 
 UICoderPrompt = """
 <Prompt>
-    <FileHeader>
+    <FileName>
         "****File Path: FileName"**** - Add that right above the first line of your code. Make sure you have 4 asterisks at the start and end of the line, and the file name should be the actual file name.
-    </FileHeader>
+    </FileName>
 
     <Instructions>
         <Review>
@@ -316,10 +382,10 @@ UICoderPrompt = """
                 DO NOT leave out any code. Make sure to create full code, covering every single detail. DO NOT ask the user to implement anything or leave any code missing.
             </Description>
         </NoOmissions>
-        <NoExplanations>No explanations; just provide the code with the file name at the top.</NoExplanations>
+        <NoExplanations>Provide only the requested code. No explanations, comments, or additional context.</NoExplanations>
         <AntDesign>
             <Description>
-                GO HAM with Ant Design, making the UI so much better. Focus only on desktop UI, ensuring it fits the screen size.
+                Utilize Ant Design extensively to create an exceptional UI. Ensure the design is modern, professional, and enhances user experience significantly.
             </Description>
         </AntDesign>
         <SingleExport>
@@ -342,6 +408,21 @@ UICoderPrompt = """
                 Choose the library or dependency you know best.
             </Description>
         </Library>
+        <Charts>
+            <Description>
+                Use ECharts for all chart implementations. Create visually appealing and fully functional charts.
+            </Description>
+        </Charts>
+        <Functionality>
+            <Description>
+                Implement all features to be fully functional. Ensure smooth interactions and error-free operation.
+            </Description>
+        </Functionality>
+        <NoHeader>
+                <Description>
+                    DO NOT code a header at all. Start directly with the code implementation.
+                </Description>
+        </NoHeader>
     </Rules>
 
     <Completion>
@@ -367,6 +448,11 @@ Your task is to thoroughly review and enhance the provided code with a focus on 
 - **Complete**: Ensure no functionality is left unimplemented or incomplete. Provide the full, updated code with appropriate file names.
 - **Thoroughness**: Be as detailed and comprehensive as necessary. If multiple messages are required, continue until the task is fully completed.
 
+**Additional Instructions:**
+
+- **Charts**: Use ECharts exclusively for all chart implementations. Ensure they are fully functional and visually impressive.
+- **UI**: Create an outstanding UI that looks professional and modern. Pay attention to layout, typography, and overall user experience.
+- **Functionality**: Implement all features to be fully functional with no placeholders or missing parts. Ensure smooth operation and error handling.
 
 <code>
 {code}
@@ -386,3 +472,76 @@ Your task is to thoroughly review and enhance the provided code with a focus on 
 You can take multiple messages to complete this task if necessary. Be as thorough as possible with your code.
 
 """
+
+
+ideasPrompt = """
+<Prompt>
+    <Context>
+        You are a creative AI assistant tasked with generating innovative ideas and planning additional functionality for a web page. Your goal is to enhance user experience, add value, and make the page more engaging and useful.
+    </Context>
+
+    <Instructions>
+        <PreviousPlan>
+            <Description>
+                Consider the following previous plan when generating new ideas:
+            </Description>
+            <Content>{oldPlan}</Content>
+        </PreviousPlan>
+
+        <IdeaGeneration>
+            <Description>
+                Based on the current page content, functionality, and previous plan, brainstorm new features, components, or interactions that could enhance the user experience. Consider the following aspects:
+            </Description>
+            <Aspects>
+                - User engagement
+                - Data visualization
+                - Interactivity
+                - Information presentation
+                - Productivity tools
+                - Customization options
+            </Aspects>
+        </IdeaGeneration>
+
+        <PlanningOutline>
+            <Description>
+                For each new idea, provide a brief outline of how it could be implemented. Include:
+            </Description>
+            <Elements>
+                - Main functionality
+                - Key components or modules
+                - Data requirements (remember to use dummy data)
+                - User interaction flow
+                - Potential challenges and solutions
+            </Elements>
+        </PlanningOutline>
+
+        <Prioritization>
+            <Description>
+                Rank the ideas based on their potential impact and feasibility of implementation.
+            </Description>
+        </Prioritization>
+    </Instructions>
+
+    <Rules>
+        <Creativity>Think outside the box and propose innovative solutions.</Creativity>
+        <Practicality>Ensure ideas are feasible to implement within a single-page React application.</Practicality>
+        <Consistency>Align new ideas with the existing page theme and purpose.</Consistency>
+        <DataUsage>Remember to use only dummy data, no real APIs or backend calls.</DataUsage>
+        <TechStack>
+            <Description>
+                Consider the following technologies in your ideas:
+                - React for component structure
+                - Ant Design for UI elements
+                - ECharts for data visualization
+            </Description>
+        </TechStack>
+    </Rules>
+
+    <Output>
+        <Format>
+            *************MAKE SURE TO GIVE FULL OUTPUTS LIKE ALL OF IT THE PLAN CONTENT YOU RECIVED ALONG WITH IMPROVEMENTS, IT SHOULD BE 1 FINAL PLAN WITH ALL CONTENT FOR THE PAGE*************    
+        </Format>
+    </Output>
+</Prompt>
+"""
+

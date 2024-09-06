@@ -45,17 +45,20 @@ class ColourScheme(BaseModel):
     tertiaryColor: str = Field(description="Tertiary color used in the visual design, ensuring a cohesive look and feel. Use HEX CODE")
     spacing: str = Field(description="Spacing used in the visual design, optimized to reduce empty spaces and improve content density. SHOULD MINIMIZE WHITE SPACE")
     typography: str = Field(description="Typography used in the visual design, with a focus on clarity and readability in an ERP environment.")
-
+class Interconnections(BaseModel):
+    pageUrl: str = Field(description="URL of the page for navigation within the ERP system in react.")
+    description: str = Field(description="Detailed description of the interconnection, detailing its purpose and role within the ERP system.")
+    
 class ComponentInfo(BaseModel):
     componentDescription: str = Field(description="Description of the component, detailing its purpose and role within the ERP system.")
     functionality: str = Field(description="Precise functionality of the component, directly supporting ERP tasks. WRITE A LONG Paragraph EXPLAINING")
-    details: List[str] = Field(description="Specific details or requirements of the child component, such as input fields, buttons, or data displays. WRITE A REALLY LONG paragraph EXPLAINING")
+    details: List[str] = Field(description="Specific details or requirements of the child component, such as input fields, buttons, or charts - if charts use ECharts and cool charts not just normal ones. WRITE A REALLY LONG paragraph EXPLAINING")
     isVisible: bool = Field(description="Visibility status of the child component")
-    componentQuery: str = Field(description="A search query to search on the internet to build this component. Needs to be a question.")
+    interconnectivity: list[Interconnections]
     userInteraction: UserInteraction
 
 class Components(BaseModel):
-    componentName: str = Field(description="Parent component that houses the child components for the main page. This component encapsulate a parent component within the page.")
+    componentName: str = Field(description="Component Name")
     componentInfo: ComponentInfo
     components: List["Components"] = Field(description="List of child components within this component. EVERY SMALL COMPONENT WITHIN THIS COMPONENT. DO NOT MISS ANY")
 
