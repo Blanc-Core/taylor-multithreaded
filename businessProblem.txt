@@ -1,0 +1,7 @@
+ **Business Problem***
+ We run a medium-sized frame manufacturing company. Our business consists of assembling, glazing, installing these frames with glass, and then shipping them. We need an ERP system to help us with the following:
+    1. Purchase Order Management: Allow us to enter data into an exportable sheet.
+ ***Requirements**
+    1. Our color scheme is red, white, and black.
+    2. We need a responsive and aesthetically pleasing modern UI.
+    3. PLEASE have a dashboard with graphs and a drawer navigator that can open and close, giving access to the rest of the modules.
