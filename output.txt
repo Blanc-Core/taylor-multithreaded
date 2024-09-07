@@ -1,1299 +1,1347 @@
 
 
-****File PATH: ReportsOverviewPage.js****
-
-import React, { useState } from 'react';
-import { Layout, Card, Row, Col, DatePicker, Checkbox, Button, Tooltip, Input, Form, Modal, notification } from 'antd';
-import { PieChart, LineChart, BarChart } from 'echarts-for-react';
-import { FilePdfOutlined, FileExcelOutlined, BellOutlined } from '@ant-design/icons';
-
-const { Header, Content, Sider } = Layout;
-const { RangePicker } = DatePicker;
-const { Search } = Input;
-
-// Dummy Data
-const dummyKPIData = [
-  { title: 'Satisfaction Score', value: '85%', trend: 'up' },
-  { title: 'Number of Events', value: '120', trend: 'steady' },
-];
-
-const dummyChartData = {
-  satisfactionBreakdown: [{ value: 335, name: 'Positive' }, { value: 310, name: 'Neutral' }, { value: 234, name: 'Negative' }],
-  trendData: [820, 932, 901, 934, 1290, 1330, 1320],
-};
-
-const ReportsOverviewPage = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [notifications, setNotifications] = useState([]);
-
-  const showNotification = () => {
-    notification.open({
-      message: 'New Report Available',
-      description: 'Check out the latest report on event performance metrics.',
-      icon: <BellOutlined style={{ color: '#4A90E2' }} />,
-    });
-  };
-
-  const handleModalOpen = () => setIsModalVisible(true);
-  const handleModalClose = () => setIsModalVisible(false);
-
-  const handleDownload = (type) => {
-    notification.success({
-      message: `Report Downloaded`,
-      description: `Your report has been downloaded as a ${type}.`,
-    });
-  };
-
-  return (
-    <Layout style={{ height: '100vh', fontFamily: 'Roboto, sans-serif' }}>
-      <Header style={{ background: '#2E3B4E', padding: '0 16px' }}>
-        <Row justify="space-between" align="middle">
-          <Col>
-            <h1 style={{ color: '#fff' }}>Reports Overview</h1>
-          </Col>
-          <Col>
-            <Button icon={<BellOutlined />} onClick={showNotification} />
-          </Col>
-        </Row>
-      </Header>
-      <Layout>
-        <Sider width={300} style={{ background: '#fff', padding: '24px' }}>
-          <Form layout="vertical">
-            <Form.Item label="Date Range">
-              <RangePicker />
-            </Form.Item>
-            <Form.Item label="Event Type">
-              <Checkbox.Group options={['Conference', 'Workshop', 'Webinar']} />
-            </Form.Item>
-            <Form.Item label="Satisfaction Score">
-              <Checkbox.Group options={['High', 'Medium', 'Low']} />
-            </Form.Item>
-            <Button type="primary" block style={{ marginTop: '16px' }}>Apply Filters</Button>
-            <Button block style={{ marginTop: '8px' }}>Reset Filters</Button>
-          </Form>
-        </Sider>
-        <Content style={{ padding: '24px', background: '#F5F5F5' }}>
-          <Row gutter={[16, 16]}>
-            {dummyKPIData.map((kpi, index) => (
-              <Col span={6} key={index}>
-                <Card>
-                  <h3>{kpi.title}</h3>
-                  <p>{kpi.value}</p>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-          <Row gutter={[16, 16]} style={{ marginTop: '24px' }}>
-            <Col span={12}>
-              <Card>
-                <PieChart
-                  option={{
-                    title: { text: 'Satisfaction Breakdown', left: 'center' },
-                    series: [{ type: 'pie', data: dummyChartData.satisfactionBreakdown }],
-                  }}
-                />
-              </Card>
-            </Col>
-            <Col span={12}>
-              <Card>
-                <LineChart
-                  option={{
-                    title: { text: 'Trend Over Time', left: 'center' },
-                    xAxis: { type: 'category', data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
-                    yAxis: { type: 'value' },
-                    series: [{ type: 'line', data: dummyChartData.trendData }],
-                  }}
-                />
-              </Card>
-            </Col>
-          </Row>
-          <Row gutter={[16, 16]} style={{ marginTop: '24px' }}>
-            <Col span={12}>
-              <Button icon={<FilePdfOutlined />} onClick={() => handleDownload('PDF')} style={{ width: '100%' }}>
-                Download as PDF
-              </Button>
-            </Col>
-            <Col span={12}>
-              <Button icon={<FileExcelOutlined />} onClick={() => handleDownload('CSV')} style={{ width: '100%' }}>
-                Download as CSV
-              </Button>
-            </Col>
-          </Row>
-          <Modal title="Submit Feedback" visible={isModalVisible} onCancel={handleModalClose} footer={null}>
-            <Form layout="vertical">
-              <Form.Item label="Rating">
-                <Checkbox.Group options={['1', '2', '3', '4', '5']} />
-              </Form.Item>
-              <Form.Item label="Comments">
-                <Input.TextArea rows={4} />
-              </Form.Item>
-              <Button type="primary" onClick={handleModalClose}>Submit</Button>
-            </Form>
-          </Modal>
-        </Content>
-      </Layout>
-    </Layout>
-  );
-};
-
-export default ReportsOverviewPage;
-
-This code offers a refined and interactive dashboard as the central hub for client satisfaction and event performance reports, using Ant Design components and ECharts for visualization. It includes features like KPI cards, filtering options, custom report downloads, and a feedback modal, enhancing the user interface and experience.
-
-****File PATH: VendorManagement.js****
-
-import React, { useState } from 'react';
-import { Layout, Menu, Modal, Form, Input, DatePicker, Button, Table, Rate, Card, Row, Col, Tooltip, message } from 'antd';
-import { UserOutlined, CalendarOutlined, LineChartOutlined, FilterOutlined, StarOutlined, DashboardOutlined } from '@ant-design/icons';
-import echarts from 'echarts';
-
-const { Content } = Layout;
-const { RangePicker } = DatePicker;
-
-// Dummy Data for Vendors
-const vendors = [
-  { key: '1', name: 'Vendor A', price: 1000, services: 'Catering', rating: 4, availableDates: ['2023-12-01', '2023-12-10'], eventsServed: 20 },
-  { key: '2', name: 'Vendor B', price: 1500, services: 'Decoration', rating: 3, availableDates: ['2023-12-05', '2023-12-15'], eventsServed: 15 },
-  { key: '3', name: 'Vendor C', price: 1200, services: 'Photography', rating: 5, availableDates: ['2023-12-08', '2023-12-20'], eventsServed: 30 },
-  { key: '4', name: 'Vendor D', price: 2000, services: 'Music', rating: 2, availableDates: ['2023-12-02', '2023-12-12'], eventsServed: 10 },
-  { key: '5', name: 'Vendor E', price: 1800, services: 'Lighting', rating: 4, availableDates: ['2023-12-03', '2023-12-18'], eventsServed: 25 },
-];
-
-const VendorManagement = () => {
-  const [selectedVendors, setSelectedVendors] = useState([]);
-  const [comparisonVisible, setComparisonVisible] = useState(false);
-  const [calendarDates, setCalendarDates] = useState([]);
-  const [reviewModalVisible, setReviewModalVisible] = useState(false);
-
-  const handleVendorSelection = (selectedKeys) => setSelectedVendors(selectedKeys);
-  const showComparison = () => setComparisonVisible(true);
-  const hideComparison = () => setComparisonVisible(false);
-  const handleCalendarChange = (dates) => setCalendarDates(dates);
-
-  const columns = [
-    { title: 'Name', dataIndex: 'name', key: 'name' },
-    { title: 'Price', dataIndex: 'price', key: 'price', sorter: (a, b) => a.price - b.price },
-    { title: 'Services', dataIndex: 'services', key: 'services' },
-    { title: 'Rating', dataIndex: 'rating', key: 'rating', render: (rating) => <Rate disabled defaultValue={rating} /> },
-  ];
-
-  const renderComparisonGrid = () => (
-    <Modal
-      title="Vendor Comparison"
-      visible={comparisonVisible}
-      onCancel={hideComparison}
-      footer={null}
-      width={800}
-    >
-      <Table dataSource={vendors.filter(v => selectedVendors.includes(v.key))} columns={columns} pagination={false} />
-    </Modal>
-  );
-
-  const renderAvailabilityCalendar = () => (
-    <Card title="Vendor Availability" style={{ marginBottom: '16px' }}>
-      <RangePicker onChange={handleCalendarChange} />
-      <Row gutter={16} style={{ marginTop: '16px' }}>
-        {vendors.map((vendor) => (
-          <Col key={vendor.key} span={8}>
-            <Tooltip title={`Available on: ${vendor.availableDates.join(', ')}`}>
-              <Card>
-                <p>{vendor.name}</p>
-                <p>Available Dates: {vendor.availableDates.filter(date => calendarDates.length && date >= calendarDates[0].format('YYYY-MM-DD') && date <= calendarDates[1].format('YYYY-MM-DD')).join(', ')}</p>
-              </Card>
-            </Tooltip>
-          </Col>
-        ))}
-      </Row>
-    </Card>
-  );
-
-  const renderPerformanceDashboard = () => {
-    const option = {
-      title: { text: 'Vendor Performance' },
-      tooltip: {},
-      legend: { data: ['Performance'] },
-      xAxis: { data: vendors.map(vendor => vendor.name) },
-      yAxis: {},
-      series: [{
-        name: 'Events Served',
-        type: 'bar',
-        data: vendors.map(vendor => vendor.eventsServed),
-      }],
-    };
-
-    return (
-      <Card title="Vendor Performance">
-        <div id="performance-chart" style={{ width: '100%', height: 400 }} />
-        {setTimeout(() => echarts.init(document.getElementById('performance-chart')).setOption(option), 500)}
-      </Card>
-    );
-  };
-
-  const renderClientPreferenceForm = () => (
-    <Card title="Client Preferences" style={{ marginBottom: '16px' }}>
-      <Form layout="vertical">
-        <Form.Item label="Budget">
-          <Input placeholder="Enter your budget" />
-        </Form.Item>
-        <Form.Item label="Preferred Services">
-          <Input placeholder="Enter preferred services" />
-        </Form.Item>
-        <Button type="primary" icon={<FilterOutlined />}>Filter Vendors</Button>
-      </Form>
-    </Card>
-  );
-
-  const renderReviewSystem = () => {
-    const handleReviewSubmit = (values) => {
-      message.success('Review submitted successfully!');
-      setReviewModalVisible(false);
-    };
-
-    return (
-      <Card title="Vendor Reviews">
-        <Button type="primary" icon={<StarOutlined />} onClick={() => setReviewModalVisible(true)}>Submit Review</Button>
-        <Modal
-          title="Submit Review"
-          visible={reviewModalVisible}
-          onCancel={() => setReviewModalVisible(false)}
-          footer={null}
-        >
-          <Form onFinish={handleReviewSubmit}>
-            <Form.Item name="vendor" label="Vendor" rules={[{ required: true }]}>
-              <Input />
-            </Form.Item>
-            <Form.Item name="rating" label="Rating" rules={[{ required: true }]}>
-              <Rate />
-            </Form.Item>
-            <Form.Item name="review" label="Review" rules={[{ required: true, message: 'Please input your review!' }]}>
-              <Input.TextArea rows={4} />
-            </Form.Item>
-            <Button type="primary" htmlType="submit">Submit</Button>
-          </Form>
-        </Modal>
-      </Card>
-    );
-  };
-
-  const renderUserDashboard = () => (
-    <Card title="User Dashboard" style={{ marginBottom: '16px' }}>
-      <p>Saved Vendors</p>
-      <p>Upcoming Events</p>
-      <Button type="primary" icon={<DashboardOutlined />}>Manage Dashboard</Button>
-    </Card>
-  );
-
-  return (
-    <Layout style={{ backgroundColor: '#ECF0F1', fontFamily: 'Roboto, sans-serif' }}>
-      <Content style={{ padding: '24px', maxWidth: '1200px', margin: 'auto' }}>
-        <Menu mode="horizontal" defaultSelectedKeys={['1']} style={{ marginBottom: '24px' }}>
-          <Menu.Item key="1" icon={<UserOutlined />} onClick={showComparison}>Vendor Comparison</Menu.Item>
-          <Menu.Item key="2" icon={<CalendarOutlined />}>Availability Calendar</Menu.Item>
-          <Menu.Item key="3" icon={<LineChartOutlined />}>Performance Dashboard</Menu.Item>
-          <Menu.Item key="4" icon={<FilterOutlined />}>Client Preferences</Menu.Item>
-          <Menu.Item key="5" icon={<StarOutlined />}>Reviews</Menu.Item>
-          <Menu.Item key="6" icon={<DashboardOutlined />}>User Dashboard</Menu.Item>
-        </Menu>
-        {renderComparisonGrid()}
-        {renderAvailabilityCalendar()}
-        {renderPerformanceDashboard()}
-        {renderClientPreferenceForm()}
-        {renderReviewSystem()}
-        {renderUserDashboard()}
-      </Content>
-    </Layout>
-  );
-};
-
-export default VendorManagement;
-
-
-****File PATH: DetailedReportPage.js****
+****File PATH: components/TaskManagerContainer.js****
 
 import React, { useState, useEffect } from 'react';
-import { Layout, Menu, DatePicker, Select, Checkbox, Button, Modal, Rate, message } from 'antd';
-import { LineChartOutlined, BarChartOutlined, CloudUploadOutlined } from '@ant-design/icons';
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Form, Input, Select, Button, Progress, Card, Typography, Layout, Row, Col } from 'antd';
 import ReactECharts from 'echarts-for-react';
-import 'antd/dist/antd.css';
+import 'antd/dist/reset.css';
 
-const { Header, Content, Sider } = Layout;
-const { RangePicker } = DatePicker;
 const { Option } = Select;
+const { Title } = Typography;
+const { Header, Content } = Layout;
 
-const DetailedReportPage = () => {
-  const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [realTimeUpdates, setRealTimeUpdates] = useState(false);
-  const [insights, setInsights] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedRating, setSelectedRating] = useState(0);
+const tasksData = [
+  { id: 1, name: "Design Landing Page", assignee: "John Doe", dueDate: "2023-10-15", status: "in progress", priority: "high", progress: 75, comments: [] },
+  { id: 2, name: "Develop API", assignee: "Jane Smith", dueDate: "2023-10-20", status: "pending", priority: "medium", progress: 20, comments: [] },
+  { id: 3, name: "Write Documentation", assignee: "Alice Johnson", dueDate: "2023-10-25", status: "completed", priority: "low", progress: 100, comments: [] }
+];
 
-  useEffect(() => {
-    // Simulate data fetching
-    const fetchData = () => {
-      const dummyData = Array.from({ length: 10 }, (_, i) => ({
-        date: `2023-11-${i + 1}`,
-        metric: Math.floor(Math.random() * 100),
-      }));
-      setData(dummyData);
-      setFilteredData(dummyData);
-    };
-    fetchData();
-  }, []);
+const TaskItem = ({ task, index, moveTask }) => {
+  const [, ref] = useDrag({
+    type: 'TASK',
+    item: { index },
+  });
 
-  useEffect(() => {
-    if (realTimeUpdates) {
-      const interval = setInterval(() => {
-        const updatedData = data.map(item => ({
-          ...item,
-          metric: item.metric + Math.floor(Math.random() * 5) - 2,
-        }));
-        setFilteredData(updatedData);
-        generateInsights(updatedData);
-      }, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [realTimeUpdates, data]);
-
-  const generateInsights = (data) => {
-    const insights = data.map(item => ({
-      date: item.date,
-      recommendation: item.metric > 50 ? 'Consider increasing stock' : 'Maintain current levels',
-    }));
-    setInsights(insights);
-  };
-
-  const handleFilterChange = (dates, selectedCategories) => {
-    let filtered = data;
-    if (dates) {
-      filtered = filtered.filter(item => dates[0].isBefore(item.date) && dates[1].isAfter(item.date));
-    }
-    if (selectedCategories.length) {
-      // Add category filtering logic
-    }
-    setFilteredData(filtered);
-    generateInsights(filtered);
-  };
-
-  const exportReport = () => {
-    message.success('Report exported successfully');
-    setModalVisible(false);
-  };
-
-  const chartOptions = {
-    xAxis: {
-      type: 'category',
-      data: filteredData.map(item => item.date),
+  const [, drop] = useDrop({
+    accept: 'TASK',
+    hover(item) {
+      if (item.index !== index) {
+        moveTask(item.index, index);
+        item.index = index;
+      }
     },
-    yAxis: {
-      type: 'value',
-    },
-    series: [
-      {
-        data: filteredData.map(item => item.metric),
-        type: 'line',
-      },
-    ],
-  };
+  });
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider width={300} style={{ backgroundColor: '#2E3B4E' }}>
-        <Menu theme="dark" mode="inline">
-          <Menu.Item key="1" icon={<LineChartOutlined />}>
-            Line Chart
-          </Menu.Item>
-          <Menu.Item key="2" icon={<BarChartOutlined />}>
-            Bar Chart
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout>
-        <Header style={{ backgroundColor: '#4A90E2', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ color: '#fff', fontSize: '1.5rem' }}>Detailed Report</div>
-          <div>
-            <Button icon={<CloudUploadOutlined />} onClick={() => setModalVisible(true)}>Export</Button>
-          </div>
-        </Header>
-        <Content style={{ margin: '16px', padding: '24px', background: '#fff' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
-            <RangePicker onChange={(dates) => handleFilterChange(dates)} />
-            <Select mode="multiple" style={{ width: 200 }} placeholder="Select categories" onChange={(value) => handleFilterChange(null, value)}>
-              <Option key="1" value="Category 1">Category 1</Option>
-              <Option key="2" value="Category 2">Category 2</Option>
-            </Select>
-            <Checkbox onChange={(e) => setRealTimeUpdates(e.target.checked)}>Real-time Updates</Checkbox>
-          </div>
-          <ReactECharts option={chartOptions} style={{ height: '400px' }} />
-          <div style={{ marginTop: '16px' }}>
-            <h3>Insights & Recommendations</h3>
-            <ul>
-              {insights.map((insight, index) => (
-                <li key={index}>{insight.date}: {insight.recommendation}</li>
-              ))}
-            </ul>
-          </div>
-          <div style={{ marginTop: '16px' }}>
-            <Rate onChange={setSelectedRating} value={selectedRating} />
-          </div>
-        </Content>
-      </Layout>
-      <Modal
-        title="Export and Share"
-        visible={modalVisible}
-        onOk={exportReport}
-        onCancel={() => setModalVisible(false)}
-      >
-        <p>Select export format and share options</p>
-      </Modal>
-    </Layout>
+    <Card ref={node => ref(drop(node))} style={{ marginBottom: '16px' }}>
+      <Title level={4}>{task.name} (Assigned to: {task.assignee})</Title>
+      <p>Due Date: {task.dueDate}</p>
+      <p>Status: {task.status}</p>
+      <p>Priority: {task.priority}</p>
+      <Progress percent={task.progress} />
+    </Card>
   );
 };
 
-export default DetailedReportPage;
+const TaskList = () => {
+  const [tasks, setTasks] = useState(tasksData);
 
-****File PATH: BudgetTrackerPage.js****
-
-import React, { useState } from 'react';
-import { Layout, Menu, Card, Row, Col, Form, Input, Button, Select, Modal, Progress, Tooltip } from 'antd';
-import { PieChart, BarChart, FilePdfOutlined, UserAddOutlined } from '@ant-design/icons';
-import ReactEcharts from 'echarts-for-react';
-import jsPDF from 'jspdf';
-
-const { Header, Content, Footer, Sider } = Layout;
-const { Option } = Select;
-
-const BudgetTrackerPage = () => {
-  const [selectedMenu, setSelectedMenu] = useState('dashboard');
-  const [expenseModalVisible, setExpenseModalVisible] = useState(false);
-  const [reportModalVisible, setReportModalVisible] = useState(false);
-
-  const handleMenuClick = (e) => {
-    setSelectedMenu(e.key);
-  };
-
-  const dummyData = {
-    budgetCategories: [
-      { name: 'Food', value: 400 },
-      { name: 'Transport', value: 300 },
-      { name: 'Accommodation', value: 500 },
-      { name: 'Miscellaneous', value: 200 },
-    ],
-    expenses: [
-      { month: 'Jan', amount: 300 },
-      { month: 'Feb', amount: 250 },
-      { month: 'Mar', amount: 400 },
-    ],
-    totalBudget: 2000,
-    remainingBudget: 600,
-  };
-
-  const getPieChartOption = () => ({
-    tooltip: {
-      trigger: 'item',
-    },
-    series: [
-      {
-        type: 'pie',
-        data: dummyData.budgetCategories.map((item) => ({
-          name: item.name,
-          value: item.value,
-        })),
-      },
-    ],
-  });
-
-  const getBarChartOption = () => ({
-    xAxis: {
-      type: 'category',
-      data: dummyData.expenses.map((item) => item.month),
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [
-      {
-        data: dummyData.expenses.map((item) => item.amount),
-        type: 'bar',
-      },
-    ],
-  });
-
-  const handleAddExpense = (values) => {
-    console.log('Add Expense:', values);
-    setExpenseModalVisible(false);
-  };
-
-  const generateReport = () => {
-    const doc = new jsPDF();
-    doc.text('Budget Report', 10, 10);
-    doc.save('report.pdf');
-    setReportModalVisible(false);
+  const moveTask = (fromIndex, toIndex) => {
+    const updatedTasks = [...tasks];
+    const [movedTask] = updatedTasks.splice(fromIndex, 1);
+    updatedTasks.splice(toIndex, 0, movedTask);
+    setTasks(updatedTasks);
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider width={200} style={{ background: '#004080' }}>
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={['dashboard']}
-          style={{ height: '100%', borderRight: 0 }}
-          onClick={handleMenuClick}
-        >
-          <Menu.Item key="dashboard" icon={<PieChart />}>
-            Dashboard
-          </Menu.Item>
-          <Menu.Item key="addExpense" icon={<BarChart />} onClick={() => setExpenseModalVisible(true)}>
-            Add Expense
-          </Menu.Item>
-          <Menu.Item key="generateReport" icon={<FilePdfOutlined />} onClick={() => setReportModalVisible(true)}>
-            Generate Report
-          </Menu.Item>
-          <Menu.Item key="collaborate" icon={<UserAddOutlined />}>
-            Collaborate
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout>
-        <Header style={{ background: '#0080FF', padding: 0 }} />
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-            {selectedMenu === 'dashboard' && (
-              <Row gutter={16}>
-                <Col span={12}>
-                  <Card title="Budget Overview">
-                    <ReactEcharts option={getPieChartOption()} style={{ height: '300px' }} />
-                  </Card>
-                </Col>
-                <Col span={12}>
-                  <Card title="Monthly Expenses">
-                    <ReactEcharts option={getBarChartOption()} style={{ height: '300px' }} />
-                  </Card>
-                </Col>
-                <Col span={24} style={{ marginTop: '16px' }}>
-                  <Card title="Total Budget">
-                    <Progress percent={(dummyData.remainingBudget / dummyData.totalBudget) * 100} />
-                    <Tooltip title="Remaining Budget">
-                      <span>{dummyData.remainingBudget}</span>
-                    </Tooltip>
-                  </Card>
-                </Col>
-              </Row>
-            )}
-          </div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>Budget Tracker ©2023</Footer>
-      </Layout>
-
-      <Modal
-        title="Add Expense"
-        visible={expenseModalVisible}
-        onCancel={() => setExpenseModalVisible(false)}
-        footer={null}
-      >
-        <Form layout="vertical" onFinish={handleAddExpense}>
-          <Form.Item name="amount" label="Amount" rules={[{ required: true, message: 'Please input the amount!' }]}>
-            <Input type="number" />
-          </Form.Item>
-          <Form.Item name="description" label="Description" rules={[{ required: true, message: 'Please input a description!' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="category" label="Category" rules={[{ required: true, message: 'Please select a category!' }]}>
-            <Select placeholder="Select a category">
-              {dummyData.budgetCategories.map((category) => (
-                <Option key={category.name} value={category.name}>
-                  {category.name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-          <Button type="primary" htmlType="submit">Add Expense</Button>
-        </Form>
-      </Modal>
-
-      <Modal
-        title="Generate Report"
-        visible={reportModalVisible}
-        onCancel={() => setReportModalVisible(false)}
-        onOk={generateReport}
-      >
-        <p>Select report type and click generate.</p>
-      </Modal>
-    </Layout>
+    <DndProvider backend={HTML5Backend}>
+      <div style={{ maxWidth: '1200px', margin: 'auto' }}>
+        <Title level={2}>Task List</Title>
+        {tasks.map((task, index) => (
+          <TaskItem key={task.id} index={index} task={task} moveTask={moveTask} />
+        ))}
+      </div>
+    </DndProvider>
   );
 };
 
-export default BudgetTrackerPage;
-
-****File PATH: FeedbackPage.js****
-
-import React, { useState } from 'react';
-import { Layout, Form, Input, Button, message, Rate, Card, List, Tooltip, Select, Badge, Progress } from 'antd';
-import { PieChart, LineChart, BarChart } from 'echarts-for-react';
-import 'antd/dist/antd.css';
-
-const { Content } = Layout;
-const { Option } = Select;
-
-const FeedbackPage = () => {
-  const [feedbackList, setFeedbackList] = useState([]);
-  const [npsScore, setNpsScore] = useState(0);
+const TaskForm = () => {
   const [form] = Form.useForm();
+  const [tasks, setTasks] = useState([]);
 
-  const handleFeedbackSubmit = (values) => {
-    setFeedbackList([...feedbackList, values]);
-    message.success('Feedback submitted successfully');
+  const assignees = ['Alice', 'Bob', 'Charlie'];
+  const priorities = ['High', 'Medium', 'Low'];
+
+  const handleSubmit = (values) => {
+    const newTask = {
+      taskName: values.taskName,
+      description: values.description,
+      assignee: values.assignee,
+      deadline: values.deadline,
+      priority: values.priority,
+      completed: false,
+    };
+    setTasks([...tasks, newTask]);
     form.resetFields();
   };
 
-  const handleNpsChange = (value) => {
-    setNpsScore(value);
-  };
-
-  const dummyChartData = {
-    pieData: [{ value: 40, name: 'Positive' }, { value: 30, name: 'Neutral' }, { value: 30, name: 'Negative' }],
-    lineData: [
-      { value: 80, name: 'Week 1' },
-      { value: 70, name: 'Week 2' },
-      { value: 90, name: 'Week 3' },
-    ],
-    barData: [
-      { value: 20, name: 'Service 1' },
-      { value: 50, name: 'Service 2' },
-      { value: 30, name: 'Service 3' },
-    ],
+  const chartOption = {
+    title: { text: 'Task Overview' },
+    tooltip: {},
+    legend: { data: ['Completed', 'Pending'] },
+    xAxis: {
+      data: ['Tasks'],
+    },
+    yAxis: {},
+    series: [{
+      name: 'Completed',
+      type: 'bar',
+      data: [tasks.filter(task => task.completed).length],
+    }, {
+      name: 'Pending',
+      type: 'bar',
+      data: [tasks.length - tasks.filter(task => task.completed).length],
+    }],
   };
 
   return (
-    <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
-      <Content style={{ padding: '50px', maxWidth: '1200px', margin: '0 auto' }}>
-        <Card title="Real-time Feedback Submission" bordered={false} style={{ marginBottom: '24px' }}>
-          <Form form={form} layout="vertical" onFinish={handleFeedbackSubmit}>
-            <Form.Item name="feedback" label="Feedback" rules={[{ required: true, message: 'Please provide your feedback!' }]}>
-              <Input.TextArea rows={4} />
-            </Form.Item>
-            <Form.Item name="rating" label="Rating" rules={[{ required: true, message: 'Please rate us!' }]}>
-              <Rate />
-            </Form.Item>
-            <Button type="primary" htmlType="submit">Submit Feedback</Button>
-          </Form>
-        </Card>
-
-        <Card title="Dynamic Data Visualization Dashboard" bordered={false} style={{ marginBottom: '24px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <PieChart
-              option={{
-                title: { text: 'Feedback Sentiments', left: 'center' },
-                series: [{
-                  name: 'Sentiments',
-                  type: 'pie',
-                  radius: '50%',
-                  data: dummyChartData.pieData,
-                }],
-              }}
-              style={{ height: '300px', width: '300px' }}
-            />
-            <LineChart
-              option={{
-                title: { text: 'Feedback Over Time', left: 'center' },
-                xAxis: { type: 'category', data: ['Week 1', 'Week 2', 'Week 3'] },
-                yAxis: { type: 'value' },
-                series: [{
-                  data: dummyChartData.lineData,
-                  type: 'line',
-                }],
-              }}
-              style={{ height: '300px', width: '300px' }}
-            />
-            <BarChart
-              option={{
-                title: { text: 'Service Ratings', left: 'center' },
-                xAxis: { type: 'category', data: ['Service 1', 'Service 2', 'Service 3'] },
-                yAxis: { type: 'value' },
-                series: [{
-                  data: dummyChartData.barData,
-                  type: 'bar',
-                }],
-              }}
-              style={{ height: '300px', width: '300px' }}
-            />
-          </div>
-        </Card>
-
-        <Card title="NPS (Net Promoter Score) Widget" bordered={false} style={{ marginBottom: '24px' }}>
-          <Tooltip title={`Your NPS Score: ${npsScore}`}>
-            <Progress type="circle" percent={npsScore * 10} />
-          </Tooltip>
-          <div style={{ marginTop: '16px' }}>
-            <Rate count={10} onChange={handleNpsChange} value={npsScore} />
-          </div>
-        </Card>
-
-        <Card title="Client Segmentation and Filtering Tools" bordered={false} style={{ marginBottom: '24px' }}>
-          <Select mode="multiple" style={{ width: '100%' }} placeholder="Select filters">
-            <Option value="age">Age Group</Option>
-            <Option value="service">Service Type</Option>
-            <Option value="location">Location</Option>
+    <div>
+      <Form form={form} onFinish={handleSubmit} layout="vertical" style={{ maxWidth: '800px', margin: 'auto' }}>
+        <Form.Item name="taskName" rules={[{ required: true, message: 'Please enter the task name' }]}>
+          <Input placeholder="Task Name" />
+        </Form.Item>
+        <Form.Item name="description" rules={[{ required: true, message: 'Please enter the description' }]}>
+          <Input.TextArea placeholder="Description" />
+        </Form.Item>
+        <Form.Item name="assignee" rules={[{ required: true, message: 'Please select an assignee' }]}>
+          <Select placeholder="Select Assignee">
+            {assignees.map((person, index) => (
+              <Option key={index} value={person}>{person}</Option>
+            ))}
           </Select>
-        </Card>
+        </Form.Item>
+        <Form.Item name="deadline" rules={[{ required: true, message: 'Please select the deadline' }]}>
+          <Input type="date" />
+        </Form.Item>
+        <Form.Item name="priority">
+          <Select defaultValue="Medium">
+            {priorities.map((level, index) => (
+              <Option key={index} value={level}>{level}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">Add Task</Button>
+        </Form.Item>
+      </Form>
 
-        <Card title="Feedback Analysis and Insights" bordered={false} style={{ marginBottom: '24px' }}>
-          <List
-            dataSource={feedbackList}
-            renderItem={(item, index) => (
-              <List.Item key={index}>
-                <List.Item.Meta
-                  title={<div>Rating: {item.rating}</div>}
-                  description={item.feedback}
-                />
-                <Badge status={item.rating >= 4 ? 'success' : 'warning'} />
-              </List.Item>
-            )}
-          />
-        </Card>
+      <ReactECharts option={chartOption} style={{ height: '400px', width: '100%' }} />
+      
+      <div>
+        <Title level={3}>Task List</Title>
+        <ul>
+          {tasks.map((task, index) => (
+            <li key={index}>
+              <span>{task.taskName} - {task.assignee} - {task.deadline} - {task.priority}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-        <Card title="User Engagement Features" bordered={false}>
-          <Progress percent={feedbackList.length * 10} />
-          <p style={{ marginTop: '16px' }}>Submit feedback to earn badges!</p>
-        </Card>
+const TaskProgressChart = () => {
+  const [chartData, setChartData] = useState({
+    completed: 0,
+    inProgress: 0,
+    pending: 0,
+  });
+
+  const updateChartData = () => {
+    const totalTasks = 100;
+    const completedTasks = Math.floor(Math.random() * totalTasks);
+    const inProgressTasks = Math.floor(Math.random() * (totalTasks - completedTasks));
+    const pendingTasks = totalTasks - completedTasks - inProgressTasks;
+
+    setChartData({
+      completed: completedTasks,
+      inProgress: inProgressTasks,
+      pending: pendingTasks,
+    });
+  };
+
+  useEffect(() => {
+    updateChartData();
+    const interval = setInterval(() => {
+      updateChartData();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getOption = () => {
+    return {
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)',
+      },
+      series: [
+        {
+          name: 'Task Progress',
+          type: 'pie',
+          radius: '50%',
+          data: [
+            { value: chartData.completed, name: 'Completed' },
+            { value: chartData.inProgress, name: 'In Progress' },
+            { value: chartData.pending, name: 'Pending' },
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)',
+            },
+          },
+        },
+      ],
+    };
+  };
+
+  return (
+    <div>
+      <ReactECharts option={getOption()} style={{ height: '600px', width: '100%' }} />
+    </div>
+  );
+};
+
+const TaskManagerContainer = () => {
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+      <Header style={{ background: '#fff', padding: '0 50px' }}>
+        <Title>Task Manager</Title>
+      </Header>
+      <Content style={{ padding: '0 50px', marginTop: '20px' }}>
+        <Row gutter={16}>
+          <Col span={12}>
+            <TaskForm />
+          </Col>
+          <Col span={12}>
+            <TaskProgressChart />
+          </Col>
+        </Row>
+        <TaskList />
       </Content>
     </Layout>
   );
 };
 
-export default FeedbackPage;
+export default TaskManagerContainer;
 
-****File PATH: EventDetailPage.js****
+
+****File PATH: components/ComplianceReportContainer.js****
 
 import React, { useState } from 'react';
-import { Layout, Menu, Breadcrumb, Card, Form, Input, Button, Checkbox, Table, Slider, Alert } from 'antd';
-import { PieChartOutlined, DollarOutlined, CalendarOutlined, CheckSquareOutlined } from '@ant-design/icons';
 import ReactECharts from 'echarts-for-react';
+import Select from 'react-select';
+import { Button, Input, Table, notification, Layout, Typography } from 'antd';
+import { saveAs } from 'file-saver';
+import "antd/dist/reset.css";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
+const { Title } = Typography;
 
-const dummyMilestones = [
-  { name: 'Venue Booked', date: '2023-01-10' },
-  { name: 'Vendors Confirmed', date: '2023-02-15' },
-  { name: 'Final Payments Due', date: '2023-03-30' },
+// Dummy data for compliance items
+const dummyData = [
+  { id: 1, name: "Compliance Item 1", dueDate: "2023-10-15", status: "in-progress" },
+  { id: 2, name: "Compliance Item 2", dueDate: "2023-10-20", status: "not-started" },
+  { id: 3, name: "Compliance Item 3", dueDate: "2023-10-22", status: "completed" },
+  { id: 4, name: "Compliance Item 4", dueDate: "2023-10-25", status: "not-started" }
 ];
 
-const dummyVendors = [
-  { key: '1', name: 'Vendor A', price: 1000, rating: 4.5, services: 'Catering' },
-  { key: '2', name: 'Vendor B', price: 1500, rating: 4.0, services: 'Decor' },
-  { key: '3', name: 'Vendor C', price: 1200, rating: 4.2, services: 'Music' },
+// Dummy data for reports
+const dummyReports = [
+  { id: 1, name: 'Compliance Report Q1', date: '2023-01-15', status: 'Completed', description: 'Quarterly compliance report for Q1' },
+  { id: 2, name: 'Compliance Report Q2', date: '2023-04-20', status: 'Completed', description: 'Quarterly compliance report for Q2' },
+  { id: 3, name: 'Compliance Report Q3', date: '2023-07-25', status: 'In Progress', description: 'Quarterly compliance report for Q3' },
+  { id: 4, name: 'Compliance Report Q4', date: '2023-10-10', status: 'Pending', description: 'Quarterly compliance report for Q4' }
 ];
 
-const dummyClientPreferences = {
-  catering: 50,
-  decor: 30,
-  music: 20,
-};
+// Project, metrics, and timeframe data for dynamic report generator
+const projectsData = [
+  { value: 'project1', label: 'Project 1' },
+  { value: 'project2', label: 'Project 2' },
+  { value: 'project3', label: 'Project 3' }
+];
 
-const EventDetailPage = () => {
-  const [budget, setBudget] = useState({ venue: 0, catering: 0, decor: 0 });
-  const [checklist, setChecklist] = useState(['Book venue', 'Hire caterer', 'Order flowers']);
-  const [newTask, setNewTask] = useState('');
+const metricsData = [
+  { value: 'safety', label: 'Safety' },
+  { value: 'quality', label: 'Quality' }
+];
 
-  const budgetTotal = Object.values(budget).reduce((acc, cur) => acc + Number(cur), 0);
+const timeframesData = [
+  { value: 'daily', label: 'Daily' },
+  { value: 'weekly', label: 'Weekly' },
+  { value: 'monthly', label: 'Monthly' },
+  { value: 'yearly', label: 'Yearly' }
+];
 
-  const timelineOption = {
-    xAxis: { type: 'category', data: dummyMilestones.map(m => m.name) },
-    yAxis: { type: 'value' },
-    series: [{ data: dummyMilestones.map(m => new Date(m.date).getTime()), type: 'bar' }],
+const ComplianceReportContainer = () => {
+  const [items, setItems] = useState(dummyData);
+  const [reportHistory, setReportHistory] = useState([]);
+  const [selectedProjects, setSelectedProjects] = useState([]);
+  const [selectedMetrics, setSelectedMetrics] = useState([]);
+  const [selectedTimeframe, setSelectedTimeframe] = useState(null);
+  const [chartData, setChartData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredReports, setFilteredReports] = useState(dummyReports);
+
+  const handleStatusChange = id => {
+    setItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, status: item.status === 'completed' ? 'in-progress' : 'completed' } : item
+      )
+    );
   };
 
-  const preferenceOption = {
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const newReport = {
+      id: reportHistory.length + 1,
+      projectType: selectedProjects.map(p => p.label).join(', '),
+      date: new Date().toISOString().split('T')[0],
+      metrics: selectedMetrics.map(m => m.label).join(', '),
+      timeframe: selectedTimeframe?.label || ''
+    };
+
+    setReportHistory([...reportHistory, newReport]);
+    notification.success({ message: 'Report generated successfully!' });
+    fetchChartData();
+  };
+
+  const fetchChartData = () => {
+    const dummyChartData = [
+      { date: '2023-01', compliance: Math.random() * 100 },
+      { date: '2023-02', compliance: Math.random() * 100 },
+      { date: '2023-03', compliance: Math.random() * 100 },
+      { date: '2023-04', compliance: Math.random() * 100 },
+      { date: '2023-05', compliance: Math.random() * 100 }
+    ];
+    setChartData(dummyChartData);
+  };
+
+  const getOption = () => {
+    return {
+      title: { text: 'Compliance Data Over Time' },
+      tooltip: {},
+      xAxis: { type: 'category', data: chartData.map(data => data.date) },
+      yAxis: { type: 'value' },
+      series: [{ name: 'Compliance', type: 'line', data: chartData.map(data => data.compliance) }]
+    };
+  };
+
+  const handleSearch = event => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    const filtered = dummyReports.filter(report => report.name.toLowerCase().includes(value.toLowerCase()));
+    setFilteredReports(filtered);
+  };
+
+  const handleDownload = report => {
+    const blob = new Blob([report.description], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, `${report.name}.txt`);
+  };
+
+  const getChartOption = () => {
+    return {
+      title: { text: 'Report Generation Trends' },
+      tooltip: {},
+      xAxis: { data: ['Q1', 'Q2', 'Q3', 'Q4'] },
+      yAxis: {},
+      series: [{ name: 'Reports', type: 'bar', data: [1, 1, 1, 1] }]
+    };
+  };
+
+  const columns = [
+    { title: 'Report Name', dataIndex: 'name', key: 'name' },
+    { title: 'Date Generated', dataIndex: 'date', key: 'date' },
+    { title: 'Status', dataIndex: 'status', key: 'status' },
+    { title: 'Description', dataIndex: 'description', key: 'description' },
+    {
+      title: 'Actions',
+      key: 'actions',
+      render: (_, report) => <Button onClick={() => handleDownload(report)}>Download</Button>
+    }
+  ];
+
+  return (
+    <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
+      <Header style={{ backgroundColor: '#001529', padding: '0 50px' }}>
+        <Title style={{ color: '#fff', lineHeight: '64px' }}>Compliance Report Management</Title>
+      </Header>
+      <Content style={{ padding: '50px' }}>
+        <div>
+          <Title level={2}>Compliance Checklist</Title>
+          <Select
+            options={[
+              { value: 'all', label: 'All' },
+              { value: 'completed', label: 'Completed' },
+              { value: 'in-progress', label: 'In Progress' }
+            ]}
+            defaultValue={{ value: 'all', label: 'All' }}
+            onChange={e => handleStatusChange(e.value)}
+          />
+          <ul>
+            {items.map(item => (
+              <li key={item.id}>
+                <span>{item.name} - Due: {item.dueDate} - Status: {item.status}</span>
+                <Button type="link" onClick={() => handleStatusChange(item.id)}>
+                  Mark as {item.status === 'completed' ? 'In Progress' : 'Completed'}
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <Title level={2}>Report Generator</Title>
+          <form onSubmit={handleSubmit}>
+            <Select
+              isMulti
+              options={projectsData}
+              onChange={setSelectedProjects}
+              placeholder="Select Projects"
+              style={{ marginBottom: '10px', width: '300px' }}
+            />
+            <Select
+              isMulti
+              options={metricsData}
+              onChange={setSelectedMetrics}
+              placeholder="Select Metrics"
+              style={{ marginBottom: '10px', width: '300px' }}
+            />
+            <Select
+              options={timeframesData}
+              onChange={setSelectedTimeframe}
+              placeholder="Select Timeframe"
+              style={{ marginBottom: '10px', width: '300px' }}
+            />
+            <Button type="primary" htmlType="submit">Generate Report</Button>
+          </form>
+        </div>
+
+        <div>
+          <Title level={2}>Report History</Title>
+          <Input.Search
+            value={searchTerm}
+            onChange={handleSearch}
+            placeholder="Search reports..."
+            style={{ marginBottom: '20px', width: '300px' }}
+          />
+          <Table dataSource={filteredReports} columns={columns} rowKey="id" />
+        </div>
+
+        <div>
+          <Title level={2}>Data Visualization</Title>
+          <ReactECharts option={getOption()} style={{ height: '400px', width: '100%' }} />
+          <ReactECharts option={getChartOption()} style={{ height: '400px', width: '100%' }} />
+        </div>
+      </Content>
+    </Layout>
+  );
+};
+
+export default ComplianceReportContainer;
+
+
+****File PATH: components/BudgetTrackingPage.js****
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ReactECharts from 'echarts-for-react';
+import { Input, Button, Form, Select, DatePicker, Typography, Layout, Card, Space, Divider } from 'antd';
+import jsPDF from 'jspdf';
+import "antd/dist/reset.css";
+
+const { Title, Text } = Typography;
+const { Header, Content } = Layout;
+const { Option } = Select;
+
+// BudgetForm Component
+const BudgetForm = ({ updateBudget }) => {
+  const [expenseName, setExpenseName] = useState('');
+  const [category, setCategory] = useState('');
+  const [amount, setAmount] = useState('');
+  const [date, setDate] = useState(null);
+  const [categories] = useState(['Food', 'Transport', 'Utilities', 'Entertainment']);
+  const [suggestions, setSuggestions] = useState([]);
+
+  const handleCategoryChange = (value) => {
+    setCategory(value);
+    setSuggestions(categories.filter(cat => cat.toLowerCase().includes(value.toLowerCase())));
+  };
+
+  const handleSubmit = () => {
+    if (!expenseName || !category || !amount || !date) {
+      alert('All fields are required!');
+      return;
+    }
+    if (isNaN(amount) || Number(amount) <= 0) {
+      alert('Amount must be a positive number!');
+      return;
+    }
+
+    const newEntry = {
+      name: expenseName,
+      category,
+      amount: Number(amount),
+      date: date.format('MM/DD/YYYY')
+    };
+
+    updateBudget(newEntry);
+    setExpenseName('');
+    setCategory('');
+    setAmount('');
+    setDate(null);
+    setSuggestions([]);
+  };
+
+  return (
+    <Card title="Add New Expense" bordered={false} style={{ marginBottom: '20px' }}>
+      <Form layout="vertical" onFinish={handleSubmit}>
+        <Form.Item label="Expense Name" required>
+          <Input value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
+        </Form.Item>
+        <Form.Item label="Category" required>
+          <Select
+            showSearch
+            value={category}
+            onChange={handleCategoryChange}
+            filterOption={false}
+            notFoundContent={null}
+          >
+            {suggestions.map((suggestion, index) => (
+              <Option key={index} value={suggestion}>{suggestion}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item label="Amount" required>
+          <Input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
+        </Form.Item>
+        <Form.Item label="Date" required>
+          <DatePicker value={date} onChange={setDate} style={{ width: '100%' }} />
+        </Form.Item>
+        <Button type="primary" htmlType="submit">Submit</Button>
+      </Form>
+    </Card>
+  );
+};
+
+// BudgetOverview Component
+const BudgetOverview = ({ budgetEntries }) => {
+  const totalBudget = 10000;
+  const expenditures = budgetEntries.reduce((total, entry) => total + entry.amount, 0);
+  const remainingBudget = totalBudget - expenditures;
+
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    doc.text("Budget Overview", 10, 10);
+    doc.text(`Total Budget: $${totalBudget}`, 10, 20);
+    doc.text(`Total Expenditures: $${expenditures}`, 10, 30);
+    doc.text(`Remaining Budget: $${remainingBudget}`, 10, 40);
+    budgetEntries.forEach((entry, index) => {
+      doc.text(`${entry.name} - ${entry.category}: $${entry.amount}`, 10, 50 + (index * 10));
+    });
+    doc.save('budget_overview.pdf');
+  };
+
+  const categories = budgetEntries.reduce((acc, entry) => {
+    const existingCategory = acc.find(cat => cat.name === entry.category);
+    if (existingCategory) {
+      existingCategory.value += entry.amount;
+    } else {
+      acc.push({ name: entry.category, value: entry.amount });
+    }
+    return acc;
+  }, []);
+
+  const getPieChartOption = () => ({
+    title: { text: 'Expenditure Distribution', left: 'center' },
+    tooltip: { trigger: 'item' },
     series: [
       {
+        name: 'Categories',
         type: 'pie',
-        data: Object.entries(dummyClientPreferences).map(([key, value]) => ({ value, name: key })),
+        radius: '50%',
+        data: categories,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
       },
+    ],
+  });
+
+  return (
+    <Card title="Budget Overview" bordered={false} style={{ marginBottom: '20px' }}>
+      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Text>Total Budget: ${totalBudget}</Text>
+        <Text>Total Expenditures: ${expenditures}</Text>
+        <Text>Remaining Budget: ${remainingBudget}</Text>
+        <Button onClick={generatePDF}>Download Report</Button>
+        <ReactECharts option={getPieChartOption()} style={{ height: '400px', width: '100%' }} />
+      </Space>
+    </Card>
+  );
+};
+
+// BudgetVisualization Component
+const BudgetVisualization = ({ budgetEntries }) => {
+  const [chartType, setChartType] = useState('bar');
+  const dummyData = {
+    categories: budgetEntries.map(entry => ({ name: entry.category, value: entry.amount })),
+    historicalBudgets: [
+      { month: 'January', value: 1300 },
+      { month: 'February', value: 1200 },
+      { month: 'March', value: 1400 },
     ],
   };
 
-  const handleBudgetChange = (field, value) => {
-    setBudget({ ...budget, [field]: value });
-  };
-
-  const handleAddTask = () => {
-    if (newTask) {
-      setChecklist([...checklist, newTask]);
-      setNewTask('');
+  const getOption = () => {
+    switch (chartType) {
+      case 'pie':
+        return {
+          series: [{ type: 'pie', data: dummyData.categories }],
+        };
+      case 'line':
+        return {
+          xAxis: { type: 'category', data: dummyData.historicalBudgets.map(b => b.month) },
+          yAxis: {},
+          series: [{ type: 'line', data: dummyData.historicalBudgets.map(b => b.value) }],
+        };
+      default:
+        return {
+          xAxis: { type: 'category', data: dummyData.categories.map(c => c.name) },
+          yAxis: {},
+          series: [{ type: 'bar', data: dummyData.categories.map(c => c.value) }],
+        };
     }
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="1" icon={<PieChartOutlined />}>Timeline</Menu.Item>
-          <Menu.Item key="2" icon={<DollarOutlined />}>Budget</Menu.Item>
-          <Menu.Item key="3" icon={<CalendarOutlined />}>Vendors</Menu.Item>
-          <Menu.Item key="4" icon={<CheckSquareOutlined />}>Checklist</Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout>
-        <Header style={{ padding: 0 }} />
-        <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Event</Breadcrumb.Item>
-            <Breadcrumb.Item>Details</Breadcrumb.Item>
-          </Breadcrumb>
-          <div style={{ padding: 24, minHeight: 360 }}>
-            <Card title="Interactive Timeline" bordered={false}>
-              <ReactECharts option={timelineOption} style={{ height: 300 }} />
-            </Card>
-            <Card title="Budget Calculator" bordered={false}>
-              <Form layout="vertical">
-                <Form.Item label="Venue">
-                  <Input prefix="$" value={budget.venue} onChange={(e) => handleBudgetChange('venue', e.target.value)} />
-                </Form.Item>
-                <Form.Item label="Catering">
-                  <Input prefix="$" value={budget.catering} onChange={(e) => handleBudgetChange('catering', e.target.value)} />
-                </Form.Item>
-                <Form.Item label="Decor">
-                  <Input prefix="$" value={budget.decor} onChange={(e) => handleBudgetChange('decor', e.target.value)} />
-                </Form.Item>
-                <Form.Item>
-                  <Alert message={`Total Budget: $${budgetTotal}`} type="info" showIcon />
-                </Form.Item>
-              </Form>
-            </Card>
-            <Card title="Vendor Comparison Tool" bordered={false}>
-              <Table dataSource={dummyVendors} columns={[
-                { title: 'Name', dataIndex: 'name', key: 'name' },
-                { title: 'Price', dataIndex: 'price', key: 'price' },
-                { title: 'Rating', dataIndex: 'rating', key: 'rating' },
-                { title: 'Services', dataIndex: 'services', key: 'services' }
-              ]} />
-            </Card>
-            <Card title="Client Preferences Dashboard" bordered={false}>
-              <ReactECharts option={preferenceOption} style={{ height: 300 }} />
-            </Card>
-            <Card title="Event Checklist" bordered={false}>
-              <Form layout="inline" onFinish={handleAddTask}>
-                <Form.Item>
-                  <Input placeholder="New Task" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
-                </Form.Item>
-                <Form.Item>
-                  <Button type="primary" htmlType="submit">Add</Button>
-                </Form.Item>
-              </Form>
-              <div style={{ marginTop: 16 }}>
-                {checklist.map((task, index) => (
-                  <Checkbox key={index} style={{ display: 'block', margin: '8px 0' }}>{task}</Checkbox>
-                ))}
-              </div>
-            </Card>
-          </div>
-        </Content>
-      </Layout>
-    </Layout>
+    <Card title="Budget Visualization" bordered={false}>
+      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Select value={chartType} onChange={setChartType}>
+          <Option value="bar">Bar Chart</Option>
+          <Option value="pie">Pie Chart</Option>
+          <Option value="line">Line Graph</Option>
+        </Select>
+        <ReactECharts option={getOption()} style={{ height: '400px', width: '100%' }} />
+      </Space>
+    </Card>
   );
 };
 
-export default EventDetailPage;
+// Main BudgetTrackingPage Component
+const BudgetTrackingPage = () => {
+  const [budgetEntries, setBudgetEntries] = useState([]);
+  const navigate = useNavigate();
 
-
-****File PATH: EventDashboard.js****
-
-import React, { useState } from 'react';
-import { Layout, Menu, Button, Modal, Input, Timeline, Card, Row, Col, Badge, notification } from 'antd';
-import { BellOutlined, SearchOutlined, PlusOutlined } from '@ant-design/icons';
-import EChartsReact from 'echarts-for-react';
-import 'antd/dist/reset.css';
-
-const { Header, Content, Sider } = Layout;
-
-// Dummy data for events
-const eventsData = [
-  { id: 1, name: 'Event 1', start: '2023-10-01', end: '2023-10-05', budget: 5000, spent: 3000, status: 'On Track' },
-  { id: 2, name: 'Event 2', start: '2023-10-10', end: '2023-10-15', budget: 8000, spent: 5000, status: 'Delayed' },
-];
-
-const EventDashboard = () => {
-  const [visible, setVisible] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [notifications, setNotifications] = useState([
-    { id: 1, message: 'Budget updated for Event 1', date: '2023-10-02' },
-    { id: 2, message: 'Event 2 is delayed', date: '2023-10-11' },
-  ]);
-
-  const showEventDetails = (event) => {
-    setSelectedEvent(event);
-    setVisible(true);
-  };
-
-  const hideEventDetails = () => {
-    setVisible(false);
-    setSelectedEvent(null);
-  };
-
-  const handleNotificationClick = () => {
-    notification.open({
-      message: 'Notifications',
-      description: notifications.map(n => <div key={n.id}>{n.message} - {n.date}</div>),
-    });
-  };
-
-  const budgetOptions = (event) => ({
-    title: { text: 'Budget Allocation' },
-    tooltip: { trigger: 'item' },
-    series: [
-      {
-        type: 'pie',
-        radius: '50%',
-        data: [
-          { value: event.spent, name: 'Spent' },
-          { value: event.budget - event.spent, name: 'Remaining' },
-        ],
-      },
-    ],
-  });
-
-  return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider width={200}>
-        <Menu mode="inline" style={{ height: '100%', borderRight: 0 }}>
-          <Menu.Item key="1">Dashboard</Menu.Item>
-          <Menu.Item key="2">Events</Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout>
-        <Header style={{ background: '#fff', padding: 0 }}>
-          <Row justify="space-between" align="middle">
-            <Col>
-              <Input prefix={<SearchOutlined />} placeholder="Search events" style={{ width: 200 }} />
-            </Col>
-            <Col>
-              <Badge count={notifications.length}>
-                <BellOutlined style={{ fontSize: '24px' }} onClick={handleNotificationClick} />
-              </Badge>
-            </Col>
-          </Row>
-        </Header>
-        <Content style={{ padding: '24px', background: '#fff' }}>
-          <Row gutter={16}>
-            {eventsData.map(event => (
-              <Col span={8} key={event.id}>
-                <Card
-                  title={event.name}
-                  extra={<Button type="link" onClick={() => showEventDetails(event)}>Details</Button>}
-                >
-                  <p>Status: {event.status}</p>
-                  <EChartsReact option={budgetOptions(event)} style={{ height: '200px' }} />
-                </Card>
-              </Col>
-            ))}
-          </Row>
-          <Timeline mode="alternate" style={{ marginTop: '24px' }}>
-            {eventsData.map(event => (
-              <Timeline.Item key={event.id}>
-                {event.name}: {event.start} to {event.end}
-              </Timeline.Item>
-            ))}
-          </Timeline>
-        </Content>
-      </Layout>
-    </Layout>
-  );
-};
-
-export default EventDashboard;
-
-****File PATH: ClientProfilePage.js****
-
-import React, { useState } from 'react';
-import { Layout, Card, Table, Form, Input, Button, Switch, DatePicker, Modal, Tooltip, List, Typography, Alert, Space } from 'antd';
-import { LineChart, BarChart } from 'echarts-for-react';
-import moment from 'moment';
-
-const { Content } = Layout;
-const { Title } = Typography;
-
-const ClientProfilePage = () => {
-  // Dummy data
-  const clientMetrics = [
-    { key: '1', metric: 'Satisfaction Score', value: 85 },
-    { key: '2', metric: 'Last Contact', value: '2 days ago' },
-    { key: '3', metric: 'Next Follow-up', value: '3 days' }
-  ];
-
-  const communicationLogs = [
-    { key: '1', type: 'Email', date: '2023-10-01', participants: 'John Doe' },
-    { key: '2', type: 'Call', date: '2023-10-05', participants: 'Jane Smith' },
-  ];
-
-  const feedbackData = {
-    satisfactionTrends: [
-      ['2023-01', 80], ['2023-02', 85], ['2023-03', 90]
-    ],
-    feedbackCategories: [
-      { category: 'Service', score: 70 },
-      { category: 'Product', score: 80 }
-    ]
-  };
-
-  const [preferences, setPreferences] = useState({
-    contactMethod: 'Email',
-    communicationFrequency: 'Weekly'
-  });
-
-  const [tasks, setTasks] = useState([
-    { key: '1', task: 'Follow-up with client', dueDate: '2023-10-10', priority: 'High' }
-  ]);
-
-  const handleTaskAdd = (task) => {
-    setTasks([...tasks, { ...task, key: tasks.length + 1 }]);
-  };
-
-  const columns = [
-    {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-    },
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: 'Participants',
-      dataIndex: 'participants',
-      key: 'participants',
-    },
-  ];
-
-  // Feedback chart options
-  const lineChartOption = {
-    xAxis: {
-      type: 'category',
-      data: feedbackData.satisfactionTrends.map(item => item[0])
-    },
-    yAxis: {
-      type: 'value'
-    },
-    series: [{
-      data: feedbackData.satisfactionTrends.map(item => item[1]),
-      type: 'line'
-    }]
-  };
-
-  const barChartOption = {
-    xAxis: {
-      type: 'category',
-      data: feedbackData.feedbackCategories.map(item => item.category)
-    },
-    yAxis: {
-      type: 'value'
-    },
-    series: [{
-      data: feedbackData.feedbackCategories.map(item => item.score),
-      type: 'bar'
-    }]
+  const updateBudget = (newEntry) => {
+    setBudgetEntries([...budgetEntries, newEntry]);
   };
 
   return (
-    <Layout style={{ backgroundColor: '#f0f2f5', height: '100vh', padding: '20px' }}>
-      <Content>
-        <Title level={2}>Client Overview Dashboard</Title>
-        <Space direction="vertical" size="large" style={{ display: 'flex' }}>
-          {clientMetrics.map(metric => (
-            <Card key={metric.key} title={metric.metric} bordered={false}>
-              <Tooltip title={`Details for ${metric.metric}`}>
-                <p>{metric.value}</p>
-              </Tooltip>
-            </Card>
-          ))}
-          
-          <Alert message="Upcoming Follow-up: 3 days" type="info" showIcon />
-
-          <Title level={3}>Interactive Communication Log</Title>
-          <Table columns={columns} dataSource={communicationLogs} pagination={{ pageSize: 5 }} />
-
-          <Title level={3}>Feedback Metrics Visualization</Title>
-          <LineChart option={lineChartOption} style={{ height: 300, width: '100%' }} />
-          <BarChart option={barChartOption} style={{ height: 300, width: '100%' }} />
-
-          <Title level={3}>Client Preferences Customization</Title>
-          <Form layout="vertical">
-            <Form.Item label="Preferred Contact Method">
-              <Input value={preferences.contactMethod} onChange={e => setPreferences({ ...preferences, contactMethod: e.target.value })} />
-            </Form.Item>
-            <Form.Item label="Communication Frequency">
-              <Input value={preferences.communicationFrequency} onChange={e => setPreferences({ ...preferences, communicationFrequency: e.target.value })} />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" onClick={() => Modal.success({ content: 'Preferences updated successfully!' })}>Save Preferences</Button>
-            </Form.Item>
-          </Form>
-
-          <Title level={3}>Task Management Tool</Title>
-          <List
-            bordered
-            dataSource={tasks}
-            renderItem={item => (
-              <List.Item>
-                <Typography.Text mark>{item.priority}</Typography.Text> {item.task} - Due: {moment(item.dueDate).format('YYYY-MM-DD')}
-              </List.Item>
-            )}
-          />
-          <Button type="dashed" onClick={() => handleTaskAdd({ task: 'New Task', dueDate: '2023-10-12', priority: 'Medium' })}>Add Task</Button>
+    <Layout style={{ width: '1920px', height: '1080px', background: '#f0f2f5' }}>
+      <Header style={{ background: '#001529', padding: '0 20px' }}>
+        <Title level={2} style={{ color: '#fff', margin: '16px 0' }}>Budget Tracking</Title>
+        <Button type="primary" onClick={() => navigate('/home')}>Go to Home</Button>
+      </Header>
+      <Content style={{ padding: '20px' }}>
+        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+          <BudgetForm updateBudget={updateBudget} />
+          <BudgetOverview budgetEntries={budgetEntries} />
+          <BudgetVisualization budgetEntries={budgetEntries} />
         </Space>
       </Content>
     </Layout>
   );
 };
 
-export default ClientProfilePage;
+export default BudgetTrackingPage;
 
-****File PATH: CommunicationLogPage.js****
 
-import React, { useState } from 'react';
-import { Layout, Menu, Card, Modal, Button, Form, Input, Select, Tooltip, notification } from 'antd';
-import { BellOutlined, PlusOutlined } from '@ant-design/icons';
+****File PATH: components/ExperimentalResults.js****
+
+import React, { useState, useEffect } from 'react';
 import ReactECharts from 'echarts-for-react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Input, Select, Table, Form, DatePicker, Checkbox, InputNumber, notification } from 'antd';
+import "antd/dist/reset.css";
 
-const { Header, Content, Sider } = Layout;
 const { Option } = Select;
+const { TextArea } = Input;
 
-export default function CommunicationLogPage() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [notifications, setNotifications] = useState([
-    { id: 1, message: 'Follow up with Client A', overdue: true },
-    { id: 2, message: 'Overdue: Meeting with Client B', overdue: true },
-  ]);
+const ExperimentalResults = () => {
+    const navigate = useNavigate();
+    const [results, setResults] = useState([]);
+    const [feedback, setFeedback] = useState({ rating: 0, comment: '' });
+    const [notifications, setNotifications] = useState([]);
+    const [points, setPoints] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortOrder, setSortOrder] = useState('asc');
+    const [loading, setLoading] = useState(false);
+    const [theme, setTheme] = useState('light');
 
-  const openNotification = (message) => {
-    notification.open({
-      message: 'Notification',
-      description: message,
-      icon: <BellOutlined style={{ color: '#E74C3C' }} />,
-    });
-  };
+    const dummyData = [
+        { id: 1, name: "Experiment A", date: "2023-01-01", parameters: "pH: 7, Temp: 25", outcome: "Success", favorite: false },
+        { id: 2, name: "Experiment B", date: "2023-01-02", parameters: "pH: 6, Temp: 30", outcome: "Failure", favorite: false },
+        { id: 3, name: "Experiment C", date: "2023-01-03", parameters: "pH: 8, Temp: 22", outcome: "Success", favorite: false },
+    ];
 
-  const handleNotificationClick = (id) => {
-    const notification = notifications.find((note) => note.id === id);
-    openNotification(notification.message);
-  };
+    useEffect(() => {
+        setResults(dummyData);
+    }, []);
 
-  const handleLogCommunication = () => {
-    setIsModalVisible(true);
-  };
+    const handleSubmit = async (formData) => {
+        setLoading(true);
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            setResults([...results, { ...formData, id: results.length + 1, favorite: false }]);
+            notification.success({ message: 'Result added successfully!' });
+        } catch {
+            notification.error({ message: 'Submission failed' });
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+    const toggleFavorite = (id) => {
+        const updatedResults = results.map(result => 
+            result.id === id ? { ...result, favorite: !result.favorite } : result
+        );
+        setResults(updatedResults);
+    };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-    notification.success({
-      message: 'Communication Logged',
-      description: 'Your communication has been logged successfully.',
-    });
-  };
+    const deleteResult = (id) => {
+        const updatedResults = results.filter(result => result.id !== id);
+        setResults(updatedResults);
+    };
 
-  const chartOptions = {
-    title: {
-      text: 'Communication Frequency',
-      left: 'center',
-    },
-    tooltip: {
-      trigger: 'item',
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [
-      {
-        data: [120, 200, 150, 80, 70, 110, 130],
-        type: 'bar',
-        showBackground: true,
-        backgroundStyle: {
-          color: 'rgba(180, 180, 180, 0.2)',
+    const filteredResults = results.filter(result => 
+        result.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const sortedResults = [...filteredResults].sort((a, b) => 
+        sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date)
+    );
+
+    const chartData = {
+        xAxis: {
+            type: 'category',
+            data: sortedResults.map(result => result.name),
         },
-      },
-    ],
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: sortedResults.map(result => result.favorite ? 1 : 0),
+            type: 'bar'
+        }]
+    };
+
+    const handleFeedbackChange = (name, value) => {
+        setFeedback({ ...feedback, [name]: value });
+    };
+
+    const submitFeedback = () => {
+        const newNotification = `Rating: ${feedback.rating}, Comment: ${feedback.comment}`;
+        setNotifications([...notifications, newNotification]);
+        setFeedback({ rating: 0, comment: '' });
+        notification.success({ message: 'Feedback submitted successfully!' });
+    };
+
+    const toggleTheme = () => {
+        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    };
+
+    return (
+        <div style={{ padding: '20px', width: '800px', background: theme === 'light' ? '#fff' : '#333', color: theme === 'light' ? '#000' : '#fff' }}>
+            <h1>Experimental Results Management</h1>
+            <Button onClick={toggleTheme} type="primary" style={{ marginBottom: '20px' }}>Toggle Theme</Button>
+            <ResultsForm onSubmit={handleSubmit} loading={loading} />
+            <Input
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{ marginBottom: '20px', width: '300px' }}
+            />
+            <Select onChange={(value) => setSortOrder(value)} value={sortOrder} style={{ marginBottom: '20px', width: '200px' }}>
+                <Option value="asc">Sort by Date Ascending</Option>
+                <Option value="desc">Sort by Date Descending</Option>
+            </Select>
+            <ResultsList results={sortedResults} onToggleFavorite={toggleFavorite} onDelete={deleteResult} />
+            <ReactECharts option={chartData} style={{ height: '400px', marginTop: '20px' }} />
+            <div style={{ marginTop: '20px' }}>
+                <h4>Feedback</h4>
+                <InputNumber min={1} max={5} placeholder="Rating (1-5)" value={feedback.rating} onChange={(value) => handleFeedbackChange('rating', value)} style={{ marginBottom: '10px', width: '200px' }} />
+                <TextArea placeholder="Comment" value={feedback.comment} onChange={(e) => handleFeedbackChange('comment', e.target.value)} rows={4} style={{ marginBottom: '10px' }} />
+                <Button onClick={submitFeedback} type="primary">Submit Feedback</Button>
+                <h4>Notifications</h4>
+                {notifications.map((note, index) => (
+                    <div key={index}>{note}</div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+const ResultsForm = ({ onSubmit, loading }) => {
+    const [formData, setFormData] = useState({
+        experimentName: '',
+        date: null,
+        parameters: [],
+        outcome: ''
+    });
+
+    const [errors, setErrors] = useState({});
+    const paramsOptions = ['pH: 7', 'Temp: 25', 'pH: 6', 'Temp: 30'];
+
+    const validate = (data) => {
+        const errors = {};
+        if (!data.experimentName) errors.experimentName = 'Experiment Name is required';
+        if (!data.date) errors.date = 'Date is required';
+        else if (data.date && data.date > new Date()) errors.date = 'Date cannot be in the future';
+        if (data.parameters.length === 0) errors.parameters = 'At least one parameter must be selected';
+        return errors;
+    };
+
+    const handleChange = (changedValues) => {
+        setFormData(prevState => ({ ...prevState, ...changedValues }));
+    };
+
+    const handleSubmit = async () => {
+        const validationErrors = validate(formData);
+        if (Object.keys(validationErrors).length) {
+            setErrors(validationErrors);
+            return;
+        }
+        await onSubmit(formData);
+        setFormData({ experimentName: '', date: null, parameters: [], outcome: '' });
+        setErrors({});
+    };
+
+    return (
+        <Form onFinish={handleSubmit} layout="vertical" style={{ padding: '10px', border: '1px solid #ccc', marginBottom: '20px' }}>
+            <h2>Add New Result</h2>
+            <Form.Item label="Experiment Name" validateStatus={errors.experimentName && 'error'} help={errors.experimentName}>
+                <Input value={formData.experimentName} onChange={e => handleChange({ experimentName: e.target.value })} />
+            </Form.Item>
+            <Form.Item label="Date" validateStatus={errors.date && 'error'} help={errors.date}>
+                <DatePicker value={formData.date} onChange={date => handleChange({ date })} style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item label="Parameters" validateStatus={errors.parameters && 'error'} help={errors.parameters}>
+                <Select mode="multiple" value={formData.parameters} onChange={value => handleChange({ parameters: value })}>
+                    {paramsOptions.map(param => (
+                        <Option key={param} value={param}>{param}</Option>
+                    ))}
+                </Select>
+            </Form.Item>
+            <Form.Item label="Outcome">
+                <TextArea value={formData.outcome} onChange={e => handleChange({ outcome: e.target.value })} rows={3} />
+            </Form.Item>
+            <Form.Item>
+                <Button type="primary" htmlType="submit" loading={loading}>
+                    {loading ? 'Submitting...' : 'Submit'}
+                </Button>
+            </Form.Item>
+        </Form>
+    );
+};
+
+const ResultsList = ({ results, onToggleFavorite, onDelete }) => {
+    const columns = [
+        { title: 'Experiment Name', dataIndex: 'name', key: 'name' },
+        { title: 'Date', dataIndex: 'date', key: 'date' },
+        { title: 'Parameters', dataIndex: 'parameters', key: 'parameters' },
+        { title: 'Outcome', dataIndex: 'outcome', key: 'outcome' },
+        {
+            title: 'Actions',
+            key: 'actions',
+            render: (_, record) => (
+                <>
+                    <Button onClick={() => onToggleFavorite(record.id)} type="link">
+                        {record.favorite ? '★' : '☆'}
+                    </Button>
+                    <Button onClick={() => onDelete(record.id)} type="link" danger>
+                        Delete
+                    </Button>
+                </>
+            ),
+        },
+    ];
+
+    return (
+        <Table columns={columns} dataSource={results} rowKey="id" pagination={false} />
+    );
+};
+
+export default ExperimentalResults;
+
+
+****File PATH: components/DashboardContainer.js****
+
+import React, { useState, useEffect } from 'react';
+import ReactECharts from 'echarts-for-react';
+import { Button, Modal, Select, Card, Col, Row, Typography, Badge, notification, Input } from 'antd';
+import { useDrag, useDrop } from 'react-dnd';
+import "antd/dist/reset.css";
+
+const { Title } = Typography;
+
+// Simulated data for demonstration
+const dummyProjects = [
+  {
+    id: 1,
+    name: 'Project Alpha',
+    completion: 70,
+    dueDate: '2023-09-30',
+    status: 'In Progress',
+    tasks: ['Task 1', 'Task 2', 'Task 3'],
+  },
+  {
+    id: 2,
+    name: 'Project Beta',
+    completion: 30,
+    dueDate: '2023-10-15',
+    status: 'Not Started',
+    tasks: ['Task 1', 'Task 2'],
+  },
+  {
+    id: 3,
+    name: 'Project Gamma',
+    completion: 90,
+    dueDate: '2023-08-20',
+    status: 'Completed',
+    tasks: ['Task 1', 'Task 2', 'Task 3', 'Task 4'],
+  },
+];
+
+// Project Card Component
+const ProjectCard = ({ project, index, moveProject, editProject }) => {
+  const [, ref] = useDrag(() => ({
+    type: 'PROJECT',
+    item: { index },
+  }));
+
+  const [, drop] = useDrop(() => ({
+    accept: 'PROJECT',
+    hover(item) {
+      if (item.index !== index) {
+        moveProject(item.index, index);
+        item.index = index;
+      }
+    },
+  }));
+
+  return (
+    <Card
+      ref={(node) => ref(drop(node))}
+      style={{ margin: '10px', width: 300 }}
+      hoverable
+      title={<a onClick={() => editProject(project.id)}>{project.name}</a>}
+    >
+      <ReactECharts
+        option={{
+          series: [{
+            type: 'pie',
+            radius: '50%',
+            data: [
+              { value: project.completion, name: 'Completed' },
+              { value: 100 - project.completion, name: 'Remaining' }
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)',
+              },
+            },
+          }],
+        }}
+        style={{ height: 150 }}
+      />
+      <p>Status: {project.status}</p>
+      <p>Due Date: {project.dueDate}</p>
+      <p>Completion: {project.completion}%</p>
+      <p>Tasks: {project.tasks.join(', ')}</p>
+    </Card>
+  );
+};
+
+// Project List Component
+const ProjectList = () => {
+  const [projects, setProjects] = useState(dummyProjects);
+
+  const moveProject = (fromIndex, toIndex) => {
+    const updatedProjects = [...projects];
+    const [movedProject] = updatedProjects.splice(fromIndex, 1);
+    updatedProjects.splice(toIndex, 0, movedProject);
+    setProjects(updatedProjects);
+  };
+
+  const editProject = (id) => {
+    const projectName = prompt('Edit project name:');
+    if (projectName) {
+      setProjects((prevProjects) =>
+        prevProjects.map((project) => (project.id === id ? { ...project, name: projectName } : project))
+      );
+    }
   };
 
   return (
-    <Layout style={{ minHeight: '100vh', fontFamily: 'Roboto, sans-serif' }}>
-      <Sider width={200} className="site-layout-background">
-        <Menu
-          mode="inline"
-          style={{ height: '100%', borderRight: 0 }}
-          defaultSelectedKeys={['1']}
-          items={[
-            { key: '1', label: 'Dashboard' },
-            { key: '2', label: 'Notifications' },
-            { key: '3', label: 'Settings' },
-          ]}
-        />
-      </Sider>
-      <Layout>
-        <Header style={{ background: '#2C3E50', padding: 0 }}>
-          <Tooltip title="Notifications">
-            <Button
-              shape="circle"
-              icon={<BellOutlined />}
-              style={{ float: 'right', margin: '16px', color: '#ECF0F1' }}
-              onClick={() => handleNotificationClick(notifications[0].id)}
-            />
-          </Tooltip>
-        </Header>
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-            <Card title="Communication Insights" bordered={false}>
-              <ReactECharts option={chartOptions} style={{ height: 400 }} />
-            </Card>
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={handleLogCommunication}
-              style={{ marginTop: '16px' }}
-            >
-              Log Communication
-            </Button>
-          </div>
-        </Content>
-      </Layout>
-
-      <Modal
-        title="Log New Communication"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okText="Submit"
-        cancelText="Cancel"
-      >
-        <Form layout="vertical">
-          <Form.Item label="Date" required>
-            <Input type="date" />
-          </Form.Item>
-          <Form.Item label="Client" required>
-            <Select placeholder="Select a client" allowClear>
-              <Option value="clientA">Client A</Option>
-              <Option value="clientB">Client B</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Type of Communication" required>
-            <Select placeholder="Select type" allowClear>
-              <Option value="email">Email</Option>
-              <Option value="meeting">Meeting</Option>
-              <Option value="call">Call</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Notes">
-            <Input.TextArea rows={4} />
-          </Form.Item>
-        </Form>
-      </Modal>
-    </Layout>
+    <Row gutter={[16, 16]} style={{ padding: '20px' }}>
+      {projects.map((project, index) => (
+        <Col key={project.id}>
+          <ProjectCard project={project} index={index} moveProject={moveProject} editProject={editProject} />
+        </Col>
+      ))}
+    </Row>
   );
-}
+};
+
+// Compliance Status Component
+const ComplianceStatus = () => {
+  const [complianceData, setComplianceData] = useState({
+    safety: [70, 80, 90],
+    ethics: [85, 75, 95],
+    regulations: [60, 80, 100],
+  });
+
+  const [historyData, setHistoryData] = useState({
+    safety: [
+      { date: '2023-01-01', score: 70 },
+      { date: '2023-02-01', score: 80 },
+      { date: '2023-03-01', score: 90 },
+    ],
+    ethics: [
+      { date: '2023-01-01', score: 85 },
+      { date: '2023-02-01', score: 75 },
+      { date: '2023-03-01', score: 95 },
+    ],
+    regulations: [
+      { date: '2023-01-01', score: 60 },
+      { date: '2023-02-01', score: 80 },
+      { date: '2023-03-01', score: 100 },
+    ],
+  });
+
+  const getRadarOption = () => {
+    return {
+      title: {
+        text: 'Compliance Status',
+      },
+      tooltip: {
+        trigger: 'item',
+      },
+      radar: {
+        indicator: [
+          { name: 'Safety', max: 100 },
+          { name: 'Ethics', max: 100 },
+          { name: 'Regulations', max: 100 },
+        ],
+      },
+      series: [
+        {
+          type: 'radar',
+          data: [
+            {
+              value: complianceData.safety,
+              name: 'Project 1',
+              itemStyle: {
+                color: complianceData.safety[0] > 75 ? 'green' : complianceData.safety[0] > 50 ? 'yellow' : 'red',
+              },
+            },
+            {
+              value: complianceData.ethics,
+              name: 'Project 2',
+              itemStyle: {
+                color: complianceData.ethics[0] > 75 ? 'green' : complianceData.ethics[0] > 50 ? 'yellow' : 'red',
+              },
+            },
+            {
+              value: complianceData.regulations,
+              name: 'Project 3',
+              itemStyle: {
+                color: complianceData.regulations[0] > 75 ? 'green' : complianceData.regulations[0] > 50 ? 'yellow' : 'red',
+              },
+            },
+          ],
+          areaStyle: {},
+        },
+      ],
+    };
+  };
+
+  const handleChartClick = (params) => {
+    const chartName = params.name.toLowerCase();
+    alert(`Compliance History for ${chartName.charAt(0).toUpperCase() + chartName.slice(1)}:\n` +
+      historyData[chartName].map(item => `${item.date}: ${item.score}`).join('\n'));
+  };
+
+  return (
+    <div style={{ width: '1920px', height: '500px' }}>
+      <ReactECharts
+        option={getRadarOption()}
+        onEvents={{ click: handleChartClick }}
+        style={{ height: '100%', width: '100%' }}
+      />
+    </div>
+  );
+};
+
+// Budget Overview Component
+const BudgetOverview = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [feedbackVisible, setFeedbackVisible] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
+
+  const dummyData = [
+    { projectName: "Project A", budget: 50000, spent: 30000 },
+    { projectName: "Project B", budget: 70000, spent: 90000 },
+    { projectName: "Project C", budget: 30000, spent: 20000 },
+    { projectName: "Project D", budget: 60000, spent: 50000 },
+  ];
+
+  const onSegmentClick = (params) => {
+    const project = dummyData[params.dataIndex];
+    setSelectedProject(project);
+    setModalVisible(true);
+  };
+
+  const getTooltipContent = (params) => {
+    const project = dummyData[params.dataIndex];
+    return `${project.projectName}<br/>Spent: $${project.spent} / Budget: $${project.budget}`;
+  };
+
+  const getOption = () => {
+    const seriesData = dummyData.map(item => ({
+      name: item.projectName,
+      value: item.budget,
+      itemStyle: {
+        color: item.spent > item.budget ? 'red' : 'green'
+      }
+    }));
+
+    return {
+      tooltip: {
+        formatter: getTooltipContent
+      },
+      series: [{
+        type: 'treemap',
+        data: seriesData,
+        label: {
+          show: true,
+          formatter: '{b}'
+        },
+        emphasis: {
+          label: {
+            show: true
+          }
+        }
+      }]
+    };
+  };
+
+  const handleFeedbackSubmit = () => {
+    setFeedbackVisible(false);
+    notification.success({ message: 'Feedback Submitted', description: 'Thank you for your feedback!' });
+  };
+
+  const handleNotificationClick = () => {
+    setNotificationCount(0);
+  };
+
+  return (
+    <div>
+      <div style={{ position: 'absolute', top: 20, right: 20 }}>
+        <Button onClick={handleNotificationClick}>
+          Notifications {notificationCount > 0 && `(${notificationCount})`}
+        </Button>
+        <Button onClick={() => setFeedbackVisible(true)} style={{ marginLeft: 10 }}>
+          Feedback
+        </Button>
+      </div>
+      <ReactECharts
+        option={getOption()}
+        onEvents={{ click: onSegmentClick }}
+        style={{ height: '80vh', width: '100%' }}
+      />
+      <Modal
+        title="Project Details"
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+      >
+        {selectedProject && (
+          <div>
+            <h3>{selectedProject.projectName}</h3>
+            <p>Budget: ${selectedProject.budget}</p>
+            <p>Spent: ${selectedProject.spent}</p>
+            <p>Status: {selectedProject.spent > selectedProject.budget ? 'Over Budget' : 'Under Budget'}</p>
+          </div>
+        )}
+      </Modal>
+      <Modal
+        title="Feedback"
+        visible={feedbackVisible}
+        onCancel={() => setFeedbackVisible(false)}
+        footer={[
+          <Button key="submit" type="primary" onClick={handleFeedbackSubmit}>
+            Submit
+          </Button>,
+        ]}
+      >
+        <Input.TextArea rows={4} placeholder="Let us know your thoughts on the budget allocation!" />
+      </Modal>
+    </div>
+  );
+};
+
+// Notifications Component
+const Notifications = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [filteredNotifications, setFilteredNotifications] = useState([]);
+  const [filterType, setFilterType] = useState('all');
+
+  const dummyNotifications = [
+    {
+      id: '1',
+      type: 'task',
+      message: 'You have been assigned a new task: Update project documentation.',
+      timestamp: '2023-10-01T12:00:00Z',
+      isRead: false,
+    },
+    {
+      id: '2',
+      type: 'project update',
+      message: 'Project Alpha has been updated. Check the latest changes.',
+      timestamp: '2023-10-02T09:30:00Z',
+      isRead: false,
+    },
+    {
+      id: '3',
+      type: 'compliance',
+      message: 'Compliance alert: Please review the new guidelines.',
+      timestamp: '2023-10-03T14:00:00Z',
+      isRead: false,
+    },
+    {
+      id: '4',
+      type: 'budget',
+      message: 'Budget report for Q3 is now available.',
+      timestamp: '2023-10-04T11:15:00Z',
+      isRead: false,
+    },
+  ];
+
+  useEffect(() => {
+    setNotifications(dummyNotifications);
+    setFilteredNotifications(dummyNotifications);
+  }, []);
+
+  useEffect(() => {
+    if (filterType === 'all') {
+      setFilteredNotifications(notifications);
+    } else {
+      setFilteredNotifications(notifications.filter(notification => notification.type === filterType));
+    }
+  }, [filterType, notifications]);
+
+  const markAsRead = (id) => {
+    const updatedNotifications = notifications.map(notification => 
+      notification.id === id ? { ...notification, isRead: true } : notification
+    );
+    setNotifications(updatedNotifications);
+  };
+
+  const dismissNotification = (id) => {
+    const updatedNotifications = notifications.filter(notification => notification.id !== id);
+    setNotifications(updatedNotifications);
+  };
+
+  const handleFilterChange = (value) => {
+    setFilterType(value);
+  };
+
+  const getChartOptions = () => {
+    const taskCount = notifications.filter(n => n.type === 'task').length;
+    const projectUpdateCount = notifications.filter(n => n.type === 'project update').length;
+    const complianceCount = notifications.filter(n => n.type === 'compliance').length;
+    const budgetCount = notifications.filter(n => n.type === 'budget').length;
+
+    return {
+      title: { text: 'Notification Types' },
+      tooltip: {},
+      xAxis: {
+        type: 'category',
+        data: ['Tasks', 'Project Updates', 'Compliance', 'Budgets'],
+      },
+      yAxis: { type: 'value' },
+      series: [{
+        name: 'Count',
+        type: 'bar',
+        data: [taskCount, projectUpdateCount, complianceCount, budgetCount],
+      }],
+    };
+  };
+
+  return (
+    <div style={{ width: '1920px', height: '500px', padding: '20px' }}>
+      <Title level={2}>Notifications</Title>
+      <Select defaultValue="all" onChange={handleFilterChange} style={{ width: 200, marginBottom: 20 }}>
+        <Select.Option value="all">All</Select.Option>
+        <Select.Option value="task">Tasks</Select.Option>
+        <Select.Option value="project update">Project Updates</Select.Option>
+        <Select.Option value="compliance">Compliance</Select.Option>
+        <Select.Option value="budget">Budgets</Select.Option>
+      </Select>
+      <div>
+        {filteredNotifications.length === 0 ? (
+          <p>No notifications to display.</p>
+        ) : (
+          filteredNotifications.map(notification => (
+            <Card key={notification.id} style={{ marginBottom: '10px' }}>
+              <p>{notification.message}</p>
+              <p>{new Date(notification.timestamp).toLocaleString()}</p>
+              <Button type="link" onClick={() => markAsRead(notification.id)}>Mark as Read</Button>
+              <Button type="link" onClick={() => dismissNotification(notification.id)}>Dismiss</Button>
+            </Card>
+          ))
+        )}
+      </div>
+      <ReactECharts option={getChartOptions()} style={{ height: '400px', width: '100%' }} />
+    </div>
+  );
+};
+
+// Dashboard Container Component
+const DashboardContainer = () => {
+  return (
+    <div style={{ width: '1920px', height: '1080px', display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
+      <Title level={1}>Dashboard</Title>
+      <ProjectList />
+      <ComplianceStatus />
+      <BudgetOverview />
+      <Notifications />
+    </div>
+  );
+};
+
+export default DashboardContainer;

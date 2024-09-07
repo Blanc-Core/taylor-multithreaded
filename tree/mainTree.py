@@ -11,12 +11,20 @@ class TreeProcessor:
         #parse the query
         # call search query
         pass
+            
 
-    def writer(self, content):
-        with open("output.txt", "a", encoding="utf-8") as f:
+    def writer(self, content, file_path):
+        with open(file_path, "a", encoding="utf-8") as f:
             f.write("\n\n" + content)
-
+        
     def dfs_recursive_reverse(self, node: TreeNode):
+    # Check if the node has already been visited
+        if node.is_visited():
+            return
+
+        # Mark node as visited
+        node.set_visited(True)
+
         # First, recursively visit all children
         for child in node.children:
             self.dfs_recursive_reverse(child)
@@ -39,18 +47,22 @@ class TreeProcessor:
             parent.addCode(code)
         elif node.isRoot():
             print(f"Visiting node: {node.getName()} (is root)")
+            self.writer(f"Node: {node.getContent()}", "outputs/content.txt")
             ideasplanner = IdeasPlanner("gpt-4o-mini", node.getContent(), True)
             ideasPlan = ideasplanner.generate()
+            self.writer(ideasPlan, "outputs/ideas.txt")
             planner = PlanImprover("gpt-4o-mini", ideasPlan, True)
             plan = planner.generate()
+            self.writer(plan, "outputs/plan.txt")
 
             requirements = f"Component Name: {node.getName()}, Component requirements: {plan}"
 
             coder = RootCoder("gpt-4o-2024-08-06", requirements, node.getCode(), True)
             code = coder.generate()
-            uicoder = UICoder("gpt-4o-2024-08-06", requirements, True)
+            uicoder = UICoder("gpt-4o-2024-08-06", code, True)
             uicode = uicoder.generate()
-            self.writer(uicode)
+            final = f"Node: {node.getName()}\nCode: \n{uicode}"
+            self.writer(final, "output.txt")
         else:
             print(f"Visiting node: {node.getName()}")
             ideasplanner = IdeasPlanner("gpt-4o-mini", node.getContent(), True)

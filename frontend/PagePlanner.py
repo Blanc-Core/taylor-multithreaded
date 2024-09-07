@@ -16,7 +16,10 @@ class PagePlanner:
     def generate_completion(self, user_plan: str, response_format: BaseModel):
         systemPrompt = """
         You are an expert React developer tasked with designing a modern desktop enterprise software page to solve a client's business problem, with a primary focus on component structure.
-        DO not miss a single component.
+        DO not miss a single component. 
+        ***BE SO DETIALED ABOUT THE PAGE FILL THE WHOLE PAGE WITH COMPOENENTS GO INTO DETAIL ABOUT EVERYTHING AND MAKE SURE EVERY CHILD COMPONENT WORKS TOGETHER WITH PARENT TO MAKE THE WHOLE PAGE WORK***
+                **you are only planning for a desktop and only that so fill that out**
+        ***THINK OF MORE STUFF THAT SHOULD BE ON THE PAGE BE VERY CREATIVE***
         """
         user_prompt = user_plan
 

@@ -8,6 +8,8 @@ class TreeNode:
         self.parent = parent
         self.code = ""
         self.Root = False
+        self.visited = False  # Add this to track whether the node has been visited
+
 
     def add_child(self, child):
         child.parent = self
@@ -24,6 +26,11 @@ class TreeNode:
         
     def setRoot(self, Value: bool):
         self.Root = Value    
+    def is_visited(self):
+        return self.visited
+
+    def set_visited(self, visited):
+        self.visited = visited
     
     def isRoot(self):
         return self.Root

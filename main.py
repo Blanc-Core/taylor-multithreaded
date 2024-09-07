@@ -26,6 +26,13 @@ logging.basicConfig(
     ]
 )
 clear_file_if_not_empty("output.txt")
+clear_file_if_not_empty("outputs/ideas.txt")
+clear_file_if_not_empty("outputs/content.txt")
+clear_file_if_not_empty("outputs/ModulePlannerOutput.txt")
+clear_file_if_not_empty("outputs/OverallPlannerOutput.txt")
+clear_file_if_not_empty("outputs/PagePlannerOutput.txt")
+clear_file_if_not_empty("outputs/plan.txt")
+
 def parseModulePlannerOutput(pageOutput):
     # Split the output into individual pages, keeping the delimiter
     pages = re.split(r'(?=### Page Name:)', pageOutput)
@@ -42,6 +49,7 @@ def log_active_threads():
 def process_page(page):
     log_active_threads()
     pagePlannerJson = processPage(page)
+    write_to_output_file(pagePlannerJson, "outputs/PagePlannerOutput.txt")
     logging.info(f"Page output: {pagePlannerJson[:100]}...")  # Log first 100 chars
     data = json.loads(pagePlannerJson)
     processor = TreeProcessor(data)
@@ -52,6 +60,7 @@ def process_module(module):
     log_active_threads()
     module_planner = ModulePlanner(module, "gpt-4o-mini", True)
     module_output = module_planner.generate()
+    write_to_output_file(module_output, "outputs/ModulePlannerOutput.txt")
     logging.info(f"Module output: {module_output[:100]}...")  # Log first 100 chars
     parsed_output = parseModulePlannerOutput(module_output)
     
@@ -69,7 +78,7 @@ def process_module(module):
 planner = OverallPlanner("businessProblem.txt", "gpt-4o-mini", True)
 output = planner.generate()
 
-
+write_to_output_file(output, "outputs/OverallPlannerOutput.txt")
 print("###############################################################")
 print("overall planner output completed")
 print("###############################################################")
@@ -87,4 +96,3 @@ with concurrent.futures.ThreadPoolExecutor() as module_executor:
 
 log_active_threads()
 logging.info("All modules and pages processed.")
-

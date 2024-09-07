@@ -22,6 +22,8 @@ class OverallPlanner:
         self.userPrompt = """Please follow the instructions in the prompt. I want extreme detailed and thought out answers. ENSURE TO WRITE LOGIC FOR EACH Module.
         Simply give me the output in the format of the prompt. I do not want additional text. JUST THE OUTPUT. Create as few pages as possible. I want less pages 
         but more content within them.
+        
+        **you are only planning for a desktop and only that so fill that out**
         """
         coder = ClientRequest(self.systemPrompt, self.model, self.userPrompt, True)
         generatedOverallPlan = coder.generate()
@@ -55,6 +57,10 @@ class ModulePlanner:
         Please follow the instructions in the prompt. I want extreme detailed and thought out answers. ENSURE TO WRITE LOGIC FOR EACH PAGE NEEDED WITHIN THE MODULE.
         Simply give me the output in the format of the prompt. I do not want additional text. JUST THE OUTPUT. Remember this is being done in Ant Design.
         ***IF WORKING WITH CHARTS THINK ABOUT COOL STUFF LIKE TREES, HEAT MAP, ALL THAAT COOL STUFF FOR ECHARTS NOT THE BASIC BORING CHARTS YOU CAN HAVE THOSE BUT THINK OF UNQIUE CHARTS***
+        
+                **you are only planning for a desktop and only that so fill that out**
+
+        ************DO NOT FUCKING MAKE DUPLICATE PAGES ONLY MAKE EACH PAGE ONCE************
         """
         coder = ClientRequest(self.systemPrompt, self.model, userPrompt, True)
         generatedModulePlan = coder.generate()

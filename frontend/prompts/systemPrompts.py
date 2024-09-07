@@ -111,7 +111,4 @@ consistency**, and **robust component design**. Each page should be structured w
 
 #### 9. **Page URL**
    - **URL for This Page (React):** Provide the URL structure for this page.
-
-### Page Name: [Page Name]
-[CONTINUE]
 """

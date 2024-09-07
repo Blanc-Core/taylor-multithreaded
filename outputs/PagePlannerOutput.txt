@@ -1,0 +1,779 @@
+{
+    "finalOutput": {
+        "pageName": "Task Management",
+        "pageInfo": {
+            "purposeAndGoals": "This page allows users to create, assign, and track project-related tasks, facilitating efficient workflow management.",
+            "problemSolved": "The Task Management page solves the problem of inefficient task tracking by providing a structured interface for task creation, assignment, and monitoring. It integrates seamlessly with the Project Dashboard, ensuring all task-related data is up-to-date and accessible. This page enhances workflow efficiency by offering real-time updates on task progress, enabling better resource allocation and time management through detailed tracking of hours spent on tasks.",
+            "colour": {
+                "primaryColor": "#003366",
+                "secondaryColor": "#0055A5",
+                "tertiaryColor": "#FFFFFF",
+                "spacing": "4px",
+                "typography": "Arial, sans-serif"
+            }
+        },
+        "components": [
+            {
+                "componentName": "TaskManagerContainer",
+                "componentInfo": {
+                    "componentDescription": "Main component managing the task interface and data.",
+                    "functionality": "The TaskManagerContainer acts as the central hub for managing task-related data and interactions. It coordinates the flow of data between its child components and ensures the UI is synchronized with the state of task data. This component fetches task data from the server, maintains the local state for tasks, and provides methods to add, update, and delete tasks. It ensures that any changes in the task data are reflected across all sub-components, maintaining a consistent user experience. It also handles the integration with other modules, such as the Project Dashboard, to ensure task data accuracy across the system.",
+                    "details": [
+                        "Fetches task data from the server and initializes the state with useState.",
+                        "Passes task data to TaskList and TaskProgressChart via props.",
+                        "Handles task addition, modification, and deletion requests.",
+                        "Integrates with notification services to alert users of task updates."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/project-dashboard",
+                            "description": "Integration with the Project Dashboard to update task statuses and reflect changes in real-time."
+                        },
+                        {
+                            "pageUrl": "/notifications",
+                            "description": "Triggers notifications when tasks are updated or deadlines are approaching."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Task Form, Task List, Task Progress Chart",
+                        "possibleInteractions": "Interact with form fields, buttons, or charts to add, modify, or analyze tasks.",
+                        "result": "Displays updated task list and charts with real-time progress.",
+                        "resultFunctionality": "After a user submits a new task or updates an existing one, the TaskManagerContainer refreshes the TaskList and TaskProgressChart to reflect changes immediately, ensuring all data is current."
+                    }
+                },
+                "components": [
+                    {
+                        "componentName": "TaskList",
+                        "componentInfo": {
+                            "componentDescription": "Displays all tasks for selected projects with statuses.",
+                            "functionality": "TaskList provides a visual representation of all tasks associated with a selected project. It allows users to see task names, assigned team members, due dates, and status indicators (e.g., pending, in progress, completed). The component supports sorting and filtering capabilities, enabling users to organize tasks based on various criteria. It updates dynamically in response to changes in the task data and supports drag-and-drop functionality for task prioritization.",
+                            "details": [
+                                "Displays task name, assignee, due date, and status.",
+                                "Allows sorting by due date, priority, or status.",
+                                "Provides filtering options to view tasks by status or assignee.",
+                                "Implements drag-and-drop for task reordering using React DnD."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/tasks",
+                                    "description": "Directly linked to update tasks and reflect changes on the Task Management page."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Task items, drag-and-drop area",
+                                "possibleInteractions": "Click to view or edit a task, drag to reorder tasks.",
+                                "result": "Reordering of tasks and real-time update of task status or details.",
+                                "resultFunctionality": "When a task is dragged and dropped into a new position, the TaskList updates to reflect the new order, and the underlying data is modified to maintain the new task hierarchy."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "TaskForm",
+                        "componentInfo": {
+                            "componentDescription": "Form for adding new tasks with details (description, assignee, deadline).",
+                            "functionality": "TaskForm is a crucial component for creating new tasks within the Task Management page. It provides input fields for entering task details such as the task name, description, deadline, and assignee. The form supports validation to ensure all necessary information is provided before submission. Upon submission, it triggers an update in the TaskManagerContainer to add the task to the current list and provides feedback to the user through confirmation messages. It's designed to be intuitive and user-friendly, promoting efficient task creation.",
+                            "details": [
+                                "Input fields for task name, description, assignee dropdown, and deadline picker.",
+                                "Validation to ensure fields are not empty and deadlines are in the future.",
+                                "Submission button that triggers task addition and updates TaskList.",
+                                "Feedback mechanism to confirm task creation success or highlight errors."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/tasks",
+                                    "description": "Integrates directly with TaskManagerContainer to update task data upon submission."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Input fields, submission button",
+                                "possibleInteractions": "Enter task details, submit task.",
+                                "result": "Confirmation of task creation and real-time update of the TaskList.",
+                                "resultFunctionality": "Upon task submission, the TaskForm validates inputs, creates a new task record, and updates the TaskManagerContainer, which then refreshes the TaskList to include the new task immediately."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "TaskProgressChart",
+                        "componentInfo": {
+                            "componentDescription": "Visualizes task completion using progress bars or a unique circular progress chart.",
+                            "functionality": "The TaskProgressChart component provides a visual summary of task progress, helping users quickly assess the status of tasks within a project. It uses ECharts to render visually appealing charts, such as circular progress bars, that indicate the proportion of tasks completed, in progress, or pending. The component is interactive, allowing users to hover over sections for detailed statistics. It dynamically updates as tasks are completed or added, ensuring real-time accuracy. This visualization aids in understanding task distribution and identifying bottlenecks.",
+                            "details": [
+                                "Circular progress chart displaying percentage of tasks completed.",
+                                "Interactive tooltips showing detailed task statistics on hover.",
+                                "Dynamic updates as task statuses change.",
+                                "Responsive design to adjust chart size based on screen dimensions."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/tasks",
+                                    "description": "Connected to the TaskManagerContainer for real-time updates on task progress."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Chart segments, hover tooltips",
+                                "possibleInteractions": "Hover to view detailed breakdown of task statuses.",
+                                "result": "Display of detailed statistics for each task category on hover.",
+                                "resultFunctionality": "When hovering over different sections of the chart, tooltips appear showing the number and percentage of tasks in each status category, offering deeper insights into task management effectiveness."
+                            }
+                        },
+                        "components": []
+                    }
+                ]
+            }
+        ],
+        "pageUrl": "/tasks"
+    }
+}{
+    "finalOutput": {
+        "pageName": "Experimental Results",
+        "pageInfo": {
+            "purposeAndGoals": "This page allows users to input, manage, and visualize experimental data, promoting data-driven decision-making.",
+            "problemSolved": "The page facilitates easy entry and management of experimental results, provides visualization tools to analyze data patterns and trends, and ensures secure storage of important datasets and notes.",
+            "colour": {
+                "primaryColor": "#4B8B3B",
+                "secondaryColor": "#2A9D8F",
+                "tertiaryColor": "#E9C46A",
+                "spacing": "8px",
+                "typography": "Roboto, sans-serif"
+            }
+        },
+        "components": [
+            {
+                "componentName": "ResultsContainer",
+                "componentInfo": {
+                    "componentDescription": "Manages the overall input and visualization of experimental results.",
+                    "functionality": "The ResultsContainer acts as the primary holder for all experimental data components, orchestrating the flow of data between the form, list, and visualization components. It ensures that when data is entered into the ResultsForm, it is promptly updated in the ResultsList and simultaneously affects the visual representation in the ResultsVisualization. This dynamic interaction facilitates a seamless experience for users managing experimental data. The container maintains the state for all child components, ensuring data consistency and integrity across the page. It also handles API calls for saving and retrieving data, providing feedback to users through notifications and alerts.",
+                    "details": [
+                        "Handles the state of input data and results list using React's useState hook.",
+                        "Manages data fetching and updating through API calls, ensuring data integrity.",
+                        "Implements error handling and loading states to provide a smooth user experience."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/reporting",
+                            "description": "ResultsContainer sends processed data to the Reporting module for further analysis and publication."
+                        },
+                        {
+                            "pageUrl": "/dashboard",
+                            "description": "Allows access to experimental results data from the Project Dashboard for comprehensive overviews."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "ResultsContainer",
+                        "possibleInteractions": "Users can add new results, edit existing ones, and visualize data trends.",
+                        "result": "Results are displayed in the list and visualized in different formats.",
+                        "resultFunctionality": "Upon interaction, the ResultsContainer updates the state and triggers the re-rendering of child components, ensuring that the latest data is always displayed."
+                    }
+                },
+                "components": [
+                    {
+                        "componentName": "ResultsForm",
+                        "componentInfo": {
+                            "componentDescription": "Form for entering new experimental data.",
+                            "functionality": "The ResultsForm provides a structured interface for users to input experimental data. It ensures that data is entered in a consistent format, providing validation to avoid errors. Users can specify details such as experiment name, date, parameters, and outcomes. Upon submission, the form processes the input, updates the parent ResultsContainer, and clears the form for new entries. It includes interactive elements such as dropdowns, date pickers, and text fields, which are designed to streamline data entry and minimize user effort. The form also supports asynchronous submission, providing feedback on success or failure.",
+                            "details": [
+                                "Includes input fields for experiment name, date, parameters, and outcome.",
+                                "Validates input data to ensure consistency and correctness.",
+                                "Provides dropdowns and pickers for easy data entry.",
+                                "Manages form state using React's useState hook.",
+                                "Implements form submission with asynchronous processing and feedback."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/results",
+                                    "description": "Data entered in ResultsForm updates the ResultsList and triggers visualization updates."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Submit button",
+                                "possibleInteractions": "Users can enter data and press submit to add new results.",
+                                "result": "The form submission updates the results list with new data and triggers visual updates.",
+                                "resultFunctionality": "On submission, data is validated and sent to the backend. If successful, the state in ResultsContainer is updated, and the form is reset for new entries."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "ResultsList",
+                        "componentInfo": {
+                            "componentDescription": "Displays a list of previously entered results with options to edit or delete.",
+                            "functionality": "The ResultsList component provides a comprehensive view of all previously entered experimental results. Each entry is displayed with options to edit or delete, allowing users to maintain and update their data as needed. The list is dynamically updated when new entries are added through the ResultsForm, ensuring users always have access to the latest information. The component supports sorting and filtering, enabling users to quickly locate specific results. Additionally, it handles pagination for large datasets, ensuring optimal performance and user experience.",
+                            "details": [
+                                "Displays a table of results with columns for experiment name, date, parameters, and outcome.",
+                                "Includes edit and delete buttons for each entry.",
+                                "Supports sorting and filtering to help users find specific results.",
+                                "Implements pagination to manage large datasets.",
+                                "Updates dynamically with new data from the ResultsForm."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/results",
+                                    "description": "Updates and displays data entered in ResultsForm, interacting with ResultsVisualization for real-time updates."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Edit and delete buttons",
+                                "possibleInteractions": "Users can click to edit or delete entries.",
+                                "result": "Editing opens a modal with pre-filled data; deleting removes the entry from the list.",
+                                "resultFunctionality": "Editing triggers a modal with the current data for modification. Deletion prompts a confirmation dialog before removing the entry and updating the list."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "ResultsVisualization",
+                        "componentInfo": {
+                            "componentDescription": "Unique visualization tools (e.g., heat maps or line charts) to analyze results.",
+                            "functionality": "The ResultsVisualization component transforms experimental data into meaningful visual insights. It offers various visualization options, such as heat maps, line charts, and correlation charts, allowing users to identify patterns and trends in their results. The component is highly interactive, enabling users to hover over data points for detailed information or adjust visualization parameters to focus on specific data aspects. It supports multiple data sets and is optimized for performance, ensuring smooth rendering even with large datasets. The component is reusable and can be adapted for different data types across the ERP system.",
+                            "details": [
+                                "Provides interactive heat maps, line charts, and correlation charts using ECharts.",
+                                "Allows users to adjust visualization parameters for tailored insights.",
+                                "Supports multiple datasets and ensures performance optimization.",
+                                "Interactive elements offer detailed data insights on hover.",
+                                "Reusability across different modules for consistent data representation."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/dashboard",
+                                    "description": "Visualization results are accessible from the Project Dashboard for comprehensive overviews."
+                                },
+                                {
+                                    "pageUrl": "/budget",
+                                    "description": "Provides context to budgets via correlation charts, aiding financial planning."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Visualization charts",
+                                "possibleInteractions": "Users can interact with charts to explore data trends.",
+                                "result": "Interactive elements display detailed data points and trends.",
+                                "resultFunctionality": "Hovering over charts reveals specific data insights, and users can adjust parameters for custom views. The component updates dynamically with new data from the ResultsContainer."
+                            }
+                        },
+                        "components": [
+                            {
+                                "componentName": "HeatMap",
+                                "componentInfo": {
+                                    "componentDescription": "Component for visualizing result distributions across various parameters.",
+                                    "functionality": "The HeatMap component offers a detailed view of data distributions, highlighting areas of interest through color intensity. It is particularly useful for identifying clusters, anomalies, or trends within experimental data. Users can interact with the heat map to zoom into specific sections or adjust color scales to focus on different data ranges. The component is integrated with ECharts for advanced rendering capabilities, ensuring high performance and visual appeal. It supports real-time updates, reflecting changes in the underlying data instantly.",
+                                    "details": [
+                                        "Displays data distributions using color intensity to highlight trends.",
+                                        "Interactive zoom and pan features for detailed exploration.",
+                                        "Adjustable color scales for focus on specific data ranges.",
+                                        "Real-time updates with underlying data changes.",
+                                        "Integrated with ECharts for advanced visualization."
+                                    ],
+                                    "isVisible": true,
+                                    "interconnectivity": [
+                                        {
+                                            "pageUrl": "/visualization",
+                                            "description": "Forms a part of the ResultsVisualization, providing detailed data insights."
+                                        }
+                                    ],
+                                    "userInteraction": {
+                                        "interact": "Zoom and color scale adjustments",
+                                        "possibleInteractions": "Users can zoom into sections or adjust color scales.",
+                                        "result": "Detailed sections are highlighted; color adjustments provide focused views.",
+                                        "resultFunctionality": "Zooming allows users to focus on specific data areas, while color adjustments help highlight particular trends, enhancing data analysis capabilities."
+                                    }
+                                },
+                                "components": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "pageUrl": "/results"
+    }
+}{
+    "finalOutput": {
+        "pageName": "Compliance Reports",
+        "pageInfo": {
+            "purposeAndGoals": "This page allows users to generate compliance checklists and reports based on project specifics and regulatory requirements.",
+            "problemSolved": "The Compliance Reports page addresses the challenge of manual compliance reporting by automating the process, ensuring that all regulatory checks are meticulously documented and easily accessible to enhance organizational accountability and transparency. It streamlines the sharing of compliance documents with relevant stakeholders, thereby improving communication and collaboration. The page also reduces the potential for human error in compliance documentation, facilitates adherence to regulatory standards, and enhances operational efficiency by providing a centralized platform for compliance management and reporting.",
+            "colour": {
+                "primaryColor": "#2B3A42",
+                "secondaryColor": "#3F5765",
+                "tertiaryColor": "#BDD4DE",
+                "spacing": "8px",
+                "typography": "Roboto, sans-serif"
+            }
+        },
+        "components": [
+            {
+                "componentName": "ComplianceReportContainer",
+                "componentInfo": {
+                    "componentDescription": "The main container responsible for managing and coordinating the various sub-components involved in compliance reporting.",
+                    "functionality": "The ComplianceReportContainer acts as the central hub for all compliance-related activities. It orchestrates the flow of data between different sub-components such as the ComplianceChecklist, ReportGenerator, and ReportHistory. By integrating with external data sources and managing state centrally, it ensures that compliance requirements are fetched accurately based on project type. It also handles the generation of compliance reports, displaying them in an intuitive format, and provides feedback to users through notifications and alerts.",
+                    "details": [
+                        "It retrieves compliance requirements from an API based on the selected project type, ensuring that the most current regulations are applied.",
+                        "It manages the state of the compliance reports, allowing for data persistence and retrieval of past reports through the ReportHistory component.",
+                        "It provides a responsive layout that adapts to different screen sizes, ensuring consistent usability across devices."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/project-dashboard",
+                            "description": "Shares compliance data with the Project Dashboard for visibility on compliance status."
+                        },
+                        {
+                            "pageUrl": "/budget-tracking",
+                            "description": "Allows navigation to the Budget Tracking page for financial insights related to compliance activities."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Main interface for compliance management",
+                        "possibleInteractions": "The user can select project types, generate reports, view history, and receive notifications.",
+                        "result": "Upon interaction, users can view detailed compliance checklists, generate new reports, or access past reports.",
+                        "resultFunctionality": "The result is an intuitive UI displaying compliance checklists, a form for generating new reports, and a history log of past reports. This ensures users can manage compliance efficiently."
+                    }
+                },
+                "components": [
+                    {
+                        "componentName": "ComplianceChecklist",
+                        "componentInfo": {
+                            "componentDescription": "Displays a list of mandatory compliance items that need to be addressed for a specific project type.",
+                            "functionality": "The ComplianceChecklist dynamically updates based on the project type selected in the ReportGenerator. It provides a comprehensive checklist of compliance items, ensuring that all necessary regulatory checks are documented. Users can mark items as complete, which visually updates the checklist, providing immediate feedback on compliance progress. The component also supports filtering and sorting of checklist items, enhancing usability and efficiency in compliance tracking.",
+                            "details": [
+                                "The checklist is populated using an API call based on the project type selected, ensuring real-time accuracy.",
+                                "Users can mark items as complete or in-progress, with visual indicators such as checkmarks or progress bars.",
+                                "Includes search and filter functionality to quickly locate specific compliance items, making it easier for users to manage large checklists."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/project-dashboard",
+                                    "description": "Updates the Project Dashboard with compliance completion status, aiding in project overview."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Checklist items",
+                                "possibleInteractions": "Users can mark checklist items as complete or view details about each item.",
+                                "result": "Marking an item as complete updates the checklist and provides visual feedback.",
+                                "resultFunctionality": "When an item is marked complete, it triggers a visual change (e.g., a checkmark), updates the compliance status in the system, and potentially informs other components like the Project Dashboard of the change."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "ReportGenerator",
+                        "componentInfo": {
+                            "componentDescription": "A form-based component that allows users to customize and generate compliance reports based on project specifics.",
+                            "functionality": "The ReportGenerator provides users with a form interface to input project details and select compliance parameters. It includes dropdowns, date pickers, and text fields for customizing the report. Upon submission, it triggers the generation of a compliance report, which is then displayed in the ReportHistory component. The component ensures that users can select multiple projects for bulk report generation, enhancing efficiency. It also integrates with external data sources to ensure compliance parameters are up-to-date.",
+                            "details": [
+                                "Includes form elements like dropdowns for project type, date pickers for report timelines, and input fields for additional parameters.",
+                                "Utilizes validation to ensure all necessary fields are completed before report generation.",
+                                "Triggers asynchronous calls to generate reports and handles the response to update the ReportHistory component."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/project-dashboard",
+                                    "description": "Pulls project data ensuring accurate compliance parameters are applied."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Form fields for report customization",
+                                "possibleInteractions": "Users can select project types, set date ranges, and enter specific compliance criteria.",
+                                "result": "Upon submission, a new compliance report is generated and added to the ReportHistory.",
+                                "resultFunctionality": "The form submission triggers the backend process for report generation, updates the ReportHistory with the new report, and provides feedback to the user through a notification of successful report creation."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "ReportHistory",
+                        "componentInfo": {
+                            "componentDescription": "Displays a log of previously generated compliance reports for user reference and review.",
+                            "functionality": "The ReportHistory component provides users with a chronological list of all previously generated reports. It allows users to search, filter, and download past reports, facilitating easy access and sharing of compliance documents. The component integrates sorting capabilities by date and project type, ensuring users can quickly locate specific reports. By maintaining a history of reports, it provides a valuable audit trail for compliance activities, enhancing transparency and accountability.",
+                            "details": [
+                                "Displays a list of past reports with details such as report name, date generated, and status.",
+                                "Includes search and filter options to help users locate specific reports quickly.",
+                                "Allows for downloading of reports in various formats (e.g., PDF, CSV) for easy sharing."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/project-dashboard",
+                                    "description": "Provides historical compliance data to the Project Dashboard for comprehensive project analysis."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Report entries",
+                                "possibleInteractions": "Users can search, filter, and download reports.",
+                                "result": "Selecting a report opens detailed view or download options.",
+                                "resultFunctionality": "When a user selects a report, they can view it in detail or download it, ensuring easy access and distribution of compliance information."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "DynamicReportGenerator",
+                        "componentInfo": {
+                            "componentDescription": "An advanced tool that enables users to generate dynamic reports across multiple projects.",
+                            "functionality": "The DynamicReportGenerator enhances the standard report generation by allowing users to select multiple projects and generate a comprehensive report that covers cross-project compliance metrics. It provides options for users to customize the scope and detail level of the reports, ensuring that they can tailor the output to meet specific regulatory or operational needs. The component integrates with existing data sources to pull relevant compliance data, ensuring accuracy and completeness.",
+                            "details": [
+                                "Supports multi-select functionality for projects, allowing users to generate reports covering multiple projects simultaneously.",
+                                "Provides options for customizing the report scope, such as selecting specific compliance metrics or timeframes.",
+                                "Generates reports in various formats, supporting both detailed and summary views."
+                            ],
+                            "isVisible": false,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/compliance",
+                                    "description": "Integrates with the main Compliance Reports page to enhance reporting capabilities."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Multi-select project fields and customization options",
+                                "possibleInteractions": "Users select multiple projects, customize report parameters, and generate the report.",
+                                "result": "Generates a detailed report covering selected projects and compliance metrics.",
+                                "resultFunctionality": "The generated report provides a comprehensive overview of compliance across selected projects, including detailed insights and summaries tailored to the user's specifications."
+                            }
+                        },
+                        "components": []
+                    }
+                ]
+            }
+        ],
+        "pageUrl": "/compliance"
+    }
+}{
+    "finalOutput": {
+        "pageName": "Project Dashboard",
+        "pageInfo": {
+            "purposeAndGoals": "This page serves as the central hub for users to view all ongoing research projects, their statuses, task assignments, compliance metrics, and budget tracking.",
+            "problemSolved": "The Project Dashboard solves the problem of disorganized project management by providing a comprehensive overview of all research projects. It enhances visibility into project statuses and task allocation, allowing users to have quick access to compliance details and budget information. This streamlining of information aids in efficient project management and decision-making processes, reducing the time spent searching for data and increasing productivity by offering real-time updates and insights into the project's progress and compliance standing.",
+            "colour": {
+                "primaryColor": "#2E3B55",
+                "secondaryColor": "#4F6272",
+                "tertiaryColor": "#F3F5F7",
+                "spacing": "10px",
+                "typography": "Roboto, sans-serif"
+            }
+        },
+        "components": [
+            {
+                "componentName": "DashboardContainer",
+                "componentInfo": {
+                    "componentDescription": "Acts as the main holder for all dashboard components, orchestrating layout and data fetching.",
+                    "functionality": "The DashboardContainer is the primary structural component of the Project Dashboard. It is responsible for fetching all necessary data from the backend or a mock API and distributing this data to its child components. It maintains the overall state of the dashboard, ensuring that each sub-component receives the correct data set. The DashboardContainer also manages the layout, ensuring a responsive design that adapts to various screen sizes. This component is crucial for maintaining the integrity of the data flow and ensuring that updates in project data are reflected across all child components in real time.",
+                    "details": [
+                        "The DashboardContainer will have a responsive grid layout to organize the child components effectively.",
+                        "It will use React's useEffect to fetch data on mount, ensuring that all child components are rendered with the latest data.",
+                        "State management within DashboardContainer will leverage useState to maintain data consistency across renders.",
+                        "Data fetched will include project details, compliance metrics, budget information, and notification alerts."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/task-management",
+                            "description": "Allows users to navigate to Task Management for detailed task handling."
+                        },
+                        {
+                            "pageUrl": "/compliance-reports",
+                            "description": "Provides links to Compliance Reports for in-depth compliance analysis."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "The user interacts by navigating through the dashboard components.",
+                        "possibleInteractions": "Users might click on project names to view detailed task management, or on compliance charts for a detailed compliance report.",
+                        "result": "When a user interacts with a project in the ProjectList, it opens a detailed view of tasks associated with that project.",
+                        "resultFunctionality": "The detailed task view is a modal or new page that provides a comprehensive list of tasks, their statuses, and assignment details, offering options for task updates and reallocation."
+                    }
+                },
+                "components": [
+                    {
+                        "componentName": "ProjectList",
+                        "componentInfo": {
+                            "componentDescription": "Displays a list of all research projects with quick stats for each project.",
+                            "functionality": "The ProjectList component provides a concise summary of each ongoing research project. It displays project names, brief status updates, and other vital statistics that allow users to quickly assess ongoing projects. It is designed to facilitate quick navigation to more detailed project views. The component will also support sorting and filtering functionalities, allowing users to customize their view based on project priority, deadline, or status. This adaptability enhances user efficiency in handling multiple projects simultaneously.",
+                            "details": [
+                                "Each project entry will include the project name, a progress bar indicating completion status, due dates, and a brief overview of tasks.",
+                                "The list will be scrollable and support infinite scroll for large datasets.",
+                                "Hover effects will provide additional project details without clicking.",
+                                "Sorting options will include alphabetical, by deadline, and by project manager."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/task-detail",
+                                    "description": "Navigates to a detailed view of tasks for the selected project."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "User clicks on a project name or status bar.",
+                                "possibleInteractions": "Clicking a project name opens detailed task management; hovering shows a quick overview.",
+                                "result": "On clicking a project, a detailed task view is displayed, allowing for task management operations.",
+                                "resultFunctionality": "The task management page/modal displays all tasks with options to update status, assign users, and set deadlines."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "ComplianceStatus",
+                        "componentInfo": {
+                            "componentDescription": "Visualizes compliance metrics using unique charts (e.g., radar charts for compliance areas).",
+                            "functionality": "ComplianceStatus is designed to provide visual insights into the compliance status of various projects. Utilizing radar charts, this component breaks down compliance metrics into understandable segments, highlighting areas of strength and those needing attention. It supports interactive features, such as hovering for detailed data points and clicking to reveal compliance history. This component aids project managers in maintaining compliance oversight, ensuring adherence to regulatory standards, and identifying potential risks early.",
+                            "details": [
+                                "Incorporates radar charts to display compliance across multiple areas such as safety, ethics, and regulations.",
+                                "Charts are interactive, allowing users to hover for more detailed information and click to view compliance history.",
+                                "Data updates in real-time, reflecting changes in the project's compliance status.",
+                                "Includes color-coded indicators for quick status recognition."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/compliance-history",
+                                    "description": "Redirects to a detailed compliance history report for the selected metric."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "User interacts by hovering over and clicking chart segments.",
+                                "possibleInteractions": "Hovering shows detailed compliance scores; clicking opens a history modal or page.",
+                                "result": "Clicking a chart segment opens a detailed compliance history for that aspect.",
+                                "resultFunctionality": "The compliance history view provides a timeline of compliance checks, audits, and resolutions, with options for downloading reports."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "BudgetOverview",
+                        "componentInfo": {
+                            "componentDescription": "Shows budget allocation using a tree map to visualize spending distribution across projects.",
+                            "functionality": "The BudgetOverview component offers a visual representation of the project's financial health through a tree map. This visualization allows users to quickly understand how funds are allocated across different projects and departments. The component is interactive, enabling users to drill down into specific financial details by clicking on sections of the tree map. BudgetOverview aids financial managers in ensuring projects stay within budget and helps in strategic planning by highlighting areas of overspending or underutilization.",
+                            "details": [
+                                "Utilizes a tree map to represent budget allocation visually, with size and color indicating spend levels.",
+                                "Interactive elements allow users to click on sections to drill down into detailed financial reports.",
+                                "Real-time updates ensure current financial data is displayed, aiding in decision-making.",
+                                "Includes legends and tooltips for clarity and understanding of the financial distribution."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/financial-reports",
+                                    "description": "Links to detailed financial reports for in-depth analysis."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "User clicks on different segments of the tree map.",
+                                "possibleInteractions": "Clicking segments provides detailed budget breakdowns; hovering shows summary amounts.",
+                                "result": "A detailed financial report view opens, displaying comprehensive budget data.",
+                                "resultFunctionality": "The financial report provides graphs and tables of financial data, with options to export data for further analysis."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "Notifications",
+                        "componentInfo": {
+                            "componentDescription": "Alerts users to task assignments and changes in project statuses.",
+                            "functionality": "Notifications are designed to keep users informed of critical updates and changes in project statuses. This component displays alerts about new task assignments, project milestones, compliance alerts, and budget updates. The notifications are interactive, allowing users to mark them as read, dismiss, or click to view more details. By centralizing alerts, Notifications help users stay on top of project changes without needing to manually check each project, thus improving efficiency and responsiveness.",
+                            "details": [
+                                "Displays a list of notifications related to task assignments, project updates, and compliance alerts.",
+                                "Each notification is clickable to view more detailed information or dismiss.",
+                                "Includes options to filter notifications by type or date.",
+                                "Real-time updates ensure users receive the latest information without manual refresh."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/task-detail",
+                                    "description": "Directs to task details for new assignments."
+                                },
+                                {
+                                    "pageUrl": "/project-updates",
+                                    "description": "Links to detailed project update reports."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "User interacts by clicking on notifications.",
+                                "possibleInteractions": "Clicking a notification opens detailed views; swiping or clicking a close icon dismisses it.",
+                                "result": "Detailed task or project update view opens based on the notification type.",
+                                "resultFunctionality": "The detailed view provides full context of the notification, with options to take action, like responding to a task request or acknowledging a compliance alert."
+                            }
+                        },
+                        "components": []
+                    }
+                ]
+            }
+        ],
+        "pageUrl": "/dashboard"
+    }
+}{
+    "finalOutput": {
+        "pageName": "Budget Tracking",
+        "pageInfo": {
+            "purposeAndGoals": "This page provides users with tools to manage and track expenses related to research funding and grants.",
+            "problemSolved": "The Budget Tracking page addresses the critical need for enhanced visibility into budget allocations and expenditures, enabling research teams to meticulously track grant spending to ensure compliance with funding requirements. It offers insightful data on budget usage, facilitating informed decision-making for future project planning, thereby optimizing resource allocation and financial oversight.",
+            "colour": {
+                "primaryColor": "#2E86C1",
+                "secondaryColor": "#AED6F1",
+                "tertiaryColor": "#D5DBDB",
+                "spacing": "8px",
+                "typography": "Roboto, sans-serif"
+            }
+        },
+        "components": [
+            {
+                "componentName": "BudgetTrackingContainer",
+                "componentInfo": {
+                    "componentDescription": "Manages budget data input and visualization.",
+                    "functionality": "The BudgetTrackingContainer serves as the central hub for managing all budget-related functionalities on the page. It coordinates the interaction between its child components, ensuring that data entered in the BudgetForm is accurately reflected in both the BudgetOverview and BudgetVisualization. The component listens for data changes and triggers appropriate updates across the page, maintaining consistency and real-time data integrity. It facilitates fetching and updating of budget data from a backend service, implementing state management using useState to handle the current state of budget entries and visualizations efficiently. This container also ensures that the layout is responsive and adaptive to different screen sizes, providing an optimal user experience on various devices. Additionally, it handles error states and user notifications, guiding users through successful data entries and alerting them to any issues that may arise during the process.",
+                    "details": [
+                        "Manages state for child components using React hooks like useState and useEffect.",
+                        "Coordinates data fetching and updating from an API endpoint or a mock server.",
+                        "Handles error and success messages, providing user feedback for actions performed.",
+                        "Ensures responsive layout using CSS Flexbox or Grid for adaptability across devices."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/project-dashboard",
+                            "description": "BudgetOverview is reused in the Project Dashboard for a high-level summary view of budget allocations and expenditures, enhancing the project's financial visibility."
+                        },
+                        {
+                            "pageUrl": "/reports",
+                            "description": "Budget updates are shared with the Reporting module to reflect in financial compliance reports, ensuring consistency and accuracy across the ERP system."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Submit button in BudgetForm",
+                        "possibleInteractions": "User clicks submit after filling in budget details",
+                        "result": "Updates BudgetOverview and BudgetVisualization to reflect the new data entry",
+                        "resultFunctionality": "Upon submission, the entered data is validated, and if successful, the new budget item is added to the state. The BudgetOverview component updates to display the new total expenditures and remaining budget, while the BudgetVisualization component re-renders to visually represent the updated budget distribution."
+                    }
+                },
+                "components": [
+                    {
+                        "componentName": "BudgetForm",
+                        "componentInfo": {
+                            "componentDescription": "Form for entering new budget items and expenses.",
+                            "functionality": "The BudgetForm component is designed to facilitate the entry of budget items and expenses into the system. It provides a structured interface where users can input details such as the expense name, category, amount, and date. The form includes validation mechanisms to ensure data integrity, preventing the submission of incomplete or incorrect entries. Upon successful data entry, the form triggers an update in the BudgetTrackingContainer, which in turn updates the BudgetOverview and BudgetVisualization components. This real-time interaction ensures that all budget data is consistently reflected across the page. The form also includes user-friendly features like auto-suggestions for expense categories based on previous entries, enhancing the user experience and speeding up data entry processes. Additionally, it offers tooltips and inline validations to guide users, reducing errors and improving the overall efficiency of the budget entry process.",
+                            "details": [
+                                "Expense name input field with validation for non-empty entry.",
+                                "Category dropdown with pre-defined categories and auto-suggestion feature.",
+                                "Amount input field with currency formatting and validation for numeric values.",
+                                "Date picker for selecting the date of the expense.",
+                                "Submit button with onClick event handler triggering data submission."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/budget",
+                                    "description": "Updates BudgetOverview and BudgetVisualization components in real-time upon data entry."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Form fields and Submit button",
+                                "possibleInteractions": "User inputs data and clicks Submit",
+                                "result": "Data is validated and submitted, updating the parent container and child components",
+                                "resultFunctionality": "Upon clicking submit, the form validates all fields. If validation is successful, it sends the data to the BudgetTrackingContainer, which updates its state. This causes the BudgetOverview and BudgetVisualization components to re-render, displaying the updated budget information."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "BudgetOverview",
+                        "componentInfo": {
+                            "componentDescription": "Displays a summary of budget allocations and expenditures.",
+                            "functionality": "The BudgetOverview component provides a concise and informative summary of the current budget status, displaying key metrics such as total budget, total expenditures, and remaining funds. It aggregates data from the BudgetForm and presents it in an easily digestible format. This component is designed to be highly reusable, offering a straightforward interface that can be integrated into other modules, such as the Project Dashboard, for consistent financial visibility across the ERP system. It employs a combination of textual data and simple visual indicators (like progress bars) to convey information at a glance, supporting quick decision-making. BudgetOverview is responsive, ensuring that it adjusts its layout effectively across different devices, maintaining readability and accessibility.",
+                            "details": [
+                                "Displays total budget as a numerical value.",
+                                "Shows total expenditures and remaining budget using progress bars for visual clarity.",
+                                "Incorporates a pie chart to represent expenditure distribution across categories.",
+                                "Includes a downloadable report feature for offline analysis.",
+                                "Responsive design adapting to various screen sizes."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/project-dashboard",
+                                    "description": "Displays summary view in the Project Dashboard for comprehensive project management."
+                                },
+                                {
+                                    "pageUrl": "/reports",
+                                    "description": "Feeds data into the Reporting module for financial compliance."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Download Report button",
+                                "possibleInteractions": "User clicks Download Report",
+                                "result": "Generates a PDF summary of the current budget status",
+                                "resultFunctionality": "The component compiles all displayed data into a structured PDF document, which is then downloaded to the user's device, allowing for offline review and record-keeping of budget information."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "BudgetVisualization",
+                        "componentInfo": {
+                            "componentDescription": "Visualizes budget data using unique charts.",
+                            "functionality": "The BudgetVisualization component is a dynamic and interactive feature designed to present complex budget data through visually engaging charts. It leverages ECharts to create a sunburst chart, which provides a detailed view of budget allocations and expenditures across different categories. This visualization allows users to explore budget data intuitively, offering insights into spending patterns and helping identify areas of concern or potential savings. The component updates in real-time as new data is entered into the BudgetForm, ensuring that visual representations are always current. Additionally, it provides interactive features such as hover-over tooltips, zoom, and drill-down capabilities, enabling users to delve deeper into specific budget segments. This interactive approach not only enhances user engagement but also aids in better understanding and management of financial resources.",
+                            "details": [
+                                "Sunburst chart representing budget categories and expenditures.",
+                                "Interactive tooltips showing detailed information on hover.",
+                                "Zoom and drill-down features for exploring specific data points.",
+                                "Real-time updates based on BudgetForm entries.",
+                                "Responsive design ensuring usability across devices."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/budget",
+                                    "description": "Dynamic interaction with BudgetForm for real-time data updates."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Interactive chart elements",
+                                "possibleInteractions": "User hovers over chart segments or clicks to drill down",
+                                "result": "Displays detailed information or focuses on a specific budget segment",
+                                "resultFunctionality": "When a user interacts with the chart, tooltips provide detailed information about the hovered segment. Clicking on a segment zooms into that category, allowing for a focused view of sub-categories and expenditures, providing a deeper understanding of budget allocation."
+                            }
+                        },
+                        "components": []
+                    }
+                ]
+            },
+            {
+                "componentName": "SunburstChart",
+                "componentInfo": {
+                    "componentDescription": "A specialized chart for visualizing hierarchical data in the BudgetVisualization component.",
+                    "functionality": "The SunburstChart component is an innovative feature that allows users to interactively explore hierarchical budget data. It provides a clear and engaging way to visualize complex data structures, such as the distribution of budget allocations across various categories and subcategories. The component is built using ECharts, ensuring high performance and rich interactivity. Users can hover over sections of the chart to view detailed information, zoom in to focus on specific areas, or click to drill down into deeper levels of data. This functionality supports comprehensive data analysis and helps users quickly identify trends and anomalies in budget spending. The SunburstChart is fully integrated with the BudgetVisualization component, updating in real-time as budget data changes, and is styled to match the overall application theme for a cohesive visual experience.",
+                    "details": [
+                        "Hierarchical data visualization using a sunburst layout.",
+                        "Interactive elements allowing hover, zoom, and drill-down.",
+                        "Responsive to window resizing, maintaining readability.",
+                        "Styling consistent with application branding.",
+                        "Integrated with live data updates from the BudgetTrackingContainer."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/budget",
+                            "description": "Direct integration with BudgetVisualization for interactive data exploration."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Chart segments and interactive controls",
+                        "possibleInteractions": "User hovers, zooms, or clicks on segments",
+                        "result": "Displays more detailed data or focuses view on selected segments",
+                        "resultFunctionality": "Each interaction with the chart provides users with additional insights. Hovering reveals tooltips with detailed data, zooming allows users to focus on specific categories, and clicking enables exploration of deeper data layers, all contributing to a comprehensive understanding of budget allocations."
+                    }
+                },
+                "components": []
+            }
+        ],
+        "pageUrl": "/budget"
+    }
+}

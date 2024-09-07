@@ -26,7 +26,7 @@ class ParseAndAdd:
             return line
 
         # Read the file
-        with open(self.llmOutputCodePath, 'r') as file:
+        with open(self.llmOutputCodePath, 'r', encoding='utf-8') as file:
             lines = file.readlines()
 
         # Process each line
@@ -47,7 +47,7 @@ class ParseAndAdd:
         self.processedLines = processed_lines
     
     def parseAndModifyFile(self):
-        with open(self.llmOutputCodePath, 'w') as file:
+        with open(self.llmOutputCodePath, 'w', encoding='utf-8') as file:
             file.writelines(self.processedLines)
 
     def remove_ticks(self):
@@ -97,7 +97,7 @@ class ParseAndAdd:
 
             # Open the file in write mode ('w'), which clears the old content if the file exists,
             # or creates the file if it doesn't exist
-            with open(file_path, 'w') as file:
+            with open(file_path, 'w', encoding='utf-8') as file:
                 file.write(value)
 
             print(f"Content added to {file_path}")
@@ -126,7 +126,7 @@ class ParseAndAdd:
 
 #Testing
 
-#PARAMS are the text file with teh code and then the frontendPath defined in main
+#PARAMS are the text file with the code and then the frontendPath defined in main
 parser = ParseAndAdd("output.txt", "Akshay/frontend")
 parser.process_and_check()
 print(parser.getAllFilePaths())
