@@ -67,7 +67,6 @@ class ParseAndAdd:
             if re.match(r"^\*\*\*\*File [pP][aA][tT][hH]:", line):
                 if current_path:
                     file_content_dict[current_path] = ''.join(current_content).strip()
-                # Extract the path after "****File PATH:" and remove "****"
                 current_path = re.split(r":\s*", line, maxsplit=1)[1].strip().replace('****', '')
                 current_content = []
             else:

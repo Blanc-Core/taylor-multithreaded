@@ -1,304 +1,468 @@
-### Page Name: Project Dashboard
+### Page Name: Team Profiles Page
 
 #### 1. **Name and Purpose**
-   - **Name:** Project Dashboard
-   - **Purpose:** This page serves as the central hub for users to view all ongoing research projects, their statuses, task assignments, compliance metrics, and budget tracking.
+   - **Name:** Team Profiles Page
+   - **Purpose:** This page serves to display all development team profiles, allowing users to create and edit team details while visualizing member workloads.
    - **Problems Solved:** 
-     - Provides a comprehensive overview of all research projects.
-     - Enhances visibility into project statuses and task allocation.
-     - Facilitates quick access to compliance details and budget information.
+     - Centralizes team member information for better management.
+     - Provides insights into individual workloads to prevent burnout.
+     - Facilitates task assignment by showcasing team skills and availability.
+
+#### 2. **Component Structure**
+   - **Parent Components:**
+     - **TeamProfilesContainer**
+       - **Core Role:** Manages the overall state and structure of team profiles, including fetching data and handling updates.
+       - **Components:** 
+         - **TeamProfileList**
+         - **TeamProfileForm**
+   - **Sub-Components (Children):**
+     - **TeamProfileList**
+       - Displays a list of all team profiles with key information.
+       - Allows for editing and deleting profiles.
+     - **TeamProfileForm**
+       - Facilitates the creation and editing of team profiles.
+       - Validates input and handles form submissions.
+     - **ProfileCard**
+       - Represents individual team members within the list.
+       - Displays member details and workload visually.
+   - **Component Breakdown:**
+     - **Hierarchy:** 
+       - TeamProfilesContainer 
+         - ├── TeamProfileList 
+         - └── TeamProfileForm 
+           - └── ProfileCard
+     - **Dynamic Relationships:** TeamProfilesContainer updates TeamProfileList in real-time as profiles are added or edited.
+     - **Reusability:** ProfileCard can be reused in other pages like Current Projects Page to display team members involved in specific projects.
+
+#### 3. **User Interaction and Flow**
+   - **Component Interactions:** Users can click on a profile within TeamProfileList to edit it, which opens the TeamProfileForm pre-filled with that member's data.
+   - **Feedback Mechanisms:** Visual cues such as loading spinners during data fetches and success alerts upon saving changes to profiles.
+   - **Adaptive Behavior:** The layout adjusts based on screen size, stacking ProfileCards in a grid format on smaller screens.
+
+#### 4. **Data Handling**
+   - **Data Flow:** 
+     - TeamProfilesContainer fetches data from mock API and passes it to TeamProfileList.
+     - TeamProfileForm submits new/updated data back to TeamProfilesContainer for re-rendering.
+   - **State Management:** Using React's useState and useEffect hooks to manage component state and side effects.
+   - **Mock Data Implementation:** Sample data structure:
+     ```json
+     [
+       { "name": "Alice", "role": "Developer", "skills": ["React", "JavaScript"], "experience": 5, "workload": 30 },
+       { "name": "Bob", "role": "Designer", "skills": ["Figma", "Photoshop"], "experience": 4, "workload": 20 }
+     ]
+     ```
+
+#### 5. **Interconnectivity**
+   - **Intra-Module Interactions:** TeamProfilesPage will share team member data with the Current Projects Page, allowing users to see who is available for task assignments.
+   - **Data Sharing:** When a member's workload changes, it updates across all pages that reference this data.
+   - **Integration Points:** Utilizes a global context provider for managing user authentication and shared state across the module.
+
+#### 6. **Scalability and Performance**
+   - **Scalability Considerations:** The component structure allows for easy addition of new profiles and skills without significant refactoring.
+   - **Performance Metrics:** Load times and responsiveness can be measured using tools like Google Lighthouse, ensuring components remain optimized.
+
+#### 7. **Navigation and User Flow**
+   - **Navigation To This Page:** Users access this page via a sidebar navigation menu labeled "Team Profiles."
+   - **Navigation From This Page:** A button allows users to navigate to the Current Projects Page, enabling quick task assignments based on available team members.
+
+#### 8. **Innovative Features**
+   - **Unique Features:** 
+     - Interactive workload heatmaps that visually represent team member availability.
+     - A search/filter functionality to quickly find specific team members based on skills or roles.
+   - **Components Needed for Innovative Features:** 
+     - **WorkloadHeatmap**
+     - **SearchBar**
+
+#### 9. **Page URL**
+   - **URL for This Page (React):** `/team-profiles`### Page Name: Performance Dashboard Page
+
+#### 1. **Name and Purpose**
+   - **Name:** Performance Dashboard
+   - **Purpose:** Provides an overview of team and individual performance metrics, displaying key performance indicators (KPIs) through visualizations like charts and graphs.
+   - **Problems Solved:** 
+     - Allows quick assessment of productivity levels across teams.
+     - Visualizes performance trends over time for informed decision-making.
+     - Highlights areas of strength and improvement opportunities for team members.
+
+#### 2. **Component Structure**
+   - **Parent Components:**
+     - **PerformanceDashboard**: Main container for the dashboard.
+       - **Core Role:** Displays the overall performance metrics and visualizations.
+       - **Components:**
+         - **KPISection**: Displays key metrics.
+         - **PerformanceChart**: Visualization of productivity trends (e.g., line chart, heat map).
+         - **MemberPerformance**: List of individual performances with detailed metrics.
+   - **Sub-Components (Children):**
+     - **KPICard**: Individual KPI display (e.g., total tasks completed).
+     - **LineChart**: Visual representation of productivity trends over time.
+     - **HeatMap**: Displays performance intensity over periods (e.g., days of the week).
+     - **MemberCard**: Displays individual member performance metrics.
+   - **Component Breakdown:**
+     - **Hierarchy:**
+       ```
+       PerformanceDashboard
+           ├── KPISection
+           │       ├── KPICard
+           │       ├── KPICard
+           │       └── KPICard
+           ├── PerformanceChart
+           │       ├── LineChart
+           │       └── HeatMap
+           └── MemberPerformance
+                   ├── MemberCard
+                   ├── MemberCard
+                   └── MemberCard
+       ```
+     - **Dynamic Relationships:** Real-time data updates via WebSocket for performance metrics.
+     - **Reusability:** Components like `KPICard` and `MemberCard` can be reused on the Time Tracking Page and Sprint Analysis Page.
+
+#### 3. **User Interaction and Flow**
+   - **Component Interactions:** Users can hover over charts for tooltips, click on KPIs for detailed views, and filter data by time range.
+   - **Feedback Mechanisms:** Visual cues (e.g., loading spinners, success alerts on actions).
+   - **Adaptive Behavior:** Responsive layouts adjust to screen size; charts stack on smaller screens.
+
+#### 4. **Data Handling**
+   - **Data Flow:** 
+     - Parent `PerformanceDashboard` fetches data from the API.
+     - Child components receive props with updated data.
+     - Mock Data Example:
+       ```
+       const performanceData = {
+         KPIs: { totalTasks: 25, avgCompletionTime: "2.5 hrs" },
+         trends: [/* time series data */],
+         members: [
+           { name: "Alice", tasksCompleted: 15, peerReviews: 4 },
+           { name: "Bob", tasksCompleted: 10, peerReviews: 2 },
+         ]
+       };
+       ```
+   - **State Management:** Using React's `useState` and `useEffect` for managing API data fetch and updates.
+   - **Mock Data Implementation:** Use static JSON files for initial development testing.
+
+#### 5. **Interconnectivity**
+   - **Intra-Module Interactions:** Interacts with Time Tracking Page to pull time logs and correlate with performance metrics.
+   - **Data Sharing:** Shared state or context to provide user-specific filters across pages.
+   - **Integration Points:** Uses shared components like `Chart` for consistency in visualizations.
+
+#### 6. **Scalability and Performance**
+   - **Scalability Considerations:** The architecture allows adding more KPIs or members without major changes.
+   - **Performance Metrics:** Monitoring load times and responsiveness with tools like Lighthouse and React Profiler to ensure efficient rendering.
+
+#### 7. **Navigation and User Flow**
+   - **Navigation To This Page:** Users navigate through a sidebar or top navigation bar selecting "Performance Dashboard."
+   - **Navigation From This Page:** Can navigate to Time Tracking Page and Sprint Analysis Page via buttons or tabs.
+
+#### 8. **Innovative Features**
+   - **Unique Features:** Interactive heat map showing peak performance times allowing for better planning.
+   - **Components Needed for Innovative Features:** HeatMap component and tooltips for interactivity.
+
+#### 9. **Page URL**
+   - **URL for This Page (React):** `/performance/dashboard`### Page Name: Chat Interface Page
+
+#### 1. **Name and Purpose**
+   - **Name:** Chat Interface Page
+   - **Purpose:** This page serves as the central hub for real-time messaging among team members, allowing users to engage in discussions, share files, and view chat histories for each project.
+   - **Problems Solved:** 
+     - Facilitates quick, real-time communication among team members.
+     - Organizes conversations by project to maintain context.
+     - Reduces reliance on email for internal discussions.
+
+#### 2. **Component Structure**
+   - **Parent Components:**
+     - **ChatContainer:** The main component housing the chat interface.
+       - **Core Role:** Manages the overall structure and logic of the chat interface.
+       - **Components:** 
+         - ChatHeader
+         - ChatMessages
+         - ChatInput
+         - ChatSidebar
+   - **Sub-Components (Children):**
+     - **ChatHeader:** Displays the project name and user details.
+       - **Functionality:** Provides context about the current chat session.
+     - **ChatMessages:** Renders a list of messages for the selected project.
+       - **Functionality:** Displays messages with timestamps and user identifiers.
+     - **ChatInput:** Allows users to compose and send messages.
+       - **Functionality:** Captures user input and initiates message sending.
+     - **ChatSidebar:** Lists all projects for easy navigation.
+       - **Functionality:** Enables users to switch between different project chats.
+
+   - **Component Breakdown:**
+     - **Hierarchy:** 
+       ```
+       ChatContainer
+       ├── ChatHeader
+       ├── ChatMessages
+       ├── ChatInput
+       └── ChatSidebar
+       ```
+     - **Dynamic Relationships:** 
+       - ChatMessages updates in real-time as new messages are sent through ChatInput.
+       - ChatSidebar allows for dynamic switching, updating ChatMessages based on the selected project.
+     - **Reusability:** 
+       - ChatHeader and ChatInput can be reused across different chat modules if needed.
+
+#### 3. **User Interaction and Flow**
+   - **Component Interactions:** 
+     - Users can click on project names in the ChatSidebar to load corresponding messages in ChatMessages.
+     - Typing in ChatInput allows for message composition, with a send button to dispatch messages.
+   - **Feedback Mechanisms:** 
+     - Real-time message updates in ChatMessages without page refresh.
+     - Visual indication (e.g., loading spinner) in ChatInput when sending a message.
+   - **Adaptive Behavior:** 
+     - ChatSidebar collapses on smaller screens to maintain usability.
+
+#### 4. **Data Handling**
+   - **Data Flow:** 
+     - Mock data structure:
+       ```json
+       {
+         "projects": [
+           {
+             "projectId": 1,
+             "messages": [
+               {"user": "Alice", "text": "Can we discuss the homepage design?", "timestamp": "2023-10-10 10:00"},
+               {"user": "Bob", "text": "Sure, let's set up a time.", "timestamp": "2023-10-10 10:05"}
+             ]
+           }
+         ]
+       }
+       ```
+   - **State Management:** 
+     - State managed through a context provider, allowing components to access and modify chat data seamlessly.
+   - **Mock Data Implementation:** 
+     - Use of static JSON to simulate message fetching and sending functionalities without backend dependency.
+
+#### 5. **Interconnectivity**
+   - **Intra-Module Interactions:** 
+     - ChatSidebar interacts with the Task Comments Page to provide context for discussions related to specific tasks.
+   - **Data Sharing:** 
+     - Chat messages can be linked to tasks or meetings, enabling cross-reference.
+   - **Integration Points:** 
+     - Shared components for notifications to alert users about new messages.
+
+#### 6. **Scalability and Performance**
+   - **Scalability Considerations:** 
+     - The structure supports adding more projects and messages without restructuring.
+   - **Performance Metrics:** 
+     - Metrics include message load time and rendering speed of the chat interface, monitored using performance monitoring tools.
+
+#### 7. **Navigation and User Flow**
+   - **Navigation To This Page:** 
+     - Users navigate to this page via a sidebar menu that lists all modules, selecting "Chat Interface."
+   - **Navigation From This Page:** 
+     - Users can click on task links in ChatMessages to navigate to the Task Comments Page or use the ChatSidebar to switch to a different project chat.
+
+#### 8. **Innovative Features**
+   - **Unique Features:** 
+     - Real-time message updates with typing indicators.
+     - Search functionality within ChatMessages to find specific discussions.
+   - **Components Needed for Innovative Features:** 
+     - SearchBar component within ChatMessages for filtering messages.
+
+#### 9. **Page URL**
+   - **URL for This Page (React):** `/team-collaboration/chat`### Page Name: Resource Allocation Dashboard Page
+
+#### 1. **Name and Purpose**
+   - **Name:** Resource Allocation Dashboard
+   - **Purpose:** This page serves as the primary interface for visualizing team workloads and project assignments, allowing users to quickly assess resource allocation and identify any imbalances.
+   - **Problems Solved:** 
+     - Provides a clear overview of team workloads.
+     - Identifies teams that are overworked or underutilized.
+     - Facilitates quick decision-making regarding resource reallocation.
 
 #### 2. **Component Structure**
    - **Parent Components:**
      - **DashboardContainer**
-       - **Core Role:** Acts as the main holder for all dashboard components, orchestrating layout and data fetching.
-       - **Components:** ProjectList, ComplianceStatus, BudgetOverview, Notifications.
+       - **Core Role:** Acts as the main container for the dashboard, coordinating the layout of child components and managing overall state.
+       - **Components:** 
+         - `TeamWorkloadChart` (visual representation of team workloads)
+         - `ProjectAssignmentsList` (detailed view of ongoing projects)
+         - `AlertsNotification` (displays alerts for imbalances)
+
    - **Sub-Components (Children):**
-     - **ProjectList:** Displays a list of all research projects with quick stats.
-     - **ComplianceStatus:** Visualizes compliance metrics using unique charts (e.g., radar charts for compliance areas).
-     - **BudgetOverview:** Shows budget allocation using a tree map to visualize spending distribution.
-     - **Notifications:** Alerts users to task assignments and changes in project statuses.
+     - **TeamWorkloadChart**
+       - Displays a heatmap-style visualization of team workloads, with color coding to indicate workload levels.
+     - **ProjectAssignmentsList**
+       - Lists all current projects along with the teams assigned and their respective workloads.
+     - **AlertsNotification**
+       - Shows notifications for teams exceeding predefined workload thresholds, helping users take action promptly.
 
    - **Component Breakdown:**
-     - **Hierarchy:** 
-       - DashboardContainer
-         - ProjectList
-         - ComplianceStatus
-         - BudgetOverview
-         - Notifications
-     - **Dynamic Relationships:** Real-time updates on project statuses and budget metrics will be reflected across child components.
-     - **Reusability:** Components like BudgetOverview and Notifications can be made reusable for other pages, like Task Management.
+     - **Hierarchy:**
+       - `DashboardContainer`
+         - `TeamWorkloadChart`
+         - `ProjectAssignmentsList`
+         - `AlertsNotification`
+     - **Dynamic Relationships:**
+       - The `TeamWorkloadChart` updates in real-time based on changes in team workloads.
+       - Clicking on a team in the `ProjectAssignmentsList` filters the `TeamWorkloadChart` to highlight that team's workload.
+     - **Reusability:**
+       - `AlertsNotification` can be reused on the Load Balancing Alerts Page.
 
 #### 3. **User Interaction and Flow**
-   - **Component Interactions:** Users can click on a project in ProjectList to drill down into task management. Notifications provide alerts for new tasks or updates.
-   - **Feedback Mechanisms:** Visual indicators (e.g., color changes in project status) and pop-up modals for task details.
-   - **Adaptive Behavior:** Responsive design will adjust component layouts based on screen size, ensuring usability on mobile devices.
+   - **Component Interactions:**
+     - Users interact with the `TeamWorkloadChart` by hovering over sections to view detailed workload percentages.
+     - Clicking on a team in the `ProjectAssignmentsList` triggers a filter on the `TeamWorkloadChart`.
+   - **Feedback Mechanisms:**
+     - Color changes in the `TeamWorkloadChart` provide immediate visual feedback on workload status.
+     - Alerts in the `AlertsNotification` component use badges to draw attention.
+   - **Adaptive Behavior:**
+     - The layout adapts to screen size, stacking components vertically on smaller screens.
 
 #### 4. **Data Handling**
-   - **Data Flow:** DashboardContainer fetches project data from a mock API, passing it to child components. For instance, ProjectList receives an array of project objects.
-   - **State Management:** State is managed using React's useState and useEffect for fetching and maintaining project data.
-   - **Mock Data Implementation:** Mock data will simulate API responses for project details and compliance metrics.
+   - **Data Flow:**
+     - Mock data is fed into `DashboardContainer`, which distributes it to `TeamWorkloadChart` and `ProjectAssignmentsList`.
+     - Example mock data:
+       ```javascript
+       const resourceData = {
+         teams: [{
+           name: "Frontend Wizards",
+           workload: 80,
+           projects: ["Website Revamp", "E-Commerce Site"]
+         }, {
+           name: "Backend Gurus",
+           workload: 60,
+           projects: ["API Development"]
+         }],
+         alerts: [{
+           team: "Frontend Wizards",
+           message: "Exceeding workload threshold."
+         }]
+       };
+       ```
+   - **State Management:**
+     - The `DashboardContainer` manages the state and passes it down as props to child components.
+   - **Mock Data Implementation:**
+     - The use of mock data allows for dynamic visualization without backend integration.
 
 #### 5. **Interconnectivity**
-   - **Intra-Module Interactions:** ProjectList interacts with Task Management for task allocation and updates.
-   - **Data Sharing:** Compliance metrics from ComplianceStatus can be shared with the Compliance Reports page for detailed analysis.
-   - **Integration Points:** Notifications will share context with Task Management to alert users of task updates.
+   - **Intra-Module Interactions:**
+     - The `AlertsNotification` component can pull data from the Load Balancing Alerts Page to show relevant alerts.
+   - **Data Sharing:**
+     - Workload data from `ProjectAssignmentsList` can be shared with the Load Balancing Alerts Page for consistency in alerts.
+   - **Integration Points:**
+     - Shared components like `AlertsNotification` ensure consistency across different pages.
 
 #### 6. **Scalability and Performance**
-   - **Scalability Considerations:** The component structure allows for easy addition of new project metrics or visualizations without major refactoring.
-   - **Performance Metrics:** Load times and rendering performance will be monitored using React Profiler and optimized with lazy loading for large datasets.
+   - **Scalability Considerations:**
+     - The `TeamWorkloadChart` can be modified to handle additional teams or projects without redesigning the component structure.
+   - **Performance Metrics:**
+     - Metrics such as load times and responsiveness are monitored using performance profiling tools, with a focus on optimizing rendering for larger datasets.
 
 #### 7. **Navigation and User Flow**
-   - **Navigation To This Page:** Users access the Project Dashboard from the main navigation menu.
-   - **Navigation From This Page:** Links to Task Management, Experimental Results, and Compliance Reports are available for easy navigation.
+   - **Navigation To This Page:**
+     - Users can access this page from the main navigation menu labeled "Resource Allocation Dashboard."
+   - **Navigation From This Page:**
+     - Users can navigate to the Load Balancing Alerts Page via a link in the `AlertsNotification` component.
 
 #### 8. **Innovative Features**
-   - **Unique Features:** Integration of a heat map for visualizing task density across projects to identify bottlenecks.
-   - **Components Needed for Innovative Features:** HeatMap component, integrated into ComplianceStatus.
+   - **Unique Features:**
+     - The heatmap visualization in `TeamWorkloadChart` provides an intuitive and engaging way to assess workloads at a glance.
+   - **Components Needed for Innovative Features:**
+     - `TeamWorkloadChart` needs to be equipped with a heatmap visualization library for enhanced data representation.
 
 #### 9. **Page URL**
-   - **URL for This Page (React):** `/dashboard`
-
----
-
-### Page Name: Task Management
+   - **URL for This Page (React):** `/resource-allocation/dashboard`### Page Name: Project Overview Page
 
 #### 1. **Name and Purpose**
-   - **Name:** Task Management
-   - **Purpose:** This page allows users to create, assign, and track project-related tasks, facilitating efficient workflow management.
+   - **Name:** Project Overview Page
+   - **Purpose:** This page serves as the central hub for displaying comprehensive project details, including phases, milestones, and status updates. It provides users with an at-a-glance view of project health and progress.
    - **Problems Solved:** 
-     - Streamlines task creation and assignment.
-     - Provides visibility into task progress and responsibility.
-     - Enables tracking of hours spent on tasks.
+     - Consolidates project information in a single view to prevent confusion.
+     - Highlights upcoming milestones to ensure deadlines are met.
+     - Offers quick access to detailed phase and task information.
 
 #### 2. **Component Structure**
    - **Parent Components:**
-     - **TaskManagerContainer**
-       - **Core Role:** Main component managing the task interface and data.
-       - **Components:** TaskList, TaskForm, TaskProgressChart.
+     - **ProjectOverviewContainer**
+       - **Core Role:** The main wrapper for the entire project overview layout, responsible for fetching and displaying project data.
+       - **Components:** 
+         - ProjectSummary
+         - MilestoneList
+         - PhaseStatus
+         - TaskBreakdown
    - **Sub-Components (Children):**
-     - **TaskList:** Displays all tasks for selected projects with statuses.
-     - **TaskForm:** Form for adding new tasks with details (description, assignee, deadline).
-     - **TaskProgressChart:** Visualizes task completion using progress bars or a unique circular progress chart.
-
+     - **ProjectSummary**
+       - Displays overall project information (name, description, status).
+     - **MilestoneList**
+       - Lists all milestones with their status and due dates.
+     - **PhaseStatus**
+       - Visual representation of the current phase with progress indicators.
+     - **TaskBreakdown**
+       - Shows tasks related to the project with filters for status and assignee.
    - **Component Breakdown:**
      - **Hierarchy:** 
-       - TaskManagerContainer
-         - TaskList
-         - TaskForm
-         - TaskProgressChart
-     - **Dynamic Relationships:** TaskList updates dynamically when new tasks are created via TaskForm.
-     - **Reusability:** TaskForm can be reused in other parts of the module for creating different types of tasks.
+       - ProjectOverviewContainer
+         - ProjectSummary
+         - MilestoneList
+         - PhaseStatus
+         - TaskBreakdown
+     - **Dynamic Relationships:** 
+       - ProjectSummary updates dynamically based on selected project.
+       - MilestoneList interacts with Milestone data to reflect real-time updates.
+     - **Reusability:** 
+       - MilestoneList and TaskBreakdown components can be reused in Task Management Page and Milestone Tracking Page.
 
 #### 3. **User Interaction and Flow**
-   - **Component Interactions:** Users can add a task via TaskForm, which updates TaskList in real-time.
-   - **Feedback Mechanisms:** Confirmation messages upon task creation and visual indicators for task statuses.
-   - **Adaptive Behavior:** Components resize and rearrange based on the device being used, ensuring a seamless experience.
+   - **Component Interactions:** 
+     - Users can click on milestones to view detailed information, and filter tasks by status in TaskBreakdown.
+   - **Feedback Mechanisms:** 
+     - Visual cues through color coding (green for completed, red for overdue) in MilestoneList.
+     - Real-time updates in PhaseStatus reflecting task progress.
+   - **Adaptive Behavior:** 
+     - Components adjust layout responsively based on screen size, maintaining usability.
 
 #### 4. **Data Handling**
-   - **Data Flow:** TaskManagerContainer handles fetching and storing task data, passing it to TaskList and TaskProgressChart.
-   - **State Management:** Local state using useState to track tasks and progress.
-   - **Mock Data Implementation:** Mock data will simulate task information for the interface.
+   - **Data Flow:** 
+     - ProjectOverviewContainer fetches data and passes it down to child components as props.
+     - Example mock data:
+       ```
+       {
+         name: "Website Revamp",
+         description: "Revamping the company website.",
+         phases: [
+           { name: "Development", status: "In Progress" }
+         ],
+         milestones: [
+           { name: "Alpha Release", dueDate: "2023-11-01", status: "Upcoming" }
+         ],
+         tasks: [
+           { description: "Implement homepage", status: "In Progress", assignee: "Alice" }
+         ]
+       }
+       ```
+   - **State Management:** 
+     - State is managed within ProjectOverviewContainer and passed down as props to ensure consistency.
+   - **Mock Data Implementation:** 
+     - Utilize static mock data to demonstrate functionality; replace with API calls in production.
 
 #### 5. **Interconnectivity**
-   - **Intra-Module Interactions:** Task data interacts with the Project Dashboard to reflect task statuses and progress.
-   - **Data Sharing:** Task completion updates are shared with the Project Dashboard to maintain accurate project statuses.
-   - **Integration Points:** Notifications can be triggered from this page when tasks are assigned or updated.
+   - **Intra-Module Interactions:** 
+     - The ProjectOverviewPage will connect with Task Management Page to receive updates on task statuses.
+   - **Data Sharing:** 
+     - Shares milestone and task data with Milestone Tracking Page for comprehensive reporting.
+   - **Integration Points:** 
+     - Uses shared components such as modal popups for task details and notifications.
 
 #### 6. **Scalability and Performance**
-   - **Scalability Considerations:** The structure allows for adding new filters or sorting options for tasks as project complexity grows.
-   - **Performance Metrics:** Track rendering times and optimize rendering for large task lists using React.memo.
+   - **Scalability Considerations:** 
+     - The component structure allows for adding more components (e.g., additional metrics) as project complexity grows.
+   - **Performance Metrics:** 
+     - Load times for data fetching, responsiveness during user interactions, and resource usage will be monitored and optimized.
 
 #### 7. **Navigation and User Flow**
-   - **Navigation To This Page:** Users navigate from the Project Dashboard or the main menu.
-   - **Navigation From This Page:** Return to Project Dashboard or access Experimental Results.
+   - **Navigation To This Page:** 
+     - Users navigate to this page through a sidebar link labeled "Project Overview."
+   - **Navigation From This Page:** 
+     - Users can navigate to Task Management Page via a button labeled "Manage Tasks" and to Gantt Chart Page through a link labeled "View Gantt Chart."
 
 #### 8. **Innovative Features**
-   - **Unique Features:** Drag-and-drop functionality for task prioritization within TaskList.
-   - **Components Needed for Innovative Features:** DragDropContext from React DnD.
+   - **Unique Features:** 
+     - Interactive milestone tooltips that provide additional information on hover.
+     - A collapsible task filter section in TaskBreakdown for better user experience.
+   - **Components Needed for Innovative Features:** 
+     - Tooltip component for milestone hover interactions.
+     - Collapsible sections for task filters.
 
 #### 9. **Page URL**
-   - **URL for This Page (React):** `/tasks`
-
----
-
-### Page Name: Experimental Results
-
-#### 1. **Name and Purpose**
-   - **Name:** Experimental Results
-   - **Purpose:** This page allows users to input, manage, and visualize experimental data, promoting data-driven decision-making.
-   - **Problems Solved:** 
-     - Facilitates easy entry and management of experimental results.
-     - Provides visualization tools to analyze data patterns and trends.
-     - Ensures secure storage of important datasets and notes.
-
-#### 2. **Component Structure**
-   - **Parent Components:**
-     - **ResultsContainer**
-       - **Core Role:** Manages the overall input and visualization of experimental results.
-       - **Components:** ResultsForm, ResultsList, ResultsVisualization.
-   - **Sub-Components (Children):**
-     - **ResultsForm:** Form for entering new experimental data.
-     - **ResultsList:** Displays a list of previously entered results with options to edit or delete.
-     - **ResultsVisualization:** Unique visualization tools (e.g., heat maps or line charts) to analyze results.
-
-   - **Component Breakdown:**
-     - **Hierarchy:** 
-       - ResultsContainer
-         - ResultsForm
-         - ResultsList
-         - ResultsVisualization
-     - **Dynamic Relationships:** New entries in ResultsForm will automatically update ResultsList and trigger visualization updates.
-     - **Reusability:** ResultsVisualization can be reused for different data types across the module.
-
-#### 3. **User Interaction and Flow**
-   - **Component Interactions:** Users enter data in ResultsForm, and on submission, the data is reflected in ResultsList and visualized in ResultsVisualization.
-   - **Feedback Mechanisms:** Success messages for data entry and visual updates based on user input.
-   - **Adaptive Behavior:** Responsive layout to accommodate various screen sizes, ensuring usability on tablets and smartphones.
-
-#### 4. **Data Handling**
-   - **Data Flow:** ResultsContainer manages data fetching and state updates for experimental results.
-   - **State Management:** Uses useState to manage the input data and results list.
-   - **Mock Data Implementation:** Mock data simulates the results entered for testing functionalities.
-
-#### 5. **Interconnectivity**
-   - **Intra-Module Interactions:** Results from this page flow into Reporting for analysis and publication.
-   - **Data Sharing:** Experimental results data will be accessible from the Project Dashboard for comprehensive overviews.
-   - **Integration Points:** ResultsVisualization will provide context to budgets via correlation charts.
-
-#### 6. **Scalability and Performance**
-   - **Scalability Considerations:** The architecture allows for adding new visualization types or data fields without significant changes to existing code.
-   - **Performance Metrics:** Monitor rendering performance for large datasets and optimize using techniques such as data virtualization.
-
-#### 7. **Navigation and User Flow**
-   - **Navigation To This Page:** Users access this page from the Project Dashboard or directly from task details.
-   - **Navigation From This Page:** Navigate back to Task Management or access Compliance Reports.
-
-#### 8. **Innovative Features**
-   - **Unique Features:** Integration of a heat map for visualizing result distributions across various parameters.
-   - **Components Needed for Innovative Features:** HeatMap component for results visualization.
-
-#### 9. **Page URL**
-   - **URL for This Page (React):** `/results`
-
----
-
-### Page Name: Compliance Reports
-
-#### 1. **Name and Purpose**
-   - **Name:** Compliance Reports
-   - **Purpose:** This page allows users to generate compliance checklists and reports based on project specifics and regulatory requirements.
-   - **Problems Solved:** 
-     - Automates compliance reporting, reducing manual effort.
-     - Ensures all regulatory checks are documented and accessible.
-     - Facilitates easy sharing of compliance documents with stakeholders.
-
-#### 2. **Component Structure**
-   - **Parent Components:**
-     - **ComplianceReportContainer**
-       - **Core Role:** Manages generation and display of compliance reports.
-       - **Components:** ComplianceChecklist, ReportGenerator, ReportHistory.
-   - **Sub-Components (Children):**
-     - **ComplianceChecklist:** Displays mandatory compliance items based on project type.
-     - **ReportGenerator:** Form allowing users to customize and generate compliance reports.
-     - **ReportHistory:** Shows previously generated reports for reference.
-
-   - **Component Breakdown:**
-     - **Hierarchy:** 
-       - ComplianceReportContainer
-         - ComplianceChecklist
-         - ReportGenerator
-         - ReportHistory
-     - **Dynamic Relationships:** ComplianceChecklist updates based on selected project type in ReportGenerator.
-     - **Reusability:** ComplianceChecklist can be reused across different project types.
-
-#### 3. **User Interaction and Flow**
-   - **Component Interactions:** Users select a project type in ReportGenerator, which updates ComplianceChecklist accordingly. Generated reports are displayed in ReportHistory.
-   - **Feedback Mechanisms:** Notifications for successful report generation and visual indicators for checklist completion.
-   - **Adaptive Behavior:** Responsive design ensures usability on various devices by adjusting component layouts.
-
-#### 4. **Data Handling**
-   - **Data Flow:** ComplianceReportContainer fetches compliance requirements based on project type and manages report generation.
-   - **State Management:** Uses useState to handle the state of selected project type and generated report data.
-   - **Mock Data Implementation:** Mock data simulates compliance requirements and generated report data.
-
-#### 5. **Interconnectivity**
-   - **Intra-Module Interactions:** Compliance data can be shared with the Project Dashboard for visibility on compliance status.
-   - **Data Sharing:** ReportGenerator pulls data from the Project Dashboard to ensure accurate compliance reporting.
-   - **Integration Points:** Notifications will alert users of upcoming compliance deadlines based on generated reports.
-
-#### 6. **Scalability and Performance**
-   - **Scalability Considerations:** New compliance regulations can be easily integrated into the ComplianceChecklist without major architectural changes.
-   - **Performance Metrics:** Track report generation times and optimize for larger datasets.
-
-#### 7. **Navigation and User Flow**
-   - **Navigation To This Page:** Users can access this page from the Project Dashboard or via a dedicated menu item.
-   - **Navigation From This Page:** Users can navigate back to the Project Dashboard or to the Budget Tracking page.
-
-#### 8. **Innovative Features**
-   - **Unique Features:** Implementation of a dynamic report generation tool that allows users to select multiple projects and generate bulk compliance reports.
-   - **Components Needed for Innovative Features:** DynamicReportGenerator component for enhanced report creation.
-
-#### 9. **Page URL**
-   - **URL for This Page (React):** `/compliance`
-
----
-
-### Page Name: Budget Tracking
-
-#### 1. **Name and Purpose**
-   - **Name:** Budget Tracking
-   - **Purpose:** This page provides users with tools to manage and track expenses related to research funding and grants.
-   - **Problems Solved:** 
-     - Enhances visibility into budget allocations and expenditures.
-     - Facilitates tracking of grant spending to ensure compliance with funding requirements.
-     - Provides insights into budget usage to aid future project planning.
-
-#### 2. **Component Structure**
-   - **Parent Components:**
-     - **BudgetTrackingContainer**
-       - **Core Role:** Manages budget data input and visualization.
-       - **Components:** BudgetForm, BudgetOverview, BudgetVisualization.
-   - **Sub-Components (Children):**
-     - **BudgetForm:** Form for entering new budget items and expenses.
-     - **BudgetOverview:** Displays a summary of budget allocations and expenditures.
-     - **BudgetVisualization:** Visualizes budget data using unique charts (e.g., sunburst chart for expense categories).
-
-   - **Component Breakdown:**
-     - **Hierarchy:** 
-       - BudgetTrackingContainer
-         - BudgetForm
-         - BudgetOverview
-         - BudgetVisualization
-     - **Dynamic Relationships:** BudgetForm updates BudgetOverview and BudgetVisualization in real-time.
-     - **Reusability:** BudgetOverview can be reused in the Project Dashboard for summary views.
-
-#### 3. **User Interaction and Flow**
-   - **Component Interactions:** Users can enter expenses in BudgetForm, which directly updates the BudgetOverview and BudgetVisualization.
-   - **Feedback Mechanisms:** Confirmation messages for successful data entry and visual updates reflecting changes.
-   - **Adaptive Behavior:** Components adjust for optimal viewing on various devices.
-
-#### 4. **Data Handling**
-   - **Data Flow:** BudgetTrackingContainer manages fetching and updating budget data.
-   - **State Management:** Uses useState for managing budget entries and visualizations.
-   - **Mock Data Implementation:** Mock data will simulate budget information and transactions.
-
-#### 5. **Interconnectivity**
-   - **Intra-Module Interactions:** Budget data interacts with Project Dashboard for comprehensive project management.
-   - **Data Sharing:** Budget updates will reflect in the Reporting module to ensure financial compliance.
-   - **Integration Points:** Notifications will be generated for budget overspending alerts.
-
-#### 6. **Scalability and Performance**
-   - **Scalability Considerations:** The structure allows for easy addition of new budget categories or visualizations as project needs evolve.
-   - **Performance Metrics:** Monitor rendering times for budget visualizations and optimize data handling for large budgets.
-
-#### 7. **Navigation and User Flow**
-   - **Navigation To This Page:** Users can navigate from the Project Dashboard or through a dedicated budget management menu item.
-   - **Navigation From This Page:** Users can go back to the Project Dashboard or access Compliance Reports.
-
-#### 8. **Innovative Features**
-   - **Unique Features:** Integration of a sunburst chart for visualizing budget allocations across multiple projects.
-   - **Components Needed for Innovative Features:** SunburstChart component to represent budget data.
-
-#### 9. **Page URL**
-   - **URL for This Page (React):** `/budget`
+   - **URL for This Page (React):** `/projects/:projectId/overview`

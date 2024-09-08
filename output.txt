@@ -1,1347 +1,1301 @@
 
 
-****File PATH: components/TaskManagerContainer.js****
+****File PATH: components/DashboardContainer.js****
 
-import React, { useState, useEffect } from 'react';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { Form, Input, Select, Button, Progress, Card, Typography, Layout, Row, Col } from 'antd';
+import React, { useState, useEffect, useMemo } from 'react';
 import ReactECharts from 'echarts-for-react';
-import 'antd/dist/reset.css';
+import { useNavigate } from 'react-router-dom';
+import { Layout, Card, Button, Table, Input, Select, Slider, Tooltip, Alert, notification } from 'antd';
+import "antd/dist/reset.css";
 
+const { Header, Content, Sider } = Layout;
 const { Option } = Select;
-const { Title } = Typography;
-const { Header, Content } = Layout;
 
-const tasksData = [
-  { id: 1, name: "Design Landing Page", assignee: "John Doe", dueDate: "2023-10-15", status: "in progress", priority: "high", progress: 75, comments: [] },
-  { id: 2, name: "Develop API", assignee: "Jane Smith", dueDate: "2023-10-20", status: "pending", priority: "medium", progress: 20, comments: [] },
-  { id: 3, name: "Write Documentation", assignee: "Alice Johnson", dueDate: "2023-10-25", status: "completed", priority: "low", progress: 100, comments: [] }
-];
+const DashboardContainer = () => {
+  const [feedback, setFeedback] = useState([]);
+  const [teamWorkloadData, setTeamWorkloadData] = useState([]);
+  const [projectAssignments, setProjectAssignments] = useState([]);
+  const [alerts, setAlerts] = useState([]);
+  const [theme, setTheme] = useState('light');
 
-const TaskItem = ({ task, index, moveTask }) => {
-  const [, ref] = useDrag({
-    type: 'TASK',
-    item: { index },
-  });
+  const navigate = useNavigate();
 
-  const [, drop] = useDrop({
-    accept: 'TASK',
-    hover(item) {
-      if (item.index !== index) {
-        moveTask(item.index, index);
-        item.index = index;
-      }
-    },
-  });
+  useEffect(() => {
+    setTeamWorkloadData([
+      { team: 'Team A', workload: 80 },
+      { team: 'Team B', workload: 30 },
+      { team: 'Team C', workload: 60 },
+      { team: 'Team D', workload: 50 },
+      { team: 'Team E', workload: 90 },
+    ]);
+
+    setProjectAssignments([
+      { id: 1, name: 'Project Alpha', team: 'Team A', workload: 80, status: 'ongoing' },
+      { id: 2, name: 'Project Beta', team: 'Team B', workload: 60, status: 'ongoing' },
+      { id: 3, name: 'Project Gamma', team: 'Team C', workload: 50, status: 'completed' },
+      { id: 4, name: 'Project Delta', team: 'Team A', workload: 40, status: 'on-hold' },
+    ]);
+
+    setAlerts([
+      { teamName: 'Team A', workload: 85, threshold: 70, severity: 'critical', id: 1 },
+      { teamName: 'Team B', workload: 65, threshold: 60, severity: 'warning', id: 2 },
+      { teamName: 'Team C', workload: 45, threshold: 50, severity: 'normal', id: 3 },
+    ]);
+  }, []);
+
+  const handleFeedbackSubmit = (feedbackData) => {
+    setFeedback((prev) => [...prev, feedbackData]);
+    notification.success({
+      message: 'Feedback Submitted',
+      description: 'Your feedback has been successfully submitted.',
+    });
+  };
+
+  const handleThemeChange = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
 
   return (
-    <Card ref={node => ref(drop(node))} style={{ marginBottom: '16px' }}>
-      <Title level={4}>{task.name} (Assigned to: {task.assignee})</Title>
-      <p>Due Date: {task.dueDate}</p>
-      <p>Status: {task.status}</p>
-      <p>Priority: {task.priority}</p>
-      <Progress percent={task.progress} />
-    </Card>
+    <Layout style={{ height: '100vh' }}>
+      <Header style={{ backgroundColor: theme === 'light' ? '#fff' : '#001529', color: theme === 'light' ? '#000' : '#fff' }}>
+        <h2 style={{ color: 'inherit' }}>Resource Allocation Dashboard</h2>
+        <Button onClick={handleThemeChange} type="link" style={{ color: 'inherit' }}>
+          {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+        </Button>
+      </Header>
+      <Layout>
+        <Sider width={300} theme={theme}>
+          <AlertsNotification alerts={alerts} />
+        </Sider>
+        <Content style={{ padding: '20px', backgroundColor: theme === 'light' ? '#f0f2f5' : '#001529' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
+            <Card title="Team Workload" style={{ gridColumn: '1 / 3' }}>
+              <TeamWorkloadChart data={teamWorkloadData} />
+            </Card>
+            <Card title="Project Assignments">
+              <ProjectAssignmentsList projects={projectAssignments} />
+            </Card>
+            <Card title="Feedback">
+              <FeedbackWidget onSubmit={handleFeedbackSubmit} />
+            </Card>
+            <Card title="Simulation Control">
+              <SimulationControl />
+            </Card>
+          </div>
+        </Content>
+      </Layout>
+    </Layout>
   );
 };
 
-const TaskList = () => {
-  const [tasks, setTasks] = useState(tasksData);
+const TeamWorkloadChart = ({ data }) => {
+  const [tooltipContent, setTooltipContent] = useState('');
+  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [notifications, setNotifications] = useState([]);
 
-  const moveTask = (fromIndex, toIndex) => {
-    const updatedTasks = [...tasks];
-    const [movedTask] = updatedTasks.splice(fromIndex, 1);
-    updatedTasks.splice(toIndex, 0, movedTask);
-    setTasks(updatedTasks);
+  const handleMouseEnter = (params) => {
+    const teamData = data[params.dataIndex];
+    setTooltipContent(`${teamData.team}: ${teamData.workload}%`);
   };
 
-  return (
-    <DndProvider backend={HTML5Backend}>
-      <div style={{ maxWidth: '1200px', margin: 'auto' }}>
-        <Title level={2}>Task List</Title>
-        {tasks.map((task, index) => (
-          <TaskItem key={task.id} index={index} task={task} moveTask={moveTask} />
-        ))}
-      </div>
-    </DndProvider>
-  );
-};
-
-const TaskForm = () => {
-  const [form] = Form.useForm();
-  const [tasks, setTasks] = useState([]);
-
-  const assignees = ['Alice', 'Bob', 'Charlie'];
-  const priorities = ['High', 'Medium', 'Low'];
-
-  const handleSubmit = (values) => {
-    const newTask = {
-      taskName: values.taskName,
-      description: values.description,
-      assignee: values.assignee,
-      deadline: values.deadline,
-      priority: values.priority,
-      completed: false,
-    };
-    setTasks([...tasks, newTask]);
-    form.resetFields();
+  const handleMouseLeave = () => {
+    setTooltipContent('');
   };
 
-  const chartOption = {
-    title: { text: 'Task Overview' },
-    tooltip: {},
-    legend: { data: ['Completed', 'Pending'] },
-    xAxis: {
-      data: ['Tasks'],
+  const handleClick = (params) => {
+    const teamData = data[params.dataIndex];
+    setSelectedTeam(teamData.team);
+    notification.info({
+      message: `Filtering by ${teamData.team}`,
+    });
+  };
+
+  const getOption = () => ({
+    title: {
+      text: 'Team Workload Heatmap',
+      left: 'center',
     },
-    yAxis: {},
-    series: [{
-      name: 'Completed',
-      type: 'bar',
-      data: [tasks.filter(task => task.completed).length],
-    }, {
-      name: 'Pending',
-      type: 'bar',
-      data: [tasks.length - tasks.filter(task => task.completed).length],
-    }],
+    tooltip: {
+      trigger: 'item',
+      formatter: tooltipContent,
+    },
+    visualMap: {
+      min: 0,
+      max: 100,
+      splitNumber: 5,
+      inRange: {
+        color: ['#ffffff', '#ff0000'],
+      },
+    },
+    series: [
+      {
+        name: 'Workload',
+        type: 'heatmap',
+        data: data.map((item, index) => [index, 0, item.workload]),
+        label: {
+          show: true,
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowColor: '#333',
+          },
+        },
+      },
+    ],
+  });
+
+  const handleNotification = () => {
+    const newNotification = 'Workload has changed significantly!';
+    setNotifications((prev) => [...prev, newNotification]);
   };
 
-  return (
-    <div>
-      <Form form={form} onFinish={handleSubmit} layout="vertical" style={{ maxWidth: '800px', margin: 'auto' }}>
-        <Form.Item name="taskName" rules={[{ required: true, message: 'Please enter the task name' }]}>
-          <Input placeholder="Task Name" />
-        </Form.Item>
-        <Form.Item name="description" rules={[{ required: true, message: 'Please enter the description' }]}>
-          <Input.TextArea placeholder="Description" />
-        </Form.Item>
-        <Form.Item name="assignee" rules={[{ required: true, message: 'Please select an assignee' }]}>
-          <Select placeholder="Select Assignee">
-            {assignees.map((person, index) => (
-              <Option key={index} value={person}>{person}</Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item name="deadline" rules={[{ required: true, message: 'Please select the deadline' }]}>
-          <Input type="date" />
-        </Form.Item>
-        <Form.Item name="priority">
-          <Select defaultValue="Medium">
-            {priorities.map((level, index) => (
-              <Option key={index} value={level}>{level}</Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">Add Task</Button>
-        </Form.Item>
-      </Form>
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updatedData = data.map(item => ({ ...item, workload: Math.floor(Math.random() * 100) }));
+      handleNotification();
+    }, 5000);
 
-      <ReactECharts option={chartOption} style={{ height: '400px', width: '100%' }} />
-      
-      <div>
-        <Title level={3}>Task List</Title>
-        <ul>
-          {tasks.map((task, index) => (
-            <li key={index}>
-              <span>{task.taskName} - {task.assignee} - {task.deadline} - {task.priority}</span>
-            </li>
+    return () => clearInterval(interval);
+  }, [data]);
+
+  return (
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <ReactECharts
+        option={getOption()}
+        onEvents={{
+          mouseenter: handleMouseEnter,
+          mouseleave: handleMouseLeave,
+          click: handleClick,
+        }}
+      />
+      {notifications.length > 0 && (
+        <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
+          {notifications.map((notification, index) => (
+            <Alert message={notification} type="info" key={index} />
           ))}
-        </ul>
-      </div>
+        </div>
+      )}
+      {selectedTeam && <Alert message={`You have selected: ${selectedTeam}`} type="success" />}
     </div>
   );
 };
 
-const TaskProgressChart = () => {
-  const [chartData, setChartData] = useState({
-    completed: 0,
-    inProgress: 0,
-    pending: 0,
-  });
+const ProjectAssignmentsList = ({ projects }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [editedWorkload, setEditedWorkload] = useState({});
 
-  const updateChartData = () => {
-    const totalTasks = 100;
-    const completedTasks = Math.floor(Math.random() * totalTasks);
-    const inProgressTasks = Math.floor(Math.random() * (totalTasks - completedTasks));
-    const pendingTasks = totalTasks - completedTasks - inProgressTasks;
+  const filteredData = useMemo(() => {
+    return projects.filter(item =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (statusFilter ? item.status === statusFilter : true)
+    );
+  }, [searchTerm, statusFilter, projects]);
 
-    setChartData({
-      completed: completedTasks,
-      inProgress: inProgressTasks,
-      pending: pendingTasks,
+  const handleEdit = (id, newWorkload) => {
+    const totalWorkload = filteredData.reduce((sum, item) => sum + (editedWorkload[item.id] || item.workload), 0);
+    if (totalWorkload - (editedWorkload[id] || filteredData.find(item => item.id === id).workload) + newWorkload <= 100) {
+      setEditedWorkload(prev => ({ ...prev, [id]: newWorkload }));
+    } else {
+      alert('Total workload cannot exceed 100%');
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleStatusChange = (value) => {
+    setStatusFilter(value);
+  };
+
+  const columns = [
+    {
+      title: 'Project Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Assigned Team',
+      dataIndex: 'team',
+      key: 'team',
+    },
+    {
+      title: 'Workload (%)',
+      dataIndex: 'workload',
+      key: 'workload',
+      render: (text, record) => (
+        <Input
+          defaultValue={text}
+          onBlur={(e) => handleEdit(record.id, Number(e.target.value))}
+        />
+      ),
+    },
+  ];
+
+  return (
+    <div style={{ width: '100%', height: '100%' }}>
+      <Input
+        placeholder="Search Projects"
+        value={searchTerm}
+        onChange={handleSearchChange}
+        style={{ marginBottom: '10px' }}
+      />
+      <Select
+        placeholder="Filter by Status"
+        style={{ width: 200, marginBottom: '10px' }}
+        onChange={handleStatusChange}
+      >
+        <Option value="">All Statuses</Option>
+        <Option value="ongoing">Ongoing</Option>
+        <Option value="completed">Completed</Option>
+        <Option value="on-hold">On Hold</Option>
+      </Select>
+      <Table columns={columns} dataSource={filteredData} rowKey="id" pagination={false} />
+    </div>
+  );
+};
+
+const AlertsNotification = ({ alerts }) => {
+  const getSeverityColor = (severity) => {
+    switch (severity) {
+      case 'critical':
+        return 'red';
+      case 'warning':
+        return 'yellow';
+      default:
+        return 'green';
+    }
+  };
+
+  const handleClick = (alert) => {
+    notification.info({
+      message: `Navigating to alert details for ${alert.teamName}`,
     });
   };
 
-  useEffect(() => {
-    updateChartData();
-    const interval = setInterval(() => {
-      updateChartData();
-    }, 5000);
+  return (
+    <div style={{ padding: '20px' }}>
+      <h2>Alerts Notification</h2>
+      {alerts.length === 0 ? (
+        <Alert message="No alerts" type="info" />
+      ) : (
+        alerts.map((alert) => (
+          <div
+            key={alert.id}
+            onClick={() => handleClick(alert)}
+            style={{
+              padding: '10px',
+              margin: '5px 0',
+              backgroundColor: getSeverityColor(alert.severity),
+              color: 'white',
+              cursor: 'pointer',
+              borderRadius: '4px',
+            }}
+          >
+            {`${alert.teamName}: Workload ${alert.workload} (Threshold: ${alert.threshold})`}
+          </div>
+        ))
+      )}
+    </div>
+  );
+};
 
-    return () => clearInterval(interval);
-  }, []);
+const FeedbackWidget = ({ onSubmit }) => {
+  const [feedback, setFeedback] = useState('');
 
-  const getOption = () => {
+  const handleSubmit = () => {
+    onSubmit(feedback);
+    setFeedback('');
+  };
+
+  return (
+    <div>
+      <Input.TextArea
+        value={feedback}
+        onChange={(e) => setFeedback(e.target.value)}
+        placeholder="Share your feedback here..."
+        rows={4}
+      />
+      <Button onClick={handleSubmit} type="primary" style={{ marginTop: '10px' }}>
+        Submit Feedback
+      </Button>
+    </div>
+  );
+};
+
+const SimulationControl = () => {
+  const [resources, setResources] = useState({ cpu: 50, memory: 50 });
+
+  const handleChange = (value, type) => {
+    setResources(prev => ({ ...prev, [type]: value }));
+  };
+
+  return (
+    <div>
+      <h3>Resource Allocation Simulation</h3>
+      <Tooltip title={`CPU Allocation: ${resources.cpu}%`}>
+        <Slider
+          min={0}
+          max={100}
+          value={resources.cpu}
+          onChange={(value) => handleChange(value, 'cpu')}
+        />
+      </Tooltip>
+      <Tooltip title={`Memory Allocation: ${resources.memory}%`}>
+        <Slider
+          min={0}
+          max={100}
+          value={resources.memory}
+          onChange={(value) => handleChange(value, 'memory')}
+        />
+      </Tooltip>
+      <p>Current Allocation: {`CPU: ${resources.cpu}%, Memory: ${resources.memory}%`}</p>
+    </div>
+  );
+};
+
+export default DashboardContainer;
+
+
+****File PATH: components/ProjectOverviewContainer.js****
+
+import React, { useState, useEffect } from 'react';
+import ReactECharts from 'echarts-for-react';
+import { Modal, Button, Tooltip, Input, Collapse, Card, List, Progress } from 'antd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'antd/dist/reset.css';
+
+// Dummy Data
+const projectData = {
+  name: "Project Alpha",
+  description: "This project aims to improve the overall efficiency of our ERP system.",
+  status: "In Progress",
+  milestones: [
+    { date: '2023-01-01', title: 'Kick-off', description: 'Project initiated.' },
+    { date: '2023-02-15', title: 'Phase 1 Complete', description: 'Completion of initial phase.' },
+    { date: '2023-04-10', title: 'Phase 2 Complete', description: 'Second phase completed.' },
+  ],
+  notifications: [
+    "New update available for Phase 2.",
+    "Resource allocation has been adjusted.",
+    "Milestone for Phase 1 has been achieved.",
+  ],
+  resourceAllocation: { "Development": 40, "Testing": 20, "Design": 30, "Management": 10 },
+  progressData: [10, 30, 50, 70, 90, 100],
+};
+
+const milestonesData = [
+  { id: '1', name: 'Launch Product', dueDate: '2023-10-30', status: 'on track', completionPercentage: 75 },
+  { id: '2', name: 'Market Research', dueDate: '2023-11-15', status: 'at risk', completionPercentage: 50 },
+  { id: '3', name: 'User Testing', dueDate: '2023-12-01', status: 'delayed', completionPercentage: 30 },
+  { id: '4', name: 'Final Release', dueDate: '2023-12-15', status: 'on track', completionPercentage: 90 },
+];
+
+const initialTasks = [
+  {
+    id: '1',
+    description: "Complete the report",
+    assignedTo: "John Doe",
+    status: "in progress",
+    dueDate: "2023-10-10",
+    comments: [{ user: "Jane Doe", text: "Great start!" }],
+    completionPercentage: 50
+  },
+  {
+    id: '2',
+    description: "Prepare presentation",
+    assignedTo: "Alice Smith",
+    status: "not started",
+    dueDate: "2023-10-12",
+    comments: [],
+    completionPercentage: 0
+  },
+  {
+    id: '3',
+    description: "Conduct team meeting",
+    assignedTo: "Bob Johnson",
+    status: "completed",
+    dueDate: "2023-10-08",
+    comments: [{ user: "Alice Smith", text: "Meeting was productive!" }],
+    completionPercentage: 100
+  }
+];
+
+const ProjectOverviewContainer = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [latestUpdate, setLatestUpdate] = useState(new Date().toLocaleString());
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [newComment, setNewComment] = useState("");
+  const [tasks, setTasks] = useState(initialTasks);
+  const [view, setView] = useState('list');
+  const [filteredMilestones, setFilteredMilestones] = useState(milestonesData);
+
+  const handleStatusClick = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+  };
+
+  const pieChartOptions = {
+    title: {
+      text: 'Resource Allocation',
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    series: [
+      {
+        name: 'Resources',
+        type: 'pie',
+        radius: '50%',
+        data: Object.entries(projectData.resourceAllocation).map(([key, value]) => ({ name: key, value })),
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
+
+  const lineChartOptions = {
+    title: {
+      text: 'Project Progress Over Time',
+      left: 'center'
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      data: projectData.progressData,
+      type: 'line',
+      smooth: true
+    }]
+  };
+
+  const handleViewChange = () => {
+    setView(view === 'list' ? 'calendar' : 'list');
+  };
+
+  const getMilestoneColor = (status) => {
+    switch (status) {
+      case 'on track':
+        return 'green';
+      case 'at risk':
+        return 'orange';
+      case 'delayed':
+        return 'red';
+      default:
+        return 'gray';
+    }
+  };
+
+  const getGanttChartOption = () => {
     return {
-      tooltip: {
-        trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)',
+      title: { text: 'Gantt Chart' },
+      tooltip: {},
+      xAxis: {
+        data: milestonesData.map(m => m.name),
+        name: 'Milestones',
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Days',
       },
       series: [
         {
-          name: 'Task Progress',
-          type: 'pie',
-          radius: '50%',
-          data: [
-            { value: chartData.completed, name: 'Completed' },
-            { value: chartData.inProgress, name: 'In Progress' },
-            { value: chartData.pending, name: 'Pending' },
-          ],
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)',
-            },
-          },
+          name: 'Completion',
+          type: 'bar',
+          data: milestonesData.map(m => m.completionPercentage),
         },
       ],
     };
   };
 
+  const notify = (message) => {
+    toast(message);
+  };
+
+  const handleTaskUpdate = (task) => {
+    notify(`Task "${task.description}" is now updated!`);
+  };
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+    const reorderedTasks = Array.from(tasks);
+    const [movedTask] = reorderedTasks.splice(result.source.index, 1);
+    reorderedTasks.splice(result.destination.index, 0, movedTask);
+    setTasks(reorderedTasks);
+  };
+
+  const handleCommentSubmit = (taskId) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          comments: [...task.comments, { user: "Current User", text: newComment }]
+        };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+    setNewComment("");
+  };
+
+  const handleTaskClick = (task) => {
+    setSelectedTask(task);
+  };
+
+  useEffect(() => {
+    setLatestUpdate(new Date().toLocaleString());
+  }, [latestUpdate]);
+
   return (
-    <div>
-      <ReactECharts option={getOption()} style={{ height: '600px', width: '100%' }} />
+    <div style={{ height: '100vh', padding: '20px', boxSizing: 'border-box', backgroundColor: '#f0f2f5' }}>
+      <Card bordered={false} style={{ marginBottom: 24 }}>
+        <h1 style={{ fontSize: '24px', margin: 0 }}>{projectData.name}</h1>
+        <p style={{ color: '#595959', fontSize: '16px' }}>{projectData.description}</p>
+        <Tooltip title="Click for detailed report">
+          <Button onClick={handleStatusClick} type={projectData.status === "In Progress" ? "primary" : "default"}>
+            {projectData.status}
+          </Button>
+        </Tooltip>
+      </Card>
+
+      <Card title="Milestones" bordered={false} style={{ marginBottom: 24 }}>
+        <List
+          itemLayout="horizontal"
+          dataSource={projectData.milestones}
+          renderItem={milestone => (
+            <List.Item>
+              <Tooltip title={milestone.description}>
+                <span>{milestone.title} - {milestone.date}</span>
+              </Tooltip>
+            </List.Item>
+          )}
+        />
+      </Card>
+
+      <Card title="Notifications" bordered={false} style={{ marginBottom: 24 }}>
+        <List
+          dataSource={projectData.notifications}
+          renderItem={notification => <List.Item>{notification}</List.Item>}
+        />
+      </Card>
+
+      <Card title="Data Visualization" bordered={false} style={{ marginBottom: 24 }}>
+        <ReactECharts option={pieChartOptions} style={{ height: '400px' }} />
+        <ReactECharts option={lineChartOptions} style={{ height: '400px' }} />
+        <Button onClick={() => setLatestUpdate(new Date().toLocaleString())}>Refresh Data</Button>
+        <p>Last updated: {latestUpdate}</p>
+      </Card>
+
+      <Modal title="Project Timeline" visible={isModalVisible} onCancel={handleModalClose} footer={null}>
+        <h3>Timeline Details</h3>
+        <ul>
+          {projectData.milestones.map((milestone, index) => (
+            <li key={index}>{milestone.title} - {milestone.date}: {milestone.description}</li>
+          ))}
+        </ul>
+      </Modal>
+
+      <Card title="Milestones Overview" bordered={false} style={{ marginBottom: 24 }}>
+        <Button onClick={handleViewChange}>
+          Switch to {view === 'list' ? 'Calendar' : 'List'} View
+        </Button>
+        {view === 'list' ? (
+          <List
+            itemLayout="vertical"
+            dataSource={filteredMilestones}
+            renderItem={milestone => (
+              <List.Item key={milestone.id} style={{ border: `1px solid ${getMilestoneColor(milestone.status)}`, marginBottom: 16 }}>
+                <h3>{milestone.name}</h3>
+                <p>Due Date: {milestone.dueDate}</p>
+                <p>Status: <span style={{ color: getMilestoneColor(milestone.status) }}>{milestone.status}</span></p>
+                <Progress percent={milestone.completionPercentage} />
+              </List.Item>
+            )}
+          />
+        ) : (
+          <ReactECharts option={getGanttChartOption()} style={{ height: '400px', width: '100%' }} />
+        )}
+      </Card>
+
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="tasks">
+          {(provided) => (
+            <ul {...provided.droppableProps} ref={provided.innerRef} style={{ listStyle: 'none', padding: 0 }}>
+              {tasks.map((task, index) => (
+                <Draggable key={task.id} draggableId={task.id} index={index}>
+                  {(provided) => (
+                    <li
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                      onClick={() => handleTaskClick(task)}
+                      style={{ marginBottom: 16, background: '#fff', padding: 16, borderRadius: 8, boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)' }}
+                    >
+                      <div><strong>{task.description}</strong></div>
+                      <div>Assigned to: {task.assignedTo}</div>
+                      <div>Status: {task.status}</div>
+                      <div>Due Date: {task.dueDate}</div>
+                      <Progress percent={task.completionPercentage} />
+                      <div>
+                        {task.comments.map((comment, index) => (
+                          <div key={index}><strong>{comment.user}:</strong> {comment.text}</div>
+                        ))}
+                      </div>
+                      <Input
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="Add a comment"
+                        style={{ marginTop: 8 }}
+                      />
+                      <Button onClick={() => handleCommentSubmit(task.id)} type="primary" style={{ marginTop: 4 }}>Submit</Button>
+                    </li>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </DragDropContext>
+
+      {selectedTask && (
+        <Modal
+          title="Task Details"
+          visible={!!selectedTask}
+          onCancel={() => setSelectedTask(null)}
+          footer={null}
+        >
+          <div>Description: {selectedTask.description}</div>
+          <div>Assigned to: {selectedTask.assignedTo}</div>
+          <div>Status: {selectedTask.status}</div>
+          <div>Due Date: {selectedTask.dueDate}</div>
+          <Progress percent={selectedTask.completionPercentage} />
+        </Modal>
+      )}
+
+      <ToastContainer />
     </div>
   );
 };
 
-const TaskManagerContainer = () => {
-  return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: '#fff', padding: '0 50px' }}>
-        <Title>Task Manager</Title>
-      </Header>
-      <Content style={{ padding: '0 50px', marginTop: '20px' }}>
-        <Row gutter={16}>
-          <Col span={12}>
-            <TaskForm />
-          </Col>
-          <Col span={12}>
-            <TaskProgressChart />
-          </Col>
-        </Row>
-        <TaskList />
-      </Content>
-    </Layout>
-  );
-};
-
-export default TaskManagerContainer;
+export default ProjectOverviewContainer;
 
 
-****File PATH: components/ComplianceReportContainer.js****
+****File PATH: components/ChatContainer.js****
 
 import React, { useState } from 'react';
+import 'antd/dist/reset.css';
+import { Layout, Menu, Avatar, Button, Badge, Input, List, Modal, Tooltip, Typography } from 'antd';
+import { BellOutlined, UserOutlined, LikeOutlined, DislikeOutlined, SendOutlined, PushpinOutlined } from '@ant-design/icons';
 import ReactECharts from 'echarts-for-react';
-import Select from 'react-select';
-import { Button, Input, Table, notification, Layout, Typography } from 'antd';
-import { saveAs } from 'file-saver';
-import "antd/dist/reset.css";
 
-const { Header, Content } = Layout;
-const { Title } = Typography;
+const { Header, Sider, Content } = Layout;
+const { TextArea } = Input;
+const { Text } = Typography;
 
-// Dummy data for compliance items
-const dummyData = [
-  { id: 1, name: "Compliance Item 1", dueDate: "2023-10-15", status: "in-progress" },
-  { id: 2, name: "Compliance Item 2", dueDate: "2023-10-20", status: "not-started" },
-  { id: 3, name: "Compliance Item 3", dueDate: "2023-10-22", status: "completed" },
-  { id: 4, name: "Compliance Item 4", dueDate: "2023-10-25", status: "not-started" }
-];
+const ChatContainer = () => {
+  const dummyUser = {
+    name: 'John Doe',
+    avatar: 'https://via.placeholder.com/50',
+  };
 
-// Dummy data for reports
-const dummyReports = [
-  { id: 1, name: 'Compliance Report Q1', date: '2023-01-15', status: 'Completed', description: 'Quarterly compliance report for Q1' },
-  { id: 2, name: 'Compliance Report Q2', date: '2023-04-20', status: 'Completed', description: 'Quarterly compliance report for Q2' },
-  { id: 3, name: 'Compliance Report Q3', date: '2023-07-25', status: 'In Progress', description: 'Quarterly compliance report for Q3' },
-  { id: 4, name: 'Compliance Report Q4', date: '2023-10-10', status: 'Pending', description: 'Quarterly compliance report for Q4' }
-];
+  const dummyProjectName = 'Project Alpha';
 
-// Project, metrics, and timeframe data for dynamic report generator
-const projectsData = [
-  { value: 'project1', label: 'Project 1' },
-  { value: 'project2', label: 'Project 2' },
-  { value: 'project3', label: 'Project 3' }
-];
+  const dummyNotifications = [
+    { id: 1, message: 'New message from Alice', read: false },
+    { id: 2, message: 'Project update available', read: false },
+  ];
 
-const metricsData = [
-  { value: 'safety', label: 'Safety' },
-  { value: 'quality', label: 'Quality' }
-];
+  const dummyFeedbackStats = {
+    thumbsUp: 10,
+    thumbsDown: 2,
+  };
 
-const timeframesData = [
-  { value: 'daily', label: 'Daily' },
-  { value: 'weekly', label: 'Weekly' },
-  { value: 'monthly', label: 'Monthly' },
-  { value: 'yearly', label: 'Yearly' }
-];
+  const dummyMessages = [
+    { id: 1, sender: 'Alice', content: 'Hello team!', timestamp: '2023-10-01T12:00:00Z', reactions: { thumbsUp: 2, heart: 1 }, thread: [] },
+    { id: 2, sender: 'Bob', content: 'Hi Alice! How are you?', timestamp: '2023-10-01T12:05:00Z', reactions: { thumbsUp: 3, heart: 0 }, thread: [] },
+  ];
 
-const ComplianceReportContainer = () => {
-  const [items, setItems] = useState(dummyData);
-  const [reportHistory, setReportHistory] = useState([]);
-  const [selectedProjects, setSelectedProjects] = useState([]);
-  const [selectedMetrics, setSelectedMetrics] = useState([]);
-  const [selectedTimeframe, setSelectedTimeframe] = useState(null);
-  const [chartData, setChartData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredReports, setFilteredReports] = useState(dummyReports);
+  const dummyUsers = [
+    { userId: 1, name: 'Alice' },
+    { userId: 2, name: 'Bob' },
+    { userId: 3, name: 'Charlie' },
+  ];
 
-  const handleStatusChange = id => {
-    setItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id ? { ...item, status: item.status === 'completed' ? 'in-progress' : 'completed' } : item
-      )
+  const activeProjects = [
+    { id: 1, name: "Project Alpha", unreadMessages: 2 },
+    { id: 2, name: "Project Beta", unreadMessages: 0 },
+    { id: 3, name: "Project Gamma", unreadMessages: 1 },
+    { id: 4, name: "Project Delta", unreadMessages: 3 }
+  ];
+
+  const [notifications, setNotifications] = useState(dummyNotifications);
+  const [feedbackStats, setFeedbackStats] = useState(dummyFeedbackStats);
+  const [showModal, setShowModal] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [feedbackComment, setFeedbackComment] = useState('');
+  const [messages, setMessages] = useState(dummyMessages);
+  const [newMessage, setNewMessage] = useState('');
+  const [selectedThread, setSelectedThread] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [pinnedProjects, setPinnedProjects] = useState([]);
+
+  const handleFeedback = (type) => {
+    if (type === 'up') {
+      setFeedbackStats((prev) => ({ ...prev, thumbsUp: prev.thumbsUp + 1 }));
+    } else {
+      setFeedbackStats((prev) => ({ ...prev, thumbsDown: prev.thumbsDown + 1 }));
+    }
+    setShowModal(true);
+  };
+
+  const submitFeedback = () => {
+    console.log('Feedback submitted:', feedbackComment);
+    setFeedbackComment('');
+    setShowModal(false);
+  };
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+    if (!showNotifications) {
+      setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+    }
+  };
+
+  const handleMessageSend = () => {
+    const message = {
+      id: messages.length + 1,
+      sender: 'You',
+      content: newMessage,
+      timestamp: new Date().toISOString(),
+      reactions: { thumbsUp: 0, heart: 0 },
+      thread: [],
+    };
+    setMessages([...messages, message]);
+    setNewMessage('');
+  };
+
+  const handleReact = (messageId, reactionType) => {
+    const updatedMessages = messages.map(message => {
+      if (message.id === messageId) {
+        const updatedReactions = { ...message.reactions, [reactionType]: (message.reactions[reactionType] || 0) + 1 };
+        return { ...message, reactions: updatedReactions };
+      }
+      return message;
+    });
+    setMessages(updatedMessages);
+  };
+
+  const handleThreadReply = (messageId) => {
+    const threadContent = prompt('Reply to this thread:');
+    if (threadContent) {
+      const updatedMessages = messages.map(message => {
+        if (message.id === messageId) {
+          const newThread = { userId: 1, content: threadContent, timestamp: new Date().toISOString() };
+          return { ...message, thread: [...message.thread, newThread] };
+        }
+        return message;
+      });
+      setMessages(updatedMessages);
+    }
+  };
+
+  const handleProjectSelect = (projectId) => {
+    setSelectedProject(projectId);
+    logInteraction();
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const toggleFavorite = (projectId) => {
+    setPinnedProjects((prev) => 
+      prev.includes(projectId) ? prev.filter(id => id !== projectId) : [...prev, projectId]
     );
   };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const newReport = {
-      id: reportHistory.length + 1,
-      projectType: selectedProjects.map(p => p.label).join(', '),
-      date: new Date().toISOString().split('T')[0],
-      metrics: selectedMetrics.map(m => m.label).join(', '),
-      timeframe: selectedTimeframe?.label || ''
-    };
-
-    setReportHistory([...reportHistory, newReport]);
-    notification.success({ message: 'Report generated successfully!' });
-    fetchChartData();
+  const logInteraction = () => {
+    console.log(`User interacted with project ID: ${selectedProject}`);
   };
 
-  const fetchChartData = () => {
-    const dummyChartData = [
-      { date: '2023-01', compliance: Math.random() * 100 },
-      { date: '2023-02', compliance: Math.random() * 100 },
-      { date: '2023-03', compliance: Math.random() * 100 },
-      { date: '2023-04', compliance: Math.random() * 100 },
-      { date: '2023-05', compliance: Math.random() * 100 }
-    ];
-    setChartData(dummyChartData);
-  };
-
-  const getOption = () => {
-    return {
-      title: { text: 'Compliance Data Over Time' },
-      tooltip: {},
-      xAxis: { type: 'category', data: chartData.map(data => data.date) },
-      yAxis: { type: 'value' },
-      series: [{ name: 'Compliance', type: 'line', data: chartData.map(data => data.compliance) }]
-    };
-  };
-
-  const handleSearch = event => {
-    const value = event.target.value;
-    setSearchTerm(value);
-    const filtered = dummyReports.filter(report => report.name.toLowerCase().includes(value.toLowerCase()));
-    setFilteredReports(filtered);
-  };
-
-  const handleDownload = report => {
-    const blob = new Blob([report.description], { type: 'text/plain;charset=utf-8' });
-    saveAs(blob, `${report.name}.txt`);
-  };
-
-  const getChartOption = () => {
-    return {
-      title: { text: 'Report Generation Trends' },
-      tooltip: {},
-      xAxis: { data: ['Q1', 'Q2', 'Q3', 'Q4'] },
-      yAxis: {},
-      series: [{ name: 'Reports', type: 'bar', data: [1, 1, 1, 1] }]
-    };
-  };
-
-  const columns = [
-    { title: 'Report Name', dataIndex: 'name', key: 'name' },
-    { title: 'Date Generated', dataIndex: 'date', key: 'date' },
-    { title: 'Status', dataIndex: 'status', key: 'status' },
-    { title: 'Description', dataIndex: 'description', key: 'description' },
-    {
-      title: 'Actions',
-      key: 'actions',
-      render: (_, report) => <Button onClick={() => handleDownload(report)}>Download</Button>
-    }
-  ];
-
-  return (
-    <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
-      <Header style={{ backgroundColor: '#001529', padding: '0 50px' }}>
-        <Title style={{ color: '#fff', lineHeight: '64px' }}>Compliance Report Management</Title>
-      </Header>
-      <Content style={{ padding: '50px' }}>
-        <div>
-          <Title level={2}>Compliance Checklist</Title>
-          <Select
-            options={[
-              { value: 'all', label: 'All' },
-              { value: 'completed', label: 'Completed' },
-              { value: 'in-progress', label: 'In Progress' }
-            ]}
-            defaultValue={{ value: 'all', label: 'All' }}
-            onChange={e => handleStatusChange(e.value)}
-          />
-          <ul>
-            {items.map(item => (
-              <li key={item.id}>
-                <span>{item.name} - Due: {item.dueDate} - Status: {item.status}</span>
-                <Button type="link" onClick={() => handleStatusChange(item.id)}>
-                  Mark as {item.status === 'completed' ? 'In Progress' : 'Completed'}
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <Title level={2}>Report Generator</Title>
-          <form onSubmit={handleSubmit}>
-            <Select
-              isMulti
-              options={projectsData}
-              onChange={setSelectedProjects}
-              placeholder="Select Projects"
-              style={{ marginBottom: '10px', width: '300px' }}
-            />
-            <Select
-              isMulti
-              options={metricsData}
-              onChange={setSelectedMetrics}
-              placeholder="Select Metrics"
-              style={{ marginBottom: '10px', width: '300px' }}
-            />
-            <Select
-              options={timeframesData}
-              onChange={setSelectedTimeframe}
-              placeholder="Select Timeframe"
-              style={{ marginBottom: '10px', width: '300px' }}
-            />
-            <Button type="primary" htmlType="submit">Generate Report</Button>
-          </form>
-        </div>
-
-        <div>
-          <Title level={2}>Report History</Title>
-          <Input.Search
-            value={searchTerm}
-            onChange={handleSearch}
-            placeholder="Search reports..."
-            style={{ marginBottom: '20px', width: '300px' }}
-          />
-          <Table dataSource={filteredReports} columns={columns} rowKey="id" />
-        </div>
-
-        <div>
-          <Title level={2}>Data Visualization</Title>
-          <ReactECharts option={getOption()} style={{ height: '400px', width: '100%' }} />
-          <ReactECharts option={getChartOption()} style={{ height: '400px', width: '100%' }} />
-        </div>
-      </Content>
-    </Layout>
+  const filteredProjects = activeProjects.filter(project => 
+    project.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-};
 
-export default ComplianceReportContainer;
+  const sortedProjects = pinnedProjects.map(id => activeProjects.find(project => project.id === id))
+    .concat(filteredProjects.filter(project => !pinnedProjects.includes(project.id)));
 
-
-****File PATH: components/BudgetTrackingPage.js****
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ReactECharts from 'echarts-for-react';
-import { Input, Button, Form, Select, DatePicker, Typography, Layout, Card, Space, Divider } from 'antd';
-import jsPDF from 'jspdf';
-import "antd/dist/reset.css";
-
-const { Title, Text } = Typography;
-const { Header, Content } = Layout;
-const { Option } = Select;
-
-// BudgetForm Component
-const BudgetForm = ({ updateBudget }) => {
-  const [expenseName, setExpenseName] = useState('');
-  const [category, setCategory] = useState('');
-  const [amount, setAmount] = useState('');
-  const [date, setDate] = useState(null);
-  const [categories] = useState(['Food', 'Transport', 'Utilities', 'Entertainment']);
-  const [suggestions, setSuggestions] = useState([]);
-
-  const handleCategoryChange = (value) => {
-    setCategory(value);
-    setSuggestions(categories.filter(cat => cat.toLowerCase().includes(value.toLowerCase())));
-  };
-
-  const handleSubmit = () => {
-    if (!expenseName || !category || !amount || !date) {
-      alert('All fields are required!');
-      return;
-    }
-    if (isNaN(amount) || Number(amount) <= 0) {
-      alert('Amount must be a positive number!');
-      return;
-    }
-
-    const newEntry = {
-      name: expenseName,
-      category,
-      amount: Number(amount),
-      date: date.format('MM/DD/YYYY')
-    };
-
-    updateBudget(newEntry);
-    setExpenseName('');
-    setCategory('');
-    setAmount('');
-    setDate(null);
-    setSuggestions([]);
-  };
-
-  return (
-    <Card title="Add New Expense" bordered={false} style={{ marginBottom: '20px' }}>
-      <Form layout="vertical" onFinish={handleSubmit}>
-        <Form.Item label="Expense Name" required>
-          <Input value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
-        </Form.Item>
-        <Form.Item label="Category" required>
-          <Select
-            showSearch
-            value={category}
-            onChange={handleCategoryChange}
-            filterOption={false}
-            notFoundContent={null}
-          >
-            {suggestions.map((suggestion, index) => (
-              <Option key={index} value={suggestion}>{suggestion}</Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item label="Amount" required>
-          <Input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
-        </Form.Item>
-        <Form.Item label="Date" required>
-          <DatePicker value={date} onChange={setDate} style={{ width: '100%' }} />
-        </Form.Item>
-        <Button type="primary" htmlType="submit">Submit</Button>
-      </Form>
-    </Card>
-  );
-};
-
-// BudgetOverview Component
-const BudgetOverview = ({ budgetEntries }) => {
-  const totalBudget = 10000;
-  const expenditures = budgetEntries.reduce((total, entry) => total + entry.amount, 0);
-  const remainingBudget = totalBudget - expenditures;
-
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    doc.text("Budget Overview", 10, 10);
-    doc.text(`Total Budget: $${totalBudget}`, 10, 20);
-    doc.text(`Total Expenditures: $${expenditures}`, 10, 30);
-    doc.text(`Remaining Budget: $${remainingBudget}`, 10, 40);
-    budgetEntries.forEach((entry, index) => {
-      doc.text(`${entry.name} - ${entry.category}: $${entry.amount}`, 10, 50 + (index * 10));
-    });
-    doc.save('budget_overview.pdf');
-  };
-
-  const categories = budgetEntries.reduce((acc, entry) => {
-    const existingCategory = acc.find(cat => cat.name === entry.category);
-    if (existingCategory) {
-      existingCategory.value += entry.amount;
-    } else {
-      acc.push({ name: entry.category, value: entry.amount });
-    }
-    return acc;
-  }, []);
-
-  const getPieChartOption = () => ({
-    title: { text: 'Expenditure Distribution', left: 'center' },
-    tooltip: { trigger: 'item' },
+  const chartOption = {
+    title: { text: 'Task Completion Rate' },
+    tooltip: {},
+    xAxis: {
+      data: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5'],
+    },
+    yAxis: {},
     series: [
       {
-        name: 'Categories',
-        type: 'pie',
-        radius: '50%',
-        data: categories,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)',
-          },
-        },
+        name: 'Completion Rate',
+        type: 'bar',
+        data: [5, 20, 36, 10, 10],
       },
     ],
-  });
-
-  return (
-    <Card title="Budget Overview" bordered={false} style={{ marginBottom: '20px' }}>
-      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-        <Text>Total Budget: ${totalBudget}</Text>
-        <Text>Total Expenditures: ${expenditures}</Text>
-        <Text>Remaining Budget: ${remainingBudget}</Text>
-        <Button onClick={generatePDF}>Download Report</Button>
-        <ReactECharts option={getPieChartOption()} style={{ height: '400px', width: '100%' }} />
-      </Space>
-    </Card>
-  );
-};
-
-// BudgetVisualization Component
-const BudgetVisualization = ({ budgetEntries }) => {
-  const [chartType, setChartType] = useState('bar');
-  const dummyData = {
-    categories: budgetEntries.map(entry => ({ name: entry.category, value: entry.amount })),
-    historicalBudgets: [
-      { month: 'January', value: 1300 },
-      { month: 'February', value: 1200 },
-      { month: 'March', value: 1400 },
-    ],
-  };
-
-  const getOption = () => {
-    switch (chartType) {
-      case 'pie':
-        return {
-          series: [{ type: 'pie', data: dummyData.categories }],
-        };
-      case 'line':
-        return {
-          xAxis: { type: 'category', data: dummyData.historicalBudgets.map(b => b.month) },
-          yAxis: {},
-          series: [{ type: 'line', data: dummyData.historicalBudgets.map(b => b.value) }],
-        };
-      default:
-        return {
-          xAxis: { type: 'category', data: dummyData.categories.map(c => c.name) },
-          yAxis: {},
-          series: [{ type: 'bar', data: dummyData.categories.map(c => c.value) }],
-        };
-    }
   };
 
   return (
-    <Card title="Budget Visualization" bordered={false}>
-      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-        <Select value={chartType} onChange={setChartType}>
-          <Option value="bar">Bar Chart</Option>
-          <Option value="pie">Pie Chart</Option>
-          <Option value="line">Line Graph</Option>
-        </Select>
-        <ReactECharts option={getOption()} style={{ height: '400px', width: '100%' }} />
-      </Space>
-    </Card>
-  );
-};
-
-// Main BudgetTrackingPage Component
-const BudgetTrackingPage = () => {
-  const [budgetEntries, setBudgetEntries] = useState([]);
-  const navigate = useNavigate();
-
-  const updateBudget = (newEntry) => {
-    setBudgetEntries([...budgetEntries, newEntry]);
-  };
-
-  return (
-    <Layout style={{ width: '1920px', height: '1080px', background: '#f0f2f5' }}>
-      <Header style={{ background: '#001529', padding: '0 20px' }}>
-        <Title level={2} style={{ color: '#fff', margin: '16px 0' }}>Budget Tracking</Title>
-        <Button type="primary" onClick={() => navigate('/home')}>Go to Home</Button>
+    <Layout style={{ height: '100vh' }}>
+      <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Text style={{ color: '#fff', fontSize: '24px' }}>{dummyProjectName}</Text>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar src={dummyUser.avatar} size="large" style={{ cursor: 'pointer' }} />
+          <Text style={{ color: '#fff', marginLeft: '10px' }}>{dummyUser.name}</Text>
+          <Badge count={notifications.filter(n => !n.read).length}>
+            <Button type="text" icon={<BellOutlined />} onClick={toggleNotifications} />
+          </Badge>
+          {showNotifications && (
+            <div style={{ position: 'absolute', right: '20px', top: '70px', width: '300px', backgroundColor: '#fff', boxShadow: '0 0 10px rgba(0,0,0,0.3)', zIndex: 1 }}>
+              <List
+                itemLayout="horizontal"
+                dataSource={notifications}
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta title={item.message} description={item.read ? 'Read' : 'Unread'} />
+                  </List.Item>
+                )}
+              />
+            </div>
+          )}
+        </div>
+        <div>
+          <Button type="text" icon={<LikeOutlined />} onClick={() => handleFeedback('up')}>{feedbackStats.thumbsUp}</Button>
+          <Button type="text" icon={<DislikeOutlined />} onClick={() => handleFeedback('down')}>{feedbackStats.thumbsDown}</Button>
+          <Modal
+            title="Submit Feedback"
+            visible={showModal}
+            onOk={submitFeedback}
+            onCancel={() => setShowModal(false)}
+          >
+            <TextArea rows={4} value={feedbackComment} onChange={(e) => setFeedbackComment(e.target.value)} placeholder="Additional comments" />
+          </Modal>
+        </div>
       </Header>
-      <Content style={{ padding: '20px' }}>
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          <BudgetForm updateBudget={updateBudget} />
-          <BudgetOverview budgetEntries={budgetEntries} />
-          <BudgetVisualization budgetEntries={budgetEntries} />
-        </Space>
-      </Content>
+      <Layout>
+        <Sider width={300} style={{ background: '#fff', borderRight: '1px solid #f0f0f0' }}>
+          <Input
+            placeholder="Search Projects"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            style={{ margin: '16px' }}
+          />
+          <Menu
+            mode="inline"
+            style={{ height: '100%', borderRight: 0 }}
+          >
+            {sortedProjects.map(project => (
+              <Menu.Item key={project.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Tooltip title={project.name}>
+                  <span onClick={() => handleProjectSelect(project.id)} style={{ flex: 1, cursor: 'pointer' }}>{project.name}</span>
+                </Tooltip>
+                {project.unreadMessages > 0 && <Badge count={project.unreadMessages} />}
+                <Button type="link" onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }}>
+                  <PushpinOutlined rotate={pinnedProjects.includes(project.id) ? 0 : 45} />
+                </Button>
+              </Menu.Item>
+            ))}
+          </Menu>
+        </Sider>
+        <Layout style={{ padding: '24px' }}>
+          <Content style={{ overflow: 'auto', background: '#fff', padding: '24px' }}>
+            <List
+              dataSource={messages}
+              renderItem={message => (
+                <List.Item key={message.id}>
+                  <List.Item.Meta
+                    title={<span><strong>{message.sender}</strong> <span style={{ fontSize: '12px', color: '#888' }}>{new Date(message.timestamp).toLocaleString()}</span></span>}
+                    description={
+                      <div>
+                        <p>{message.content}</p>
+                        <div>
+                          <Button type="link" onClick={() => handleReact(message.id, 'thumbsUp')}>👍 {message.reactions.thumbsUp || 0}</Button>
+                          <Button type="link" onClick={() => handleReact(message.id, 'heart')}>❤️ {message.reactions.heart || 0}</Button>
+                          <Button type="link" onClick={() => handleThreadReply(message.id)}>Reply</Button>
+                        </div>
+                        {message.thread.length > 0 && (
+                          <List
+                            dataSource={message.thread}
+                            renderItem={reply => (
+                              <List.Item>
+                                <List.Item.Meta
+                                  title={<span><strong>{dummyUsers.find(user => user.userId === reply.userId).name}</strong> <span style={{ fontSize: '12px', color: '#888' }}>{new Date(reply.timestamp).toLocaleString()}</span></span>}
+                                  description={reply.content}
+                                />
+                              </List.Item>
+                            )}
+                          />
+                        )}
+                      </div>
+                    }
+                  />
+                </List.Item>
+              )}
+            />
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+              <Input
+                placeholder="Type your message..."
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                style={{ marginRight: '10px' }}
+              />
+              <Button type="primary" icon={<SendOutlined />} onClick={handleMessageSend}>Send</Button>
+            </div>
+          </Content>
+        </Layout>
+      </Layout>
     </Layout>
   );
 };
 
-export default BudgetTrackingPage;
+export default ChatContainer;
 
 
-****File PATH: components/ExperimentalResults.js****
+****File PATH: components/TeamProfilesContainer.js****
 
 import React, { useState, useEffect } from 'react';
 import ReactECharts from 'echarts-for-react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Input, Select, Table, Form, DatePicker, Checkbox, InputNumber, notification } from 'antd';
+import { Input, Select, Button, Modal, Badge, Tooltip, Progress } from 'antd';
 import "antd/dist/reset.css";
 
 const { Option } = Select;
-const { TextArea } = Input;
 
-const ExperimentalResults = () => {
-    const navigate = useNavigate();
-    const [results, setResults] = useState([]);
-    const [feedback, setFeedback] = useState({ rating: 0, comment: '' });
+const TeamProfilesContainer = () => {
+    const [profiles, setProfiles] = useState([]);
+    const [endorsements, setEndorsements] = useState({});
+    const [showModal, setShowModal] = useState({ isOpen: false, profileId: null });
     const [notifications, setNotifications] = useState([]);
-    const [points, setPoints] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
-    const [sortOrder, setSortOrder] = useState('asc');
-    const [loading, setLoading] = useState(false);
-    const [theme, setTheme] = useState('light');
+    const [selectedRole, setSelectedRole] = useState(null);
+    const [selectedSkill, setSelectedSkill] = useState(null);
+    const [selectedWorkload, setSelectedWorkload] = useState(null);
+    const [filteredProfiles, setFilteredProfiles] = useState([]);
+    const [nominations, setNominations] = useState({});
 
-    const dummyData = [
-        { id: 1, name: "Experiment A", date: "2023-01-01", parameters: "pH: 7, Temp: 25", outcome: "Success", favorite: false },
-        { id: 2, name: "Experiment B", date: "2023-01-02", parameters: "pH: 6, Temp: 30", outcome: "Failure", favorite: false },
-        { id: 3, name: "Experiment C", date: "2023-01-03", parameters: "pH: 8, Temp: 22", outcome: "Success", favorite: false },
+    const dummyProfiles = [
+        {
+            id: '1',
+            name: 'John Doe',
+            role: 'Software Engineer',
+            skills: ['JavaScript', 'React', 'Node.js'],
+            workload: 75,
+            performanceMetrics: {
+                tasksCompleted: 20,
+                averageCompletionTime: 5,
+            },
+            badges: ['Best Performer', 'Team Player'],
+        },
+        {
+            id: '2',
+            name: 'Jane Smith',
+            role: 'Project Manager',
+            skills: ['Leadership', 'Communication'],
+            workload: 50,
+            performanceMetrics: {
+                tasksCompleted: 15,
+                averageCompletionTime: 7,
+            },
+            badges: ['Top Manager'],
+        },
     ];
 
     useEffect(() => {
-        setResults(dummyData);
+        setProfiles(dummyProfiles);
+        setFilteredProfiles(dummyProfiles);
     }, []);
 
-    const handleSubmit = async (formData) => {
-        setLoading(true);
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            setResults([...results, { ...formData, id: results.length + 1, favorite: false }]);
-            notification.success({ message: 'Result added successfully!' });
-        } catch {
-            notification.error({ message: 'Submission failed' });
-        } finally {
-            setLoading(false);
+    useEffect(() => {
+        const filterProfiles = () => {
+            return profiles.filter(member => {
+                const matchesSearch = member.name.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesRole = selectedRole ? member.role === selectedRole : true;
+                const matchesSkill = selectedSkill ? member.skills.includes(selectedSkill) : true;
+                const matchesWorkload = selectedWorkload ? member.workload === selectedWorkload : true;
+                return matchesSearch && matchesRole && matchesSkill && matchesWorkload;
+            });
+        };
+        setFilteredProfiles(filterProfiles());
+    }, [searchTerm, selectedRole, selectedSkill, selectedWorkload, profiles]);
+
+    const handleEndorse = (profileId, skill) => {
+        setEndorsements(prev => {
+            const updated = { ...prev };
+            if (!updated[profileId]) updated[profileId] = [];
+            if (!updated[profileId].includes(skill)) {
+                updated[profileId].push(skill);
+                setNotifications(prev => [...prev, `Endorsed ${skill} for ${profiles.find(p => p.id === profileId).name}`]);
+            }
+            return updated;
+        });
+    };
+
+    const handleDelete = (profileId) => {
+        if (window.confirm('Are you sure you want to delete this profile?')) {
+            const profileName = profiles.find(p => p.id === profileId).name;
+            setProfiles(prev => prev.filter(profile => profile.id !== profileId));
+            setFilteredProfiles(prev => prev.filter(profile => profile.id !== profileId));
+            setNotifications(prev => [...prev, `Deleted profile of ${profileName}`]);
         }
     };
 
-    const toggleFavorite = (id) => {
-        const updatedResults = results.map(result => 
-            result.id === id ? { ...result, favorite: !result.favorite } : result
-        );
-        setResults(updatedResults);
-    };
+    const handleSearchChange = (e) => setSearchTerm(e.target.value);
+    const handleRoleChange = (value) => setSelectedRole(value);
+    const handleSkillChange = (value) => setSelectedSkill(value);
+    const handleWorkloadChange = (value) => setSelectedWorkload(value);
 
-    const deleteResult = (id) => {
-        const updatedResults = results.filter(result => result.id !== id);
-        setResults(updatedResults);
-    };
+    const roleOptions = [...new Set(profiles.map(member => member.role))];
+    const skillOptions = [...new Set(profiles.flatMap(member => member.skills))];
+    const workloadOptions = [...new Set(profiles.map(member => member.workload))];
 
-    const filteredResults = results.filter(result => 
-        result.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const sortedResults = [...filteredResults].sort((a, b) => 
-        sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date)
-    );
-
-    const chartData = {
+    const getOption = (profile) => ({
+        title: {
+            text: `Performance Metrics for ${profile.name}`,
+        },
+        tooltip: {},
         xAxis: {
             type: 'category',
-            data: sortedResults.map(result => result.name),
+            data: ['Tasks Completed', 'Avg Completion Time'],
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
         },
         series: [{
-            data: sortedResults.map(result => result.favorite ? 1 : 0),
-            type: 'bar'
-        }]
-    };
-
-    const handleFeedbackChange = (name, value) => {
-        setFeedback({ ...feedback, [name]: value });
-    };
-
-    const submitFeedback = () => {
-        const newNotification = `Rating: ${feedback.rating}, Comment: ${feedback.comment}`;
-        setNotifications([...notifications, newNotification]);
-        setFeedback({ rating: 0, comment: '' });
-        notification.success({ message: 'Feedback submitted successfully!' });
-    };
-
-    const toggleTheme = () => {
-        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-    };
+            name: 'Metrics',
+            type: 'bar',
+            data: [profile.performanceMetrics.tasksCompleted, profile.performanceMetrics.averageCompletionTime],
+        }],
+    });
 
     return (
-        <div style={{ padding: '20px', width: '800px', background: theme === 'light' ? '#fff' : '#333', color: theme === 'light' ? '#000' : '#fff' }}>
-            <h1>Experimental Results Management</h1>
-            <Button onClick={toggleTheme} type="primary" style={{ marginBottom: '20px' }}>Toggle Theme</Button>
-            <ResultsForm onSubmit={handleSubmit} loading={loading} />
-            <Input
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                style={{ marginBottom: '20px', width: '300px' }}
-            />
-            <Select onChange={(value) => setSortOrder(value)} value={sortOrder} style={{ marginBottom: '20px', width: '200px' }}>
-                <Option value="asc">Sort by Date Ascending</Option>
-                <Option value="desc">Sort by Date Descending</Option>
-            </Select>
-            <ResultsList results={sortedResults} onToggleFavorite={toggleFavorite} onDelete={deleteResult} />
-            <ReactECharts option={chartData} style={{ height: '400px', marginTop: '20px' }} />
-            <div style={{ marginTop: '20px' }}>
-                <h4>Feedback</h4>
-                <InputNumber min={1} max={5} placeholder="Rating (1-5)" value={feedback.rating} onChange={(value) => handleFeedbackChange('rating', value)} style={{ marginBottom: '10px', width: '200px' }} />
-                <TextArea placeholder="Comment" value={feedback.comment} onChange={(e) => handleFeedbackChange('comment', e.target.value)} rows={4} style={{ marginBottom: '10px' }} />
-                <Button onClick={submitFeedback} type="primary">Submit Feedback</Button>
-                <h4>Notifications</h4>
-                {notifications.map((note, index) => (
-                    <div key={index}>{note}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', padding: '40px', boxSizing: 'border-box', backgroundColor: '#f0f2f5' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
+                <Input
+                    placeholder="Search by name"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    style={{ width: '300px' }}
+                />
+                <div style={{ display: 'flex', gap: '20px' }}>
+                    <Select placeholder="Select Role" style={{ width: '200px' }} onChange={handleRoleChange} allowClear>
+                        {roleOptions.map(role => <Option key={role} value={role}>{role}</Option>)}
+                    </Select>
+                    <Select placeholder="Select Skill" style={{ width: '200px' }} onChange={handleSkillChange} allowClear>
+                        {skillOptions.map(skill => <Option key={skill} value={skill}>{skill}</Option>)}
+                    </Select>
+                    <Select placeholder="Select Workload" style={{ width: '200px' }} onChange={handleWorkloadChange} allowClear>
+                        {workloadOptions.map(workload => <Option key={workload} value={workload}>{workload}</Option>)}
+                    </Select>
+                </div>
+            </div>
+            <div style={{ flex: 1, overflowY: 'auto' }}>
+                {filteredProfiles.map(profile => (
+                    <div key={profile.id} style={{ border: '1px solid #d9d9d9', marginBottom: '20px', padding: '20px', borderRadius: '10px', backgroundColor: '#fff', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' }}>
+                        <h2>{profile.name}</h2>
+                        <p><strong>Role:</strong> {profile.role}</p>
+                        <div>
+                            {profile.skills.map((skill, index) => (
+                                <div key={index} style={{ marginBottom: '10px' }}>
+                                    <Tooltip title={`Endorse ${skill}`}>
+                                        <Button type="primary" shape="round" onClick={() => handleEndorse(profile.id, skill)}>{skill}</Button>
+                                    </Tooltip>
+                                    <Badge count={endorsements[profile.id] ? endorsements[profile.id].filter(e => e === skill).length : 0} style={{ backgroundColor: '#52c41a', marginLeft: '10px' }} />
+                                </div>
+                            ))}
+                        </div>
+                        <Progress percent={profile.workload} showInfo={false} strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }} />
+                        <div style={{ marginTop: '20px', display: 'flex', gap: '15px' }}>
+                            <Button type="primary" onClick={() => setShowModal({ isOpen: true, profileId: profile.id })}>View Performance</Button>
+                            <Button type="danger" onClick={() => handleDelete(profile.id)}>Delete</Button>
+                        </div>
+                        <div style={{ marginTop: '10px' }}>
+                            {profile.badges.map((badge, index) => (
+                                <Tooltip title={`Details about ${badge}`} key={index}>
+                                    <Badge color="#108ee9" text={badge} style={{ marginRight: '10px', cursor: 'pointer' }} />
+                                </Tooltip>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <Modal
+                title="Performance Metrics"
+                visible={showModal.isOpen}
+                onCancel={() => setShowModal({ isOpen: false, profileId: null })}
+                footer={null}
+            >
+                {showModal.isOpen && (
+                    <ReactECharts option={getOption(profiles.find(p => p.id === showModal.profileId))} style={{ height: '400px' }} />
+                )}
+            </Modal>
+            <div style={{
+                position: 'fixed', bottom: '20px', right: '20px', width: '300px', maxHeight: '300px', overflow: 'auto',
+                background: '#fff', padding: '10px', borderRadius: '5px', boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+            }}>
+                {notifications.map((notification, index) => (
+                    <div key={index} style={{ marginBottom: '5px', fontSize: '14px' }}>{notification}</div>
                 ))}
             </div>
         </div>
     );
 };
 
-const ResultsForm = ({ onSubmit, loading }) => {
-    const [formData, setFormData] = useState({
-        experimentName: '',
-        date: null,
-        parameters: [],
-        outcome: ''
-    });
-
-    const [errors, setErrors] = useState({});
-    const paramsOptions = ['pH: 7', 'Temp: 25', 'pH: 6', 'Temp: 30'];
-
-    const validate = (data) => {
-        const errors = {};
-        if (!data.experimentName) errors.experimentName = 'Experiment Name is required';
-        if (!data.date) errors.date = 'Date is required';
-        else if (data.date && data.date > new Date()) errors.date = 'Date cannot be in the future';
-        if (data.parameters.length === 0) errors.parameters = 'At least one parameter must be selected';
-        return errors;
-    };
-
-    const handleChange = (changedValues) => {
-        setFormData(prevState => ({ ...prevState, ...changedValues }));
-    };
-
-    const handleSubmit = async () => {
-        const validationErrors = validate(formData);
-        if (Object.keys(validationErrors).length) {
-            setErrors(validationErrors);
-            return;
-        }
-        await onSubmit(formData);
-        setFormData({ experimentName: '', date: null, parameters: [], outcome: '' });
-        setErrors({});
-    };
-
-    return (
-        <Form onFinish={handleSubmit} layout="vertical" style={{ padding: '10px', border: '1px solid #ccc', marginBottom: '20px' }}>
-            <h2>Add New Result</h2>
-            <Form.Item label="Experiment Name" validateStatus={errors.experimentName && 'error'} help={errors.experimentName}>
-                <Input value={formData.experimentName} onChange={e => handleChange({ experimentName: e.target.value })} />
-            </Form.Item>
-            <Form.Item label="Date" validateStatus={errors.date && 'error'} help={errors.date}>
-                <DatePicker value={formData.date} onChange={date => handleChange({ date })} style={{ width: '100%' }} />
-            </Form.Item>
-            <Form.Item label="Parameters" validateStatus={errors.parameters && 'error'} help={errors.parameters}>
-                <Select mode="multiple" value={formData.parameters} onChange={value => handleChange({ parameters: value })}>
-                    {paramsOptions.map(param => (
-                        <Option key={param} value={param}>{param}</Option>
-                    ))}
-                </Select>
-            </Form.Item>
-            <Form.Item label="Outcome">
-                <TextArea value={formData.outcome} onChange={e => handleChange({ outcome: e.target.value })} rows={3} />
-            </Form.Item>
-            <Form.Item>
-                <Button type="primary" htmlType="submit" loading={loading}>
-                    {loading ? 'Submitting...' : 'Submit'}
-                </Button>
-            </Form.Item>
-        </Form>
-    );
-};
-
-const ResultsList = ({ results, onToggleFavorite, onDelete }) => {
-    const columns = [
-        { title: 'Experiment Name', dataIndex: 'name', key: 'name' },
-        { title: 'Date', dataIndex: 'date', key: 'date' },
-        { title: 'Parameters', dataIndex: 'parameters', key: 'parameters' },
-        { title: 'Outcome', dataIndex: 'outcome', key: 'outcome' },
-        {
-            title: 'Actions',
-            key: 'actions',
-            render: (_, record) => (
-                <>
-                    <Button onClick={() => onToggleFavorite(record.id)} type="link">
-                        {record.favorite ? '★' : '☆'}
-                    </Button>
-                    <Button onClick={() => onDelete(record.id)} type="link" danger>
-                        Delete
-                    </Button>
-                </>
-            ),
-        },
-    ];
-
-    return (
-        <Table columns={columns} dataSource={results} rowKey="id" pagination={false} />
-    );
-};
-
-export default ExperimentalResults;
+export default TeamProfilesContainer;
 
 
-****File PATH: components/DashboardContainer.js****
+****File PATH: PerformanceDashboard.js****
 
 import React, { useState, useEffect } from 'react';
 import ReactECharts from 'echarts-for-react';
-import { Button, Modal, Select, Card, Col, Row, Typography, Badge, notification, Input } from 'antd';
-import { useDrag, useDrop } from 'react-dnd';
+import { Modal, Button, Input, Rate, Select, notification, Card, Row, Col, Tooltip } from 'antd';
+import { saveAs } from 'file-saver';
+import { Parser } from 'json2csv';
 import "antd/dist/reset.css";
 
-const { Title } = Typography;
+const { Option } = Select;
 
-// Simulated data for demonstration
-const dummyProjects = [
-  {
-    id: 1,
-    name: 'Project Alpha',
-    completion: 70,
-    dueDate: '2023-09-30',
-    status: 'In Progress',
-    tasks: ['Task 1', 'Task 2', 'Task 3'],
-  },
-  {
-    id: 2,
-    name: 'Project Beta',
-    completion: 30,
-    dueDate: '2023-10-15',
-    status: 'Not Started',
-    tasks: ['Task 1', 'Task 2'],
-  },
-  {
-    id: 3,
-    name: 'Project Gamma',
-    completion: 90,
-    dueDate: '2023-08-20',
-    status: 'Completed',
-    tasks: ['Task 1', 'Task 2', 'Task 3', 'Task 4'],
-  },
+// Dummy data for productivity trends
+const dummyProductivityData = [
+  { date: '2023-01-01', value: 10 },
+  { date: '2023-01-02', value: 15 },
+  { date: '2023-01-03', value: 12 },
+  { date: '2023-01-04', value: 20 },
+  { date: '2023-01-05', value: 18 },
 ];
 
-// Project Card Component
-const ProjectCard = ({ project, index, moveProject, editProject }) => {
-  const [, ref] = useDrag(() => ({
-    type: 'PROJECT',
-    item: { index },
-  }));
+const dummyGoals = [
+  { description: 'Increase output', target: 25, progress: 15 },
+];
 
-  const [, drop] = useDrop(() => ({
-    accept: 'PROJECT',
-    hover(item) {
-      if (item.index !== index) {
-        moveProject(item.index, index);
-        item.index = index;
-      }
-    },
-  }));
-
-  return (
-    <Card
-      ref={(node) => ref(drop(node))}
-      style={{ margin: '10px', width: 300 }}
-      hoverable
-      title={<a onClick={() => editProject(project.id)}>{project.name}</a>}
-    >
-      <ReactECharts
-        option={{
-          series: [{
-            type: 'pie',
-            radius: '50%',
-            data: [
-              { value: project.completion, name: 'Completed' },
-              { value: 100 - project.completion, name: 'Remaining' }
-            ],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)',
-              },
-            },
-          }],
-        }}
-        style={{ height: 150 }}
-      />
-      <p>Status: {project.status}</p>
-      <p>Due Date: {project.dueDate}</p>
-      <p>Completion: {project.completion}%</p>
-      <p>Tasks: {project.tasks.join(', ')}</p>
-    </Card>
-  );
-};
-
-// Project List Component
-const ProjectList = () => {
-  const [projects, setProjects] = useState(dummyProjects);
-
-  const moveProject = (fromIndex, toIndex) => {
-    const updatedProjects = [...projects];
-    const [movedProject] = updatedProjects.splice(fromIndex, 1);
-    updatedProjects.splice(toIndex, 0, movedProject);
-    setProjects(updatedProjects);
-  };
-
-  const editProject = (id) => {
-    const projectName = prompt('Edit project name:');
-    if (projectName) {
-      setProjects((prevProjects) =>
-        prevProjects.map((project) => (project.id === id ? { ...project, name: projectName } : project))
-      );
-    }
-  };
-
-  return (
-    <Row gutter={[16, 16]} style={{ padding: '20px' }}>
-      {projects.map((project, index) => (
-        <Col key={project.id}>
-          <ProjectCard project={project} index={index} moveProject={moveProject} editProject={editProject} />
-        </Col>
-      ))}
-    </Row>
-  );
-};
-
-// Compliance Status Component
-const ComplianceStatus = () => {
-  const [complianceData, setComplianceData] = useState({
-    safety: [70, 80, 90],
-    ethics: [85, 75, 95],
-    regulations: [60, 80, 100],
-  });
-
-  const [historyData, setHistoryData] = useState({
-    safety: [
-      { date: '2023-01-01', score: 70 },
-      { date: '2023-02-01', score: 80 },
-      { date: '2023-03-01', score: 90 },
-    ],
-    ethics: [
-      { date: '2023-01-01', score: 85 },
-      { date: '2023-02-01', score: 75 },
-      { date: '2023-03-01', score: 95 },
-    ],
-    regulations: [
-      { date: '2023-01-01', score: 60 },
-      { date: '2023-02-01', score: 80 },
-      { date: '2023-03-01', score: 100 },
-    ],
-  });
-
-  const getRadarOption = () => {
-    return {
-      title: {
-        text: 'Compliance Status',
-      },
-      tooltip: {
-        trigger: 'item',
-      },
-      radar: {
-        indicator: [
-          { name: 'Safety', max: 100 },
-          { name: 'Ethics', max: 100 },
-          { name: 'Regulations', max: 100 },
-        ],
-      },
-      series: [
-        {
-          type: 'radar',
-          data: [
-            {
-              value: complianceData.safety,
-              name: 'Project 1',
-              itemStyle: {
-                color: complianceData.safety[0] > 75 ? 'green' : complianceData.safety[0] > 50 ? 'yellow' : 'red',
-              },
-            },
-            {
-              value: complianceData.ethics,
-              name: 'Project 2',
-              itemStyle: {
-                color: complianceData.ethics[0] > 75 ? 'green' : complianceData.ethics[0] > 50 ? 'yellow' : 'red',
-              },
-            },
-            {
-              value: complianceData.regulations,
-              name: 'Project 3',
-              itemStyle: {
-                color: complianceData.regulations[0] > 75 ? 'green' : complianceData.regulations[0] > 50 ? 'yellow' : 'red',
-              },
-            },
-          ],
-          areaStyle: {},
-        },
-      ],
-    };
-  };
-
-  const handleChartClick = (params) => {
-    const chartName = params.name.toLowerCase();
-    alert(`Compliance History for ${chartName.charAt(0).toUpperCase() + chartName.slice(1)}:\n` +
-      historyData[chartName].map(item => `${item.date}: ${item.score}`).join('\n'));
-  };
-
-  return (
-    <div style={{ width: '1920px', height: '500px' }}>
-      <ReactECharts
-        option={getRadarOption()}
-        onEvents={{ click: handleChartClick }}
-        style={{ height: '100%', width: '100%' }}
-      />
-    </div>
-  );
-};
-
-// Budget Overview Component
-const BudgetOverview = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
+// PerformanceDashboard component
+const PerformanceDashboard = () => {
   const [feedbackVisible, setFeedbackVisible] = useState(false);
-  const [notificationCount, setNotificationCount] = useState(0);
-
-  const dummyData = [
-    { projectName: "Project A", budget: 50000, spent: 30000 },
-    { projectName: "Project B", budget: 70000, spent: 90000 },
-    { projectName: "Project C", budget: 30000, spent: 20000 },
-    { projectName: "Project D", budget: 60000, spent: 50000 },
-  ];
-
-  const onSegmentClick = (params) => {
-    const project = dummyData[params.dataIndex];
-    setSelectedProject(project);
-    setModalVisible(true);
-  };
-
-  const getTooltipContent = (params) => {
-    const project = dummyData[params.dataIndex];
-    return `${project.projectName}<br/>Spent: $${project.spent} / Budget: $${project.budget}`;
-  };
-
-  const getOption = () => {
-    const seriesData = dummyData.map(item => ({
-      name: item.projectName,
-      value: item.budget,
-      itemStyle: {
-        color: item.spent > item.budget ? 'red' : 'green'
-      }
-    }));
-
-    return {
-      tooltip: {
-        formatter: getTooltipContent
-      },
-      series: [{
-        type: 'treemap',
-        data: seriesData,
-        label: {
-          show: true,
-          formatter: '{b}'
-        },
-        emphasis: {
-          label: {
-            show: true
-          }
-        }
-      }]
-    };
-  };
-
-  const handleFeedbackSubmit = () => {
-    setFeedbackVisible(false);
-    notification.success({ message: 'Feedback Submitted', description: 'Thank you for your feedback!' });
-  };
-
-  const handleNotificationClick = () => {
-    setNotificationCount(0);
-  };
-
-  return (
-    <div>
-      <div style={{ position: 'absolute', top: 20, right: 20 }}>
-        <Button onClick={handleNotificationClick}>
-          Notifications {notificationCount > 0 && `(${notificationCount})`}
-        </Button>
-        <Button onClick={() => setFeedbackVisible(true)} style={{ marginLeft: 10 }}>
-          Feedback
-        </Button>
-      </div>
-      <ReactECharts
-        option={getOption()}
-        onEvents={{ click: onSegmentClick }}
-        style={{ height: '80vh', width: '100%' }}
-      />
-      <Modal
-        title="Project Details"
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        footer={null}
-      >
-        {selectedProject && (
-          <div>
-            <h3>{selectedProject.projectName}</h3>
-            <p>Budget: ${selectedProject.budget}</p>
-            <p>Spent: ${selectedProject.spent}</p>
-            <p>Status: {selectedProject.spent > selectedProject.budget ? 'Over Budget' : 'Under Budget'}</p>
-          </div>
-        )}
-      </Modal>
-      <Modal
-        title="Feedback"
-        visible={feedbackVisible}
-        onCancel={() => setFeedbackVisible(false)}
-        footer={[
-          <Button key="submit" type="primary" onClick={handleFeedbackSubmit}>
-            Submit
-          </Button>,
-        ]}
-      >
-        <Input.TextArea rows={4} placeholder="Let us know your thoughts on the budget allocation!" />
-      </Modal>
-    </div>
-  );
-};
-
-// Notifications Component
-const Notifications = () => {
-  const [notifications, setNotifications] = useState([]);
-  const [filteredNotifications, setFilteredNotifications] = useState([]);
-  const [filterType, setFilterType] = useState('all');
-
-  const dummyNotifications = [
-    {
-      id: '1',
-      type: 'task',
-      message: 'You have been assigned a new task: Update project documentation.',
-      timestamp: '2023-10-01T12:00:00Z',
-      isRead: false,
-    },
-    {
-      id: '2',
-      type: 'project update',
-      message: 'Project Alpha has been updated. Check the latest changes.',
-      timestamp: '2023-10-02T09:30:00Z',
-      isRead: false,
-    },
-    {
-      id: '3',
-      type: 'compliance',
-      message: 'Compliance alert: Please review the new guidelines.',
-      timestamp: '2023-10-03T14:00:00Z',
-      isRead: false,
-    },
-    {
-      id: '4',
-      type: 'budget',
-      message: 'Budget report for Q3 is now available.',
-      timestamp: '2023-10-04T11:15:00Z',
-      isRead: false,
-    },
-  ];
+  const [feedback, setFeedback] = useState({ comment: '', rating: 0 });
+  const [goal, setGoal] = useState({ description: '', target: 0 });
+  const [goalProgress, setGoalProgress] = useState(dummyGoals[0]);
+  const [performanceData, setPerformanceData] = useState(dummyProductivityData);
+  const [selectedData, setSelectedData] = useState([true]);
+  const [dummyData, setDummyData] = useState([]);
 
   useEffect(() => {
-    setNotifications(dummyNotifications);
-    setFilteredNotifications(dummyNotifications);
+    setDummyData(dummyProductivityData);
   }, []);
 
-  useEffect(() => {
-    if (filterType === 'all') {
-      setFilteredNotifications(notifications);
-    } else {
-      setFilteredNotifications(notifications.filter(notification => notification.type === filterType));
-    }
-  }, [filterType, notifications]);
-
-  const markAsRead = (id) => {
-    const updatedNotifications = notifications.map(notification => 
-      notification.id === id ? { ...notification, isRead: true } : notification
-    );
-    setNotifications(updatedNotifications);
+  const handleFeedbackChange = (e) => {
+    setFeedback({ ...feedback, [e.target.name]: e.target.value });
   };
 
-  const dismissNotification = (id) => {
-    const updatedNotifications = notifications.filter(notification => notification.id !== id);
-    setNotifications(updatedNotifications);
+  const handleRatingChange = (value) => {
+    setFeedback({ ...feedback, rating: value });
   };
 
-  const handleFilterChange = (value) => {
-    setFilterType(value);
+  const submitFeedback = () => {
+    notification.success({ message: 'Feedback Submitted!', description: `Comment: ${feedback.comment}, Rating: ${feedback.rating}` });
+    setFeedbackVisible(false);
+    setFeedback({ comment: '', rating: 0 });
   };
 
-  const getChartOptions = () => {
-    const taskCount = notifications.filter(n => n.type === 'task').length;
-    const projectUpdateCount = notifications.filter(n => n.type === 'project update').length;
-    const complianceCount = notifications.filter(n => n.type === 'compliance').length;
-    const budgetCount = notifications.filter(n => n.type === 'budget').length;
+  const toggleDataSet = () => {
+    setSelectedData([!selectedData[0]]);
+  };
 
-    return {
-      title: { text: 'Notification Types' },
-      tooltip: {},
-      xAxis: {
-        type: 'category',
-        data: ['Tasks', 'Project Updates', 'Compliance', 'Budgets'],
+  const setGoalHandler = () => {
+    setGoalProgress({ ...goalProgress, description: goal.description, target: goal.target });
+    setGoal({ description: '', target: 0 });
+    notification.success({ message: 'Goal Set!', description: `Goal: ${goal.description}, Target: ${goal.target}` });
+  };
+
+  const getOption = () => ({
+    title: { text: 'Productivity Trends' },
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: dummyProductivityData.map(item => item.date),
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        name: 'Productivity',
+        type: 'line',
+        data: dummyProductivityData.map(item => item.value),
+        itemStyle: { color: selectedData[0] ? '#5470C6' : '#FF0000' },
       },
-      yAxis: { type: 'value' },
-      series: [{
-        name: 'Count',
-        type: 'bar',
-        data: [taskCount, projectUpdateCount, complianceCount, budgetCount],
-      }],
-    };
+    ],
+  });
+
+  const exportData = () => {
+    const csvData = [{ Metric: 'Completed Tasks', Value: 75 }];
+    const json2csvParser = new Parser();
+    const csv = json2csvParser.parse(csvData);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'kpi_data.csv');
   };
 
   return (
-    <div style={{ width: '1920px', height: '500px', padding: '20px' }}>
-      <Title level={2}>Notifications</Title>
-      <Select defaultValue="all" onChange={handleFilterChange} style={{ width: 200, marginBottom: 20 }}>
-        <Select.Option value="all">All</Select.Option>
-        <Select.Option value="task">Tasks</Select.Option>
-        <Select.Option value="project update">Project Updates</Select.Option>
-        <Select.Option value="compliance">Compliance</Select.Option>
-        <Select.Option value="budget">Budgets</Select.Option>
-      </Select>
-      <div>
-        {filteredNotifications.length === 0 ? (
-          <p>No notifications to display.</p>
-        ) : (
-          filteredNotifications.map(notification => (
-            <Card key={notification.id} style={{ marginBottom: '10px' }}>
-              <p>{notification.message}</p>
-              <p>{new Date(notification.timestamp).toLocaleString()}</p>
-              <Button type="link" onClick={() => markAsRead(notification.id)}>Mark as Read</Button>
-              <Button type="link" onClick={() => dismissNotification(notification.id)}>Dismiss</Button>
-            </Card>
-          ))
-        )}
-      </div>
-      <ReactECharts option={getChartOptions()} style={{ height: '400px', width: '100%' }} />
+    <div style={{ padding: '40px', backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
+      <Row gutter={16}>
+        <Col span={24}>
+          <Card title="Performance Dashboard" bordered={false} style={{ marginBottom: '20px' }}>
+            <Row gutter={16}>
+              <Col span={12}>
+                <Card title="Performance Metrics" bordered={false}>
+                  <Button type="primary" onClick={() => setFeedbackVisible(true)} style={{ margin: '10px' }}>Give Feedback</Button>
+                  <Button type="default" onClick={toggleDataSet} style={{ margin: '10px' }}>Toggle Data Set</Button>
+                  <div style={{ marginBottom: '20px' }}>
+                    <Input placeholder="Goal Description" value={goal.description} onChange={(e) => setGoal({ ...goal, description: e.target.value })} style={{ marginBottom: '10px' }} />
+                    <Input placeholder="Goal Target" type="number" value={goal.target} onChange={(e) => setGoal({ ...goal, target: parseInt(e.target.value) })} style={{ marginBottom: '10px' }} />
+                    <Button type="primary" onClick={setGoalHandler}>Set Goal</Button>
+                  </div>
+                  <ReactECharts option={getOption()} style={{ height: '300px', width: '100%' }} />
+                  <Button type="dashed" onClick={exportData} style={{ marginTop: '20px' }}>Export Data</Button>
+                </Card>
+              </Col>
+            </Row>
+          </Card>
+        </Col>
+      </Row>
+
+      <Modal
+        title="User Feedback"
+        visible={feedbackVisible}
+        onOk={submitFeedback}
+        onCancel={() => setFeedbackVisible(false)}
+      >
+        <Input placeholder="Your feedback..." name="comment" value={feedback.comment} onChange={handleFeedbackChange} style={{ marginBottom: '10px' }} />
+        <Rate value={feedback.rating} onChange={handleRatingChange} />
+      </Modal>
     </div>
   );
 };
 
-// Dashboard Container Component
-const DashboardContainer = () => {
-  return (
-    <div style={{ width: '1920px', height: '1080px', display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
-      <Title level={1}>Dashboard</Title>
-      <ProjectList />
-      <ComplianceStatus />
-      <BudgetOverview />
-      <Notifications />
-    </div>
-  );
-};
-
-export default DashboardContainer;
+export default PerformanceDashboard;

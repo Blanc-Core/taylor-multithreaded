@@ -16,10 +16,10 @@ class OverallPlanner:
             self.businessProblem = file.read()  # Assuming the file contains the business problem text
         self.model = model
         self.verbose = verbose
-        self.systemPrompt = overallPlannerPrompt.format(businessProblem=self.businessProblem)
+        self.userPrompt = overallPlannerPrompt.format(businessProblem=self.businessProblem)
 
     def generate(self):
-        self.userPrompt = """Please follow the instructions in the prompt. I want extreme detailed and thought out answers. ENSURE TO WRITE LOGIC FOR EACH Module.
+        self.systemPrompt = """Please follow the instructions in the prompt. I want extreme detailed and thought out answers. ENSURE TO WRITE LOGIC FOR EACH Module.
         Simply give me the output in the format of the prompt. I do not want additional text. JUST THE OUTPUT. Create as few pages as possible. I want less pages 
         but more content within them.
         
@@ -49,11 +49,13 @@ class ModulePlanner:
         self.model = model
         self.streaming = streaming
         self.singularModulePlan = singularModulePlan
-        self.systemPrompt = modulePlannerPrompt.format(overallModulePlan=singularModulePlan)
+        self.userPrompt = modulePlannerPrompt.format(overallModulePlan=singularModulePlan)
         self.allModules = []
+        with open("outputs/prompts/modulePrompts.txt",'a') as file:
+            file.write(f"{self.userPrompt}\n\n")
 
     def generate(self):
-        userPrompt = """
+        systemPrompt = """
         Please follow the instructions in the prompt. I want extreme detailed and thought out answers. ENSURE TO WRITE LOGIC FOR EACH PAGE NEEDED WITHIN THE MODULE.
         Simply give me the output in the format of the prompt. I do not want additional text. JUST THE OUTPUT. Remember this is being done in Ant Design.
         ***IF WORKING WITH CHARTS THINK ABOUT COOL STUFF LIKE TREES, HEAT MAP, ALL THAAT COOL STUFF FOR ECHARTS NOT THE BASIC BORING CHARTS YOU CAN HAVE THOSE BUT THINK OF UNQIUE CHARTS***
@@ -62,7 +64,7 @@ class ModulePlanner:
 
         ************DO NOT FUCKING MAKE DUPLICATE PAGES ONLY MAKE EACH PAGE ONCE************
         """
-        coder = ClientRequest(self.systemPrompt, self.model, userPrompt, True)
+        coder = ClientRequest(systemPrompt, self.model, self.userPrompt, True)
         generatedModulePlan = coder.generate()
         self.allModules.append(generatedModulePlan)
         return generatedModulePlan

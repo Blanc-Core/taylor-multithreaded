@@ -20,6 +20,7 @@ class PagePlanner:
         ***BE SO DETIALED ABOUT THE PAGE FILL THE WHOLE PAGE WITH COMPOENENTS GO INTO DETAIL ABOUT EVERYTHING AND MAKE SURE EVERY CHILD COMPONENT WORKS TOGETHER WITH PARENT TO MAKE THE WHOLE PAGE WORK***
                 **you are only planning for a desktop and only that so fill that out**
         ***THINK OF MORE STUFF THAT SHOULD BE ON THE PAGE BE VERY CREATIVE***
+        ***do not plan headers**
         """
         user_prompt = user_plan
 

@@ -1,0 +1,2248 @@
+
+<ReactComponentCoder>
+  <FilePath>
+    ****File Path: FileName****
+    <!-- Ensure this is placed at the top of your file with a valid file name. -->
+  </FilePath>
+
+  <GeneralInstructions>
+    - Recoding **every single component**, ensuring full functionality, and **fixing any errors or logic issues**.
+    - **DO NOT** import any external JS files—recreate everything within the provided code.
+    - Use only **dummy data** with no backend or API calls. Ensure the code works **flawlessly** for the current page setup.
+    - **No logic errors** allowed: All components, mappings, charts, and interactions must function without issues. If errors exist in the provided code, **proactively identify and fix them**.
+    - **Every component, feature, and interaction must be fully implemented and improved where necessary**. The page should be fully functional, visually complete, and **professionally enhanced**.
+  </GeneralInstructions>
+
+  <CodeRecreation>
+    - Provide **full code** for every component and **fix any potential issues**.
+    - **NO code should be missing, left out, simplified, or assumed**—every piece of logic must be present and correct.
+    - Recreate all components fully, **ensuring every part works together seamlessly**. **Fix any layout issues**, optimize UI, and implement **complete functionality** for all components.
+  </CodeRecreation>
+
+  <InteractionInstructions>
+    - Ensure **ALL components** (e.g., search bars, filters, buttons, forms, charts) work **perfectly** together.
+    - Validate that every interaction works as expected—searching, filtering, clicking, chart updates, etc.
+    - **NO part of the UI should be broken, unresponsive, or incorrectly implemented**—everything must be functional.
+    - The UI should be **visually optimized** with enhanced layouts and interactions that feel smooth, modern, and professional.
+    - **Fix any layout or visual issues**. Ensure the page is **visually complete, fully functional**, and works together as a unified system without any bugs.
+  </InteractionInstructions>
+
+  <ValidationSteps>
+    - After implementing **each component**, validate that it works as expected and fixes any issues.
+    - Check all interactions (search, filter, click, chart rendering, form input) and **verify that everything is fully functional**.
+    - **Verify the entire page** for responsiveness and errors—ensure every part of the page is filled with working components.
+    - **Proactively improve** areas of the UI that may be weak, unoptimized, or not user-friendly.
+  </ValidationSteps>
+
+  <GuidanceForLLM>
+    - **Step-by-Step Approach**: Break down tasks to handle complex UI elements (like charts, filters, dynamic data mappings) to ensure everything works perfectly.
+    - **Fix errors as you go**: Proactively identify and fix any logic, interaction, or rendering issues. **Do not leave anything broken**.
+    - **Enhance Layout**: If the layout feels cluttered, unbalanced, or outdated, **improve it** to be modern, clean, and user-friendly. **No placeholders or incomplete elements**.
+    - **No Summarization**: Recode every single line with improvements and do not leave out any logic or interaction. **Enhance the code where needed** and ensure everything is dynamically functional.
+  </GuidanceForLLM>
+
+  #### Plan
+  - Use this plan to create code for the current page, enhancing functionality, layout, and interactions.
+    ```plaintext
+    Component Name: Resource Allocation Dashboard Page, Component requirements: # Final Plan for Resource Allocation Dashboard Page
+
+## Purpose and Goals
+The Resource Allocation Dashboard Page serves as the primary interface for visualizing team workloads and project assignments. It allows users to quickly assess resource allocation and identify any imbalances, ultimately leading to informed decision-making that enhances project efficiency and team satisfaction across the enterprise.
+
+## Problem Solved
+This page provides a clear overview of team workloads, helping to identify teams that are overworked or underutilized. It facilitates quick decision-making regarding resource reallocation and ensures that managers can make informed decisions based on real-time data, which improves overall project efficiency.
+
+## Color Scheme
+- Primary Color: `#004085`
+- Secondary Color: `#cce5ff`
+- Tertiary Color: `#b8daff`
+- Spacing: `8px`
+- Typography: `Roboto, sans-serif`
+
+## New Features and Enhancements
+
+### 1. User Engagement
+- **Main Functionality**: Introduce a feedback system allowing users to rate team performance and workload satisfaction.
+- **Key Components**: Rating widget, comment section.
+- **Dummy Data**: An array of user ratings and comments.
+- **User Interaction Flow**: Users select a team and submit their feedback.
+- **Challenges & Solutions**: Ensure user anonymity while collecting feedback; implement a moderation system for comments.
+
+### Implementation Guidance:
+- Use a star rating component and a text area for comments.
+- Store user feedback in a temporary array (dummy data).
+- Implement a moderation function to review comments before they are displayed.
+
+### 2. Data Visualization Improvements
+- **Main Functionality**: Enhanced charts displaying workload trends over time.
+- **Key Components**: ECharts line charts, bar charts for team performance.
+- **Dummy Data**: Historical workload data with timestamps.
+- **User Interaction Flow**: Users hover over data points for detailed insights.
+- **Challenges & Solutions**: Ensure real-time responsiveness; optimize data loading times.
+
+### Implementation Guidance:
+- Use ECharts to create responsive line and bar charts.
+- Populate charts with dummy historical data.
+- Implement tooltip functionality to display detailed insights on hover.
+
+### 3. Interactivity
+- **Main Functionality**: Allow users to interact with data by filtering projects or teams.
+- **Key Components**: Dropdown menus for selecting teams/projects, dynamic charts.
+- **Dummy Data**: Predefined project and team lists.
+- **User Interaction Flow**: Users select filters, resulting in immediate updates to the displayed data.
+- **Challenges & Solutions**: Maintain data consistency; ensure intuitive UI.
+
+### Implementation Guidance:
+- Create dropdown menus using Ant Design's Select component.
+- Use state management to update charts based on selected filters.
+- Ensure selected filters persist until changed.
+
+### 4. Information Presentation
+- **Main Functionality**: Implement a summary card for each team/project with key metrics.
+- **Key Components**: Cards displaying workload, project deadlines, and member contributions.
+- **Dummy Data**: Sample metrics for each team.
+- **User Interaction Flow**: Users click on a card to expand and see more details.
+- **Challenges & Solutions**: Balance information density without overwhelming the user.
+
+### Implementation Guidance:
+- Use a card component layout with expandable sections to show more details.
+- Populate cards with dummy data representing key metrics.
+- Use animations for smooth transitions when expanding/collapsing cards.
+
+### 5. Productivity Tools
+- **Main Functionality**: Integrate a task prioritization tool for teams.
+- **Key Components**: Priority matrix, task lists.
+- **Dummy Data**: Example tasks with priority levels.
+- **User Interaction Flow**: Users drag and drop tasks to prioritize them.
+- **Challenges & Solutions**: Ensure synchronization of tasks with workload data; maintain clarity in task assignments.
+
+### Implementation Guidance:
+- Implement a drag-and-drop feature for task prioritization using a library like React DnD.
+- Store tasks in a temporary array and allow users to reorder them.
+- Display priority levels visually using color codes or size differences.
+
+### 6. Customization Options
+- **Main Functionality**: Allow users to customize their dashboard view.
+- **Key Components**: Toggle switches for different data views, layout options.
+- **Dummy Data**: User preferences stored in local storage.
+- **User Interaction Flow**: Users adjust settings, which persist across sessions.
+- **Challenges & Solutions**: Ensure changes are user-friendly; provide a reset option.
+
+### Implementation Guidance:
+- Use toggle switches to allow users to select data views (e.g., grid vs. list).
+- Store user preferences in local storage to persist settings across sessions.
+- Provide a reset button to restore default settings.
+
+### 7. Gamification
+- **Main Functionality**: Reward system for achieving resource optimization goals.
+- **Key Components**: Badges, progress bars.
+- **Dummy Data**: Example achievements and user progress.
+- **User Interaction Flow**: Users receive notifications on achievements.
+- **Challenges & Solutions**: Balance rewards to maintain motivation without undermining productivity.
+
+### Implementation Guidance:
+- Create a rewards system where users earn badges for achieving milestones.
+- Use progress bars to visually represent user achievements.
+- Notify users via a simple alert/modal when new achievements are unlocked.
+
+### 8. Dynamic Content
+- **Main Functionality**: Real-time updates on workload changes.
+- **Key Components**: Notification system for changes in resource allocations.
+- **Dummy Data**: Simulated updates to resource allocations.
+- **User Interaction Flow**: Users receive alerts and can view details of changes.
+- **Challenges & Solutions**: Manage real-time data without overwhelming users.
+
+### Implementation Guidance:
+- Set up an interval to simulate real-time updates of resource allocations.
+- Display alerts using a notification system (e.g., Ant Design notification component).
+- Ensure alerts are concise and provide detailed views on click.
+
+### 9. Notifications
+- **Main Functionality**: Alerts for critical workload changes or project deadlines.
+- **Key Components**: Notification bell icon, dropdown list for alerts.
+- **Dummy Data**: Sample notifications for overdue tasks or workload alerts.
+- **User Interaction Flow**: Users click the notification icon to view alerts.
+- **Challenges & Solutions**: Ensure notifications are relevant and timely; avoid alert fatigue.
+
+### Implementation Guidance:
+- Create a notification icon with a dropdown that lists all alerts.
+- Use dummy data to represent various alerts and their statuses.
+- Implement a mark-as-read feature that allows users to clear notifications.
+
+## Prioritization of Ideas
+1. Data Visualization Improvements
+2. Interactivity
+3. User Engagement
+4. Information Presentation
+5. Dynamic Content
+6. Notifications
+7. Productivity Tools
+8. Customization Options
+9. Gamification
+
+## Implementation Considerations
+- Utilize **React** for building the component structure.
+- Leverage **Ant Design** for UI elements to maintain a professional look.
+- Implement **ECharts** for engaging data visualizations.
+- Use local state management for dummy data to simulate real-time functionalities without backend dependencies.
+- Focus on a desktop-first design to provide a comprehensive and user-friendly experience.
+
+## Enhancements and Optimizations
+- Introduce an onboarding tutorial to help users navigate new features.
+- Implement a dark mode toggle for user customization and comfort.
+- Consider adding export functionality to allow users to download reports or snapshots of the dashboard.
+- Regularly update dummy data to keep the dashboard fresh and engaging.
+- Plan for responsive design considerations for future mobile optimization.
+
+By integrating these features, the Resource Allocation Dashboard Page will enhance its functionality, user engagement, and overall effectiveness in resource management within the organization. This comprehensive plan ensures that every aspect of the dashboard is covered, providing a detailed roadmap for implementation.
+    ```
+
+  #### RequiredCode
+  - **RECODE AND FIX** every single line of the provided code, ensuring that it is fully functional, free of errors, and optimized for the current page.
+    ```plaintext
+    
+
+```javascript
+import React, { useState, useEffect, useMemo } from 'react';
+import ReactECharts from 'echarts-for-react';
+import { useNavigate } from 'react-router-dom';
+
+// DashboardContainer Component
+const DashboardContainer = () => {
+  const [feedback, setFeedback] = useState([]);
+  const [teamWorkloadData, setTeamWorkloadData] = useState([]);
+  const [projectAssignments, setProjectAssignments] = useState([]);
+  const [alerts, setAlerts] = useState([]);
+  const [theme, setTheme] = useState('light');
+  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Mock fetching data
+    setTeamWorkloadData([
+      { team: 'Team A', workload: 80 },
+      { team: 'Team B', workload: 30 },
+      { team: 'Team C', workload: 60 },
+      { team: 'Team D', workload: 50 },
+      { team: 'Team E', workload: 90 },
+    ]);
+    
+    setProjectAssignments([
+      { id: 1, name: 'Project Alpha', team: 'Team A', workload: 80, status: 'ongoing' },
+      { id: 2, name: 'Project Beta', team: 'Team B', workload: 60, status: 'ongoing' },
+      { id: 3, name: 'Project Gamma', team: 'Team C', workload: 50, status: 'completed' },
+      { id: 4, name: 'Project Delta', team: 'Team A', workload: 40, status: 'on-hold' },
+    ]);
+    
+    setAlerts([
+      { teamName: 'Team A', workload: 85, threshold: 70, severity: 'critical', id: 1 },
+      { teamName: 'Team B', workload: 65, threshold: 60, severity: 'warning', id: 2 },
+      { teamName: 'Team C', workload: 45, threshold: 50, severity: 'normal', id: 3 },
+    ]);
+  }, []);
+
+  const handleFeedbackSubmit = (feedbackData) => {
+    setFeedback((prev) => [...prev, feedbackData]);
+  };
+
+  const handleThemeChange = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridTemplateRows: 'repeat(3, 1fr)', height: '100vh', width: '100vw' }}>
+      <div style={{ gridColumn: '1 / 3', gridRow: '1 / 2' }}>
+        <TeamWorkloadChart data={teamWorkloadData} />
+      </div>
+      <div style={{ gridColumn: '3 / 4', gridRow: '1 / 2' }}>
+        <AlertsNotification alerts={alerts} />
+      </div>
+      <div style={{ gridColumn: '1 / 4', gridRow: '2 / 3' }}>
+        <ProjectAssignmentsList projects={projectAssignments} />
+      </div>
+      <div style={{ gridColumn: '1 / 2', gridRow: '3 / 4' }}>
+        <FeedbackWidget onSubmit={handleFeedbackSubmit} />
+      </div>
+      <div style={{ gridColumn: '2 / 3', gridRow: '3 / 4' }}>
+        <SimulationControl />
+      </div>
+      <div style={{ gridColumn: '3 / 4', gridRow: '3 / 4' }}>
+        <ThemeSelector currentTheme={theme} onChange={handleThemeChange} />
+      </div>
+    </div>
+  );
+};
+
+// TeamWorkloadChart Component
+const TeamWorkloadChart = ({ data }) => {
+  const [tooltipContent, setTooltipContent] = useState('');
+  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+  
+  const handleMouseEnter = (params) => {
+    const teamData = data[params.dataIndex];
+    setTooltipContent(`${teamData.team}: ${teamData.workload}%`);
+  };
+
+  const handleMouseLeave = () => {
+    setTooltipContent('');
+  };
+
+  const handleClick = (params) => {
+    const teamData = data[params.dataIndex];
+    setSelectedTeam(teamData.team);
+    alert(`Filtering by ${teamData.team}`);
+  };
+
+  const getOption = () => ({
+    title: {
+      text: 'Team Workload Heatmap',
+      left: 'center',
+    },
+    tooltip: {
+      trigger: 'item',
+      formatter: tooltipContent,
+    },
+    visualMap: {
+      min: 0,
+      max: 100,
+      splitNumber: 5,
+      inRange: {
+        color: ['#ffffff', '#ff0000'],
+      },
+    },
+    series: [
+      {
+        name: 'Workload',
+        type: 'heatmap',
+        data: data.map((item, index) => [index, 0, item.workload]),
+        label: {
+          show: true,
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowColor: '#333',
+          },
+        },
+      },
+    ],
+  });
+
+  const handleNotification = () => {
+    const newNotification = 'Workload has changed significantly!';
+    setNotifications((prev) => [...prev, newNotification]);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updatedData = data.map(item => ({ ...item, workload: Math.floor(Math.random() * 100) }));
+      handleNotification();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [data]);
+
+  return (
+    <div style={{ width: '100%', height: '100%' }}>
+      <ReactECharts
+        option={getOption()}
+        onEvents={{
+          mouseenter: handleMouseEnter,
+          mouseleave: handleMouseLeave,
+          click: handleClick,
+        }}
+      />
+      {notifications.length > 0 && (
+        <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
+          {notifications.map((notification, index) => (
+            <div key={index}>{notification}</div>
+          ))}
+        </div>
+      )}
+      {selectedTeam && <div>You have selected: {selectedTeam}</div>}
+    </div>
+  );
+};
+
+// ProjectAssignmentsList Component
+const ProjectAssignmentsList = ({ projects }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [editedWorkload, setEditedWorkload] = useState({});
+  
+  const filteredData = useMemo(() => {
+    return projects.filter(item => 
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) && 
+      (statusFilter ? item.status === statusFilter : true)
+    );
+  }, [searchTerm, statusFilter, projects]);
+
+  const handleEdit = (id, newWorkload) => {
+    const totalWorkload = filteredData.reduce((sum, item) => sum + (editedWorkload[item.id] || item.workload), 0);
+    if (totalWorkload - (editedWorkload[id] || filteredData.find(item => item.id === id).workload) + newWorkload <= 100) {
+      setEditedWorkload(prev => ({ ...prev, [id]: newWorkload }));
+    } else {
+      alert('Total workload cannot exceed 100%');
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleStatusChange = (e) => {
+    setStatusFilter(e.target.value);
+  };
+
+  const columns = useMemo(() => {
+    return filteredData.map(item => ({
+      ...item,
+      workload: editedWorkload[item.id] !== undefined ? editedWorkload[item.id] : item.workload,
+    }));
+  }, [filteredData, editedWorkload]);
+
+  const getOption = () => ({
+    title: {
+      text: 'Workload Distribution',
+    },
+    tooltip: {},
+    xAxis: {
+      type: 'category',
+      data: columns.map(item => item.name),
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [{
+      name: 'Workload',
+      type: 'bar',
+      data: columns.map(item => item.workload),
+    }],
+  });
+
+  return (
+    <div style={{ width: '100%', height: '100%' }}>
+      <input type="text" placeholder="Search Projects" value={searchTerm} onChange={handleSearchChange} />
+      <select onChange={handleStatusChange}>
+        <option value="">All Statuses</option>
+        <option value="ongoing">Ongoing</option>
+        <option value="completed">Completed</option>
+        <option value="on-hold">On Hold</option>
+      </select>
+      <table>
+        <thead>
+          <tr>
+            <th>Project Name</th>
+            <th>Assigned Team</th>
+            <th>Workload (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {columns.map(item => (
+            <tr key={item.id} onClick={() => handleEdit(item.id, prompt('Edit workload:', item.workload))}>
+              <td>{item.name}</td>
+              <td>{item.team}</td>
+              <td>{item.workload}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <ReactECharts option={getOption()} />
+    </div>
+  );
+};
+
+// AlertsNotification Component
+const AlertsNotification = ({ alerts }) => {
+  const getSeverityColor = (severity) => {
+    switch (severity) {
+      case 'critical':
+        return 'red';
+      case 'warning':
+        return 'yellow';
+      default:
+        return 'green';
+    }
+  };
+
+  const handleClick = (alert) => {
+    alert(`Navigating to alert details for ${alert.teamName}`);
+  };
+
+  return (
+    <div style={{ width: '100%', height: '100%' }}>
+      <h2>Alerts Notification</h2>
+      {alerts.length === 0 ? (
+        <p>No alerts</p>
+      ) : (
+        alerts.map((alert) => (
+          <div
+            key={alert.id}
+            onClick={() => handleClick(alert)}
+            style={{ 
+              padding: '10px', 
+              margin: '5px 0', 
+              backgroundColor: getSeverityColor(alert.severity), 
+              color: 'white', 
+              cursor: 'pointer' 
+            }}
+          >
+            {`${alert.teamName}: Workload ${alert.workload} (Threshold: ${alert.threshold})`}
+          </div>
+        ))
+      )}
+    </div>
+  );
+};
+
+// FeedbackWidget Component
+const FeedbackWidget = ({ onSubmit }) => {
+  const [feedback, setFeedback] = useState('');
+
+  const handleSubmit = () => {
+    onSubmit(feedback);
+    setFeedback('');
+  };
+
+  return (
+    <div>
+      <h3>Feedback</h3>
+      <textarea value={feedback} onChange={(e) => setFeedback(e.target.value)} placeholder="Share your feedback here..." />
+      <button onClick={handleSubmit}>Submit Feedback</button>
+    </div>
+  );
+};
+
+// SimulationControl Component
+const SimulationControl = () => {
+  const [resources, setResources] = useState({ cpu: 50, memory: 50 });
+
+  const handleChange = (e) => {
+    setResources(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  return (
+    <div>
+      <h3>Resource Allocation Simulation</h3>
+      <label>
+        CPU Allocation:
+        <input type="range" name="cpu" min="0" max="100" value={resources.cpu} onChange={handleChange} />
+      </label>
+      <label>
+        Memory Allocation:
+        <input type="range" name="memory" min="0" max="100" value={resources.memory} onChange={handleChange} />
+      </label>
+      <p>Current Allocation: {JSON.stringify(resources)}</p>
+    </div>
+  );
+};
+
+// ThemeSelector Component
+const ThemeSelector = ({ currentTheme, onChange }) => {
+  return (
+    <div>
+      <h3>Theme Selector</h3>
+      <button onClick={onChange}>{currentTheme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}</button>
+    </div>
+  );
+};
+
+export default DashboardContainer;
+```
+This code represents a complete, self-contained React component for a Resource Allocation Dashboard. It includes all specified subcomponents with their respective functionality, and it adheres to the provided specifications, ensuring a seamless and dynamic user interface.
+    ```
+
+</ReactComponentCoder>
+
+---
+
+**Important**: Absolutely **NO missing logic** or functionality. **Fix every possible error, logic issue, or interaction** that may exist. The page must be fully functional and visually complete with modern, professional design. All UI elements and logic must work perfectly together with no placeholders or incomplete elements.
+
+
+
+
+<ReactComponentCoder>
+  <FilePath>
+    ****File Path: FileName****
+    <!-- Ensure this is placed at the top of your file with a valid file name. -->
+  </FilePath>
+
+  <GeneralInstructions>
+    - Recoding **every single component**, ensuring full functionality, and **fixing any errors or logic issues**.
+    - **DO NOT** import any external JS files—recreate everything within the provided code.
+    - Use only **dummy data** with no backend or API calls. Ensure the code works **flawlessly** for the current page setup.
+    - **No logic errors** allowed: All components, mappings, charts, and interactions must function without issues. If errors exist in the provided code, **proactively identify and fix them**.
+    - **Every component, feature, and interaction must be fully implemented and improved where necessary**. The page should be fully functional, visually complete, and **professionally enhanced**.
+  </GeneralInstructions>
+
+  <CodeRecreation>
+    - Provide **full code** for every component and **fix any potential issues**.
+    - **NO code should be missing, left out, simplified, or assumed**—every piece of logic must be present and correct.
+    - Recreate all components fully, **ensuring every part works together seamlessly**. **Fix any layout issues**, optimize UI, and implement **complete functionality** for all components.
+  </CodeRecreation>
+
+  <InteractionInstructions>
+    - Ensure **ALL components** (e.g., search bars, filters, buttons, forms, charts) work **perfectly** together.
+    - Validate that every interaction works as expected—searching, filtering, clicking, chart updates, etc.
+    - **NO part of the UI should be broken, unresponsive, or incorrectly implemented**—everything must be functional.
+    - The UI should be **visually optimized** with enhanced layouts and interactions that feel smooth, modern, and professional.
+    - **Fix any layout or visual issues**. Ensure the page is **visually complete, fully functional**, and works together as a unified system without any bugs.
+  </InteractionInstructions>
+
+  <ValidationSteps>
+    - After implementing **each component**, validate that it works as expected and fixes any issues.
+    - Check all interactions (search, filter, click, chart rendering, form input) and **verify that everything is fully functional**.
+    - **Verify the entire page** for responsiveness and errors—ensure every part of the page is filled with working components.
+    - **Proactively improve** areas of the UI that may be weak, unoptimized, or not user-friendly.
+  </ValidationSteps>
+
+  <GuidanceForLLM>
+    - **Step-by-Step Approach**: Break down tasks to handle complex UI elements (like charts, filters, dynamic data mappings) to ensure everything works perfectly.
+    - **Fix errors as you go**: Proactively identify and fix any logic, interaction, or rendering issues. **Do not leave anything broken**.
+    - **Enhance Layout**: If the layout feels cluttered, unbalanced, or outdated, **improve it** to be modern, clean, and user-friendly. **No placeholders or incomplete elements**.
+    - **No Summarization**: Recode every single line with improvements and do not leave out any logic or interaction. **Enhance the code where needed** and ensure everything is dynamically functional.
+  </GuidanceForLLM>
+
+  #### Plan
+  - Use this plan to create code for the current page, enhancing functionality, layout, and interactions.
+    ```plaintext
+    Component Name: Project Overview Page, Component requirements: ## **Final Plan for Project Overview Page**
+
+### **Description**
+This plan enhances the existing Project Overview Page by integrating new features and components aimed at improving user engagement, data visualization, interactivity, and overall productivity. It serves as the central hub for displaying comprehensive project details, including phases, milestones, and status updates, providing users with an at-a-glance view of project health and progress, enabling effective project management.
+
+### **Content**
+- **Purpose and Goals**: Centralize project information in a streamlined view to enhance clarity, highlight upcoming milestones, and provide quick access to detailed phase and task information.
+- **Problem Solved**: The page minimizes confusion by consolidating information, ensuring visibility of deadlines, and improving workflow efficiency.
+- **Color Scheme**: 
+  - Primary Color: `#0044CC`
+  - Secondary Color: `#E5E5E5`
+  - Tertiary Color: `#FFFFFF`
+  - Spacing: `8px`
+  - Typography: `Roboto, sans-serif`
+
+### **New Features and Components**
+
+#### 1. **Dynamic Milestone Timeline**
+- **Main Functionality**: Visual representation of project milestones in a timeline format that updates in real-time.
+- **Key Components**: Utilize ECharts for an interactive timeline showing milestones with dates and status indicators.
+- **Data Requirements**: Example milestones including title, due date, and status (on-time, delayed).
+- **User Interaction Flow**: Hover for tooltips, click to expand for more details.
+- **Potential Challenges**: Implement state management to handle updates seamlessly.
+
+#### 2. **Interactive Progress Bar**
+- **Main Functionality**: Display overall project completion percentage with visual indicators for each phase.
+- **Key Components**: A segmented progress bar that visually represents the completion percentage of each phase.
+- **Data Requirements**: Dummy data for each phase's completion status (e.g., 70% done).
+- **User Interaction Flow**: Click on segments to view detailed phase breakdowns.
+- **Potential Challenges**: Regular updates based on task completion statuses to ensure accuracy.
+
+#### 3. **Task Management Widget**
+- **Main Functionality**: Quick view for tasks associated with each phase, including functionality for adding/updating tasks.
+- **Key Components**: A collapsible task list with add/edit capabilities using Ant Design's form components.
+- **Data Requirements**: Dummy tasks data with titles, statuses, and due dates.
+- **User Interaction Flow**: Add new tasks or edit existing ones, with real-time updates.
+- **Potential Challenges**: Use local state management for temporary task lists.
+
+#### 4. **Notification System**
+- **Main Functionality**: Alerts for upcoming milestones and tasks due soon.
+- **Key Components**: Notification bell icon with badge count for upcoming deadlines.
+- **Data Requirements**: Dummy data indicating which tasks/milestones are due soon.
+- **User Interaction Flow**: Click for dropdown notifications, mark as read.
+- **Potential Challenges**: Implement a timer/interval to check for due tasks/milestones.
+
+#### 5. **Customization Options**
+- **Main Functionality**: Allow users to customize view settings (e.g., dark/light mode, layout preferences).
+- **Key Components**: Settings modal for user preferences using Ant Design components.
+- **Data Requirements**: User preference settings stored in local state.
+- **User Interaction Flow**: Access settings via a gear icon, adjust preferences, apply changes immediately.
+- **Potential Challenges**: Use local storage for persistent user preferences.
+
+#### 6. **Gamification Elements**
+- **Main Functionality**: Introduce achievement badges for hitting milestones or completing tasks on time.
+- **Key Components**: Badge display section showing earned and available badges.
+- **Data Requirements**: Dummy data for badges associated with project milestones and task completion.
+- **User Interaction Flow**: Hover for descriptions, click to see related achievements.
+- **Potential Challenges**: Balance motivation without overwhelming users; implement a clear rewards system.
+
+### **Prioritization**
+1. Dynamic Milestone Timeline
+2. Interactive Progress Bar
+3. Task Management Widget
+4. Notification System
+5. Customization Options
+6. Gamification Elements
+
+### **Step-by-Step Implementation Plan**
+
+1. **Dynamic Milestone Timeline**
+   - **Implementation Guidance**: Set up an ECharts component to visualize the timeline. Fetch milestone data and map it to the chart.
+   - **Efficiency**: Use reusable functions to handle data updates and render the chart based on state changes.
+   - **Edge Cases**: Handle cases where milestones may be added or removed dynamically.
+
+2. **Interactive Progress Bar**
+   - **Implementation Guidance**: Create a progress bar component that takes the project completion percentage as props and displays it accordingly.
+   - **Efficiency**: Use CSS transitions for smooth updates to the progress bar.
+   - **Edge Cases**: Consider cases where phases may have no tasks, ensuring the UI remains user-friendly.
+
+3. **Task Management Widget**
+   - **Implementation Guidance**: Implement a collapsible list using Ant Design's accordion component. Use controlled components for forms to add/edit tasks.
+   - **Efficiency**: Keep local state for tasks and update on form submission.
+   - **Edge Cases**: Handle scenarios where users try to add duplicate tasks or leave required fields empty.
+
+4. **Notification System**
+   - **Implementation Guidance**: Create a notification component that checks for due tasks/milestones at set intervals.
+   - **Efficiency**: Use a dedicated function to filter notifications based on the current date.
+   - **Edge Cases**: Ensure notifications are cleared once viewed and handled properly when the user closes the dropdown.
+
+5. **Customization Options**
+   - **Implementation Guidance**: Set up a settings modal that allows users to toggle dark/light mode and layout preferences.
+   - **Efficiency**: Utilize local storage for persistence without complex backend integration.
+   - **Edge Cases**: Ensure that changes in settings reflect immediately in the UI and manage edge cases where settings may conflict.
+
+6. **Gamification Elements**
+   - **Implementation Guidance**: Develop a badge component that displays user achievements based on project milestones and task completions.
+   - **Efficiency**: Use a mapping function to dynamically generate the badge display based on user data.
+   - **Edge Cases**: Handle cases where badges may become redundant if too many are earned in a short span.
+
+### **Enhancements**
+- **Performance Optimization**: Use React.memo for components that don’t need to re-render on every state change.
+- **User Experience**: Consider adding animations when tasks are added or completed to enhance interactivity.
+- **Accessibility**: Ensure all interactive elements are keyboard navigable and include ARIA roles for screen readers.
+
+By implementing this comprehensive plan, the Project Overview Page will become an effective tool for enhancing project management capabilities while providing users with a visually appealing and interactive interface tailored for desktop use.
+    ```
+
+  #### RequiredCode
+  - **RECODE AND FIX** every single line of the provided code, ensuring that it is fully functional, free of errors, and optimized for the current page.
+    ```plaintext
+    
+
+```javascript
+import React, { useState, useEffect } from 'react';
+import ReactECharts from 'echarts-for-react';
+import { Modal, Button, Tooltip } from 'antd';
+import 'antd/dist/antd.css';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import Toast from 'react-toastify';
+import Modal from 'react-modal';
+
+const ProjectOverviewContainer = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [latestUpdate, setLatestUpdate] = useState(new Date().toLocaleString());
+  const [selectedPhase, setSelectedPhase] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [newComment, setNewComment] = useState("");
+  const [tasks, setTasks] = useState(initialTasks);
+  const [view, setView] = useState('list');
+  const [filteredMilestones, setFilteredMilestones] = useState(milestonesData);
+
+  const projectData = {
+    name: "Project Alpha",
+    description: "This project aims to improve the overall efficiency of our ERP system.",
+    status: "In Progress",
+    milestones: [
+      { date: '2023-01-01', title: 'Kick-off', description: 'Project initiated.' },
+      { date: '2023-02-15', title: 'Phase 1 Complete', description: 'Completion of initial phase.' },
+      { date: '2023-04-10', title: 'Phase 2 Complete', description: 'Second phase completed.' },
+    ],
+    notifications: [
+      "New update available for Phase 2.",
+      "Resource allocation has been adjusted.",
+      "Milestone for Phase 1 has been achieved.",
+    ],
+    resourceAllocation: { "Development": 40, "Testing": 20, "Design": 30, "Management": 10 },
+    progressData: [10, 30, 50, 70, 90, 100],
+  };
+
+  const milestonesData = [
+    { id: '1', name: 'Launch Product', dueDate: '2023-10-30', status: 'on track', completionPercentage: 75 },
+    { id: '2', name: 'Market Research', dueDate: '2023-11-15', status: 'at risk', completionPercentage: 50 },
+    { id: '3', name: 'User Testing', dueDate: '2023-12-01', status: 'delayed', completionPercentage: 30 },
+    { id: '4', name: 'Final Release', dueDate: '2023-12-15', status: 'on track', completionPercentage: 90 },
+  ];
+
+  const initialTasks = [
+    {
+      id: '1',
+      description: "Complete the report",
+      assignedTo: "John Doe",
+      status: "in progress",
+      dueDate: "2023-10-10",
+      comments: [{ user: "Jane Doe", text: "Great start!" }],
+      completionPercentage: 50
+    },
+    {
+      id: '2',
+      description: "Prepare presentation",
+      assignedTo: "Alice Smith",
+      status: "not started",
+      dueDate: "2023-10-12",
+      comments: [],
+      completionPercentage: 0
+    },
+    {
+      id: '3',
+      description: "Conduct team meeting",
+      assignedTo: "Bob Johnson",
+      status: "completed",
+      dueDate: "2023-10-08",
+      comments: [{ user: "Alice Smith", text: "Meeting was productive!" }],
+      completionPercentage: 100
+    }
+  ];
+
+  const handleStatusClick = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+  };
+
+  const pieChartOptions = {
+    title: {
+      text: 'Resource Allocation',
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    series: [
+      {
+        name: 'Resources',
+        type: 'pie',
+        radius: '50%',
+        data: Object.entries(projectData.resourceAllocation).map(([key, value]) => ({ name: key, value })),
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
+
+  const lineChartOptions = {
+    title: {
+      text: 'Project Progress Over Time',
+      left: 'center'
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      data: projectData.progressData,
+      type: 'line',
+      smooth: true
+    }]
+  };
+
+  const handleViewChange = () => {
+    setView(view === 'list' ? 'calendar' : 'list');
+  };
+
+  const getMilestoneColor = (status) => {
+    switch (status) {
+      case 'on track':
+        return 'green';
+      case 'at risk':
+        return 'orange';
+      case 'delayed':
+        return 'red';
+      default:
+        return 'gray';
+    }
+  };
+
+  const getGanttChartOption = () => {
+    return {
+      title: { text: 'Gantt Chart' },
+      tooltip: {},
+      xAxis: {
+        data: milestonesData.map(m => m.name),
+        name: 'Milestones',
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Days',
+      },
+      series: [
+        {
+          name: 'Completion',
+          type: 'bar',
+          data: milestonesData.map(m => m.completionPercentage),
+        },
+      ],
+    };
+  };
+
+  const notify = (message) => {
+    Toast.toast(message);
+  };
+
+  const handleTaskUpdate = (task) => {
+    notify(`Task "${task.taskName}" is now updated!`);
+  };
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+    const reorderedTasks = Array.from(tasks);
+    const [movedTask] = reorderedTasks.splice(result.source.index, 1);
+    reorderedTasks.splice(result.destination.index, 0, movedTask);
+    setTasks(reorderedTasks);
+  };
+
+  const handleCommentSubmit = (taskId) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          comments: [...task.comments, { user: "Current User", text: newComment }]
+        };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+    setNewComment("");
+  };
+
+  const handleTaskClick = (task) => {
+    setSelectedTask(task);
+  };
+
+  useEffect(() => {
+    setLatestUpdate(new Date().toLocaleString());
+  }, [latestUpdate]);
+
+  return (
+    <div style={{ height: '100vh', padding: '20px', boxSizing: 'border-box' }}>
+      <h1>{projectData.name}</h1>
+      <p>{projectData.description}</p>
+      <div>
+        <Tooltip title="Click for detailed report">
+          <Button onClick={handleStatusClick} type={projectData.status === "In Progress" ? "primary" : "default"}>
+            {projectData.status}
+          </Button>
+        </Tooltip>
+      </div>
+      <h2>Milestones</h2>
+      <ul>
+        {projectData.milestones.map((milestone, index) => (
+          <li key={index}>
+            <Tooltip title={milestone.description}>
+              <span>{milestone.title} - {milestone.date}</span>
+            </Tooltip>
+          </li>
+        ))}
+      </ul>
+      <h2>Notifications</h2>
+      <ul>
+        {projectData.notifications.map((notification, index) => (
+          <li key={index}>{notification}</li>
+        ))}
+      </ul>
+      <h2>Data Visualization</h2>
+      <ReactECharts option={pieChartOptions} />
+      <ReactECharts option={lineChartOptions} />
+      <Button onClick={() => setLatestUpdate(new Date().toLocaleString())}>Refresh Data</Button>
+      <p>Last updated: {latestUpdate}</p>
+
+      <Modal title="Project Timeline" visible={isModalVisible} onCancel={handleModalClose} footer={null}>
+        <h3>Timeline Details</h3>
+        <ul>
+          {projectData.milestones.map((milestone, index) => (
+            <li key={index}>{milestone.title} - {milestone.date}: {milestone.description}</li>
+          ))}
+        </ul>
+      </Modal>
+
+      <div>
+        <button onClick={handleViewChange}>
+          Switch to {view === 'list' ? 'Calendar' : 'List'} View
+        </button>
+        {view === 'list' ? (
+          <ul>
+            {filteredMilestones.map(milestone => (
+              <li key={milestone.id} style={{ border: `1px solid ${getMilestoneColor(milestone.status)}` }}>
+                <h3>{milestone.name}</h3>
+                <p>Due Date: {milestone.dueDate}</p>
+                <p>Status: <span style={{ color: getMilestoneColor(milestone.status) }}>{milestone.status}</span></p>
+                <p>Completion: {milestone.completionPercentage}%</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <ReactECharts option={getGanttChartOption()} style={{ height: '400px', width: '100%' }} />
+        )}
+      </div>
+
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="tasks">
+          {(provided) => (
+            <ul {...provided.droppableProps} ref={provided.innerRef}>
+              {tasks.map((task, index) => (
+                <Draggable key={task.id} draggableId={task.id} index={index}>
+                  {(provided) => (
+                    <li
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                      onClick={() => handleTaskClick(task)}
+                    >
+                      <div>{task.description}</div>
+                      <div>Assigned to: {task.assignedTo}</div>
+                      <div>Status: {task.status}</div>
+                      <div>Due Date: {task.dueDate}</div>
+                      <div>Completion: {task.completionPercentage}%</div>
+                      <progress value={task.completionPercentage} max="100" />
+                      <div>
+                        {task.comments.map((comment, index) => (
+                          <div key={index}>{comment.user}: {comment.text}</div>
+                        ))}
+                      </div>
+                      <input
+                        type="text"
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="Add a comment"
+                      />
+                      <button onClick={() => handleCommentSubmit(task.id)}>Submit</button>
+                    </li>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </DragDropContext>
+
+      {selectedTask && (
+        <div>
+          <h2>Task Details</h2>
+          <div>Description: {selectedTask.description}</div>
+          <div>Assigned to: {selectedTask.assignedTo}</div>
+          <div>Status: {selectedTask.status}</div>
+          <div>Due Date: {selectedTask.dueDate}</div>
+          <div>Completion: {selectedTask.completionPercentage}%</div>
+          <button onClick={() => setSelectedTask(null)}>Close</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ProjectOverviewContainer;
+``` 
+
+This code integrates all components into a single `ProjectOverviewContainer`, providing a fully functional overview of the project with task management, milestone tracking, charts, and notifications as outlined in your request. Each section is designed to fill the available space on a 1920x1080 desktop resolution, ensuring no white space is left.
+    ```
+
+</ReactComponentCoder>
+
+---
+
+**Important**: Absolutely **NO missing logic** or functionality. **Fix every possible error, logic issue, or interaction** that may exist. The page must be fully functional and visually complete with modern, professional design. All UI elements and logic must work perfectly together with no placeholders or incomplete elements.
+
+
+
+
+<ReactComponentCoder>
+  <FilePath>
+    ****File Path: FileName****
+    <!-- Ensure this is placed at the top of your file with a valid file name. -->
+  </FilePath>
+
+  <GeneralInstructions>
+    - Recoding **every single component**, ensuring full functionality, and **fixing any errors or logic issues**.
+    - **DO NOT** import any external JS files—recreate everything within the provided code.
+    - Use only **dummy data** with no backend or API calls. Ensure the code works **flawlessly** for the current page setup.
+    - **No logic errors** allowed: All components, mappings, charts, and interactions must function without issues. If errors exist in the provided code, **proactively identify and fix them**.
+    - **Every component, feature, and interaction must be fully implemented and improved where necessary**. The page should be fully functional, visually complete, and **professionally enhanced**.
+  </GeneralInstructions>
+
+  <CodeRecreation>
+    - Provide **full code** for every component and **fix any potential issues**.
+    - **NO code should be missing, left out, simplified, or assumed**—every piece of logic must be present and correct.
+    - Recreate all components fully, **ensuring every part works together seamlessly**. **Fix any layout issues**, optimize UI, and implement **complete functionality** for all components.
+  </CodeRecreation>
+
+  <InteractionInstructions>
+    - Ensure **ALL components** (e.g., search bars, filters, buttons, forms, charts) work **perfectly** together.
+    - Validate that every interaction works as expected—searching, filtering, clicking, chart updates, etc.
+    - **NO part of the UI should be broken, unresponsive, or incorrectly implemented**—everything must be functional.
+    - The UI should be **visually optimized** with enhanced layouts and interactions that feel smooth, modern, and professional.
+    - **Fix any layout or visual issues**. Ensure the page is **visually complete, fully functional**, and works together as a unified system without any bugs.
+  </InteractionInstructions>
+
+  <ValidationSteps>
+    - After implementing **each component**, validate that it works as expected and fixes any issues.
+    - Check all interactions (search, filter, click, chart rendering, form input) and **verify that everything is fully functional**.
+    - **Verify the entire page** for responsiveness and errors—ensure every part of the page is filled with working components.
+    - **Proactively improve** areas of the UI that may be weak, unoptimized, or not user-friendly.
+  </ValidationSteps>
+
+  <GuidanceForLLM>
+    - **Step-by-Step Approach**: Break down tasks to handle complex UI elements (like charts, filters, dynamic data mappings) to ensure everything works perfectly.
+    - **Fix errors as you go**: Proactively identify and fix any logic, interaction, or rendering issues. **Do not leave anything broken**.
+    - **Enhance Layout**: If the layout feels cluttered, unbalanced, or outdated, **improve it** to be modern, clean, and user-friendly. **No placeholders or incomplete elements**.
+    - **No Summarization**: Recode every single line with improvements and do not leave out any logic or interaction. **Enhance the code where needed** and ensure everything is dynamically functional.
+  </GuidanceForLLM>
+
+  #### Plan
+  - Use this plan to create code for the current page, enhancing functionality, layout, and interactions.
+    ```plaintext
+    Component Name: Chat Interface Page, Component requirements: **Final Plan for Chat Interface Page in Professional ERP**
+
+### Description
+This Chat Interface Page serves as the central hub for real-time messaging among team members, facilitating seamless communication, collaboration, and information sharing within projects. It is designed to enhance team productivity and foster a collaborative environment by streamlining communication.
+
+### Content
+- **Purpose and Goals**: The Chat Interface Page addresses the need for efficient, real-time communication among team members. It organizes conversations by project to maintain context, reducing reliance on email. The layout is intuitive for message exchange, enhancing productivity and enabling quick access to relevant discussions.
+  
+- **Problem Solved**: Streamlines communication, enhances productivity, and fosters collaboration.
+
+- **Colour Palette**: 
+    - Primary Color: #004085
+    - Secondary Color: #d1ecf1
+    - Tertiary Color: #cce5ff
+    - Spacing: 5px
+    - Typography: Arial, sans-serif
+
+### Idea Generation
+
+1. **User Engagement Tools**
+   - **Functionality**: Introduce polls and surveys to gather feedback.
+   - **Components**: Poll creation module, results visualization.
+   - **Data Requirements**: Dummy poll data (question options, user responses).
+   - **Interaction Flow**: Users create a poll, share it in chat, and view results in real-time.
+   - **Challenges/Solutions**: Provide templates to make polling easy.
+
+2. **Dynamic Content for Active Discussions**
+   - **Functionality**: Highlight active discussions with real-time updates.
+   - **Components**: Notification badge, dynamic message highlighting.
+   - **Data Requirements**: Dummy data for active users and messages.
+   - **Interaction Flow**: Users receive notifications for new messages or mentions; chat updates dynamically.
+   - **Challenges/Solutions**: Implement throttling on updates to manage performance.
+
+3. **Data Visualization for Project Progress**
+   - **Functionality**: Use ECharts to visualize milestones and deadlines.
+   - **Components**: Chart display area, project status overview.
+   - **Data Requirements**: Dummy data on project milestones (dates, completion status).
+   - **Interaction Flow**: Users view the project progress chart beside chat messages.
+   - **Challenges/Solutions**: Use state management for efficient updates.
+
+4. **Customizable User Profiles**
+   - **Functionality**: Allow users to customize profiles with avatars and statuses.
+   - **Components**: Profile settings modal, avatar upload feature.
+   - **Data Requirements**: Dummy data for user profiles (names, status messages).
+   - **Interaction Flow**: Users edit their profile, reflecting changes in chat.
+   - **Challenges/Solutions**: Use a built-in image uploader for smooth handling.
+
+5. **Gamification Elements**
+   - **Functionality**: Implement a points system for active participation.
+   - **Components**: Points leaderboard, badges for achievements.
+   - **Data Requirements**: Dummy data for user points and achievements.
+   - **Interaction Flow**: Users view points and achievements to motivate participation.
+   - **Challenges/Solutions**: Establish guidelines for earning points to prevent misuse.
+
+6. **Integrated File Sharing**
+   - **Functionality**: Allow users to share files in chat.
+   - **Components**: File upload button, preview of shared files.
+   - **Data Requirements**: Dummy data for file types and uploads.
+   - **Interaction Flow**: Users drag and drop files or use the upload button; previews show in chat.
+   - **Challenges/Solutions**: Implement file type restrictions to manage uploads.
+
+7. **Advanced Search Functionality**
+   - **Functionality**: Enhanced search bar to filter messages by project, user, or keywords.
+   - **Components**: Search input field, filtering options.
+   - **Data Requirements**: Dummy data representing messages and metadata.
+   - **Interaction Flow**: Users type in search queries and view filtered results.
+   - **Challenges/Solutions**: Optimize search speed by indexing messages.
+
+### Prioritization
+1. **User Engagement Tools** - High impact, feasible.
+2. **Dynamic Content for Active Discussions** - High impact, very feasible.
+3. **Data Visualization for Project Progress** - High impact, feasible.
+4. **Customizable User Profiles** - Medium impact, feasible.
+5. **Gamification Elements** - Medium impact, feasible.
+6. **Integrated File Sharing** - Medium impact, very feasible.
+7. **Advanced Search Functionality** - Low to medium impact, very feasible.
+
+---
+
+### Step-by-Step Plan
+
+#### 1. Clarification
+- Ensure all features are clearly defined and understood.
+- Gather feedback from stakeholders to finalize functionalities.
+
+#### 2. Implementation Guidance
+- **User Engagement Tools**: Implement a modal for poll creation with options to select multiple choices. Display results using a simple bar chart or pie chart.
+- **Dynamic Content**: Use WebSockets to manage real-time message updates and display notifications using a badge system.
+- **Data Visualization**: Integrate ECharts for rendering the project progress chart, updating it based on project status changes.
+- **Customizable User Profiles**: Create a settings modal that allows users to upload images and change status. Utilize a file input for image uploads.
+- **Gamification**: Set up a scoring system that tracks user activity and displays on a leaderboard.
+- **Integrated File Sharing**: Implement a drag-and-drop area along with an upload button, using JavaScript File API to handle file inputs.
+- **Advanced Search**: Build an input field that listens for user input and filters chat messages based on the entered keywords.
+
+#### 3. Efficiency
+- Structure features into modular components for reusability.
+- Use a state management system to handle user data and chat messages efficiently.
+
+#### 4. Technical Specifications
+- Use React/Vue.js for component structure.
+- WebSockets for real-time messaging.
+- Axios or Fetch API for polling and data retrieval.
+- ECharts for visual representation of project data.
+
+#### 5. Examples
+- Poll Creation: A modal displaying a text input for the question and checkboxes for options.
+- Notification Badge: A small red dot appearing on the chat icon when new messages are received.
+
+#### 6. Edge Cases
+- Handle scenarios where users leave the chat or disconnect abruptly, ensuring that messages are not lost.
+- Test file uploads with various file types and sizes to ensure proper handling.
+
+#### 7. Enhancements
+- Optimize performance by lazy loading messages and files.
+- Consider adding keyboard shortcuts for frequent actions like sending messages or opening polls.
+
+### Conclusion
+This comprehensive plan outlines the functionalities and features required to create a robust Chat Interface Page for a Professional ERP. By focusing on user engagement, real-time updates, and integrated tools, the page will significantly enhance team communication and collaboration, driving productivity and project success.
+    ```
+
+  #### RequiredCode
+  - **RECODE AND FIX** every single line of the provided code, ensuring that it is fully functional, free of errors, and optimized for the current page.
+    ```plaintext
+    
+
+```javascript
+import React, { useState, useEffect } from 'react';
+import ReactECharts from 'echarts-for-react';
+
+const ChatContainer = () => {
+  const dummyUser = {
+    name: 'John Doe',
+    avatar: 'https://via.placeholder.com/50',
+  };
+
+  const dummyProjectName = 'Project Alpha';
+
+  const dummyNotifications = [
+    { id: 1, message: 'New message from Alice', read: false },
+    { id: 2, message: 'Project update available', read: false },
+  ];
+
+  const dummyFeedbackStats = {
+    thumbsUp: 10,
+    thumbsDown: 2,
+  };
+
+  const dummyMessages = [
+    { id: 1, sender: 'Alice', content: 'Hello team!', timestamp: '2023-10-01T12:00:00Z', reactions: { thumbsUp: 2, heart: 1 }, thread: [] },
+    { id: 2, sender: 'Bob', content: 'Hi Alice! How are you?', timestamp: '2023-10-01T12:05:00Z', reactions: { thumbsUp: 3, heart: 0 }, thread: [] },
+  ];
+
+  const dummyUsers = [
+    { userId: 1, name: 'Alice' },
+    { userId: 2, name: 'Bob' },
+    { userId: 3, name: 'Charlie' },
+  ];
+
+  const activeProjects = [
+    { id: 1, name: "Project Alpha", unreadMessages: 2 },
+    { id: 2, name: "Project Beta", unreadMessages: 0 },
+    { id: 3, name: "Project Gamma", unreadMessages: 1 },
+    { id: 4, name: "Project Delta", unreadMessages: 3 }
+  ];
+
+  const [notifications, setNotifications] = useState(dummyNotifications);
+  const [feedbackStats, setFeedbackStats] = useState(dummyFeedbackStats);
+  const [showModal, setShowModal] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [feedbackComment, setFeedbackComment] = useState('');
+  
+  const [messages, setMessages] = useState(dummyMessages);
+  const [newMessage, setNewMessage] = useState('');
+  const [selectedThread, setSelectedThread] = useState({});
+  
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [pinnedProjects, setPinnedProjects] = useState([]);
+
+  const handleFeedback = (type) => {
+    if (type === 'up') {
+      setFeedbackStats((prev) => ({ ...prev, thumbsUp: prev.thumbsUp + 1 }));
+    } else {
+      setFeedbackStats((prev) => ({ ...prev, thumbsDown: prev.thumbsDown + 1 }));
+    }
+    setShowModal(true);
+  };
+
+  const submitFeedback = () => {
+    console.log('Feedback submitted:', feedbackComment);
+    setFeedbackComment('');
+    setShowModal(false);
+  };
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+    if (!showNotifications) {
+      setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+    }
+  };
+
+  const handleMessageSend = () => {
+    const message = {
+      id: messages.length + 1,
+      sender: 'You',
+      content: newMessage,
+      timestamp: new Date().toISOString(),
+      reactions: { thumbsUp: 0, heart: 0 },
+      thread: [],
+    };
+    setMessages([...messages, message]);
+    setNewMessage('');
+  };
+
+  const handleReact = (messageId, reactionType) => {
+    const updatedMessages = messages.map(message => {
+      if (message.id === messageId) {
+        const updatedReactions = { ...message.reactions, [reactionType]: (message.reactions[reactionType] || 0) + 1 };
+        return { ...message, reactions: updatedReactions };
+      }
+      return message;
+    });
+    setMessages(updatedMessages);
+  };
+
+  const handleThreadReply = (messageId) => {
+    const threadContent = prompt('Reply to this thread:');
+    if (threadContent) {
+      const updatedMessages = messages.map(message => {
+        if (message.id === messageId) {
+          const newThread = { userId: 1, content: threadContent, timestamp: new Date().toISOString() };
+          return { ...message, thread: [...message.thread, newThread] };
+        }
+        return message;
+      });
+      setMessages(updatedMessages);
+    }
+  };
+
+  const handleProjectSelect = (projectId) => {
+    setSelectedProject(projectId);
+    logInteraction();
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const toggleFavorite = (projectId) => {
+    setPinnedProjects((prev) => 
+      prev.includes(projectId) ? prev.filter(id => id !== projectId) : [...prev, projectId]
+    );
+  };
+
+  const logInteraction = () => {
+    console.log(`User interacted with project ID: ${selectedProject}`);
+  };
+
+  const filteredProjects = activeProjects.filter(project => 
+    project.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const sortedProjects = pinnedProjects.map(id => activeProjects.find(project => project.id === id))
+    .concat(filteredProjects.filter(project => !pinnedProjects.includes(project.id)));
+
+  const chartOption = {
+    title: { text: 'Task Completion Rate' },
+    tooltip: {},
+    xAxis: {
+      data: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5'],
+    },
+    yAxis: {},
+    series: [
+      {
+        name: 'Completion Rate',
+        type: 'bar',
+        data: [5, 20, 36, 10, 10],
+      },
+    ],
+  };
+
+  return (
+    <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ width: '100%', height: '108px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <h1>{dummyProjectName}</h1>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img src={dummyUser.avatar} alt="User Avatar" onClick={toggleNotifications} style={{ cursor: 'pointer' }} />
+          <span>{dummyUser.name}</span>
+          <button onClick={toggleNotifications}>🔔</button>
+          {showNotifications && (
+            <div style={{ position: 'absolute', right: '0', background: 'white', border: '1px solid gray' }}>
+              {notifications.map((notification) => (
+                <div key={notification.id} style={{ padding: '5px', background: notification.read ? '#f0f0f0' : '#fff' }}>
+                  {notification.message}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div>
+          <button onClick={() => handleFeedback('up')}>👍 {feedbackStats.thumbsUp}</button>
+          <button onClick={() => handleFeedback('down')}>👎 {feedbackStats.thumbsDown}</button>
+          {showModal && (
+            <div style={{ position: 'absolute', background: 'white', padding: '10px', border: '1px solid gray' }}>
+              <textarea value={feedbackComment} onChange={(e) => setFeedbackComment(e.target.value)} placeholder="Additional comments"></textarea>
+              <button onClick={submitFeedback}>Submit Feedback</button>
+            </div>
+          )}
+        </div>
+        <ReactECharts option={chartOption} style={{ width: '400px', height: '100px' }} />
+      </div>
+
+      <div style={{ flex: 1, display: 'flex' }}>
+        <div style={{ width: '300px', height: '100%', overflowY: 'auto' }}>
+          <input
+            type="text"
+            placeholder="Search Projects"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            style={{ width: '100%', marginBottom: '10px' }}
+          />
+          <ul style={{ listStyleType: 'none', padding: 0 }}>
+            {sortedProjects.map(project => (
+              <li key={project.id} onClick={() => handleProjectSelect(project.id)} 
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', cursor: 'pointer', backgroundColor: selectedProject === project.id ? '#f0f0f0' : 'white' }}>
+                {project.name}
+                {project.unreadMessages > 0 && <span style={{ backgroundColor: 'red', color: 'white', borderRadius: '50%', padding: '5px 10px' }}>{project.unreadMessages}</span>}
+                <button onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }} style={{ marginLeft: '10px' }}>
+                  {pinnedProjects.includes(project.id) ? 'Unpin' : 'Pin'}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div style={{ flex: 1, height: '100%', overflowY: 'scroll', padding: '20px' }}>
+          <div>
+            {messages.map(message => (
+              <div key={message.id} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
+                <div><strong>{message.sender}</strong> <span>{new Date(message.timestamp).toLocaleString()}</span></div>
+                <div>{message.content}</div>
+                <div>
+                  <button onClick={() => handleReact(message.id, 'thumbsUp')}>👍 {message.reactions.thumbsUp || 0}</button>
+                  <button onClick={() => handleReact(message.id, 'heart')}>❤️ {message.reactions.heart || 0}</button>
+                  <button onClick={() => handleThreadReply(message.id)}>Reply</button>
+                </div>
+                {message.thread.length > 0 && (
+                  <div style={{ marginLeft: '20px' }}>
+                    {message.thread.map((reply, index) => (
+                      <div key={index} style={{ border: '1px solid #ccc', margin: '5px 0', padding: '5px' }}>
+                        <strong>{dummyUsers.find(user => user.userId === reply.userId).name}</strong> <span>{new Date(reply.timestamp).toLocaleString()}</span>
+                        <div>{reply.content}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <input
+            type="text"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            placeholder="Type your message..."
+            style={{ width: '80%', marginRight: '10px' }}
+          />
+          <button onClick={handleMessageSend}>Send</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ChatContainer;
+``` 
+
+This file includes the complete implementation of the `ChatContainer` component, integrating all functionalities specified in your plan. Each child component has been effectively merged into a functional structure that handles chat interactions, notifications, UI updates, and message management in a seamless and error-free manner.
+    ```
+
+</ReactComponentCoder>
+
+---
+
+**Important**: Absolutely **NO missing logic** or functionality. **Fix every possible error, logic issue, or interaction** that may exist. The page must be fully functional and visually complete with modern, professional design. All UI elements and logic must work perfectly together with no placeholders or incomplete elements.
+
+
+
+
+<ReactComponentCoder>
+  <FilePath>
+    ****File Path: FileName****
+    <!-- Ensure this is placed at the top of your file with a valid file name. -->
+  </FilePath>
+
+  <GeneralInstructions>
+    - Recoding **every single component**, ensuring full functionality, and **fixing any errors or logic issues**.
+    - **DO NOT** import any external JS files—recreate everything within the provided code.
+    - Use only **dummy data** with no backend or API calls. Ensure the code works **flawlessly** for the current page setup.
+    - **No logic errors** allowed: All components, mappings, charts, and interactions must function without issues. If errors exist in the provided code, **proactively identify and fix them**.
+    - **Every component, feature, and interaction must be fully implemented and improved where necessary**. The page should be fully functional, visually complete, and **professionally enhanced**.
+  </GeneralInstructions>
+
+  <CodeRecreation>
+    - Provide **full code** for every component and **fix any potential issues**.
+    - **NO code should be missing, left out, simplified, or assumed**—every piece of logic must be present and correct.
+    - Recreate all components fully, **ensuring every part works together seamlessly**. **Fix any layout issues**, optimize UI, and implement **complete functionality** for all components.
+  </CodeRecreation>
+
+  <InteractionInstructions>
+    - Ensure **ALL components** (e.g., search bars, filters, buttons, forms, charts) work **perfectly** together.
+    - Validate that every interaction works as expected—searching, filtering, clicking, chart updates, etc.
+    - **NO part of the UI should be broken, unresponsive, or incorrectly implemented**—everything must be functional.
+    - The UI should be **visually optimized** with enhanced layouts and interactions that feel smooth, modern, and professional.
+    - **Fix any layout or visual issues**. Ensure the page is **visually complete, fully functional**, and works together as a unified system without any bugs.
+  </InteractionInstructions>
+
+  <ValidationSteps>
+    - After implementing **each component**, validate that it works as expected and fixes any issues.
+    - Check all interactions (search, filter, click, chart rendering, form input) and **verify that everything is fully functional**.
+    - **Verify the entire page** for responsiveness and errors—ensure every part of the page is filled with working components.
+    - **Proactively improve** areas of the UI that may be weak, unoptimized, or not user-friendly.
+  </ValidationSteps>
+
+  <GuidanceForLLM>
+    - **Step-by-Step Approach**: Break down tasks to handle complex UI elements (like charts, filters, dynamic data mappings) to ensure everything works perfectly.
+    - **Fix errors as you go**: Proactively identify and fix any logic, interaction, or rendering issues. **Do not leave anything broken**.
+    - **Enhance Layout**: If the layout feels cluttered, unbalanced, or outdated, **improve it** to be modern, clean, and user-friendly. **No placeholders or incomplete elements**.
+    - **No Summarization**: Recode every single line with improvements and do not leave out any logic or interaction. **Enhance the code where needed** and ensure everything is dynamically functional.
+  </GuidanceForLLM>
+
+  #### Plan
+  - Use this plan to create code for the current page, enhancing functionality, layout, and interactions.
+    ```plaintext
+    Component Name: Team Profiles Page, Component requirements: # Final Plan for Team Profiles Page
+
+## Purpose and Goals
+The Team Profiles Page serves to display all development team profiles, allowing users to create and edit team details while visualizing member workloads. It centralizes team member information for better management, provides insights into individual workloads to prevent burnout, and facilitates task assignment by showcasing team skills and availability.
+
+## Problem Solved
+This page addresses the challenge of managing a dispersed team by centralizing all team member information in one place, providing insights into their workloads to prevent burnout, and facilitating task assignment by showcasing team skills and availability. By doing so, it enhances team coordination, supports efficient resource allocation, and helps maintain a balanced workload among team members, ultimately improving productivity and team satisfaction.
+
+## Colour and Typography
+- **Primary Color:** #1E90FF
+- **Secondary Color:** #FFD700
+- **Tertiary Color:** #32CD32
+- **Spacing:** 16px
+- **Typography:** Arial, sans-serif
+
+---
+
+## New Feature Ideas
+
+### 1. User Engagement Tools
+- **Main Functionality:** Introduce a feedback mechanism where team members can rate tasks or projects.
+- **Key Components:** 
+  - Feedback form (input for ratings and comments).
+  - Ratings display next to tasks.
+  - Comments section for detailed feedback.
+- **Data Requirements:** Dummy data for ratings (1-5 scale) and comments.
+- **User Interaction Flow:** Users can submit feedback on completed tasks, and it will be displayed alongside the task details.
+- **Potential Challenges:** Moderation system for constructive feedback.
+
+### 2. Enhanced Data Visualization
+- **Main Functionality:** Use ECharts to create interactive charts displaying team workload distribution and project timelines.
+- **Key Components:** 
+  - Bar charts for workload distribution.
+  - Pie charts for skill representation.
+  - Gantt charts for project timelines.
+- **Data Requirements:** Dummy data representing workloads, skills, and project phases.
+- **User Interaction Flow:** Users can hover over charts for tooltips with detailed information.
+- **Potential Challenges:** Responsive visualizations for various screen sizes.
+
+### 3. Task Assignment Interface
+- **Main Functionality:** Implement an intuitive drag-and-drop interface to assign tasks.
+- **Key Components:** 
+  - Kanban board layout (for tasks).
+  - Team member cards displaying availability and skills.
+  - Task cards (with details and deadlines).
+- **Data Requirements:** Dummy data for tasks and member availability.
+- **User Interaction Flow:** Users can drag tasks onto team member cards to assign.
+- **Potential Challenges:** Warning system for over-assignment of tasks.
+
+### 4. Customization Options
+- **Main Functionality:** Allow users to customize their view of the team profiles page.
+- **Key Components:** 
+  - Settings menu for customization options (column visibility, section rearrangement).
+  - Save preferences functionality (using local storage).
+- **Data Requirements:** Dummy data for user preferences.
+- **User Interaction Flow:** Users can open settings, select preferences, and save their view.
+- **Potential Challenges:** Persisting changes across sessions.
+
+### 5. Gamification Elements
+- **Main Functionality:** Introduce a points system for task completion and feedback.
+- **Key Components:** 
+  - Points leaderboard.
+  - Badges for milestone achievements.
+  - Notifications for user achievements.
+- **Data Requirements:** Dummy data for points and achievements.
+- **User Interaction Flow:** Users can view points and badges on their profile.
+- **Potential Challenges:** Balancing motivation without overwhelming users.
+
+### 6. Dynamic Notifications
+- **Main Functionality:** Implement a notification system for task deadlines, feedback received, and new assignments.
+- **Key Components:** 
+  - Notification panel with alerts.
+  - Sound notifications for new updates.
+- **Data Requirements:** Dummy data for notification types and times.
+- **User Interaction Flow:** Users receive notifications in real-time and can click to view details.
+- **Potential Challenges:** Customization options to avoid notification overload.
+
+---
+
+## Prioritization of Ideas
+1. **Enhanced Data Visualization:** High impact, feasible implementation with ECharts.
+2. **Task Assignment Interface:** High impact, engaging drag-and-drop functionality.
+3. **User Engagement Tools:** Medium impact; valuable feedback but may require moderation.
+4. **Dynamic Notifications:** Medium impact; essential for task management.
+5. **Customization Options:** Low to medium impact; enhances user experience.
+6. **Gamification Elements:** Low impact; fun addition but not essential initially.
+
+---
+
+## Step-by-Step Plan
+
+### Clarification
+Each feature will be implemented focusing on its core logic and user interaction flows as outlined.
+
+### Implementation Guidance
+1. **User Engagement Tools**
+   - **Create Feedback Form**: Use a modal to collect ratings and comments.
+   - **Store Feedback**: Utilize a data store to save user feedback and associate it with respective tasks.
+   - **Display Feedback**: Render feedback below task details, including average ratings and comments.
+
+2. **Enhanced Data Visualization**
+   - **Integrate ECharts**: Install and set up ECharts to create charts.
+   - **Data Binding**: Bind the chart data to the relevant workload and project data.
+   - **Tooltips**: Implement hover functionality to show detailed information when users hover over chart segments.
+
+3. **Task Assignment Interface**
+   - **Build Kanban Board**: Create columns for task status (To Do, In Progress, Done).
+   - **Drag-and-Drop Functionality**: Use libraries like React DnD or similar to enable drag-and-drop assignments.
+   - **Task Overlap Alerts**: Implement a check for overlapping task assignments and display warnings.
+
+4. **Customization Options**
+   - **Settings Menu**: Create a settings interface for users to select visible columns and rearrange sections.
+   - **Local Storage**: Use local storage to persist user preferences across sessions.
+
+5. **Gamification Elements**
+   - **Points System**: Update user profiles to include points earned from completed tasks and feedback.
+   - **Leaderboards**: Create a leaderboard to display top performers based on points.
+   - **Badges**: Design a set of badges for achievements and milestones.
+
+6. **Dynamic Notifications**
+   - **Notification Panel**: Create a panel to display notifications.
+   - **Real-Time Updates**: Use web sockets or polling to update notifications in real-time.
+   - **Customization**: Allow users to toggle notification types in settings.
+
+### Efficiency
+- **Modular Design**: Structure the code into separate modules for each feature to enhance maintainability.
+- **Reusable Components**: Create reusable components for forms, charts, and notifications.
+
+### Technical Specifications
+- **Frameworks/Libraries**: React for UI, ECharts for visualizations, local storage for user settings.
+- **Data Format**: JSON for storing and exchanging data.
+
+### Examples
+- **Feedback Submission**: User submits a rating of 4 and a comment “Great job!” which gets displayed next to the task.
+- **Task Assignment**: User drags a task labeled “Design UI” to the card of a team member named “Alice,” who has available capacity.
+
+### Edge Cases
+- **Feedback Moderation**: Implement a system to flag inappropriate comments.
+- **Task Overlap Handling**: Ensure users cannot assign more tasks than a member can handle and display a warning.
+
+### Enhancements
+- **Performance Optimization**: Use lazy loading for charts to improve initial load time.
+- **Responsive Design**: Ensure that all components are mobile-friendly and adapt to different screen sizes.
+
+---
+
+## Conclusion
+This comprehensive plan outlines a series of enhancements to the Team Profiles Page, focusing on user engagement, data visualization, and productivity tools. Each feature is designed to improve team management and collaboration while maintaining a user-friendly interface. By implementing these features, the page will fulfill its purpose of centralizing team member information and facilitating effective task management, ultimately enhancing overall team productivity and satisfaction.
+    ```
+
+  #### RequiredCode
+  - **RECODE AND FIX** every single line of the provided code, ensuring that it is fully functional, free of errors, and optimized for the current page.
+    ```plaintext
+    
+
+```javascript
+import React, { useState, useEffect } from 'react';
+import ReactECharts from 'echarts-for-react';
+import { Input, Select } from 'antd';
+
+const { Option } = Select;
+
+const TeamProfilesContainer = () => {
+    const [profiles, setProfiles] = useState([]);
+    const [endorsements, setEndorsements] = useState({});
+    const [showModal, setShowModal] = useState({ isOpen: false, profileId: null });
+    const [notifications, setNotifications] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedRole, setSelectedRole] = useState(null);
+    const [selectedSkill, setSelectedSkill] = useState(null);
+    const [selectedWorkload, setSelectedWorkload] = useState(null);
+    const [filteredProfiles, setFilteredProfiles] = useState([]);
+    const [hoveredMember, setHoveredMember] = useState(null);
+    const [nominations, setNominations] = useState({});
+    const [selectedMember, setSelectedMember] = useState(null);
+
+    const dummyProfiles = [
+        {
+            id: '1',
+            name: 'John Doe',
+            role: 'Software Engineer',
+            skills: ['JavaScript', 'React', 'Node.js'],
+            workload: 75,
+            performanceMetrics: {
+                tasksCompleted: 20,
+                averageCompletionTime: 5,
+            },
+            badges: ['Best Performer', 'Team Player'],
+        },
+        {
+            id: '2',
+            name: 'Jane Smith',
+            role: 'Project Manager',
+            skills: ['Leadership', 'Communication'],
+            workload: 50,
+            performanceMetrics: {
+                tasksCompleted: 15,
+                averageCompletionTime: 7,
+            },
+            badges: ['Top Manager'],
+        },
+    ];
+
+    useEffect(() => {
+        setProfiles(dummyProfiles);
+        setFilteredProfiles(dummyProfiles);
+    }, []);
+
+    useEffect(() => {
+        const filterProfiles = () => {
+            return profiles.filter(member => {
+                const matchesSearch = member.name.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesRole = selectedRole ? member.role === selectedRole : true;
+                const matchesSkill = selectedSkill ? member.skills.includes(selectedSkill) : true;
+                const matchesWorkload = selectedWorkload ? member.workload === selectedWorkload : true;
+                return matchesSearch && matchesRole && matchesSkill && matchesWorkload;
+            });
+        };
+        setFilteredProfiles(filterProfiles());
+    }, [searchTerm, selectedRole, selectedSkill, selectedWorkload, profiles]);
+
+    const handleEndorse = (profileId, skill) => {
+        setEndorsements(prev => {
+            const updated = { ...prev };
+            if (!updated[profileId]) updated[profileId] = [];
+            if (!updated[profileId].includes(skill)) {
+                updated[profileId].push(skill);
+                setNotifications(prev => [...prev, `Endorsed ${skill} for ${profiles.find(p => p.id === profileId).name}`]);
+            }
+            return updated;
+        });
+    };
+
+    const handleDelete = (profileId) => {
+        if (window.confirm('Are you sure you want to delete this profile?')) {
+            setProfiles(prev => prev.filter(profile => profile.id !== profileId));
+            setNotifications(prev => [...prev, `Deleted profile of ${profiles.find(p => p.id === profileId).name}`]);
+        }
+    };
+
+    const handleSearchChange = (e) => setSearchTerm(e.target.value);
+    const handleRoleChange = (value) => setSelectedRole(value);
+    const handleSkillChange = (value) => setSelectedSkill(value);
+    const handleWorkloadChange = (value) => setSelectedWorkload(value);
+
+    const roleOptions = [...new Set(profiles.map(member => member.role))];
+    const skillOptions = [...new Set(profiles.flatMap(member => member.skills))];
+    const workloadOptions = [...new Set(profiles.map(member => member.workload))];
+
+    const handleNominate = (name) => {
+        setNominations(prev => ({
+            ...prev,
+            [name]: (prev[name] || 0) + 1,
+        }));
+    };
+
+    const winnerName = Object.entries(nominations).reduce((prev, current) => {
+        return (prev[1] > current[1]) ? prev : current;
+    }, ['', 0])[0];
+
+    const getOption = (profile) => ({
+        title: {
+            text: `Performance Metrics for ${profile.name}`,
+        },
+        tooltip: {},
+        xAxis: {
+            data: ['Tasks Completed', 'Average Completion Time'],
+        },
+        yAxis: {},
+        series: [{
+            name: 'Metrics',
+            type: 'bar',
+            data: [profile.performanceMetrics.tasksCompleted, profile.performanceMetrics.averageCompletionTime],
+        }],
+    });
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', padding: '20px', boxSizing: 'border-box' }}>
+            <h1>Team Profile List</h1>
+            <Input
+                placeholder="Search by name"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                style={{ marginBottom: '20px', width: '300px' }}
+            />
+            <Select placeholder="Select Role" style={{ marginRight: '20px' }} onChange={handleRoleChange}>
+                {roleOptions.map(role => <Option key={role} value={role}>{role}</Option>)}
+            </Select>
+            <Select placeholder="Select Skill" style={{ marginRight: '20px' }} onChange={handleSkillChange}>
+                {skillOptions.map(skill => <Option key={skill} value={skill}>{skill}</Option>)}
+            </Select>
+            <Select placeholder="Select Workload" style={{ marginRight: '20px' }} onChange={handleWorkloadChange}>
+                {workloadOptions.map(workload => <Option key={workload} value={workload}>{workload}</Option>)}
+            </Select>
+            <div style={{ flex: 1, overflowY: 'auto', marginTop: '20px' }}>
+                {filteredProfiles.map(profile => (
+                    <div key={profile.id} style={{ border: '1px solid #ccc', margin: '10px', padding: '10px', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
+                        <h2>{profile.name}</h2>
+                        <p>Role: {profile.role}</p>
+                        <div>
+                            {profile.skills.map((skill, index) => (
+                                <div key={index}>
+                                    <span>{skill}</span>
+                                    <button onClick={() => handleEndorse(profile.id, skill)}>Endorse</button>
+                                    <span>{endorsements[profile.id] ? endorsements[profile.id].filter(e => e === skill).length : 0}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <div style={{ width: '100%', background: '#e0e0e0', margin: '10px 0' }}>
+                            <div style={{ width: `${profile.workload}%`, background: '#76c7c0', height: '20px' }}></div>
+                        </div>
+                        <button onClick={() => setShowModal({ isOpen: true, profileId: profile.id })}>View Performance</button>
+                        <button onClick={() => handleDelete(profile.id)}>Delete</button>
+                        <div style={{ marginTop: '10px' }}>
+                            {profile.badges.map((badge, index) => (
+                                <span key={index} style={{ marginRight: '5px', cursor: 'pointer' }} onClick={() => alert(`Details about ${badge}`)}>{badge}</span>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <div style={{ position: 'fixed', bottom: '20px', right: '20px', background: '#fff', padding: '10px', borderRadius: '5px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
+                {notifications.map((notification, index) => (
+                    <div key={index}>{notification}</div>
+                ))}
+            </div>
+            {showModal.isOpen && (
+                <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', background: 'white', padding: '20px', zIndex: 1000 }}>
+                    <h3>Performance Metrics</h3>
+                    <ReactECharts option={getOption(profiles.find(p => p.id === showModal.profileId))} />
+                    <button onClick={() => setShowModal({ isOpen: false, profileId: null })}>Close</button>
+                </div>
+            )}
+            {winnerName && <div style={{ marginTop: '20px', fontWeight: 'bold' }}>Team Member of the Month: {winnerName}</div>}
+        </div>
+    );
+};
+
+export default TeamProfilesContainer;
+```
+
+This code combines all specified functionalities into a single React component named `TeamProfilesContainer`. It includes a search bar, filtering options, a performance metrics chart, and a notification system. Each part works cohesively and is fully self-contained without any external imports or styles.
+    ```
+
+</ReactComponentCoder>
+
+---
+
+**Important**: Absolutely **NO missing logic** or functionality. **Fix every possible error, logic issue, or interaction** that may exist. The page must be fully functional and visually complete with modern, professional design. All UI elements and logic must work perfectly together with no placeholders or incomplete elements.
+
+
+
+
+<ReactComponentCoder>
+  <FilePath>
+    ****File Path: FileName****
+    <!-- Ensure this is placed at the top of your file with a valid file name. -->
+  </FilePath>
+
+  <GeneralInstructions>
+    - Recoding **every single component**, ensuring full functionality, and **fixing any errors or logic issues**.
+    - **DO NOT** import any external JS files—recreate everything within the provided code.
+    - Use only **dummy data** with no backend or API calls. Ensure the code works **flawlessly** for the current page setup.
+    - **No logic errors** allowed: All components, mappings, charts, and interactions must function without issues. If errors exist in the provided code, **proactively identify and fix them**.
+    - **Every component, feature, and interaction must be fully implemented and improved where necessary**. The page should be fully functional, visually complete, and **professionally enhanced**.
+  </GeneralInstructions>
+
+  <CodeRecreation>
+    - Provide **full code** for every component and **fix any potential issues**.
+    - **NO code should be missing, left out, simplified, or assumed**—every piece of logic must be present and correct.
+    - Recreate all components fully, **ensuring every part works together seamlessly**. **Fix any layout issues**, optimize UI, and implement **complete functionality** for all components.
+  </CodeRecreation>
+
+  <InteractionInstructions>
+    - Ensure **ALL components** (e.g., search bars, filters, buttons, forms, charts) work **perfectly** together.
+    - Validate that every interaction works as expected—searching, filtering, clicking, chart updates, etc.
+    - **NO part of the UI should be broken, unresponsive, or incorrectly implemented**—everything must be functional.
+    - The UI should be **visually optimized** with enhanced layouts and interactions that feel smooth, modern, and professional.
+    - **Fix any layout or visual issues**. Ensure the page is **visually complete, fully functional**, and works together as a unified system without any bugs.
+  </InteractionInstructions>
+
+  <ValidationSteps>
+    - After implementing **each component**, validate that it works as expected and fixes any issues.
+    - Check all interactions (search, filter, click, chart rendering, form input) and **verify that everything is fully functional**.
+    - **Verify the entire page** for responsiveness and errors—ensure every part of the page is filled with working components.
+    - **Proactively improve** areas of the UI that may be weak, unoptimized, or not user-friendly.
+  </ValidationSteps>
+
+  <GuidanceForLLM>
+    - **Step-by-Step Approach**: Break down tasks to handle complex UI elements (like charts, filters, dynamic data mappings) to ensure everything works perfectly.
+    - **Fix errors as you go**: Proactively identify and fix any logic, interaction, or rendering issues. **Do not leave anything broken**.
+    - **Enhance Layout**: If the layout feels cluttered, unbalanced, or outdated, **improve it** to be modern, clean, and user-friendly. **No placeholders or incomplete elements**.
+    - **No Summarization**: Recode every single line with improvements and do not leave out any logic or interaction. **Enhance the code where needed** and ensure everything is dynamically functional.
+  </GuidanceForLLM>
+
+  #### Plan
+  - Use this plan to create code for the current page, enhancing functionality, layout, and interactions.
+    ```plaintext
+    Component Name: Performance Dashboard Page, Component requirements: ### Final Plan: Performance Dashboard Page
+
+#### Purpose and Goals
+The Performance Dashboard Page provides an overview of team and individual performance metrics, displaying key performance indicators (KPIs) through visualizations like charts and graphs. The aim is to facilitate quick assessments of productivity levels across teams and assist managers in making informed decisions based on visualized performance data.
+
+#### Problem Solved
+This dashboard serves as a centralized platform where team leaders and managers can view performance data at a glance. It visualizes performance trends over time, helping to identify patterns that could inform future planning and decision-making. The page highlights areas of strength and opportunities for improvement among team members, facilitating targeted coaching and development initiatives.
+
+#### Color and Typography Scheme
+- **Primary Color:** #1E90FF
+- **Secondary Color:** #F0F8FF
+- **Tertiary Color:** #4682B4
+- **Spacing:** 8px
+- **Typography:** Arial, sans-serif
+
+### New Features and Enhancements
+
+#### 1. User Engagement Features
+- **Feature:** Interactive Performance Filters
+    - **Functionality:** Enable users to filter data by date ranges, teams, and individual contributors.
+    - **Key Components:** Dropdown menus for teams, date pickers for selecting date ranges.
+    - **Data Requirements:** Dummy data for various date ranges and users.
+    - **User Interaction Flow:** 
+        1. User selects filter options.
+        2. Visualizations update dynamically based on selections.
+    - **Challenges:** 
+        - Ensure smooth updates of charts.
+        - **Solution:** Use React state management to handle updates efficiently.
+
+#### 2. Enhanced Data Visualization
+- **Feature:** Comparative Performance Charts
+    - **Functionality:** Allow users to compare performance metrics of different teams or individuals side-by-side.
+    - **Key Components:** Bar charts for team comparisons, line graphs for trend analysis.
+    - **Data Requirements:** Dummy datasets for various teams and individuals.
+    - **User Interaction Flow:**
+        1. User selects teams for comparison.
+        2. View updated charts reflecting selected data.
+    - **Challenges:**
+        - Balancing readability with data density.
+        - **Solution:** Utilize tooltips for detailed data on hover.
+
+#### 3. Interactivity
+- **Feature:** Clickable Data Points
+    - **Functionality:** Clicking on a data point in a graph shows detailed metrics for that time period or individual.
+    - **Key Components:** Modal pop-ups displaying detailed metrics.
+    - **Data Requirements:** Dummy detailed performance data.
+    - **User Interaction Flow:**
+        1. User clicks on a data point.
+        2. A modal displays detailed metrics for the selected time period or individual.
+    - **Challenges:**
+        - Ensuring modals are responsive.
+        - **Solution:** Test modal sizes across devices for optimal performance.
+
+#### 4. Gamification
+- **Feature:** Performance Badges
+    - **Functionality:** Award badges for achieving specific KPIs, motivating users.
+    - **Key Components:** Badge icons displayed on user profiles.
+    - **Data Requirements:** Dummy criteria for badges (e.g., "Top Performer", "Most Improved").
+    - **User Interaction Flow:**
+        1. Users earn badges based on performance metrics.
+        2. Badges displayed on user profiles dynamically.
+    - **Challenges:**
+        - Defining clear criteria for awards.
+        - **Solution:** Involve user feedback for criteria development.
+
+#### 5. Customization Options
+- **Feature:** Theme Switcher
+    - **Functionality:** Users can toggle between light and dark themes.
+    - **Key Components:** Toggle switch for theme selection.
+    - **Data Requirements:** Theme-related styles defined in CSS.
+    - **User Interaction Flow:**
+        1. User switches theme.
+        2. All styles update dynamically.
+    - **Challenges:**
+        - Ensuring all components adjust to the theme.
+        - **Solution:** Utilize CSS variables to manage theming.
+
+#### 6. Dynamic Content Updates
+- **Feature:** Real-time Performance Updates
+    - **Functionality:** Automatically refresh performance data every few minutes without page reload.
+    - **Key Components:** Timer function to refresh charts.
+    - **Data Requirements:** Dummy dynamic data set to simulate real-time changes.
+    - **User Interaction Flow:**
+        1. Data updates automatically at set intervals.
+        2. Users can manually refresh if needed.
+    - **Challenges:**
+        - Managing data consistency.
+        - **Solution:** Use a state management library like Redux for handling state.
+
+#### 7. Notifications
+- **Feature:** Performance Alerts
+    - **Functionality:** Notify users when performance metrics exceed or fall below set thresholds.
+    - **Key Components:** Notification pop-ups or banners.
+    - **Data Requirements:** Dummy thresholds for various KPIs.
+    - **User Interaction Flow:**
+        1. Users receive alerts based on performance data updates.
+        2. Users can configure alert settings.
+    - **Challenges:**
+        - Avoiding notification fatigue.
+        - **Solution:** Allow users to customize alert settings.
+
+### Implementation Guidance
+
+#### Clarification
+Ensure each feature is well-defined and serves a clear purpose regarding user engagement, data visualization, interactivity, and user customization.
+
+#### Technical Specifications
+- Framework: React for dynamic UI components.
+- Libraries: Chart.js or D3.js for data visualization, Redux for state management, and React Router for navigation between components.
+- Styling: Use CSS-in-JS libraries like styled-components for theme management.
+
+#### Edge Cases
+1. Filtering with no results: Display a message indicating no data matches the selected filters.
+2. Clickable data points with no data: Show a message in the modal indicating that no detailed metrics are available for the selected period.
+3. Real-time updates during data fetching: Implement a loading spinner to indicate ongoing data refresh.
+
+### Enhancements
+- **Data Export Functionality:** Allow users to export performance data visualizations as images or CSV files for reporting purposes.
+- **User Feedback Mechanism:** Implement a feedback form for users to suggest new features or report issues directly from the dashboard.
+- **Performance Overview Summary:** Include a section at the top summarizing key performance metrics for quick insights, such as total sales, average response time, or overall team performance scores.
+
+### Conclusion
+This performance dashboard aims to create an engaging and informative experience for users by incorporating interactive elements, enhanced data visualization, and gamification features. The proposed plan focuses on practical and feasible solutions while providing a comprehensive set of functionalities to meet user needs in a professional ERP context.
+    ```
+
+  #### RequiredCode
+  - **RECODE AND FIX** every single line of the provided code, ensuring that it is fully functional, free of errors, and optimized for the current page.
+    ```plaintext
+    
+
+```javascript
+import React, { useState, useEffect } from 'react';
+import ReactECharts from 'echarts-for-react';
+import { Modal, Button, Input, Rate, Select, notification } from 'antd';
+import { saveAs } from 'file-saver';
+import { Parser } from 'json2csv';
+
+// Dummy data for productivity trends
+const dummyProductivityData = [
+  { date: '2023-01-01', value: 10 },
+  { date: '2023-01-02', value: 15 },
+  { date: '2023-01-03', value: 12 },
+  { date: '2023-01-04', value: 20 },
+  { date: '2023-01-05', value: 18 },
+];
+
+const dummyGoals = [
+  { description: 'Increase output', target: 25, progress: 15 },
+];
+
+// PerformanceDashboard component
+const PerformanceDashboard = () => {
+  const [feedbackVisible, setFeedbackVisible] = useState(false);
+  const [feedback, setFeedback] = useState({ comment: '', rating: 0 });
+  const [goal, setGoal] = useState({ description: '', target: 0 });
+  const [goalProgress, setGoalProgress] = useState(dummyGoals[0]);
+  const [performanceData, setPerformanceData] = useState(dummyProductivityData);
+  const [selectedData, setSelectedData] = useState([true]);
+  const [points, setPoints] = useState(0);
+  const [timeFrame, setTimeFrame] = useState('daily');
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [dummyData, setDummyData] = useState([]);
+  
+  useEffect(() => {
+    setDummyData(dummyProductivityData);
+  }, []);
+
+  const handleFeedbackChange = (e) => {
+    setFeedback({ ...feedback, [e.target.name]: e.target.value });
+  };
+
+  const handleRatingChange = (value) => {
+    setFeedback({ ...feedback, rating: value });
+  };
+
+  const submitFeedback = () => {
+    notification.success({ message: 'Feedback Submitted!', description: `Comment: ${feedback.comment}, Rating: ${feedback.rating}` });
+    setFeedbackVisible(false);
+    setFeedback({ comment: '', rating: 0 });
+  };
+
+  const toggleDataSet = () => {
+    setSelectedData([!selectedData[0]]);
+  };
+
+  const setGoalHandler = () => {
+    setGoalProgress({ ...goalProgress, description: goal.description, target: goal.target });
+    setGoal({ description: '', target: 0 });
+    notification.success({ message: 'Goal Set!', description: `Goal: ${goal.description}, Target: ${goal.target}` });
+  };
+
+  const getOption = () => ({
+    title: { text: 'Productivity Trends' },
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: dummyProductivityData.map(item => item.date),
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        name: 'Productivity',
+        type: 'line',
+        data: dummyProductivityData.map(item => item.value),
+        itemStyle: { color: selectedData[0] ? '#5470C6' : '#FF0000' },
+      },
+    ],
+  });
+
+  const exportData = () => {
+    const csvData = [{ Metric: 'Completed Tasks', Value: 75 }];
+    const json2csvParser = new Parser();
+    const csv = json2csvParser.parse(csvData);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'kpi_data.csv');
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', padding: '20px', backgroundColor: '#eaeaea' }}>
+      <h1>Performance Dashboard</h1>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%' }}>
+        <div style={{ padding: '20px', backgroundColor: '#f7f7f7', borderRadius: '8px', margin: '10px', flex: '1 0 48%' }}>
+          <h2>Performance Metrics</h2>
+          <Button onClick={() => setFeedbackVisible(true)}>Give Feedback</Button>
+          <Button onClick={toggleDataSet}>Toggle Data Set</Button>
+          <div>
+            <Input placeholder="Goal Description" onChange={(e) => setGoal({ ...goal, description: e.target.value })} />
+            <Input placeholder="Goal Target" type="number" onChange={(e) => setGoal({ ...goal, target: parseInt(e.target.value) })} />
+            <Button onClick={setGoalHandler}>Set Goal</Button>
+          </div>
+          <PerformanceTrendGraph performanceMetrics={performanceData} />
+          <Button onClick={exportData}>Export Data</Button>
+        </div>
+      </div>
+      <Modal
+        title="User Feedback"
+        visible={feedbackVisible}
+        onOk={submitFeedback}
+        onCancel={() => setFeedbackVisible(false)}
+      >
+        <Input placeholder="Your feedback..." name="comment" onChange={handleFeedbackChange} />
+        <Rate onChange={handleRatingChange} />
+      </Modal>
+    </div>
+  );
+};
+
+// PerformanceTrendGraph component to visualize performance metrics
+const PerformanceTrendGraph = ({ performanceMetrics }) => {
+  const option = {
+    xAxis: {
+      type: 'category',
+      data: performanceMetrics.map(metric => metric.date),
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [{
+      name: 'Productivity',
+      type: 'line',
+      data: performanceMetrics.map(metric => metric.value),
+    }],
+  };
+
+  return <ReactECharts option={option} style={{ height: '300px', width: '100%' }} />;
+};
+
+// Export the main component
+export default PerformanceDashboard;
+```
+
+### Explanation of the Code
+
+1. **PerformanceDashboard Component**: 
+   - Serves as the main component that aggregates performance data and includes interactive elements such as charts and feedback forms.
+   - Uses state management with `useState` to manage feedback visibility, feedback details, goals, points, and the selected dataset.
+
+2. **PerformanceTrendGraph Component**: 
+   - Receives performance metrics as props and visualizes them using the ECharts library.
+   - Configures the chart options dynamically based on the provided data.
+
+3. **Data Handling**: 
+   - Dummy data is used for productivity metrics and goals.
+   - The dashboard includes functionality to export data to a CSV file.
+
+4. **Feedback Mechanism**: 
+   - Users can provide feedback through a modal, and feedback details are stored in the state.
+   - Displays success notifications upon submission of feedback.
+
+5. **Styling and Layout**: 
+   - The layout is designed to fill the entire viewport with no white space using flexbox for responsive behavior.
+   - Inline styles ensure the dashboard remains visually structured.
+
+6. **Error-Free and Self-Contained**: 
+   - The entire implementation is contained within a single file, ensuring there are no external dependencies or imports of other components.
+   - It is fully functional and meets the specified requirements without any errors.
+
+This complete code fulfills all the requirements outlined in the plan with a focus on functionality and user interaction.
+    ```
+
+</ReactComponentCoder>
+
+---
+
+**Important**: Absolutely **NO missing logic** or functionality. **Fix every possible error, logic issue, or interaction** that may exist. The page must be fully functional and visually complete with modern, professional design. All UI elements and logic must work perfectly together with no placeholders or incomplete elements.
+
+
+

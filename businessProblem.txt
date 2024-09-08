@@ -1,54 +1,98 @@
 **Business Problem**
-We run a mid-sized event management company that organizes corporate events, weddings, and parties. Our business involves planning, coordinating, and executing events with multiple vendors, venues, and clients. We need an ERP system to help us with the following:
+We run a mid-sized software development company, managing multiple projects across different teams. Our business involves overseeing development teams, tracking progress, ensuring code quality, and meeting client deadlines. We need an internal ERP system to help manage and optimize the following:
 
-#1. Client Management in Event Planning
-         - **Client Profiles**  
-            - Unique profile storing all relevant information for each client, ensuring personalized service.
-            - **Details included in Client Profiles**:
-               - Contact Information: Full name, email, phone number, and address.
-               - Preferences: 
-                     - Preferred venues
-                     - Favorite decor styles
-                     - Catering preferences (vegetarian, gluten-free, etc.)
-                     - Entertainment choices (DJ, live band, etc.)
-                     - Any dislikes or areas to avoid
-               - Event History: List of past events planned for the client, including dates, venues, and services provided.
-               - Client Tier: Based on engagement level (VIP, recurring client, etc.)
+#1. Development Team and Project Management  
+   - **Team Profiles**  
+      - Each team has a detailed profile containing all relevant information for task management, workload distribution, and productivity tracking.
+      - **Details included in Team Profiles**:
+         - **Team Overview**:
+            - Team Name: A unique identifier for each team (e.g., "Frontend Wizards", "Backend Gurus").
+            - Team Type: Categorize teams based on their function (e.g., Frontend, Backend, Full-Stack, QA).
+            - Department: Associate teams with departments (e.g., Web Development, Mobile Development, DevOps).
+         - **Team Members**:
+            - **Basic Information**: Full name, contact details (email, phone), and role in the team (e.g., Full-Stack Developer, QA Lead).
+            - **Skillset**: A detailed list of programming languages, frameworks, and technologies each team member is proficient in. This should be filterable for project assignments.
+            - **Experience**: Years of experience with specific technologies, past projects worked on, and performance feedback from past projects.
+            - **Workload**: Track individual workloads based on current tasks, estimated task completion time, and overall team balance. Visualize this using a progress bar for each member.
+         - **Current Projects**: A real-time list of active projects assigned to the team, including project deadlines, status, and task breakdown.
+         - **Capacity Tracking**:
+            - Show how much work each team can handle, with a visual heatmap indicating overworked (red) or underutilized (green) teams.
+            - Provide forecasts for upcoming availability based on ongoing tasks and upcoming holidays or time off.
+         - **Time-Off and Availability**:
+            - Manage scheduled leave (e.g., vacations, personal days) and mark unavailable team members.
+            - Show this availability in project planning to avoid assigning critical tasks to unavailable team members.
+         - **Productivity Metrics**:
+            - Track key performance indicators like lines of code (LOC) written, pull requests (PRs) submitted and reviewed, and bugs fixed.
+            - Generate monthly, quarterly, and yearly performance summaries for individual team members and teams.
 
-         - **Communication Logs**  
-            - Maintains a history of all client communications for consistent messaging and team updates.
-            - **Key components**:
-               - Emails: Automatically log client emails.
-               - Phone Calls: Notes from phone conversations with timestamps.
-               - Meetings: Scheduled and past meetings with outcomes.
-               - Tasks and Reminders: Tasks related to client follow-ups or upcoming meetings.
-               - Feedback Forms: Post-event feedback, stored for future reference.
+   - **Project Tracking and Progress Monitoring**  
+      - This section enables detailed tracking of each project's lifecycle, ensuring smooth development across planning, coding, testing, and deployment stages.
+      - **Project Overview**:
+         - **Basic Info**: Project name, start date, estimated completion date, project manager, and description.
+         - **Phases**: Break projects into clear phases (e.g., Planning, Development, QA Testing, Deployment), with visual timelines showing milestones, dependencies, and key deadlines.
+         - **Milestones and Deliverables**:
+            - Set important milestones (e.g., Alpha release, Beta release) and attach critical deliverables to each milestone (e.g., features or modules to be delivered).
+         - **Project Dependencies**:
+            - Visualize dependencies between tasks, phases, or projects (e.g., "Task A must be completed before Task B can begin") with Gantt charts or dependency graphs.
+         - **Task Breakdown**:
+            - Create and assign specific tasks and subtasks to team members.
+            - **Task Details**:
+               - Description: Brief overview of the task.
+               - Priority: Indicate whether it is critical, high, medium, or low priority.
+               - Status: Track the status of the task (e.g., Pending, In Progress, In Review, Completed).
+               - Assignee: Assign team members or groups to the task, along with any dependencies.
+               - Estimated Hours and Due Date: Allow input for estimated completion time and assign due dates.
+               - Progress Tracking: Use a progress bar or percentage completion for real-time status updates.
+         - **Code Repositories**:
+            - Integrate with GitHub/GitLab to link code repositories for each project, enabling the tracking of commits, PRs, and CI/CD pipeline statuses.
+            - Enable users to click on a task to open the related repository or PR directly.
+         - **Code Quality and Testing Metrics**:
+            - **Unit Test Coverage**: Show what percentage of the codebase is covered by unit tests, with a target threshold (e.g., 90% coverage).
+            - **Automated Testing Results**: Track results from automated tests in CI/CD pipelines and flag issues if tests fail.
+            - **Code Reviews**: Track code review submissions, assign reviewers, and visualize the approval process.
+         - **Feedback and Reviews**:
+            - Maintain a feedback loop for projects, enabling team leads to review progress and client feedback. This includes client surveys, peer reviews, and internal quality assurance checks.
 
-         - **Preferences and Customization**  
-            - Tracks client preferences to ensure a customized event experience.
-            - **Preferences categories**:
-               - Catering: Dietary restrictions, favorite cuisines, dislikes.
-               - Venue Preferences: Type of venues (outdoor, indoor, formal, etc.).
-               - Entertainment: Music styles, performers, entertainment setups.
-               - Theme/Decor: Color schemes, design elements, overall event style.
+   - **Team Collaboration and Communication**  
+      - Facilitates smooth communication and real-time collaboration among development teams and across departments.
+      - **Collaboration Features**:
+         - **Internal Messaging**:
+            - A built-in chat feature allowing team members to send real-time messages, attach files, and share code snippets.
+            - Organize chats by project, team, or task for better clarity.
+         - **Meeting Scheduler**:
+            - An integrated calendar feature that enables scheduling of stand-ups, sprint reviews, and retrospectives with reminders.
+            - Allow meeting notes and action items to be linked directly to tasks or milestones within the project.
+         - **Task Comments and Updates**:
+            - Team members can leave comments on tasks, attach screenshots, or flag issues for attention.
+            - Create a threaded comment system so replies and updates are linked for easy tracking.
+         - **System-Wide Notifications**:
+            - Enable notifications for task status updates, upcoming deadlines, or team announcements, sent via email or internal notifications.
 
-         - **Feedback and Satisfaction Metrics**  
-            - Ensures continuous improvement by tracking client feedback.
-            - **Features**:
-               - Event Surveys: Collect data from clients post-event.
-               - Satisfaction Score: Rates overall satisfaction based on feedback.
-               - Areas for Improvement: Detailed notes on what could be improved for future events.
-               - Historical Feedback: Log of feedback over multiple events to track trends in preferences and satisfaction.
+   - **Performance and Productivity Metrics**  
+      - A comprehensive tool for tracking the performance of teams and individuals to ensure continuous improvement.
+      - **Key Features**:
+         - **Time Tracking**:
+            - Track the hours worked on each task using manual input or automated tracking (integrated with time management tools like Clockify or Toggl).
+            - Log productive time and idle time, ensuring accurate productivity analysis.
+         - **Task Completion Metrics**:
+            - Track the average time taken to complete tasks, categorize by task type (e.g., coding, testing, bug fixing), and compare against benchmarks.
+         - **Sprint Analytics**:
+            - Visualize sprint progress using burndown charts, velocity reports, and task completion rates.
+            - Track tasks moved between sprints and analyze the reasons for delays (e.g., underestimation, external dependencies).
+         - **Peer Review Metrics**:
+            - Track the number of peer reviews completed by team members, including approval rates and the number of requested changes.
+         - **Personal Productivity Scores**:
+            - Generate scores based on task completion, efficiency, and contribution to overall team objectives. This can include metrics like completed PRs, LOC, and issue resolution.
 
-         - **Event History and Reports**  
-            - Monitors client event history for personalized recommendations.
-            - **Components**:
-               - Event Date and Venue: Logs of when and where each event occurred.
-               - Services Provided: Detailed breakdown of services used (e.g., catering, decor, entertainment).
-               - Budget Information: Tracking of the budget, payments, and profitability for each event.
-               - Reports: Generate summaries of client engagement and event profitability over time.
-
-**Requirements**
-1. The color scheme should be elegant and professional, with a mix of gold, dark blue, and white.
-2. We need a visually appealing UI that is easy for non-technical staff to use, with a focus on clarity and functionality.
-3. The dashboard should include an interactive event timeline, a budget overview, and a collapsible sidebar for navigation between different modules.
+   - **Resource Allocation and Load Balancing**  
+      - Ensures optimal use of company resources, preventing overload or underutilization of teams and equipment.
+      - **Resource Management Features**:
+         - **Project Assignment**:
+            - Visualize which teams are assigned to each project and see real-time workloads, enabling managers to redistribute tasks if needed.
+         - **Load Balancing**:
+            - Automatically flag overworked or underutilized teams based on their task load, availability, and progress rates.
+         - **Resource Forecasting**:
+            - Predict team availability based on current project timelines and future project pipelines.
+            - Enable project managers to see when specific skills or resources will be required and match them with available teams.
+         - **Equipment and Tools Tracking**:
+            - Maintain a log of which development tools, software licenses, and hardware are assigned to each team, ensuring optimal utilization and scheduling for shared resources like testing environments or servers.

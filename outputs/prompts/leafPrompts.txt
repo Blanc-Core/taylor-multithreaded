@@ -1,0 +1,3030 @@
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: TeamWorkloadChart, Component requirements: ## Final Plan
+
+### Component Description
+A visual representation of team workloads using a heatmap-style visualization, color-coded to indicate workload levels. This component will provide a comprehensive view of team performance and help in managing workloads efficiently.
+
+### Functionality
+The TeamWorkloadChart component is designed to display an interactive heatmap that provides an intuitive overview of team workloads. It uses color coding to easily convey the workload status of each team, allowing users to quickly identify overworked or underworked teams. 
+
+**Core Functionalities:**
+1. **Real-Time Updates**: The heatmap updates in real-time as data changes.
+2. **Interactive Tooltips**: Hovering over specific areas reveals detailed information on workload percentages.
+3. **Filtering**: Users can filter data based on selections from the ProjectAssignmentsList.
+4. **Dynamic Notifications**: Alerts users to significant workload changes.
+
+### Details
+- **Visualization Tool**: Utilize ECharts for rendering the heatmap visualization.
+- **Tooltips**: Support tooltips that display detailed workload percentages on hover.
+- **Interactive Legend**: Implement an interactive legend for filtering specific teams or workload levels.
+- **Data Update Methods**: Use WebSockets or polling methods for dynamic data rendering.
+
+### Visibility
+- The component is highly visible to users, actively engaging them with real-time data to enhance decision-making.
+
+### Interconnectivity
+- Allow navigation to detailed project information when clicking on specific teams or workload sections at `/projects/details`.
+
+### User Interaction
+- **Interact**: Users hover over sections of the chart to view detailed workload information or click to filter data.
+- **Possible Interactions**: Hovering shows tooltips with workload percentages; clicking filters by team or workload level.
+- **Result**: A filtered view of the workload chart based on user selection, highlighting specific teams or workload levels.
+- **Result Functionality**: Dynamically updates the chart view to reflect user-selected filters.
+
+### New Features and Ideas
+
+1. **Workload Comparison Tool**
+   - **Functionality**: Allow users to compare workloads between two or more teams side by side.
+   - **Components**: A comparison panel that pulls data from the heatmap and shows it in a comparative chart.
+   - **User Flow**: Users select teams from the heatmap and click a "Compare" button.
+   - **Challenges & Solutions**: Manage complexity with a clear UI/UX design.
+
+2. **Customization Options for Visualization**
+   - **Functionality**: Users can customize color schemes and visual styles of the heatmap.
+   - **Components**: Color palette selector and style options.
+   - **User Flow**: Users select themes from a dropdown, and the heatmap updates accordingly.
+   - **Challenges & Solutions**: Ensure effective color contrast by testing color accessibility standards.
+
+3. **Dynamic Notifications for Workload Changes**
+   - **Functionality**: Alert users to significant changes in workloads.
+   - **Components**: Notification bell icon with drop-down alerts.
+   - **User Flow**: Users receive notifications and can click to view details.
+   - **Challenges & Solutions**: Avoid notification fatigue by allowing customization of alert settings.
+
+4. **Gamification Elements**
+   - **Functionality**: Introduce badges or achievements for teams that maintain balanced workloads.
+   - **Components**: Badge display section within the workload chart.
+   - **User Flow**: Users track progress towards badges.
+   - **Challenges & Solutions**: Regularly update and introduce new achievements to keep gamification relevant.
+
+5. **Enhanced Tooltip Functionality**
+   - **Functionality**: Provide more in-depth information in tooltips, including historical workload data.
+   - **Components**: Enhanced tooltips with charts showing trends.
+   - **User Flow**: Users hover to see current workload and historical trends.
+   - **Challenges & Solutions**: Ensure tooltips remain concise and do not overcrowd the interface.
+
+### Prioritization
+1. **Workload Comparison Tool** - High impact, feasible.
+2. **Dynamic Notifications for Workload Changes** - High impact, moderate feasibility.
+3. **Customization Options for Visualization** - Moderate impact, high feasibility.
+4. **Enhanced Tooltip Functionality** - Moderate impact, high feasibility.
+5. **Gamification Elements** - Low impact, moderate feasibility.
+
+### Step-By-Step Plan
+
+#### Clarification
+- Ensure each functionality is clearly defined and understood, focusing on user needs and performance goals.
+
+#### Implementation Guidance
+- **Real-Time Data Updates**: Implement WebSocket connections to fetch live data, ensuring the heatmap displays the most current workload statuses.
+- **Tooltips**: Create a tooltip component that fetches and displays data dynamically based on the hovered section.
+- **Filtering Mechanism**: Implement a state management solution (like Redux) to handle user selections and filter the heatmap accordingly.
+  
+#### Efficiency
+- Structure the code modules for each functionality (e.g., tooltips, filtering, notifications) to promote reusability and maintainability.
+
+#### Technical Specifications
+- **Frameworks**: Use React for component structure and ECharts for visualization.
+- **Libraries**: Utilize state management libraries (like Redux) for handling complex state changes.
+
+#### Examples
+- For the tooltip, create a function that returns JSX with workload percentage and team name when hovering over a section, displaying relevant data fetched from the state.
+
+#### Edge Cases
+- Handle scenarios where no data is available for a team by displaying a placeholder in the heatmap.
+- Test for responsiveness and performance under various data loads to ensure smooth user experience.
+
+#### Enhancements
+- Implement caching strategies for frequent data requests to improve performance.
+- Regularly track user interactions to refine UI/UX and enhance overall functionality based on feedback.
+
+### Summary
+This plan outlines a comprehensive approach to enhancing the TeamWorkloadChart component, focusing on user engagement, data visualization, interactivity, and productivity tools while ensuring practical implementation within a single-page React application. Each proposed feature aims to enrich the user experience and facilitate better decision-making for team workload management. The plan is structured to ensure that all functionalities work cohesively, creating a seamless user experience.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: ChatHeader, Component requirements: ### Final Plan for Enhanced Chat Interface Component
+
+**Component Description**
+- The ChatHeader is a pivotal navigational and informational component within the chat interface. It provides users with real-time context regarding the current project and user involvement, fostering engagement through additional interactive features.
+
+**Functionality**
+- The ChatHeader ensures consistent visibility for quick user orientation, displays essential user profile information, and includes links to project settings, thereby streamlining user efficiency and communication.
+
+---
+
+### Detailed Features and Specifications
+
+1. **Core Display Elements**
+    - **Project Name**: Prominently displayed to indicate the current chat context.
+    - **User Profile**: Includes user name and avatar for a personalized experience.
+        - Interaction: Clicking the avatar opens a dropdown menu for profile options (edit profile, log out).
+    - **Quick Navigation Links**: Buttons for immediate access to project settings and relevant pages.
+        - Example: Links to `/project-settings`, `/user-management`.
+
+2. **Engagement and Interaction Tools**
+    - **Feedback Mechanism**: 
+        - **Main Functionality**: Quick feedback buttons (thumbs up/down) for users to rate chat interactions.
+        - **Implementation Guidance**: 
+            - Create buttons that trigger a modal for detailed feedback input.
+            - Use dummy data to simulate feedback statistics for display.
+        - **User Interaction Flow**: On button click, display a modal for additional comments; dynamically update feedback stats.
+        - **Edge Cases**: Handle cases with no feedback provided; ensure confirmation messages after submission.
+
+3. **Dynamic Notifications**
+    - **Main Functionality**: Real-time notifications for new messages or project updates.
+    - **Implementation Guidance**:
+        - Use a notification bell icon that expands to show recent notifications.
+        - Implement a method to mark notifications as read and remove them from the active list.
+    - **User Interaction Flow**: Click the bell icon to view notifications; clicking on a notification opens the relevant chat.
+    - **Edge Cases**: Manage scenarios where notifications fail to load; provide user feedback on loading status.
+
+4. **Data Visualization Dashboard**
+    - **Main Functionality**: A mini-dashboard displaying key project metrics (e.g., task completion rates).
+    - **Implementation Guidance**:
+        - Use ECharts or similar libraries for visual representations.
+        - Create a collapsible sidebar to toggle the dashboard visibility.
+    - **User Interaction Flow**: Users can click to expand/collapse the dashboard; hover for tooltips on data points.
+    - **Edge Cases**: Handle scenarios where data fails to load; display a fallback message.
+
+5. **Customization Options**
+    - **Main Functionality**: Allow users to customize their chat interface (theme, layout).
+    - **Implementation Guidance**:
+        - Create a settings button that opens a customization modal.
+        - Include predefined themes and layout options for easy selection.
+    - **User Interaction Flow**: Users select options and see immediate changes in the chat interface.
+    - **Edge Cases**: Ensure settings persist across sessions; handle reset to default options.
+
+6. **File Sharing Capability**
+    - **Main Functionality**: Allow users to share documents easily during chat.
+    - **Implementation Guidance**:
+        - Implement a drag-and-drop area along with a file upload button.
+        - Provide visual feedback for successful uploads (e.g., progress bar).
+    - **User Interaction Flow**: Users can drag files into the designated area or click the upload button.
+    - **Edge Cases**: Enforce file size limits and types; display error messages for unsupported files.
+
+---
+
+### Prioritization of Features
+1. **Dynamic Notifications** - High impact, feasible implementation.
+2. **User Engagement Tools** - Moderate impact, easy to implement.
+3. **Data Visualization** - High impact, moderate feasibility.
+4. **Customization Options** - Moderate impact, feasible with careful planning.
+5. **Interactivity Features** - Moderate impact, requires attention to user experience.
+
+---
+
+### Implementation Guidance
+- **Efficiency**: Structure the code into modular components (e.g., `ChatHeader`, `UserProfile`, `Notification`, etc.) for maintainability.
+- **Technical Specifications**: Consider using frameworks like React or Vue.js for responsive UI components. Utilize CSS Flexbox/Grid for layout management.
+- **Testing**: Conduct unit tests for each component, focusing on user interactions and edge cases.
+
+---
+
+### Enhancements and Optimizations
+- **Performance**: Optimize loading times by lazy-loading components that are not immediately necessary (e.g., dashboard metrics).
+- **User Experience**: Implement tooltips or quick guides for first-time users to navigate new features effortlessly.
+- **Accessibility**: Ensure the component is accessible (e.g., keyboard navigation, screen reader compatibility).
+
+This comprehensive plan details the enhancements for the ChatHeader component, ensuring it serves as an effective tool for communication and collaboration within a project context. By integrating user engagement, real-time notifications, data visualization, and customizable features, the chat interface will significantly enhance user experience and project management capabilities.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: ProjectSummary, Component requirements: ### Final Plan for Project Summary Component Enhancements
+
+#### **Description**
+The ProjectSummary component is a vital interface in an ERP system, allowing users to quickly assess the overall health of a project. The enhancement of this component aims to improve user engagement, data visualization, interactivity, and navigation. These improvements will provide users with a more informative and user-friendly experience.
+
+#### **Current Content**
+- **Component Description**: Displays overall project information such as project name, description, and current status.
+- **Functionality**: Provides a quick overview of project highlights, aiding decision-making.
+- **Details**:
+    - Displays the project name prominently at the top.
+    - Includes a brief description of the project goals and scope.
+    - Shows the current status using color-coded indicators.
+    - Provides a quick link to view detailed project reports.
+- **User Interaction**: 
+    - Users can click on the project status for detailed reports.
+    - Hovering over status icons will provide additional information.
+    - Clicking on the status opens a modal with a detailed timeline and breakdown.
+
+#### **New Features and Enhancements**
+
+1. **Enhanced Data Visualization**
+   - **Main Functionality**: Integrate ECharts for visual representations of project data.
+   - **Key Components**: 
+        - A pie chart for resource allocation.
+        - A line graph illustrating project progress over time.
+   - **Data Requirements**: Dummy data for visualization (resource distribution and timeline progress).
+   - **User Interaction Flow**: Users can hover over charts to reveal specific data points.
+   - **Potential Challenges and Solutions**: Ensure charts are responsive; use Ant Design Grid for layout adaptability.
+   - **Implementation Guidance**:
+        - Integrate ECharts library.
+        - Create a PieChart and LineChart component.
+        - Use props to pass data for rendering.
+        - Implement responsive design using CSS Grid or Flexbox.
+
+2. **Interactive Timeline**
+   - **Main Functionality**: A timeline component displaying key milestones.
+   - **Key Components**: 
+        - A timeline view with clickable milestones.
+        - Tooltips with milestone details on hover.
+   - **Data Requirements**: Dummy data for milestones (dates and descriptions).
+   - **User Interaction Flow**: Users click on milestones for more detailed information.
+   - **Potential Challenges and Solutions**: Organize timeline for extensive projects; implement a scrollable view.
+   - **Implementation Guidance**:
+        - Use a library like `react-vertical-timeline-component`.
+        - Define milestone data structure (date, title, description).
+        - Implement tooltips using a library like `react-tooltip`.
+
+3. **Custom Notifications Panel**
+   - **Main Functionality**: A notification area alerting users of important updates.
+   - **Key Components**: 
+        - A bell icon for notifications.
+        - A dropdown panel displaying recent notifications.
+   - **Data Requirements**: Dummy notifications related to project updates.
+   - **User Interaction Flow**: Click the bell to view notifications.
+   - **Potential Challenges and Solutions**: Ensure notifications are relevant; allow users to customize settings.
+   - **Implementation Guidance**:
+        - Create a NotificationBell component with state management.
+        - Implement a dropdown panel rendering a list of notifications.
+        - Use local state or a context provider to manage notification settings.
+
+4. **Gamification Elements**
+   - **Main Functionality**: Introduce elements to enhance user engagement.
+   - **Key Components**: 
+        - Progress bars showing task completion.
+        - Badges for milestones achieved.
+   - **Data Requirements**: Dummy data for task completion and badge criteria.
+   - **User Interaction Flow**: Users hover over progress bars to see detailed task lists.
+   - **Potential Challenges and Solutions**: Ensure gamification elements do not detract from core functionality.
+   - **Implementation Guidance**:
+        - Use a Progress component from Ant Design.
+        - Define a structure for tasks and badge criteria.
+        - Implement animations for progress updates.
+
+5. **Customization Options**
+   - **Main Functionality**: Allow users to customize the display of project information.
+   - **Key Components**: 
+        - Toggle switches for showing/hiding metrics.
+        - A settings modal for personalization options.
+   - **Data Requirements**: Dummy data for user preferences.
+   - **User Interaction Flow**: Users access the settings modal to adjust preferences.
+   - **Potential Challenges and Solutions**: Ensure user settings persist across sessions; leverage local storage.
+   - **Implementation Guidance**:
+        - Create a SettingsModal component.
+        - Use local storage for saving user preferences.
+        - Implement toggle switches with controlled components.
+
+6. **Dynamic Content Updates**
+   - **Main Functionality**: Enable real-time updates of project information.
+   - **Key Components**: 
+        - A refresh button to fetch the latest data.
+        - Indicators showing when the data was last updated.
+   - **Data Requirements**: Dummy timestamps for last updates.
+   - **User Interaction Flow**: Users click the refresh button to update the view.
+   - **Potential Challenges and Solutions**: Manage state updates smoothly; use React hooks.
+   - **Implementation Guidance**:
+        - Implement a RefreshButton component.
+        - Use state management to track the last update timestamp.
+        - Utilize `useEffect` for data fetching logic.
+
+#### **Prioritization**
+1. Enhanced Data Visualization - High impact, medium feasibility.
+2. Interactive Timeline - High impact, high feasibility.
+3. Custom Notifications Panel - Medium impact, medium feasibility.
+4. Gamification Elements - Medium impact, medium feasibility.
+5. Customization Options - Medium impact, medium feasibility.
+6. Dynamic Content Updates - Low impact, high feasibility.
+
+#### **Efficiency & Technical Specifications**
+- Use React as the framework for building the UI components.
+- Utilize Ant Design for UI elements and styling for consistency.
+- Implement state management using React hooks.
+- Ensure responsiveness with CSS Grid or Flexbox.
+
+#### **Edge Cases**
+- **Data Loading**: Ensure loading states are handled gracefully when data is being fetched.
+- **Empty States**: Provide user-friendly messages when there are no notifications or project milestones.
+- **Chart Data**: Handle scenarios where no data is available for charts by displaying appropriate messages.
+
+#### **Enhancements**
+- Consider implementing user analytics to track engagement with various features.
+- Explore accessibility improvements to ensure all users can interact with the component effectively.
+- Regularly gather user feedback to iterate on features and improve user satisfaction.
+
+This refined plan for the ProjectSummary component enhances user engagement and interactivity while aligning with the overall purpose of delivering a comprehensive project overview in a professional ERP system. Each feature is designed to work cohesively, providing a seamless user experience.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: KPICard, Component requirements: ### Final Plan for Enhanced KPI Card Component
+
+**Component Overview**
+
+- **Description**: The KPI Card component is designed to display a single key performance indicator (KPI) value along with its contextual information in an engaging manner. It serves as a vital tool for users to quickly understand performance metrics at a glance.
+
+**Functionality**
+
+- The KPI Card will present various performance measures (e.g., completed tasks, average completion time) in an attractive and concise format. 
+- Each card will include:
+  - Metric name
+  - Current value
+  - Percentage change or trend indicator 
+
+**Details**
+
+- **Core Features**:
+  - **Metric Display**: Clearly showcases the metric name, current value, and its change percentage.
+  - **CSS Animations**: Smooth transitions for data updates to enhance user experience.
+  - **Hover Effects**: Additional context or links to detailed reports are shown on hover.
+  - **Responsive Design**: Adaptive styling to ensure readability on desktop devices.
+  - **Color Coding**: Visual cues using color coding to represent positive or negative changes.
+  
+- **Interconnectivity**:
+  - **Detailed Metrics Page**: Each card links to a detailed metrics report for in-depth analysis.
+  
+- **User Interaction**:
+  - Users can hover over the card to view historical data in a tooltip.
+  - Clicking the card opens a new page or modal containing detailed analytics and trends.
+
+### New Features and Enhancements
+
+#### 1. User Engagement Features
+   - **Feature**: **Goal Setting**
+     - **Functionality**: Users can set target values for each KPI.
+     - **Implementation**: Add an input field for users to define target values on the card.
+     - **Interaction Flow**: Upon setting a target, the card visually indicates proximity to the goal (e.g., color change).
+     - **Challenge**: Ensuring inputs are validated. 
+     - **Solution**: Use form validation to confirm appropriate data entry.
+
+#### 2. Enhanced Data Visualization
+   - **Feature**: **Miniature Trend Graphs**
+     - **Functionality**: Display a small line chart within the card showing performance trends over time.
+     - **Implementation**: Use ECharts to render a line graph representing historical data.
+     - **Data Requirements**: Dummy data showing performance over the last 7 days.
+     - **Interaction Flow**: Users can hover over the graph for specific data points.
+     - **Challenge**: Ensuring the graph remains visually cohesive with the card design.
+     - **Solution**: Maintain consistent color themes and styles.
+
+#### 3. Interactivity Enhancements
+   - **Feature**: **Drill Down Analytics**
+     - **Functionality**: Allow users to interactively explore underlying data behind the KPI.
+     - **Implementation**: Interactive elements like dropdowns or toggles to filter data.
+     - **Data Requirements**: Dummy datasets segmented by various dimensions (e.g., department, time).
+     - **Interaction Flow**: Clicking filters updates the card's displayed data dynamically.
+     - **Challenge**: Managing state efficiently for multiple filters.
+     - **Solution**: Use React’s state management hooks to track selected filters.
+
+#### 4. Productivity Tools
+   - **Feature**: **Export Functionality**
+     - **Functionality**: Users can export KPI data to CSV or Excel file.
+     - **Implementation**: Add an export button that triggers a download of the current KPI data.
+     - **Data Requirements**: Formats for dummy data export.
+     - **Interaction Flow**: Users click the export button, and the file downloads automatically.
+     - **Challenge**: Ensuring data is formatted correctly for export.
+     - **Solution**: Use libraries like `json2csv` for proper formatting.
+
+#### 5. Customization Options
+   - **Feature**: **Theme Switching**
+     - **Functionality**: Users can choose between light and dark themes for the KPI cards.
+     - **Implementation**: A toggle switch to change themes, affecting card styles.
+     - **Challenge**: Ensuring all elements adjust correctly in both themes.
+     - **Solution**: Utilize CSS variables to handle theme changes smoothly.
+
+#### 6. Gamification
+   - **Feature**: **Achievement Badges**
+     - **Functionality**: Users earn badges for reaching KPI targets.
+     - **Implementation**: Display badge icons on the card once targets are met.
+     - **Interaction Flow**: Users can click badges to see achievements.
+     - **Challenge**: Tracking user achievements effectively.
+     - **Solution**: Maintain a simple state object to track user progress.
+
+### Prioritization of Ideas
+
+1. **User Engagement Features**: Goal Setting
+2. **Enhanced Data Visualization**: Miniature Trend Graphs
+3. **Interactivity Enhancements**: Drill Down Analytics
+4. **Productivity Tools**: Export Functionality
+5. **Customization Options**: Theme Switching
+6. **Gamification**: Achievement Badges
+
+### Step-by-Step Implementation Plan
+
+1. **Clarification of Core Features**:
+   - Define the user requirements for each KPI displayed.
+   - Ensure that the metric name, current value, and change percentage are clearly defined and formatted.
+
+2. **Implementation Guidance**:
+   - **Metric Display**: Create a component structure that accepts props for the metric name, current value, and change percentage.
+   - **CSS Animations**: Implement CSS transitions for smooth updates.
+   - **Hover Effects**: Use CSS pseudo-classes to reveal additional information on hover.
+
+3. **Enhanced Data Visualization**:
+   - Integrate ECharts for trend graphs.
+   - Ensure the component receives data in the required format for rendering.
+
+4. **User Engagement with Goal Setting**:
+   - Add an input field for target values.
+   - Implement validation checks for user input.
+   - Update the card display based on the target value proximity.
+
+5. **Drill Down Analytics**:
+   - Create dropdowns/toggles for filtering data.
+   - Use React state management to track filter selections.
+
+6. **Export Functionality**:
+   - Implement an export button using a library like `json2csv` to format and download KPI data.
+
+7. **Customization Options**:
+   - Implement a toggle switch for theme switching.
+   - Use CSS variables to adjust styles dynamically.
+
+8. **Gamification with Achievement Badges**:
+   - Set up a simple state management structure to track user achievements.
+   - Display badges conditionally based on user progress.
+
+### Technical Specifications
+
+- **Framework**: React
+- **Data Visualization Library**: ECharts
+- **Export Library**: json2csv
+- **Styling**: CSS/Styled Components
+- **State Management**: React Hooks
+
+### Edge Cases
+
+- **Input Validation**: Ensure only numeric values are accepted for target settings.
+- **Data Loading**: Handle scenarios where no data is available for KPIs.
+- **Responsive Design**: Ensure the card layout adjusts appropriately on various screen sizes.
+
+### Conclusion
+
+The enhanced KPI Card component will provide essential performance metrics and engage users through interactive and visually appealing elements. The proposed features aim to improve user experience, facilitate better data understanding, and promote productivity, all while ensuring ease of implementation in a desktop-focused environment. Each feature should be implemented in a modular approach to ensure maintainability and scalability.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: ProjectAssignmentsList, Component requirements: ### Final Plan for Project Assignments List Component
+
+#### Component Overview
+- **Description**: A detailed view of ongoing projects, listing all current projects with the teams assigned and their respective workloads. The component is tailored for desktop use, ensuring a user-friendly interface conducive to detailed analysis.
+- **Functionality**: The ProjectAssignmentsList component serves as a comprehensive dashboard, displaying all active projects alongside assigned teams and their respective workloads. It supports sorting, filtering, inline editing, and interactivity with related components like the TeamWorkloadChart.
+
+#### Core Features
+1. **Table Rendering**: 
+   - A responsive table that adapts to various screen sizes, showcasing columns for Project Name, Assigned Team, and Workload percentage.
+   - Each row is clickable, providing detailed interaction and options for editing or filtering.
+
+2. **Search and Filter Functionality**: 
+   - A search bar located prominently at the top of the table for quick data retrieval.
+   - Filters for project status (ongoing, completed, on-hold) and workload distribution (low, medium, high) using dropdown menus.
+
+3. **Inline Editing**: 
+   - Clicking on a project or team opens an inline editing interface, with validation checks to ensure workload allocations sum to 100% per team.
+   - Changes automatically reflect in the displayed data without needing to refresh the page.
+
+4. **Interconnectivity**: 
+   - Click events on project/team entries trigger filters on the TeamWorkloadChart, providing visual insights into workload distribution.
+   - A project selection redirects users to a detailed project editing page for comprehensive management.
+
+#### User Interaction Flow
+- Users click on project or team entries to access editing options or detailed views.
+- The selection of a project or team dynamically updates the TeamWorkloadChart and displays inline editing forms for real-time adjustments.
+
+#### Enhancements for User Engagement and Functionality
+1. **Data Visualization Enhancements**:
+   - Integrate ECharts or similar libraries for dynamic visual representation of workload data. Options include bar charts or pie charts that reflect the current selection.
+   - A "View History" feature should be included to display historical workload changes over time.
+
+2. **Notifications and Alerts**:
+   - Implement a notification system to alert users about changes in project status or workload allocations. For instance, notifications could state, "Project X workload increased to 80%."
+
+3. **Customization Options**:
+   - Allow users to customize their project list view (e.g., column reordering, row highlighting for overworked teams).
+   - Store user preferences (like view settings) in local storage to maintain consistency across sessions.
+
+4. **Gamification**:
+   - Introduce a points system where users earn points for updating project statuses or completing tasks. A leaderboard can showcase top-performing teams based on points earned.
+
+5. **Dynamic Content Update**:
+   - Implement a timer or polling mechanism that refreshes displayed data periodically, ensuring users have access to the latest information without manual refresh.
+
+#### Potential Challenges and Solutions
+- **Challenge**: Managing inline editing validation for workload percentages.
+   - **Solution**: Employ helper functions to verify that the total workload percentage sums to 100% before allowing any changes to be submitted.
+
+- **Challenge**: Performance issues with large datasets in the table.
+   - **Solution**: Utilize virtualization techniques to render only visible rows in the table, significantly improving performance.
+
+- **Challenge**: Keeping users engaged with potentially static data.
+   - **Solution**: Incorporate dynamic visualizations and notifications that update in response to user interactions and project updates.
+
+#### Prioritization of Ideas
+1. **Inline Editing with Validation** - High impact, essential for user efficiency.
+2. **Data Visualization Enhancements** - High impact, enhances understanding of workload data.
+3. **Search and Filter Functionality** - High impact, critical for navigating large datasets.
+4. **Notifications and Alerts** - Medium impact, keeps users informed of important changes.
+5. **Customization Options** - Medium impact, improves user experience through personalization.
+6. **Gamification** - Low to medium impact, encourages engagement but needs careful design.
+7. **Dynamic Content Update** - Low impact, beneficial but not crucial for initial rollout.
+
+### Step-by-Step Plan for Implementation
+
+#### 1. Clarification
+- **Table Rendering**: Ensure the table is built using a library like React Table for easy data manipulation.
+- **Search and Filter Functionality**: Implement a robust search mechanism that filters results in real-time.
+- **Inline Editing**: Create a user-friendly UI for editing that validates inputs dynamically.
+- **Interconnectivity**: Use state management to handle selection events and update related charts.
+
+#### 2. Implementation Guidance
+- **Table Component**: 
+    - Utilize a library such as React Table to manage data rendering efficiently.
+    - Define columns for Project Name, Assigned Team, and Workload percentage.
+  
+- **Search and Filter**: 
+    - Implement stateful search functionality using React hooks.
+    - Create controlled components for filters that update the displayed data on change events.
+
+- **Inline Editing**: 
+    - Set up a modal or inline edit fields that allow users to alter project details.
+    - Validate the workload percentage using a helper function before submission.
+
+- **Interconnectivity**: 
+    - Use callback functions to pass selected project/team details to the TeamWorkloadChart.
+    - Implement routing logic to navigate to a detailed editing page for selected projects.
+
+#### 3. Efficiency
+- Structure the component to load data in chunks, especially for large datasets.
+- Use memoization techniques to optimize rendering processes.
+
+#### 4. Technical Specifications
+- **Frameworks**: React for the front end, ECharts for data visualization.
+- **Libraries**: React Table for table management, localForage for local storage options.
+- **State Management**: Utilize Context API or Redux for managing application state.
+
+#### 5. Examples
+- **Inline Editing Example**: When a user clicks on a workload cell, an input field appears, allowing for direct editing. If the total workload percentage exceeds 100%, a validation message appears, preventing submission.
+  
+- **Notification Example**: On project updates, trigger a toast notification saying, "Project X workload increased to 80%."
+
+#### 6. Edge Cases
+- **Edge Case**: User tries to set workload percentages that exceed 100%.
+    - **Testing Method**: Simulate user input scenarios and check for appropriate validation messages.
+
+- **Edge Case**: Large dataset causing performance issues.
+    - **Testing Method**: Load a dataset of varying sizes and measure rendering speed and responsiveness.
+
+#### 7. Enhancements
+- Optimize the table rendering further through lazy loading or pagination for large datasets.
+- Consider integrating a user feedback loop to gather insights on the component's usability, leading to iterative improvements.
+
+This comprehensive plan encapsulates the functionality, user interaction flow, enhancements, challenges, prioritization, and step-by-step implementation guidance for the ProjectAssignmentsList component, ensuring a robust and user-friendly experience tailored for desktop use.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: MilestoneList, Component requirements: ### Final Plan
+
+#### **Component Description**
+- **Milestone List Component**
+  - Provides a comprehensive overview of all project milestones, displaying their statuses and due dates. This component is essential for project managers to monitor progress and keep team members informed about upcoming deadlines.
+
+#### **Core Functionality**
+- Displays each milestone with:
+  - Name
+  - Due Date
+  - Color-coded status indicator (e.g., on track, at risk, delayed)
+- Allows for the following actions:
+  - Sorting and filtering by due date or status
+  - Integration with a calendar view for visual representation
+  - Tooltip details on hover for additional information
+
+#### **Details**
+- **Enhanced Features:**
+  1. **Interactive Calendar Integration**: 
+      - Allows users to switch between the milestone list and a calendar view, enhancing visual tracking of deadlines.
+  2. **Gantt Chart Visualization**:
+      - Adds a Gantt chart to visualize project timelines and task dependencies, helping users understand the flow of the project.
+  3. **Milestone Progress Tracking**:
+      - Allows users to view the percentage completion of each milestone with a progress bar.
+  4. **Notifications**:
+      - Users can opt-in to receive notifications for upcoming deadlines or changes in milestone status.
+  5. **Customizable Views**:
+      - Users can save their preferred view settings (e.g., list vs. calendar) and filters for quick access.
+  6. **Gamification Elements**:
+      - Introduce badges for completing milestones on time, which can encourage team members to meet deadlines.
+
+#### **Interconnectivity**
+- **Integration with Other Components**:
+  - **Calendar View**: Provides a visual timeline of milestones, accessible through the Milestone List.
+  - **Gantt Chart Module**: Allows users to see task dependencies and project timelines.
+
+#### **User Interaction**
+- **Interactivity**:
+  - Users can click on a milestone to view or edit its details.
+  - Hovering over a milestone reveals additional details and any associated tasks.
+- **Detailed View Functionality**:
+  - Clicking on a milestone opens a detailed view or popup, showing:
+    - Related tasks
+    - Timeline adjustments
+    - Ability to edit milestone details
+    - Assignment of tasks and status updates
+
+#### **Planning Outline for New Features**
+1. **Interactive Calendar Integration**:
+   - **Main Functionality**: Switch between milestone list and calendar view.
+   - **Key Components**: Calendar component, milestone list component.
+   - **Data Requirements**: Dummy data for milestones with due dates.
+   - **User Interaction Flow**: Click on the calendar icon to toggle views.
+   - **Challenges/Solutions**: Ensure seamless transition; utilize animation for smoother UX.
+   - **Enhancements**: Provide day, week, and month views, allowing users to adjust the granularity of the calendar.
+
+2. **Gantt Chart Visualization**:
+   - **Main Functionality**: Display project timelines and task dependencies.
+   - **Key Components**: Gantt chart component.
+   - **Data Requirements**: Dummy data representing tasks and dependencies.
+   - **User Interaction Flow**: Users can click on tasks for details.
+   - **Challenges/Solutions**: Complexity in rendering; utilize ECharts for robust visualization.
+   - **Enhancements**: Allow users to drag and drop tasks to adjust their timelines.
+
+3. **Milestone Progress Tracking**:
+   - **Main Functionality**: Show completion percentage for milestones.
+   - **Key Components**: Progress bar component.
+   - **Data Requirements**: Dummy data for milestone completion stats.
+   - **User Interaction Flow**: Hover over progress bar for detailed breakdown.
+   - **Challenges/Solutions**: Accurate data representation; use calculated fields for percentages.
+   - **Enhancements**: Provide historical tracking of progress over time.
+
+4. **Notifications**:
+   - **Main Functionality**: Alert users about upcoming deadlines.
+   - **Key Components**: Notification system.
+   - **Data Requirements**: Dummy data for user preferences.
+   - **User Interaction Flow**: Users can opt-in through settings.
+   - **Challenges/Solutions**: Avoid overwhelming users; allow customization of notification frequency.
+   - **Enhancements**: Introduce reminders that can be set for various intervals before the deadline.
+
+5. **Customizable Views**:
+   - **Main Functionality**: Save user preferences for view settings.
+   - **Key Components**: Settings module.
+   - **Data Requirements**: Dummy data for user preferences.
+   - **User Interaction Flow**: Users can set preferences in a dedicated settings section.
+   - **Challenges/Solutions**: Ensuring user preferences are easily accessible; implement a simple UI.
+   - **Enhancements**: Allow users to switch between light and dark modes.
+
+6. **Gamification Elements**:
+   - **Main Functionality**: Award badges for timely milestone completion.
+   - **Key Components**: Badge display component.
+   - **Data Requirements**: Dummy data for user achievements.
+   - **User Interaction Flow**: Users can view badges in their profile.
+   - **Challenges/Solutions**: Balancing motivation and pressure; ensure badges are meaningful.
+   - **Enhancements**: Introduce a leaderboard to foster competition among team members.
+
+#### **Prioritization**
+1. **Interactive Calendar Integration** - High impact, feasible.
+2. **Gantt Chart Visualization** - High impact, moderate complexity.
+3. **Milestone Progress Tracking** - Medium impact, easy to implement.
+4. **Notifications** - Medium impact, straightforward implementation.
+5. **Customizable Views** - Medium impact, moderate complexity.
+6. **Gamification Elements** - Low to medium impact, additional complexity.
+
+#### **Step-by-Step Plan**
+
+1. **Clarification**: 
+   - Ensure all functionalities are clearly defined and understood. Each feature should have a documented purpose and how it integrates with the overall Milestone List Component.
+
+2. **Implementation Guidance**:
+   - For each feature, break down the implementation into:
+     - Define data structures (e.g., milestone objects).
+     - Create UI components (e.g., milestone card, progress bar).
+     - Develop logic for data manipulation (e.g., sorting, filtering).
+     - Integrate with existing components (e.g., calendar, Gantt chart).
+
+3. **Efficiency**:
+   - Structure the code to minimize redundancy. Use reusable components and hooks for state management and side effects.
+
+4. **Technical Specifications**:
+   - Use frameworks like React for component-based architecture and libraries like D3.js or ECharts for visualizations.
+   - Utilize CSS frameworks like Bootstrap or Tailwind CSS for responsive design.
+
+5. **Examples**:
+   - Provide examples for key functionalities:
+     - Milestone object structure:
+       ```javascript
+       {
+         id: '1',
+         name: 'Launch Product',
+         dueDate: '2023-10-30',
+         status: 'on track',
+         completionPercentage: 75
+       }
+       ```
+
+6. **Edge Cases**:
+   - Consider scenarios such as:
+     - What happens if a milestone's due date is changed?
+     - How to handle conflicts if multiple users edit the same milestone?
+   - Implement error handling to manage user interactions gracefully and provide meaningful feedback.
+
+7. **Enhancements**:
+   - Continuously gather user feedback to iterate on feature enhancements.
+   - Monitor performance and optimize load times for data-heavy components.
+
+This plan outlines a comprehensive and detailed approach to enhancing the Milestone List component of a project management tool, focusing on user engagement, data visualization, interactivity, and productivity tools. The implementation of these features will provide users with a robust and insightful experience while managing their projects.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: ChatMessages, Component requirements: ### Final Plan for ChatMessages Component Enhancement
+
+#### Description
+The ChatMessages component serves as a critical interface for users to engage in real-time discussions about their projects. Enhancements to this component will provide a more robust user experience, improve interactivity, and facilitate better collaboration among team members.
+
+#### Content
+- **Component Description**: Renders a list of messages for the selected project, displaying conversations with timestamps and user identifiers, now enhanced with additional interactive features.
+- **Functionality**: The ChatMessages component displays chat history for the selected project and introduces new interactive features, such as message reactions, threaded conversations, and user tagging. The component dynamically updates in real-time as new messages are sent or received, ensuring a continuous flow of communication. Each message includes relevant information such as the sender's name, message content, timestamp, and options for further engagement, organized chronologically for clarity.
+- **Details**: 
+  - Displays messages with sender's name, content, and timestamp for context.
+  - Supports real-time updates, ensuring new messages appear without page refresh.
+  - Includes features like message reactions (thumbs-up, heart), threading for related conversations, and scrolling for extensive histories.
+  - Ensures accessibility with clear typography and spacing.
+  - Allows users to tag other team members in messages for direct notifications.
+- **Is Visible**: True
+- **Interconnectivity**: 
+  - **Page URL**: `/team-collaboration/chat`
+  - **Description**: Central component for displaying chat history, essential for real-time communication.
+- **User Interaction**: 
+  - **Interact**: Users can scroll through messages, react to messages, initiate threaded conversations, and tag other users in their replies.
+  - **Possible Interactions**: Clicking on a message may open a detailed view or threading options, while tagging a user will notify them directly.
+  - **Result**: Displays message details, options for interaction (e.g., react, reply), and notifications for tagged users.
+  - **Result Functionality**: Enhances communication by allowing deeper engagement with specific messages, facilitating notifications for tagged users, and enabling threaded discussions for better organization.
+
+### New Feature Ideas
+
+1. **Message Reactions**
+    - **Main Functionality**: Users can react to messages using emojis (thumbs up, heart, etc.).
+    - **Key Components**: Reaction buttons for each message.
+    - **Data Requirements**: Dummy data for reactions (e.g., `{"messageId": 1, "reactions": {"thumbsUp": 3, "heart": 5}}`).
+    - **User Interaction Flow**: Users click on the reaction button, a popup shows available reactions; upon selection, the count updates.
+    - **Potential Challenges and Solutions**: Ensuring real-time updates can be complex; use local state management to manage reactions without re-fetching data.
+
+2. **Threaded Conversations**
+    - **Main Functionality**: Users can create threads for specific messages to keep discussions organized.
+    - **Key Components**: Expandable threads under each message.
+    - **Data Requirements**: Dummy data structure for threads (e.g., `{"messageId": 1, "thread": [{"userId": 2, "content": "I agree!", "timestamp": "2023-10-01T12:00:00Z"}]}`).
+    - **User Interaction Flow**: Users click on a "Reply" button to open a text box for their response, which then appears as a nested message.
+    - **Potential Challenges and Solutions**: Managing deep nesting could complicate rendering; limit the depth of threads or implement a "load more" feature.
+
+3. **User Tagging**
+    - **Main Functionality**: Users can tag team members in messages to notify them.
+    - **Key Components**: Input field with a tagging feature (similar to @mentions).
+    - **Data Requirements**: Dummy data for users (e.g., `{"userId": 1, "name": "John Doe"}`).
+    - **User Interaction Flow**: Users type "@" followed by the user’s name, which suggests user options from a dropdown.
+    - **Potential Challenges and Solutions**: Implementing an efficient search for users; use a local list of user data to suggest as the user types.
+
+4. **Notification System**
+    - **Main Functionality**: Notify users of new messages, reactions, and mentions.
+    - **Key Components**: Notification bell icon that shows unread notifications.
+    - **Data Requirements**: Dummy data for notifications (e.g., `{"userId": 1, "notifications": [{"type": "mention", "messageId": 1}]}`).
+    - **User Interaction Flow**: Users click the notification icon to view all notifications.
+    - **Potential Challenges and Solutions**: Managing the state of notifications; use local state to track read/unread status.
+
+5. **Message Filtering**
+    - **Main Functionality**: Users can filter messages by date, sender, or keywords.
+    - **Key Components**: Filter input fields and dropdowns.
+    - **Data Requirements**: Dummy data for messages to demonstrate filtering (e.g., `{"messages": [{"sender": "Alice", "content": "Hello", "timestamp": "2023-10-01"}]}`).
+    - **User Interaction Flow**: Users select filters and the message list updates accordingly.
+    - **Potential Challenges and Solutions**: Ensuring performance with large datasets; implement lazy loading or pagination.
+
+### Prioritization of Ideas
+1. Message Reactions
+2. Threaded Conversations
+3. User Tagging
+4. Notification System
+5. Message Filtering
+
+### Summary
+The enhancements proposed for the ChatMessages component focus on improving interactivity and user engagement through features like message reactions, threaded conversations, user tagging, notifications, and filtering. This will create a more dynamic environment for team collaboration and ensure that users have a comprehensive and organized view of project discussions. Each feature is designed to be feasible for implementation in a single-page React application while aligning with the existing theme and purpose of the chat functionality.
+
+### Step-by-Step Plan
+
+#### 1. Clarification
+Ensure each point from the original plan is well understood and feasible. Clarify the data structures needed for each new feature and how they will interact with existing components.
+
+#### 2. Implementation Guidance
+- **Message Reactions**: Create a React component for the reaction button, allowing users to click and select reactions. Use local state to keep track of the number of reactions, updating the UI dynamically.
+- **Threaded Conversations**: Implement a child component for displaying replies under each message. Use a toggle state to show/hide threads and manage thread submission through state management.
+- **User Tagging**: Create an input component that listens for "@" and suggests users from a predefined list. On user selection, insert the tagged user's name into the message.
+- **Notification System**: Use a badge component to display the number of unread notifications. Implement a dropdown to view notifications upon clicking the bell icon.
+- **Message Filtering**: Create filter components that trigger a re-render of the message list based on user input. Filtering should apply to local state to avoid unnecessary API calls.
+
+#### 3. Efficiency
+Organize code into reusable components to maximize efficiency. Group related features into modules to minimize component re-renders and optimize performance.
+
+#### 4. Technical Specifications
+- **Framework**: React.js for frontend implementation.
+- **State Management**: Use React's Context API or a state management library like Redux for managing global state.
+- **Real-time Updates**: Implement WebSocket or similar technology for real-time message updates.
+
+#### 5. Examples
+- **Message Reactions**: 
+  - Example: User clicks a thumbs-up button to react to a message.
+- **Threaded Conversations**: 
+  - Example: User replies to a message, and the reply is nested under the original message.
+- **User Tagging**: 
+  - Example: User types "@Jane" and sees suggestions for tagging.
+- **Notification System**: 
+  - Example: User receives a notification when tagged in a conversation.
+- **Message Filtering**: 
+  - Example: User filters messages by sender name "Alice".
+
+#### 6. Edge Cases
+- **Message Reactions**: Ensure reactions can be added and removed, with proper state updates.
+- **Threaded Conversations**: Handle empty threads gracefully and manage the maximum depth of threads.
+- **User Tagging**: Handle cases where no users match the input and ensure proper escape for special characters.
+- **Notification System**: Clear notifications after they have been viewed, and manage cases where multiple notifications occur in quick succession.
+- **Message Filtering**: Ensure that no messages are lost during filtering, and handle cases where no messages match the filter criteria.
+
+#### 7. Enhancements
+- Implement a "load more" functionality for long conversation threads.
+- Consider adding keyboard shortcuts for faster interaction (e.g., using arrow keys to navigate through messages).
+- Enhance accessibility features, ensuring all interactive elements are keyboard navigable and screen reader-friendly.
+
+### Final Plan Summary
+This comprehensive plan outlines the enhancements for the ChatMessages component, focusing on functionality, user engagement, and interactivity. The implementation of new features like message reactions, threaded conversations, user tagging, notifications, and filtering will greatly improve the user experience and facilitate seamless collaboration among team members. Each feature is designed to work together cohesively, ensuring a robust and dynamic chat interface for desktop users.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: ProfileCard, Component requirements: **Final Plan for TeamProfileList Component**
+
+---
+
+### **Component Overview**
+The TeamProfileList component serves as a centralized hub for displaying team members' profiles, enhancing user engagement through interactivity, data visualization, and management functionalities. The ProfileCard will encapsulate individual member details, showcasing their role, skills, workload, and performance metrics.
+
+---
+
+### **Component Description**
+- **ProfileCard**: Represents each team member, displaying:
+    - Member's Name
+    - Role
+    - Skills (displayed as tags)
+    - Current Workload (shown as a progress bar)
+    - Performance metrics (accessible via modal)
+    - Edit and Delete buttons
+
+---
+
+### **Functionality**
+1. **Display Information**
+   - Each ProfileCard displays:
+     - Name
+     - Role
+     - Skills in a visually appealing format (using SkillTag component)
+     - Current Workload as a colored progress bar that illustrates workload percentage.
+
+2. **Interactive Features**
+   - **Edit Button**: Opens TeamProfileForm pre-filled with the member's information.
+   - **Delete Button**: Triggers a confirmation dialog to prevent accidental deletions; upon confirmation, updates the TeamProfileList.
+
+3. **Performance Metrics Visualization**
+   - Clicking a ProfileCard opens a modal that displays performance metrics using ECharts, showing tasks completed, average completion time, etc.
+
+4. **Skill Tags and Endorsements**
+   - Skills are displayed as tags with an endorsement button. Users can endorse skills, and the count is shown in a tooltip on hover.
+
+5. **Task Assignment Feature**
+   - A dropdown in the ProfileCard allows users to assign tasks directly to members. Upon assignment, the workload bar updates accordingly.
+
+6. **Gamification Elements**
+   - Badges are displayed on the ProfileCard, indicating achievements. Users can click on badges for more details.
+
+7. **Notification System**
+   - Real-time notifications alert users when a team member's workload changes significantly.
+
+---
+
+### **Details**
+- **Data Structures**:
+  - Member Data Object:
+    ```javascript
+    {
+      id: String,
+      name: String,
+      role: String,
+      skills: Array of Strings,
+      workload: Number (percentage),
+      performanceMetrics: Object,
+      endorsements: Array of Strings,
+      badges: Array of Strings
+    }
+    ```
+
+- **Events and State Management**:
+  - Utilize a state management library (e.g., Redux) to manage the global state of team profiles, workload updates, and notifications.
+  - Implement context API for localized state management within the ProfileCard.
+
+---
+
+### **User Interaction**
+1. **Editing a Profile**:
+   - On clicking 'edit', the TeamProfileForm opens with pre-filled data.
+   - Ensure the form validates input before submission.
+   
+2. **Deleting a Profile**:
+   - On clicking 'delete', show a confirmation dialog (e.g., "Are you sure you want to delete this profile?").
+   - If confirmed, remove the profile from the TeamProfileList and update state.
+
+3. **Viewing Performance Analytics**:
+   - On clicking a ProfileCard, display a modal with ECharts rendering performance metrics:
+     - Tasks Completed
+     - Average Completion Time
+     - Other relevant metrics
+
+4. **Endorsing Skills**:
+   - On clicking 'endorse' for a skill, update the endorsements count and prevent duplicate endorsements.
+
+5. **Task Assignment**:
+   - Users select a task from a dropdown and click 'assign', which triggers an update to the team member’s workload.
+
+6. **Gamification**:
+   - When a badge is clicked, display a tooltip or modal with details on how it was earned.
+
+7. **Notifications**:
+   - Use a Notification component to display alerts at the top of the page; allow users to dismiss or click for more details.
+
+---
+
+### **Implementation of New Features**
+1. **Profile Performance Analytics**:
+   - Integrate ECharts for visual representation of performance metrics.
+   - Create a modal component to display detailed analytics.
+
+2. **Skill Tags and Endorsements**:
+   - Build SkillTag component for displaying skills.
+   - Implement endorsement functionality with state management for tracking endorsements.
+
+3. **Task Assignment Feature**:
+   - Develop TaskAssignment component with a dropdown for task selection.
+   - Ensure it updates the workload bar upon assignment.
+
+4. **Gamification Elements**:
+   - Create BadgeDisplay component to show earned badges.
+   - Define criteria for badges and ensure integration with ProfileCard rendering.
+
+5. **Notification System**:
+   - Implement a Notification component that listens for workload changes.
+   - Define triggers based on workload percentage changes.
+
+---
+
+### **Prioritization of Features**
+1. **Profile Performance Analytics** - High impact.
+2. **Skill Tags and Endorsements** - High impact.
+3. **Task Assignment Feature** - Medium impact.
+4. **Gamification Elements** - Medium impact.
+5. **Notification System for Workload Changes** - Low impact.
+
+---
+
+### **Edge Cases and Testing**
+- **Profile Editing**: Ensure input validation checks for empty fields and correct data types.
+- **Profile Deletion**: Test confirmation dialog to prevent accidental deletions.
+- **Performance Metrics**: Validate that ECharts correctly renders all performance data.
+- **Endorsements**: Check for duplicate endorsements and ensure state updates reflect accurately.
+- **Task Assignment**: Ensure that workload updates do not exceed 100%.
+
+---
+
+### **Enhancements and Optimizations**
+- **Performance Optimization**: Use memoization techniques (e.g., React.memo) for components that do not need to re-render frequently.
+- **Accessibility**: Ensure all interactive elements are keyboard navigable and screen-reader friendly.
+- **User Preferences**: Allow users to customize notification settings to avoid overload.
+
+---
+
+By implementing this structured plan, the TeamProfileList will be a robust, interactive, and user-friendly component that empowers team management and enhances visibility into individual member contributions.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: AlertsNotification, Component requirements: **Final Plan**
+
+- **Description**
+    - The plan focuses on enhancing the AlertsNotification component within a professional ERP system, aiming to provide an engaging user experience through improved interactivity, data visualization, and productivity tools. The goal is to create a dynamic environment where users can easily manage workload imbalances and receive actionable insights.
+
+- **Component Description**
+    - A robust AlertsNotification component that displays alerts for imbalances in team workloads, notifying users of any teams exceeding predefined workload thresholds.
+
+- **Functionality**
+    - The AlertsNotification component serves as a critical alert system, notifying users of any teams that exceed predefined workload thresholds. It displays notifications in real-time, using color-coded badges to draw attention to critical alerts. Users can click on an alert to navigate to the relevant section of the dashboard or to a detailed view of the alert. This component is designed to be reusable across different pages, ensuring consistent alert management throughout the application.
+
+- **Details**
+    - **Alert Severity Badges**: 
+        - Utilize badges to indicate alert severity, with color coding for different levels of urgency (e.g., green for normal, yellow for warning, red for critical).
+    - **Real-Time Updates**: 
+        - Implement WebSocket connections for immediate alert display.
+    - **Clickable Alerts**: 
+        - Enable alerts to be clickable, linking to detailed views or relevant sections of the dashboard.
+    - **Integration Support**: 
+        - Facilitate integration with external alert systems for broader notification management.
+    - **New Features**:
+        - **Interactive Charts**: Integrate ECharts to visualize workload data trends, allowing users to see historical data and workload distribution among teams.
+        - **Customizable Alerts**: Allow users to set their own thresholds for alerts, providing a more tailored experience.
+        - **Gamification Elements**: Introduce a rewards system for teams that maintain balanced workloads, encouraging better management practices.
+        - **Feedback Mechanism**: Allow users to provide feedback on alerts, helping to refine the alert system over time.
+        - **Dynamic Notifications**: Notifications can be categorized (e.g., informational, warnings) and filtered based on user preferences.
+        
+- **Visibility**
+    - The component is designed to be visible at all times while using the application, ensuring users are constantly informed of workload imbalances.
+
+- **Interconnectivity**
+    - Links to detailed alert information providing deeper insights into alert causes and potential resolutions via `/alert/details`.
+
+- **User Interaction**
+    - **Interaction Flow**: Users can click on an alert notification to view more details or take action.
+        - **Possible Interactions**: Clicking navigates to detailed alert information or relevant dashboard sections.
+        - **Result**: Display detailed alert information or focused dashboard view, aiding in quick response to critical issues.
+        - **Result Functionality**: Ensures users can quickly address and manage workload imbalances by providing direct access to alert details and recommended actions.
+
+- **Idea Generation**
+    - **User Engagement**: Implement a dashboard widget that summarizes overall team workload, visible at all times.
+    - **Data Visualization**: Use ECharts to create workload distribution graphs, showing team members’ individual loads for better understanding.
+    - **Interactivity**: Allow users to filter alerts based on time frames and severity levels.
+    - **Information Presentation**: Use tooltips on alerts to provide instant insights without navigating away from the current view.
+    - **Productivity Tools**: Introduce a task management feature within alerts, allowing users to assign tasks directly related to the alerts.
+    - **Customization Options**: Provide themes for the alert system, allowing users to personalize the appearance based on preferences.
+    - **Gamification**: Create a leaderboard highlighting teams with the best workload management practices.
+    - **Dynamic Content**: Update alerts based on real-time data adjustments, ensuring users always see the most current information.
+    - **Notifications**: Introduce sound alerts for critical notifications to ensure immediate attention.
+
+- **Planning Outline**
+    - **Main Functionality**: AlertsNotification will display real-time alerts for workload imbalances with advanced interactive features.
+    - **Key Components**:
+        - ECharts integration for data visualization.
+        - Customizable alert settings.
+        - Gamification elements and user feedback mechanisms.
+    - **Data Requirements**:
+        - Dummy data for alerts with fields like `teamName`, `workload`, `threshold`, `severity`, and timestamps.
+        - Dummy workload data for ECharts, including historical performance data for teams.
+    - **User Interaction Flow**:
+        - User receives an alert, clicks on it, and views detailed information or visualizations.
+        - Users can adjust alert thresholds and preferences easily from the alerts settings page.
+    - **Potential Challenges and Solutions**:
+        - **Challenge**: Ensuring real-time updates without overwhelming users with notifications.
+            - **Solution**: Implement a throttling mechanism for alerts, grouping similar alerts together.
+        - **Challenge**: Ensuring data accuracy in ECharts visualizations.
+            - **Solution**: Regularly update dummy data sets to reflect realistic scenarios during testing.
+
+- **Prioritization**
+    - Rank the ideas based on their potential impact and feasibility of implementation:
+        1. Interactive Charts (High impact, feasible)
+        2. Customizable Alerts (High impact, feasible)
+        3. Dynamic Notifications (Medium impact, feasible)
+        4. User Engagement Dashboard Widget (Medium impact, moderate feasibility)
+        5. Gamification Elements (Medium impact, moderate feasibility)
+        6. Feedback Mechanism (Medium impact, feasible)
+        7. Task Management Feature (Low impact, moderate feasibility)
+        8. Customization Options (Low impact, moderate feasibility)
+        9. Tooltips on Alerts (Low impact, feasible)
+
+### Step-by-Step Plan
+
+1. **Clarification of Functional Requirements**:
+   - Confirm that alerts are based on threshold levels set by users.
+   - Define alert categories for better filtering (informational, warning, critical).
+
+2. **Implementation of Real-Time Alerts**:
+   - **WebSocket Setup**: Establish WebSocket connections for real-time updates on workload changes.
+   - **Notification Display Logic**: Create a function to display alerts based on the incoming data.
+
+3. **Color-Coded Badges**:
+   - Implement a badge system using CSS classes to differentiate alert severity visually (green, yellow, red).
+
+4. **Clickable Alerts**:
+   - Implement click functionality for alerts that redirects users to detailed information.
+
+5. **ECharts Integration**:
+   - Set up ECharts to visualize workload data trends.
+   - Create functions to fetch and display historical data.
+
+6. **Customizable Alerts**:
+   - Develop a settings page allowing users to customize their alert thresholds.
+   - Store user preferences locally or in a centralized state for easy access.
+
+7. **Gamification Features**:
+   - Design a simple rewards system that tracks team performance.
+   - Implement a leaderboard displaying top-performing teams.
+
+8. **User Feedback Mechanism**:
+   - Create a feedback form linked to each alert for users to provide input.
+
+9. **Dynamic Notifications**:
+   - Enable categorization and filtering of alerts based on user-defined parameters.
+
+10. **Testing and Edge Cases**:
+    - Define edge cases such as overlapping alerts or rapid changes in workload.
+    - Implement tests to ensure alerts do not overwhelm users; use a throttling mechanism.
+
+11. **Enhancements**:
+    - Consider adding sound notifications for critical alerts.
+    - Implement tooltip functionality for quick insights on hover.
+
+### Final Notes
+
+This plan comprehensively outlines the features and functionalities of the AlertsNotification component, ensuring a user-centric approach that prioritizes engagement, interactivity, and effective workload management within the ERP system. The step-by-step plan provides clear guidelines for implementation, focusing on practical coding aspects to facilitate the development process.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: PhaseStatus, Component requirements: ### Final Plan for PhaseStatus Component Enhancement
+
+#### **Component Overview**
+- **Component Description**
+    - The PhaseStatus component visually represents the current project phase, incorporating progress indicators for each phase. The component will be enhanced with new features and functionalities to improve user engagement and project management efficiency.
+
+#### **Functionality**
+- The PhaseStatus component serves as a graphical representation of the project's current phase and its progress. It utilizes visual elements such as progress bars and circular indicators to depict the completion status of each phase (completed, in progress, or pending). This component aims to provide stakeholders with a quick visual summary of the project's status, enabling informed decision-making and effective resource allocation.
+
+#### **Enhancements and Features**
+1. **Enhanced Progress Visualization**
+    - **Implementation Guidance**:
+        - Utilize a combination of linear progress bars and circular indicators to represent completion visually.
+        - Integrate tooltips upon hover that display:
+            - Completion percentage
+            - Phase name
+            - Expected vs. actual completion dates
+        - Apply CSS animations for smooth transitions as progress updates occur.
+    - **Technical Specifications**:
+        - Use libraries like Chart.js or D3.js for graphical representations.
+        - CSS animations for visual transitions.
+    - **Example**:
+        - When hovering over a phase labeled "Development," the tooltip shows "60% Complete - Expected: 10/01/2023, Actual: N/A."
+
+2. **Detailed Phase Breakdown**
+    - **Implementation Guidance**:
+        - On clicking a phase, a modal opens showing:
+            - Detailed task lists with status indicators.
+            - Assigned team members and deadlines.
+            - A Kanban-style board for task management (To Do, In Progress, Done).
+        - Use state management (like Redux) to handle modal visibility and task data.
+    - **Technical Specifications**:
+        - Modal component using a library like React Modal or Material-UI.
+        - Kanban board functionality using libraries such as React Beautiful DnD.
+    - **Example**:
+        - Clicking "Development" opens a modal showing tasks: "Module A (In Progress)" and "Module B (Pending)."
+
+3. **Customization Options**
+    - **Implementation Guidance**:
+        - Allow users to customize display settings for progress indicators (colors, shapes).
+        - Implement filtering options based on team members, deadlines, or priority levels.
+    - **Technical Specifications**:
+        - Use controlled components for settings (color pickers, dropdowns).
+        - Local storage to save user preferences.
+    - **Example**:
+        - Users can select a color scheme where completed phases appear in green, in-progress in blue, and pending in red.
+
+4. **Notifications and Alerts**
+    - **Implementation Guidance**:
+        - Create a notification system that alerts users:
+            - When a phase is approaching its deadline.
+            - For overdue tasks.
+        - Allow users to set custom reminders for critical phases or tasks.
+    - **Technical Specifications**:
+        - Utilize libraries like React Toastify for displaying notifications.
+        - Implement a reminder system using JavaScript's `setTimeout` or `setInterval`.
+    - **Example**:
+        - A notification appears stating, "Reminder: The 'Module B' task is due in 2 days!"
+
+5. **Gamification Elements**
+    - **Implementation Guidance**:
+        - Introduce achievement badges for team members completing phases ahead of schedule.
+        - Display a leaderboard reflecting top-performing team members based on phase completion rates.
+    - **Technical Specifications**:
+        - Create a leaderboard component using a simple scoring algorithm.
+        - Use local state or a simple API to track and display user achievements.
+    - **Example**:
+        - A badge is awarded to "Alice" for completing the "Planning" phase ahead of time.
+
+6. **Dynamic Content Updates**
+    - **Implementation Guidance**:
+        - Implement live updates to progress indicators as team members update task statuses.
+        - Simulate real-time updates with dummy data during development.
+    - **Technical Specifications**:
+        - Use WebSockets or polling for real-time updates.
+        - Consider using React's Context API for state management.
+    - **Example**:
+        - As "Charlie" marks "Module A" as complete, the progress indicator for "Development" updates to 100%.
+
+#### **User Interaction Flow**
+1. **Phase Overview**:
+    - Users see color-coded phases with progress indicators at a glance.
+2. **Detailed Interaction**:
+    - Hovering over a phase reveals completion details; clicking opens a detailed modal.
+3. **Task Management**:
+    - Within the modal, users can manage tasks using a Kanban board.
+4. **Customization**:
+    - Users access settings to customize their view and notifications.
+5. **Engagement**:
+    - Users earn badges and can view leaderboards to encourage participation.
+
+#### **Data Requirements**
+- Dummy Data Structure:
+```json
+{
+    "phases": [
+        {
+            "name": "Planning",
+            "status": "completed",
+            "completionPercentage": 100,
+            "tasks": [
+                {"taskName": "Define Scope", "assignedTo": "Alice", "dueDate": "2023-09-10", "status": "completed"},
+                {"taskName": "Stakeholder Approval", "assignedTo": "Bob", "dueDate": "2023-09-15", "status": "completed"}
+            ]
+        },
+        {
+            "name": "Development",
+            "status": "in progress",
+            "completionPercentage": 60,
+            "tasks": [
+                {"taskName": "Module A", "assignedTo": "Charlie", "dueDate": "2023-10-01", "status": "in progress"},
+                {"taskName": "Module B", "assignedTo": "Diana", "dueDate": "2023-10-05", "status": "pending"}
+            ]
+        },
+        {
+            "name": "Testing",
+            "status": "not started",
+            "completionPercentage": 0,
+            "tasks": []
+        }
+    ]
+}
+```
+
+#### **Potential Challenges and Solutions**
+- **Challenge**: User overload with too much information.
+    - **Solution**: Implement filtering and customization options to tailor displayed information.
+- **Challenge**: Real-time updates may cause performance issues.
+    - **Solution**: Optimize the component to update only necessary UI parts instead of re-rendering the entire component.
+- **Challenge**: Ensuring user engagement with gamification features.
+    - **Solution**: Continuously gather user feedback and iterate on gamification mechanics to keep them motivating.
+
+#### **Prioritization of Ideas**
+1. Enhanced Progress Visualization - High impact, feasible.
+2. Detailed Phase Breakdown - High impact, feasible.
+3. Customization Options - Medium impact, feasible.
+4. Notifications and Alerts - Medium impact, practical.
+5. Gamification Elements - Medium impact, practical.
+6. Dynamic Content Updates - High impact, practical.
+
+This comprehensive plan enhances the PhaseStatus component, prioritizing user experience, interactivity, and effective project management while remaining feasible for implementation in a desktop-focused React application. Each feature is designed to work seamlessly together, creating a cohesive user experience.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: ChatInput, Component requirements: ### Final Plan for ChatInput Component Enhancement
+
+#### **Component Description**
+The ChatInput component is designed for user message composition and dispatching within an ERP chat system. Its primary goal is to enhance real-time communication, user engagement, and productivity. The component features a well-structured interface for composing messages, attaching files, selecting emojis, and utilizing message formatting options.
+
+#### **Functionality**
+The ChatInput component features:
+- An input field for multi-line text entry.
+- A send button to dispatch messages.
+- Additional features: file attachments, emoji picker, formatting options (bold, italics).
+- Real-time feedback mechanisms, like loading indicators and error messages.
+- **New Features:**
+  - **Typing Indicators:** Real-time indicators to show when users are typing.
+  - **Message History Dropdown:** Quick access to previously sent messages.
+  - **Quick Replies:** Predefined responses for faster communication.
+  - **Text Analysis:** Sentiment analysis of messages before sending.
+
+#### **Details**
+- **Input Field:**
+  - Multi-line support with automatic resizing based on content.
+  - Character limit enforcement to prevent overly long messages.
+  
+- **Send Button:**
+  - Disabled state when input is empty.
+  - Confirmation dialog for unsent messages if users navigate away.
+
+- **File Attachments:**
+  - Drag-and-drop functionality.
+  - Supported file types and size limits displayed.
+  
+- **Emoji Selection:**
+  - Accessible via a button, opening a modal or dropdown.
+  - Search functionality for emojis.
+  
+- **Formatting Options:**
+  - Toolbar with buttons for bold, italics, and bullet points.
+  
+#### **Interconnectivity**
+- Connects to the `/team-collaboration/chat` page, enhancing user interaction for message composition and dispatching.
+
+#### **User Interaction**
+- **Interaction Flow:**
+  1. Users type messages in the input field.
+  2. Typing triggers real-time typing indicators for other users.
+  3. Users click the send button to post messages, which are queued for dispatch.
+  4. Messages appear in the ChatMessages component immediately after sending.
+  
+- **Possible Interactions:**
+  - Quick replies can be selected with a single click.
+  - Emoji picker allows users to add emojis easily.
+  - Users can attach files by dragging and dropping or clicking an attachment icon.
+
+#### **Potential Enhancements**
+1. **User Engagement:**
+   - **Gamification:** Introduce a points system for sending messages and engagement.
+   - **Customization:** Allow users to set themes or customize chat appearance.
+
+2. **Data Visualization:**
+   - Use ECharts to display message analytics, like messages sent per hour or sentiment analysis over time.
+
+3. **Interactivity:**
+   - Introduce polls or surveys within the chat for feedback.
+
+4. **Notifications:**
+   - Notifications for direct messages or mentions to keep users informed.
+
+#### **Implementation Outline for New Ideas**
+1. **Typing Indicators**
+   - **Main Functionality:** Show when users are typing.
+   - **Key Components:** TypingIndicator component.
+   - **Data Requirements:** Track active users.
+   - **User Interaction Flow:** Display the indicator in real-time.
+   - **Challenges & Solutions:** Optimize for real-time updates using efficient state management.
+
+2. **Message History Dropdown**
+   - **Main Functionality:** Access to recently sent messages.
+   - **Key Components:** MessageHistory component.
+   - **Data Requirements:** Store recent messages locally or in state management.
+   - **User Interaction Flow:** Dropdown shows recent messages for quick resend.
+   - **Challenges & Solutions:** Keep history limited to the last 10 messages for performance.
+
+3. **Quick Replies**
+   - **Main Functionality:** Predefined responses for quick communication.
+   - **Key Components:** QuickReplies component.
+   - **Data Requirements:** Store common responses.
+   - **User Interaction Flow:** Click to insert a quick reply into the input field.
+   - **Challenges & Solutions:** Ensure contextual appropriateness of replies.
+
+4. **Text Analysis**
+   - **Main Functionality:** Analyze sentiment before sending messages.
+   - **Key Components:** SentimentAnalysis component.
+   - **Data Requirements:** Use a simplified model for sentiment scoring.
+   - **User Interaction Flow:** Show sentiment score before sending.
+   - **Challenges & Solutions:** Use an efficient algorithm for analysis.
+
+#### **Prioritization**
+1. Typing Indicators - High impact, feasible implementation.
+2. Message History Dropdown - High impact, straightforward to implement.
+3. Quick Replies - Medium impact, easy to implement.
+4. Text Analysis - Medium impact, may require resource management.
+
+#### **Step-by-Step Plan**
+
+1. **Clarification**
+   - Ensure each functionality is clear and actionable.
+   - Define each component's role and interactions.
+
+2. **Implementation Guidance**
+   - Focus on modular design for each new feature.
+   - Develop components separately; integrate gradually.
+
+3. **Efficiency**
+   - Optimize for performance by managing state effectively.
+   - Use hooks or context for managing user interactions.
+
+4. **Technical Specifications**
+   - Utilize React for component structure.
+   - Implement CSS-in-JS or styled-components for styling.
+
+5. **Examples**
+   - Typing Indicator: Show "User A is typing..." when User A types.
+   - Message History: Display a dropdown with the last 10 messages for quick selection.
+
+6. **Edge Cases**
+   - Testing for empty messages, file size limits, and unsupported file types.
+   - Ensure seamless switching between quick replies and typing.
+
+7. **Enhancements**
+   - Consider lazy loading for past messages to enhance performance.
+   - Implement real-time updates for message analytics.
+
+This comprehensive plan ensures that the ChatInput component is functional, engaging, and interactive, providing a professional and responsive user experience within the ERP system. Each feature is designed to work together seamlessly, contributing to an efficient and user-friendly chat environment.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: LineChart, Component requirements: ## Final Plan
+
+### Existing Component Overview
+- **Component Description**: Displays productivity trends over time using a line graph format.
+- **Functionality**: The LineChart component provides a clear view of productivity trends using ECharts for high-quality visuals. It features interactive elements such as zooming, panning, and tooltips, allowing users to analyze performance fluctuations effectively. The component is configurable to support various time intervals (daily, weekly, monthly) and updates in real time.
+
+### Improvements and New Features
+
+#### 1. **Enhanced User Engagement Features**
+   - **Feature**: User Feedback Mechanism
+     - **Functionality**: Integrate a feedback form directly into the component for users to share insights on productivity trends.
+     - **Key Components**: 
+       - Feedback Form: A modal or sidebar containing text fields for user comments and a rating system.
+       - Ratings UI: Stars or thumbs up/down for quick feedback.
+     - **Data Requirements**: Use dummy data for user feedback.
+     - **User Interaction Flow**: Users submit feedback through the chart interface; feedback is stored locally for review.
+     - **Challenges & Solutions**: 
+       - **Challenge**: Ensuring feedback relevance.
+       - **Solution**: Provide guiding questions based on trends observed in the chart.
+
+#### 2. **Advanced Data Visualization Options**
+   - **Feature**: Comparative Line Charts
+     - **Functionality**: Users can overlay multiple datasets on the same graph for comparison.
+     - **Key Components**: 
+       - Toggle Options: Checkboxes or buttons to select which datasets to display.
+       - Color Coding: Different colors for each dataset for easy differentiation.
+     - **Data Requirements**: Create dummy data sets for comparative analysis.
+     - **User Interaction Flow**: Users select datasets to display, dynamically updating the chart.
+     - **Challenges & Solutions**:
+       - **Challenge**: Avoiding visual clutter.
+       - **Solution**: Use a clear legend and maintain a limit on the number of lines displayed simultaneously.
+
+#### 3. **Interactivity Enhancements**
+   - **Feature**: Dynamic Data Filters
+     - **Functionality**: Allow users to filter data by categories (e.g., department, project).
+     - **Key Components**: Filter dropdowns that impact the displayed data.
+     - **Data Requirements**: Create dummy category data linked to productivity metrics.
+     - **User Interaction Flow**: Users select filters, triggering real-time updates to the chart.
+     - **Challenges & Solutions**:
+       - **Challenge**: Performance with large datasets.
+       - **Solution**: Implement data pagination or throttling mechanisms for rendering.
+
+#### 4. **Information Presentation Improvements**
+   - **Feature**: Data Annotations
+     - **Functionality**: Users can add notes or annotations to specific data points.
+     - **Key Components**: 
+       - Annotation Tool: An interface to create, edit, and delete notes.
+       - Display Mechanism: Annotations appear on hover over data points.
+     - **Data Requirements**: Use dummy data for annotation examples.
+     - **User Interaction Flow**: Users click on a data point to add/edit annotations, which are saved and displayed on hover.
+     - **Challenges & Solutions**:
+       - **Challenge**: Managing multiple annotations.
+       - **Solution**: Allow users to view and edit annotations through a dedicated sidebar or modal interface.
+
+#### 5. **Productivity Tools Integration**
+   - **Feature**: Goal Setting and Tracking
+     - **Functionality**: Users can set and track productivity goals on the chart.
+     - **Key Components**: 
+       - Goal-Setting UI: Inputs for goal descriptions and target metrics.
+       - Progress Indicators: Visual markers on the chart to show goal progress.
+     - **Data Requirements**: Use dummy data for goals and their respective progress.
+     - **User Interaction Flow**: Users input goals, which the chart reflects as progress indicators.
+     - **Challenges & Solutions**:
+       - **Challenge**: Overcomplicating the UI.
+       - **Solution**: Ensure goal-setting features are straightforward and intuitive.
+
+#### 6. **Customization Options**
+   - **Feature**: Customizable Chart Themes
+     - **Functionality**: Users can select from different themes or color palettes for their charts.
+     - **Key Components**: 
+       - Theme Selection Dropdown: A control for users to choose their preferred theme.
+     - **Data Requirements**: Use dummy data for theme preferences.
+     - **User Interaction Flow**: Users select themes, updating the chart's appearance in real-time.
+     - **Challenges & Solutions**:
+       - **Challenge**: Accessibility with color choices.
+       - **Solution**: Provide color-blind-friendly palettes and include visual indicators.
+
+#### 7. **Gamification Elements**
+   - **Feature**: Achievement Badges
+     - **Functionality**: Users earn badges for achieving productivity milestones.
+     - **Key Components**: 
+       - Badge Display Section: An area of the UI to showcase earned badges.
+       - Milestone Tracking: A system to track users' progress towards milestones.
+     - **Data Requirements**: Use dummy data for milestones and achievements.
+     - **User Interaction Flow**: Users can view progress and badges; notifications appear upon earning new badges.
+     - **Challenges & Solutions**:
+       - **Challenge**: Keeping users motivated without overwhelming them.
+       - **Solution**: Clearly define achievable milestones and provide feedback.
+
+#### 8. **Dynamic Content and Notifications**
+   - **Feature**: Real-time Notifications
+     - **Functionality**: Notify users of significant changes in productivity trends.
+     - **Key Components**: 
+       - Notification Banner: An area that displays alerts dynamically.
+       - Settings for Notification Preferences: Controls for users to customize their notification experiences.
+     - **Data Requirements**: Use dummy data for alerts based on productivity thresholds.
+     - **User Interaction Flow**: Notifications appear based on data changes, with options for users to view details.
+     - **Challenges & Solutions**:
+       - **Challenge**: Notification fatigue.
+       - **Solution**: Allow users to customize notification settings to manage alert frequency.
+
+### Prioritization of Ideas
+1. **Enhanced User Engagement Features**: High impact, moderate feasibility.
+2. **Advanced Data Visualization Options**: High impact, moderate feasibility.
+3. **Dynamic Data Filters**: Moderate impact, high feasibility.
+4. **Information Presentation Improvements**: Moderate impact, high feasibility.
+5. **Productivity Tools Integration**: High impact, moderate feasibility.
+6. **Customization Options**: Moderate impact, high feasibility.
+7. **Gamification Elements**: Moderate impact, low feasibility.
+8. **Dynamic Content and Notifications**: High impact, moderate feasibility.
+
+### Implementation Guidance
+
+1. **User Feedback Mechanism**
+   - Implement a modal for feedback collection. Use state management (e.g., React's `useState`) to control form visibility.
+   - Store feedback locally (e.g., in a context or state management solution).
+
+2. **Comparative Line Charts**
+   - Modify ECharts configuration to accept multiple datasets. Use props to manage selected datasets.
+   - Implement a legend component to enhance clarity.
+
+3. **Dynamic Data Filters**
+   - Create filter dropdowns and connect them to data rendering logic, ensuring the chart updates based on selected categories.
+
+4. **Data Annotations**
+   - Integrate an annotation tool using a modal or sidebar for user inputs. Store annotations in state and render them on hover.
+
+5. **Goal Setting and Tracking**
+   - Develop a form for goal input and integrate it with the chart's progress indicators using visual markers.
+
+6. **Customizable Chart Themes**
+   - Implement a theme selection dropdown, utilizing CSS variables or styled components for dynamic updates.
+
+7. **Achievement Badges**
+   - Create a badge display section and logic to track milestones. Use local state to manage badge notifications.
+
+8. **Real-time Notifications**
+   - Set up a notification system that listens for significant data changes and updates the UI accordingly.
+
+### Technical Specifications
+- **Framework**: React (with hooks)
+- **UI Library**: Ant Design
+- **Visualization**: ECharts
+- **State Management**: Context API or Redux
+- **Styling**: CSS/SASS for theming
+
+### Edge Cases and Testing
+- **User Feedback**: Test for submission with empty fields and ensure validation is in place.
+- **Comparative Charts**: Validate that charts render correctly with zero or only one dataset selected.
+- **Data Filters**: Ensure that no data is displayed if filters do not match any records.
+- **Annotations**: Test adding, editing, and deleting annotations to confirm state persistence.
+- **Goal Tracking**: Validate that progress updates correctly when goals are set or modified.
+- **Customization**: Test various theme selections to ensure accessibility and visibility.
+- **Badges**: Confirm that badges are awarded appropriately and displayed correctly.
+- **Notifications**: Ensure that notifications are timely and that users can customize settings without issues.
+
+### Enhancements
+- **Performance Optimization**: Consider using memoization techniques (e.g., React's `useMemo`) for large datasets to enhance rendering performance.
+- **Accessibility Improvements**: Ensure all UI components are keyboard navigable and compatible with screen readers.
+- **User Analytics**: Implement an analytics feature to track user engagement with feedback mechanisms and goal-setting features.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: ChatSidebar, Component requirements: ### Final Plan for ChatSidebar Component in Professional ERP
+
+#### **Description**
+The ChatSidebar is a navigational component within a professional ERP system that lists all active projects, allowing users to easily switch between different project chats. This component enhances user experience by organizing project discussions and improving accessibility.
+
+#### **Functionality**
+The ChatSidebar will provide the following functionalities:
+- A scrollable list of active projects for quick navigation.
+- Updates the ChatMessages component upon project selection.
+- Search functionality to filter through projects.
+- Responsive design that remains functional on various screen sizes.
+
+#### **Details**
+1. **Project List Display**:
+   - Each project will display clearly labeled names for easy identification.
+   - Visual indicators (e.g., badges) will signal unread messages.
+
+2. **Project Selection**:
+   - On selecting a project, the ChatMessages component will update to show relevant messages, ensuring users engage with pertinent data.
+
+3. **Search Functionality**:
+   - An input field will allow users to filter projects dynamically as they type.
+   - Highlighting matching text in project names will assist users in quickly finding projects.
+
+4. **Responsive Behavior**:
+   - The sidebar will automatically collapse into a hamburger menu on smaller screens, maintaining usability for all users.
+
+5. **Customization Options**:
+   - Users can personalize their sidebar by pinning favorite projects to the top of the list for quicker access.
+
+6. **Gamification**:
+   - Introduce achievements for users who frequently switch between projects or respond quickly to messages, enhancing user engagement.
+
+#### **Interconnectivity**
+- **Chat Interface Integration**:
+   - Ensure seamless navigation between project-specific chats, maintaining context when switching to enhance user experience.
+
+#### **User Interaction**
+- **User Engagement**:
+   - Users will click on project names to switch contexts, with a smooth transition effect to enhance engagement.
+
+- **Possible Interactions**:
+   - Hover effects on project names will display additional information (e.g., last message preview).
+
+#### **User Interaction Flow**
+1. User opens the ChatSidebar.
+2. User scrolls through the list of projects or utilizes the search bar.
+3. User clicks on a project name.
+4. ChatMessages component updates to show relevant messages for the selected project.
+5. Users can interact with the messages or return to the sidebar to switch to another project.
+
+#### **Potential Challenges and Solutions**
+- **Challenge**: Users may forget which project they are currently viewing.
+  - **Solution**: Highlight the selected project in the list and provide a breadcrumb trail in the chat interface.
+
+- **Challenge**: Managing a large number of projects may clutter the sidebar.
+  - **Solution**: Implement a categorization feature, allowing users to group projects (e.g., by department or project status).
+
+#### **New Features and Enhancements**
+1. **Data Visualization**:
+   - Integrate ECharts to display project metrics like message volume or active users per project in a mini-chart next to the project name.
+
+2. **Dynamic Content**:
+   - Display real-time notifications for new messages or updates within projects, possibly with a dedicated section in the sidebar.
+
+3. **Productivity Tools**:
+   - Include a "Quick Action" button for common tasks (e.g., create a new task, schedule a meeting) directly from the sidebar.
+
+4. **Notifications**:
+   - Implement a notification system for project updates, allowing users to see alerts directly in the sidebar to reduce the need to constantly check for updates.
+
+5. **User Customization**:
+   - Allow users to change the color/theme of their sidebar, enhancing personalization and engagement.
+
+#### **Prioritization of Ideas**
+1. **Search Functionality** - High impact and feasible.
+2. **Notification System** - High impact, moderate feasibility.
+3. **Data Visualization Integration** - Moderate impact, moderate feasibility.
+4. **Customization Options** - Moderate impact, high feasibility.
+5. **Gamification Elements** - Low impact, moderate feasibility.
+
+### Step-by-Step Plan for Implementation
+
+#### **Step 1: Project List Display**
+- **Clarification**: Create a list view that dynamically renders project names.
+- **Implementation Guidance**: Utilize a mapping function to iterate over active projects and generate list items. Ensure each project has a unique identifier.
+- **Example**:
+  ```javascript
+  const projectList = activeProjects.map(project => (
+      <li key={project.id} onClick={() => handleProjectSelect(project.id)}>
+          {project.name}
+          {project.unreadMessages > 0 && <span className="badge">{project.unreadMessages}</span>}
+      </li>
+  ));
+  ```
+
+#### **Step 2: Project Selection**
+- **Clarification**: Define the function that updates the ChatMessages component.
+- **Implementation Guidance**: Create a handler function that updates the selected project state, triggering a refresh in the ChatMessages display.
+- **Example**:
+  ```javascript
+  const handleProjectSelect = (projectId) => {
+      setSelectedProject(projectId);
+  };
+  ```
+
+#### **Step 3: Search Functionality**
+- **Clarification**: Include a search input field for filtering projects.
+- **Implementation Guidance**: Use state to manage the search query and filter the project list based on the input value.
+- **Example**:
+  ```javascript
+  const filteredProjects = activeProjects.filter(project => project.name.includes(searchQuery));
+  ```
+
+#### **Step 4: Responsive Behavior**
+- **Clarification**: Implement styling for the sidebar to collapse on smaller screens.
+- **Implementation Guidance**: Use CSS media queries to change styles based on screen size.
+- **Example**:
+  ```css
+  @media (max-width: 768px) {
+      .chat-sidebar {
+          display: none; /* Hide sidebar, show hamburger menu */
+      }
+  }
+  ```
+
+#### **Step 5: Customization Options**
+- **Clarification**: Allow users to pin favorite projects.
+- **Implementation Guidance**: Add functionality to toggle a project as a favorite and adjust the rendering order based on pinned status.
+- **Example**:
+  ```javascript
+  const toggleFavorite = (projectId) => {
+      // Update favorite status in state
+  };
+  ```
+
+#### **Step 6: Gamification**
+- **Clarification**: Track user interactions for achievements.
+- **Implementation Guidance**: Create a function that logs interactions and updates achievement status.
+- **Example**:
+  ```javascript
+  const logInteraction = () => {
+      // Increment interaction counter and check for achievements
+  };
+  ```
+
+#### **Edge Cases**
+- **Edge Case 1**: No active projects available.
+  - **Testing Method**: Ensure the sidebar displays an appropriate message when no projects are available.
+- **Edge Case 2**: Search input with no matches.
+  - **Testing Method**: Display a message indicating no projects match the search criteria.
+
+#### **Enhancements**
+- **Real-Time Updates**: Use WebSockets or Polling to fetch new messages or project updates and refresh the sidebar dynamically.
+- **Accessibility Features**: Ensure all interactive elements are keyboard navigable and screen-reader friendly.
+
+### Conclusion
+This comprehensive plan outlines the necessary steps, implementations, and enhancements for the ChatSidebar component in a professional ERP system. Each function is designed to enhance user experience, ensure efficient navigation, and provide a robust set of features that will meet users' needs in a professional environment.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: WorkloadHeatmap, Component requirements: ### Final Plan
+
+#### **Component Description**
+The WorkloadHeatmap component serves as an interactive heatmap that visualizes the workloads of team members, enhancing resource management and task allocation. Leveraging ECharts, it dynamically represents workload data, employing intensity levels to indicate availability and current commitments.
+
+#### **Functionality**
+The WorkloadHeatmap component provides a visual representation of team member workloads through a color-coded heatmap. This functionality allows users to quickly grasp the workload distribution across the team, facilitating effective resource allocation and task assignments. Key features include interactivity, allowing users to hover over sections to gain insights into individual workloads, thus enhancing decision-making during task distribution.
+
+#### **Details**
+- **ECharts Integration**: Utilizes ECharts for the interactive visual representation.
+- **Color Gradients**: Displays workload intensity through a color gradient system to indicate varying levels of availability.
+- **Hover Interactions**: Enables hover interactions for detailed insights into individual workloads.
+- **Dynamic Adaptation**: Adapts dynamically to updates in team member workload data.
+
+#### **Visibility**
+- The component is prominently displayed within the application interface, ensuring easy access for users.
+
+#### **Interconnectivity**
+- **Dashboard Integration**: Connects seamlessly with the dashboard to provide a holistic view of team performance analytics.
+- **Current Projects Page**: Aids in determining team member availability for project tasks.
+
+#### **User Interaction**
+- **Interaction Type**: Users can interact with the heatmap by hovering over various sections for detailed insights.
+- **Hovering Mechanism**: Hovering over a section triggers a tooltip that reveals precise workload percentages and commitments for each team member.
+- **Outcome**: This interaction provides real-time data on team availability and workload balance, facilitating effective task distribution.
+
+### **New Ideas for Enhancing User Experience**
+
+1. **Team Member Profile Pop-up**
+   - **Functionality**: Clicking on a team member's section opens a pop-up displaying their profile, ongoing tasks, and workload distribution.
+   - **Components**: Modal with team member details, task list, and workload percentage.
+   - **Data Needs**: Dummy data for profiles, tasks, and past performance.
+   - **Interaction Flow**: User clicks → Modal appears with detailed information.
+   - **Challenges/Solutions**: Manage overlapping modals by ensuring only one is active at a time.
+
+2. **Workload Comparison Feature**
+   - **Functionality**: Allows users to compare workloads of two or more team members side-by-side.
+   - **Components**: Slider or buttons for selecting team members.
+   - **Data Needs**: Dummy workload data for selected members.
+   - **Interaction Flow**: User selects members → Comparison view displays workloads.
+   - **Challenges/Solutions**: Ensure clear labeling and color coding for complex data visualization.
+
+3. **Dynamic Filters for Workload View**
+   - **Functionality**: Filters the heatmap by project, task type, or timeframe to view specific workloads.
+   - **Components**: Dropdowns or checkboxes for filtering options.
+   - **Data Needs**: Dummy data for various projects and tasks.
+   - **Interaction Flow**: User selects filters → Heatmap updates accordingly.
+   - **Challenges/Solutions**: Implement caching to ensure quick data refresh.
+
+4. **Notification System for Workload Alerts**
+   - **Functionality**: Alerts users when a team member’s workload exceeds a predefined threshold.
+   - **Components**: Notification banner that triggers on threshold breaches.
+   - **Data Needs**: Dummy threshold settings and workload data.
+   - **Interaction Flow**: System monitors → Alert displays when thresholds are exceeded.
+   - **Challenges/Solutions**: Allow users to set their own thresholds to manage notification frequency.
+
+5. **Gamification Elements**
+   - **Functionality**: Introduces badges or rewards for balanced workload management.
+   - **Components**: Badges displayed on profiles based on performance metrics.
+   - **Data Needs**: Dummy achievement metrics for earning badges.
+   - **Interaction Flow**: User views profiles → Badges displayed based on performance.
+   - **Challenges/Solutions**: Set achievable goals to motivate without pressure.
+
+### **Prioritization**
+1. **Dynamic Filters for Workload View** - High impact, feasible.
+2. **Workload Comparison Feature** - High impact, moderate complexity.
+3. **Team Member Profile Pop-up** - Medium impact, low complexity.
+4. **Notification System for Workload Alerts** - Medium impact, moderate complexity.
+5. **Gamification Elements** - Low impact, moderate complexity.
+
+### **Step-by-Step Implementation Plan**
+
+#### 1. **Setup Environment**
+   - **Install ECharts**: Add ECharts to the project via npm.
+   - **Create Component**: Set up the WorkloadHeatmap component structure.
+
+#### 2. **Data Management**
+   - **Data Structure**: Define a data structure to hold team member workloads, including name, current tasks, and workload percentages.
+   - **Dummy Data**: Generate sample data to simulate team member workloads.
+
+#### 3. **Heatmap Visualization**
+   - **Render Heatmap**: Implement ECharts to render the heatmap using the dummy data.
+   - **Color Gradients**: Define a color gradient scheme to represent different workload intensities.
+
+#### 4. **Hover Interactions**
+   - **Tooltip Implementation**: Create a tooltip component that displays detailed information on hover.
+   - **Event Listeners**: Add event listeners to trigger the tooltip on hover events.
+
+#### 5. **Team Member Profile Pop-up**
+   - **Modal Component**: Build a modal component for displaying team member profiles.
+   - **Click Functionality**: Implement click functionality to open the modal with detailed data.
+
+#### 6. **Workload Comparison Feature**
+   - **Selection Mechanism**: Develop a method for users to select multiple team members for comparison.
+   - **Comparison View**: Create a side-by-side comparison view based on selected members.
+
+#### 7. **Dynamic Filters**
+   - **UI Components**: Create dropdowns or checkboxes for filtering options.
+   - **Filtering Logic**: Implement filtering logic to update the heatmap based on user selections.
+
+#### 8. **Notification System**
+   - **Threshold Settings**: Allow users to set workload thresholds.
+   - **Alert Mechanism**: Create an alert system that monitors workloads and triggers notifications.
+
+#### 9. **Gamification Features**
+   - **Badge System**: Design a system for assigning and displaying badges based on workload management.
+   - **Metrics Tracking**: Track performance metrics to determine eligibility for rewards.
+
+### **Edge Cases and Testing**
+- **Edge Cases**: 
+  - Ensure handling of scenarios where there are no team members or workloads.
+  - Validate the response when workload data is significantly skewed.
+- **Testing Methods**: 
+  - Unit tests for each component.
+  - Integration tests for the overall heatmap functionality and user interactions.
+
+### **Enhancements**
+- **Performance Optimizations**: Implement lazy loading for heatmap data and utilize memoization for rendering components to improve performance.
+- **User Customization**: Allow users to customize color gradients and thresholds for alerts, enhancing personalization.
+
+This comprehensive plan details every aspect of the WorkloadHeatmap component, with a focus on functionality, user experience, and the efficient integration of features. All functionalities are interlinked, ensuring a cohesive user experience while maintaining clarity and manageability in implementation.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: TaskBreakdown, Component requirements: ### Final Plan for TaskBreakdown Component
+
+#### Component Description
+The TaskBreakdown component serves as a detailed repository of all tasks associated with a project. It includes comprehensive task listings, filters for various criteria, and enhanced interactive features aimed at boosting user engagement and productivity.
+
+#### Functionality
+The component provides users with the ability to view all tasks, filter them by status, assignee, and priority, and receive notifications about updates. It is designed to facilitate efficient workflow management, ensuring every team member is well-informed about their responsibilities and deadlines.
+
+---
+
+### Current Features
+- **Task Listings**: Displays all tasks with descriptions, assigned team members, and current status.
+- **Filtering Options**: Allows filtering by status (completed, in progress, not started) and assignee.
+- **Sorting Capabilities**: Enables sorting tasks by deadline or priority.
+- **Integration**: Connects with task management tools to provide real-time updates and notifications.
+
+---
+
+### New Enhancements
+
+1. **User Engagement**
+   - **Feature**: Task Comments and Collaboration
+     - **Implementation Outline**:
+       - **Main Functionality**: Users can add comments to tasks.
+       - **Key Components**: A comment input field and a list of comments displayed under each task.
+       - **Data Requirements**: Tasks should have a comments array to hold user responses.
+       - **User Interaction Flow**: Clicking on a task opens the comment section for interaction.
+       - **Potential Challenges**: Managing threaded comments can be complex; a simple UI with indentation will help.
+
+2. **Data Visualization**
+   - **Feature**: Progress Bar for Task Completion
+     - **Implementation Outline**:
+       - **Main Functionality**: Visual display of task progress.
+       - **Key Components**: A horizontal progress bar next to each task.
+       - **Data Requirements**: Each task object should include a completion percentage.
+       - **User Interaction Flow**: Users can see the progress visually represented.
+       - **Potential Challenges**: Clarity of representation; ensure percentage is clearly labeled.
+
+3. **Interactivity**
+   - **Feature**: Drag-and-Drop Task Prioritization
+     - **Implementation Outline**:
+       - **Main Functionality**: Users can reorder tasks via drag-and-drop.
+       - **Key Components**: Draggable task elements that visually indicate their new position.
+       - **Data Requirements**: Maintain an order index in the task data structure.
+       - **User Interaction Flow**: Tasks can be reordered dynamically through user interactions.
+       - **Potential Challenges**: State synchronization; utilize local state management effectively.
+
+4. **Information Presentation**
+   - **Feature**: Task Detail Modal
+     - **Implementation Outline**:
+       - **Main Functionality**: Displays detailed task information in a modal on click.
+       - **Key Components**: Modal component that includes action buttons (e.g., edit, delete).
+       - **Data Requirements**: Detailed task data should be fetched on modal open.
+       - **User Interaction Flow**: Clicking a task opens a modal with complete details.
+       - **Potential Challenges**: Ensure modal performance; optimize rendering to avoid lag.
+
+5. **Productivity Tools**
+   - **Feature**: Due Date Reminders
+     - **Implementation Outline**:
+       - **Main Functionality**: Notify users of upcoming deadlines.
+       - **Key Components**: Notification icons or badges next to tasks with due dates.
+       - **Data Requirements**: Tasks should include due date fields.
+       - **User Interaction Flow**: Users see highlighted reminders on task lists.
+       - **Potential Challenges**: Keeping reminders current; implement local time checks to update statuses.
+
+6. **Customization Options**
+   - **Feature**: Theme Switcher
+     - **Implementation Outline**:
+       - **Main Functionality**: Users can toggle between light and dark themes.
+       - **Key Components**: A toggle switch that alters the theme state.
+       - **Data Requirements**: No backend data required; only UI state changes.
+       - **User Interaction Flow**: Toggle affects the theme across the entire component.
+       - **Potential Challenges**: Maintaining consistency across all UI elements; use a context provider for state management.
+
+7. **Gamification**
+   - **Feature**: Achievement Badges
+     - **Implementation Outline**:
+       - **Main Functionality**: Users earn badges for task completions and milestones.
+       - **Key Components**: Badge display area within the user profile or task view.
+       - **Data Requirements**: Predefined badge criteria and types stored in a data structure.
+       - **User Interaction Flow**: Users can view earned badges based on their activity.
+       - **Potential Challenges**: Balancing achievement criteria to avoid user frustration; regularly review and adjust criteria.
+
+8. **Dynamic Content**
+   - **Feature**: Real-Time Updates
+     - **Implementation Outline**:
+       - **Main Functionality**: Update task listings in real-time without refreshing the page.
+       - **Key Components**: Implement a simulated WebSocket connection for live updates.
+       - **Data Requirements**: Tasks should have a live data structure to handle updates.
+       - **User Interaction Flow**: Users see changes in task status or comments as they happen.
+       - **Potential Challenges**: Managing multiple updates; batch updates to reduce performance issues.
+
+9. **Notifications**
+   - **Feature**: In-App Notifications
+     - **Implementation Outline**:
+       - **Main Functionality**: Alert users about changes or comments relevant to their tasks.
+       - **Key Components**: A dropdown notification panel accessible from the UI.
+       - **Data Requirements**: Store notifications in a structured format.
+       - **User Interaction Flow**: Users can click notifications to see details.
+       - **Potential Challenges**: Avoiding notification spamming; implement controls on frequency of alerts.
+
+---
+
+### Prioritization of Ideas
+1. Task Comments and Collaboration
+2. Progress Bar for Task Completion
+3. Drag-and-Drop Task Prioritization
+4. Task Detail Modal
+5. Due Date Reminders
+6. In-App Notifications
+7. Achievement Badges
+8. Theme Switcher
+9. Real-Time Updates
+
+---
+
+### Conclusion
+This refined plan for the TaskBreakdown component significantly enhances the user experience by incorporating multiple features focused on engagement, interactivity, and productivity. Each enhancement is designed for practical implementation within a single-page application, ensuring a cohesive and efficient task management experience.
+
+---
+
+### Step-by-Step Implementation Plan
+
+#### Description
+This implementation plan outlines actionable steps for the TaskBreakdown component, emphasizing clarity and coding efficiency.
+
+---
+
+#### Steps
+
+1. **Clarification**
+   - Ensure all tasks have a defined structure including IDs, descriptions, assignees, statuses, due dates, comments, and completion percentages.
+   - Define user roles (e.g., admin, user) to control access for commenting and editing tasks.
+
+2. **Implementation Guidance**
+   - **Task Comments and Collaboration**:
+     - Create a comments array in the task object.
+     - Implement a text area for user input and a button to submit comments.
+     - Render comments below each task dynamically.
+
+   - **Progress Bar for Task Completion**:
+     - Use a `progress` HTML element to display completion percentages.
+     - Update the progress bar in response to changes in task completion status.
+
+   - **Drag-and-Drop Task Prioritization**:
+     - Utilize libraries like `react-beautiful-dnd` to handle drag-and-drop functionality.
+     - Maintain the order state in the local state for immediate UI feedback.
+
+   - **Task Detail Modal**:
+     - Create a modal component that fetches task details on open.
+     - Include actionable buttons like 'Edit', 'Delete', and 'Close' in the modal.
+
+   - **Due Date Reminders**:
+     - Implement a date comparison function to highlight tasks nearing their due dates.
+     - Render notification badges adjacent to tasks that require attention.
+
+   - **Theme Switcher**:
+     - Use a context provider to manage and apply theme states across the application.
+     - Store user preferences in local storage for persistence.
+
+   - **Achievement Badges**:
+     - Create a badge component that checks user task completion against predefined criteria.
+     - Render accumulated badges in the user profile area.
+
+   - **Real-Time Updates**:
+     - Use a simulated WebSocket setup to push updates to the UI.
+     - Ensure updates are reflected in the task list without a refresh.
+
+   - **In-App Notifications**:
+     - Create a notifications component that listens for task-related events.
+     - Display notifications in a dropdown format for easy access.
+
+3. **Efficiency**
+   - Structure the component into logical modules (e.g., TaskList, TaskItem, CommentSection, Modal).
+   - Use hooks for managing state and effects to optimize performance and reduce re-renders.
+
+4. **Technical Specifications**
+   - Framework: React
+   - Libraries: react-beautiful-dnd, styled-components (for theming), and any necessary state management libraries (e.g., Redux or Context API).
+   - CSS: Use a modular approach or CSS-in-JS for styling.
+
+5. **Examples**
+   - Example of comment structure:
+     ```javascript
+     const task = {
+       id: 1,
+       description: "Complete the report",
+       assignedTo: "John Doe",
+       status: "in progress",
+       dueDate: "2023-10-10",
+       comments: [{ user: "Jane Doe", text: "Great start!" }],
+       completionPercentage: 50
+     };
+     ```
+
+6. **Edge Cases**
+   - Handle cases where a user tries to comment on a task that has been deleted.
+   - Validate task data before submission (e.g., ensure due dates are valid).
+
+7. **Enhancements**
+   - Consider integrating a markdown editor for comments to allow rich text formatting.
+   - Implement a search functionality to quickly locate tasks by keywords in descriptions.
+
+---
+
+This comprehensive plan ensures a robust, user-friendly TaskBreakdown component tailored for desktop use, facilitating efficient task management and team collaboration.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: HeatMap, Component requirements: ### Final Plan for the HeatMap Component Enhancement
+
+#### **Component Description**
+The HeatMap component visually displays performance intensity over specified periods using a color-coded grid format. This component utilizes ECharts for rendering, which will enhance user engagement and provide insights into productivity patterns.
+
+---
+
+#### **Functionality**
+The HeatMap component serves as an analytical tool that showcases varying levels of productivity through an interactive grid. Users can explore performance data across multiple time frames—days, weeks, or shifts—to identify peak performance periods and instances of inactivity. The component offers real-time updates ensuring that users have access to the most relevant insights.
+
+#### **Core Features**
+1. **Color Gradient Display**: The grid uses a color gradient to represent different levels of performance intensity.
+2. **Interactive Tooltips**: Users can hover over grid cells to see detailed data values and trends.
+3. **Dynamic Time Frame Selection**: Users can select different time frames for analysis, allowing customization of the displayed data.
+4. **Real-Time Data Updates**: The component updates automatically with the latest performance data.
+
+---
+
+#### **Details**
+- Displays performance data intensity using a color-coded gradient.
+- Interactive features include hover tooltips for detailed data values.
+- Time frame selection options to customize analysis focus.
+- Real-time data updates for accuracy.
+- Highlights productivity patterns, aiding in strategic decision-making.
+
+---
+
+#### **Interconnectivity**
+- **Linkage**: The component links to a dedicated page (`/heatmap-analysis`) for users to explore deeper analyses and insights from their heat map data.
+
+---
+
+#### **User Interaction**
+- **Interaction Flow**: Users hover over grid cells to reveal tooltips with specific data values. Selecting different time frames adjusts the data analysis displayed in the grid.
+- **Resulting Insights**: Interactions focus on specific data periods, supporting detailed analysis and strategic planning.
+
+---
+
+### **New Features and Enhancements**
+
+#### **1. User Engagement Features**
+- **Feedback Mechanism**: Introduce a feature that allows users to provide feedback on the insights generated, helping to refine data presentation.
+- **Gamification Elements**: Implement a points system for users who consistently engage with the data, such as exploring different time frames or providing feedback.
+
+#### **2. Advanced Data Visualization**
+- **Trend Lines**: Add the option to overlay trend lines on the heat map, which can help users visualize performance trajectories over time.
+- **Comparative Analysis**: Allow users to compare two different time periods side by side within the heat map to identify changes in productivity.
+
+#### **3. Enhanced Interactivity**
+- **Drill-Down Functionality**: Enable users to click on a cell to drill down into more granular data (e.g., further breakdown by specific tasks or team members).
+- **Export Options**: Provide options for users to export the visualized data as CSV or image files for reporting purposes.
+
+#### **4. Productivity Tools**
+- **Goal Setting**: Integrate a feature for users to set performance goals and visualize progress against those goals directly on the heat map.
+- **Alerts and Notifications**: Implement a notification system that alerts users when productivity dips below a predefined threshold.
+
+#### **5. Customization Options**
+- **Themes and Color Schemes**: Allow users to customize the color scheme of the heat map to suit their preferences or organizational branding.
+- **Save Views**: Introduce functionality for users to save their preferred views and settings, facilitating quick access in the future.
+
+---
+
+### **Planning Outline for Implementation**
+
+- **Main Functionality**: Enhance the existing heat map with new user engagement features, advanced visualization options, and productivity tools.
+- **Key Components**: 
+    - Feedback Form
+    - Gamification Dashboard
+    - Trend Line Renderer
+    - Comparison Module
+    - Export Functionality
+- **Data Requirements**: Utilize dummy data sets for performance metrics across various time frames and tasks.
+- **User Interaction Flow**: Users will interact with the heat map and new features through intuitive UI components, with visual feedback for their actions.
+
+---
+
+### **Step-by-Step Plan**
+
+1. **Initial Setup**
+    - Integrate ECharts library into the project for rendering the heat map.
+    - Establish a basic layout for the heat map component.
+
+2. **Design Color Gradient Display**
+    - Define a color palette for different performance intensities.
+    - Map performance values to corresponding colors using a predefined gradient scale.
+
+3. **Implement Interactive Tooltips**
+    - Use ECharts tooltip configuration to display data values upon hovering over grid cells.
+    - Ensure tooltips provide contextual information relevant to the selected time frame.
+
+4. **Dynamic Time Frame Selection**
+    - Create dropdown menus or toggle buttons for users to select different time frames (daily, weekly, shifts).
+    - Implement logic to fetch and display data based on the selected time frame.
+
+5. **Real-Time Data Updates**
+    - Set up a mechanism (e.g., WebSocket or polling) to fetch latest performance data at specified intervals.
+    - Update the heat map with new data in real-time.
+
+6. **Feedback Mechanism**
+    - Design a feedback form modal that can be triggered after interactions with the heat map.
+    - Capture user feedback and store it for analysis.
+
+7. **Gamification Elements**
+    - Create a points system and integrate it into the user profile.
+    - Implement logic to reward points based on user interactions with the heat map.
+
+8. **Add Trend Lines**
+    - Implement a function to calculate and overlay trend lines on the heat map based on historical data.
+    - Ensure trend lines are visually distinct from the heat map data.
+
+9. **Comparative Analysis Feature**
+    - Allow users to select two different time frames for side-by-side comparison.
+    - Render both datasets on the heat map simultaneously for visual analysis.
+
+10. **Drill-Down Functionality**
+    - Enable click events on grid cells to fetch and display detailed data (e.g., specific tasks or team members).
+    - Design a modal or overlay to present this information.
+
+11. **Export Options**
+    - Implement export functionality to allow users to download heat map data as CSV or image files.
+    - Ensure user-friendly prompts for exporting.
+
+12. **Goal Setting and Alerts**
+    - Create an interface for users to set performance goals.
+    - Implement a notification system to alert users when productivity falls below set thresholds.
+
+13. **Customization Options**
+    - Develop a settings panel for users to customize themes and color schemes of the heat map.
+    - Implement save functionality for user preferences.
+
+14. **User Testing and Iteration**
+    - Conduct user testing sessions to gather feedback on new features.
+    - Iterate on features based on user input to ensure functionality and engagement.
+
+---
+
+### **Efficiency Considerations**
+- **Code Modularity**: Divide functionalities into reusable components (e.g., Tooltip, TrendLine, FeedbackForm) to enhance maintainability.
+- **Performance Optimization**: Optimize rendering performance by limiting re-renders only to affected components during data updates.
+
+---
+
+### **Technical Specifications**
+- **Frameworks**: ECharts for visualization, React (or similar) for the component structure.
+- **Key Methods**:
+    - `fetchData(timeFrame)`: Fetches performance data based on the selected time frame.
+    - `renderHeatMap(data)`: Renders the heat map using ECharts.
+    - `handleUserFeedback(feedback)`: Stores user feedback into a database.
+
+---
+
+### **Edge Cases**
+- **No Data Scenario**: Handle cases where no data is available for the selected time frame by displaying a user-friendly message.
+- **Invalid User Input**: Validate user inputs in feedback forms to ensure data integrity.
+
+---
+
+### **Prioritization of New Features**
+1. **Trend Lines**
+2. **Drill-Down Functionality**
+3. **Goal Setting**
+4. **Feedback Mechanism**
+5. **Export Options**
+
+---
+
+This comprehensive plan outlines enhancements that can significantly improve the HeatMap component, aligning with user needs and facilitating a better understanding of productivity metrics within a professional ERP context. The plan focuses on both core functionalities and user engagement features, ensuring a robust and interactive user experience.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: SearchBar, Component requirements: ### **Final Plan for Enhanced SearchBar Component**
+
+#### **Description**
+This comprehensive plan outlines the enhancement of a SearchBar component designed for locating specific team members based on various criteria. The goal is to improve user engagement, interactivity, and overall productivity within a single-page React application, utilizing technologies like Ant Design and ECharts.
+
+---
+
+#### **Content**
+
+- **Component Description**: 
+  The enhanced SearchBar component provides a versatile search and filter interface to locate specific team members based on customized criteria.
+
+- **Functionality**: 
+  The SearchBar component will include advanced search features, allowing users to swiftly find team members within the TeamProfileList. Users can input search terms or select filters based on roles, skills, workload levels, and project involvement. The component will dynamically update the displayed profiles to match the search criteria, enhancing user efficiency through instant feedback and a narrowed-down list of results.
+
+- **Details**:
+  - **Search Input**: An input field that allows users to type in search terms.
+  - **Filter Options**: Dropdowns for filtering by role (e.g., Developer, Designer), skills (e.g., JavaScript, UX Design), workload levels (e.g., Full-time, Part-time), and project involvement (e.g., Current projects).
+  - **Real-Time Feedback**: The TeamProfileList updates in real-time based on the search and filter inputs.
+  - **User Efficiency**: Reduces the time required to locate specific profiles, particularly beneficial for larger teams.
+
+- **Visibility**: The component will be visible and integrated seamlessly into the user interface.
+
+- **Interconnectivity**:
+  - Connects to `/team-profiles` to directly filter and display relevant profiles.
+  - Assists in `/current-projects` to find team members suitable for specific project roles.
+
+- **User Interaction**:
+  - **Interaction Method**: Users can enter search terms or select filters.
+  - **Possible Interactions**: Input search terms or select from dropdown filters to refine displayed profiles.
+  - **Result**: Filters the profiles in the TeamProfileList dynamically based on the defined criteria.
+  - **Result Functionality**: The SearchBar processes inputs and selections to update the TeamProfileList, showcasing only profiles that meet the criteria. This is essential for efficient project assignments.
+
+---
+
+### **Idea Generation**
+1. **User Engagement Features**:
+   - **Profile Tagging**: Users can tag profiles with specific keywords for easier future searches.
+   - **Save Searches**: Users can save frequently used search criteria for quick access.
+
+2. **Data Visualization**:
+   - **Team Composition Chart**: Integrate an ECharts component that visually represents the team structure or skills distribution, highlighting the number of team members in each role or skill set.
+   - **Workload Distribution Graph**: An ECharts pie chart showing the distribution of workload levels across team members.
+
+3. **Interactivity**:
+   - **Hover Effects**: Implement hover effects on profiles that provide quick insights or key information about the team member.
+   - **Drill-down Functionality**: Allow users to click on a profile to view more detailed information in a modal window.
+
+4. **Productivity Tools**:
+   - **Task Assignment Feature**: Enable users to assign tasks directly from the SearchBar interface to team members based on the filtered results.
+   - **Availability Indicator**: Show a visual indicator (e.g., green for available, red for busy) next to profiles based on their current workload.
+
+5. **Customization Options**:
+   - **Theme Selector**: Allow users to customize the appearance of the component (light/dark mode).
+   - **Filter Preferences**: Users can save their preferred filter settings for future sessions.
+
+6. **Dynamic Content**:
+   - **Recent Activity Feed**: Display a real-time feed of recent activities or updates related to team members, such as completed tasks or ongoing projects.
+   - **Notifications**: Integrate a notification system to alert users when a team member becomes available or when a relevant profile matches their saved search criteria.
+
+7. **Gamification**:
+   - **Badges and Achievements**: Introduce badges for team members based on performance metrics, which can be displayed in their profiles.
+   - **Leaderboards**: Create a leaderboard that ranks team members based on contributions to projects or tasks completed.
+
+---
+
+### **Planning Outline**
+- **Main Functionality**: Enhance the SearchBar to incorporate new features such as tagging, saving searches, and visual data representation.
+- **Key Components**: 
+  - SearchBar with advanced filtering options.
+  - ECharts components for data visualization.
+  - Modal component for detailed team member information.
+- **Data Requirements**: Utilize dummy data structured as an array of team member objects containing properties such as name, role, skills, workload, and project involvement.
+
+  ```javascript
+  const teamMembers = [
+      { id: 1, name: 'Alice', role: 'Developer', skills: ['JavaScript', 'React'], workload: 'Full-time', project: 'Project A' },
+      { id: 2, name: 'Bob', role: 'Designer', skills: ['UX', 'UI'], workload: 'Part-time', project: 'Project B' },
+      // More dummy data...
+  ];
+  ```
+
+- **User Interaction Flow**: 
+  1. User types in search terms or selects filters.
+  2. The SearchBar updates the TeamProfileList in real-time.
+  3. User hovers over a profile to view additional information.
+  4. User can click on a profile to view detailed information in a modal.
+  5. Users can assign tasks or tag profiles for future reference.
+
+- **Potential Challenges and Solutions**:
+  - **Challenge**: Managing performance with extensive data.
+    - **Solution**: Implement pagination or lazy loading to handle large datasets efficiently.
+  - **Challenge**: Ensuring a seamless user experience with real-time updates.
+    - **Solution**: Optimize the state management and rendering logic to minimize lag.
+
+---
+
+### **Step-by-Step Implementation Plan**
+
+#### **Step 1: Set Up the SearchBar Component**
+- **Clarification**: Create the SearchBar component with an input field and dropdowns for filters.
+- **Implementation Guidance**: 
+  - Use Ant Design's `Input` for the search input and `Select` for dropdown filters.
+  - Structure the component to manage state for input and filter selections.
+
+#### **Step 2: Implement Real-Time Search Functionality**
+- **Clarification**: Allow users to see immediate results based on their input.
+- **Implementation Guidance**: 
+  - Use `useEffect` to trigger updates to TeamProfileList based on input changes.
+  - Filter the `teamMembers` array based on search criteria.
+
+#### **Step 3: Add Filter Options**
+- **Clarification**: Include filters for role, skills, workload, and project involvement.
+- **Implementation Guidance**: 
+  - Create dropdowns for each filter category and update the state accordingly.
+  - Use an array of filter options fetched from the data or defined within the component.
+
+#### **Step 4: Integrate ECharts for Visualization**
+- **Clarification**: Use ECharts to visualize team composition and workload distribution.
+- **Implementation Guidance**: 
+  - Set up ECharts components and pass the filtered data to render the charts.
+  - Ensure charts update dynamically as filters are applied.
+
+#### **Step 5: Implement User Engagement Features**
+- **Clarification**: Allow users to tag profiles and save searches.
+- **Implementation Guidance**: 
+  - Create functions to manage tagging and saving criteria, utilizing local storage or state management for persistence.
+
+#### **Step 6: Add Interactivity Features**
+- **Clarification**: Include hover effects and drill-down functionality.
+- **Implementation Guidance**: 
+  - Use CSS for hover effects on profiles.
+  - Implement a modal component to display detailed information when a profile is clicked.
+
+#### **Step 7: Develop Productivity Tools**
+- **Clarification**: Enable task assignment and availability indicators.
+- **Implementation Guidance**: 
+  - Create a simple assignment function that links to user profiles.
+  - Use visual indicators in the TeamProfileList to show availability.
+
+#### **Step 8: Enhance Customization Options**
+- **Clarification**: Allow users to customize the SearchBar appearance and filter settings.
+- **Implementation Guidance**: 
+  - Add a theme selector and store user preferences using local state or context API.
+
+#### **Step 9: Implement Dynamic Content**
+- **Clarification**: Show recent activity and notifications.
+- **Implementation Guidance**: 
+  - Create a feed component that listens for changes and updates accordingly, possibly using WebSockets for real-time functionality.
+
+#### **Step 10: Introduce Gamification Elements**
+- **Clarification**: Add badges and leaderboards.
+- **Implementation Guidance**: 
+  - Use a simple scoring system to assign badges based on user-defined criteria, rendering them in the profile.
+
+---
+
+### **Enhancements and Optimizations**
+- **Performance Enhancement**: Implement lazy loading for the TeamProfileList to improve initial load time when dealing with large datasets.
+- **Accessibility Improvements**: Ensure all components are keyboard navigable and screen-reader friendly.
+- **Testing**: Use Jest and React Testing Library to cover unit tests for functionalities like search filtering and component rendering.
+
+### **Edge Cases to Consider**
+- **No Results Found**: Display a user-friendly message when no profiles match search criteria.
+- **Empty Input Handling**: Ensure that entering an empty search term resets the displayed profiles to the original list.
+
+This comprehensive plan is structured to create a robust and engaging SearchBar component tailored for an effective team management experience within a professional ERP environment, leveraging React, Ant Design, and ECharts. Each step is actionable, allowing for efficient implementation and ensuring all functionality works together seamlessly in a desktop environment.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+
+
+# **Instructions**
+
+## **ComponentRequirements**
+- You will be given the requirements for a component. Create **complete React code** only for the component and nothing else.
+- Ensure the React code works flawlessly using the **latest version of React**.
+- **DO NOT** summarize or leave anything out. All functionality must be fully implemented and working together.
+- `Component Name: MemberCard, Component requirements: # Final Plan for MemberCard Component
+
+## Component Description
+The MemberCard component is designed to provide a comprehensive overview of an individual team member’s performance metrics, showcasing key achievements and contributions. It is interactive, allowing users to access detailed performance data and customize their view. The component is fully responsive and features clear typography, visual indicators for performance trends, and real-time updates.
+
+## Current Functionality
+- Displays metrics: tasks completed, peer reviews received, and average completion times.
+- Clickable cards for detailed performance data and sorting adjustments.
+- Responsive design ensures clarity and accessibility.
+- Clear typography and visual indicators for performance trends.
+- Real-time updates for current performance data.
+
+## New Features and Enhancements
+
+### 1. User Engagement Enhancements
+#### Gamification Elements
+- **Functionality**: Introduce a points system where members earn points for completed tasks and peer reviews, with badges awarded for achievements.
+- **Components**: 
+  - `BadgeDisplay`: Show badges earned (e.g., "Top Performer of the Month").
+  - `PointsDisplay`: Display total points next to the member's name.
+- **Interaction**: Hovering over the MemberCard reveals points and badges; feedback submission opens a modal.
+- **Edge Cases**: Validate feedback submissions to ensure they are constructive and within character limits.
+
+### 2. Enhanced Data Visualization
+#### Performance Trends Graph
+- **Functionality**: Use ECharts to create visual representations of individual performance over time.
+- **Components**: 
+  - `PerformanceTrendGraph`: Line or bar chart depicting performance metrics over time.
+  - `ComparisonView`: Side-by-side comparison of performance metrics between team members.
+- **Interaction**: Users can toggle between different graphs and select criteria for comparisons.
+- **Edge Cases**: Handle scenarios with no data gracefully by displaying a message.
+
+### 3. Interactivity and User Customization
+#### Custom Sorting and Filtering
+- **Functionality**: Users can sort and filter the MemberCards based on specific metrics (e.g., tasks completed, peer reviews).
+- **Components**: 
+  - `FilterDropdown`: Options for filtering metrics.
+  - `CustomizationModal`: Users can select which metrics to display on the MemberCard.
+- **Interaction**: Filters are applied via dropdowns, and user preferences are saved in local storage.
+- **Edge Cases**: Ensure the system handles cases where no metrics match filter criteria.
+
+### 4. Dynamic Content Updates
+#### Real-Time Performance Alerts
+- **Functionality**: Display notifications for significant performance milestones (e.g., task completions).
+- **Components**: 
+  - `NotificationBanner`: Displays real-time updates and alerts.
+  - `CalendarSync`: Integrates performance metrics with team calendars.
+- **Interaction**: Notifications appear dynamically; users can click to view details.
+- **Edge Cases**: Manage notification frequency to avoid overwhelming users.
+
+### 5. Productivity Tools
+#### Task Management Integration
+- **Functionality**: Allow users to create, assign, and track tasks from the MemberCard interface.
+- **Components**: 
+  - `TaskManager`: Interface for task creation and tracking.
+  - `ReviewScheduler`: Schedule and document performance reviews linked to metrics.
+- **Interaction**: Users create tasks via a modal; reviews can be linked easily.
+- **Edge Cases**: Ensure tasks are not duplicated and handle cases where tasks are incomplete.
+
+## Prioritization of Ideas
+1. **Enhanced Data Visualization** (High impact, feasible implementation)
+2. **User Engagement Enhancements** (High impact, feasible implementation)
+3. **Interactivity and User Customization** (Medium impact, feasible implementation)
+4. **Dynamic Content Updates** (Medium impact, moderate feasibility)
+5. **Productivity Tools** (Low impact, moderate feasibility)
+
+## Implementation Guidance
+
+### Step-by-Step Implementation Plan
+1. **Setup Component Structure**
+   - Create the `MemberCard` component with sub-components: `BadgeDisplay`, `PointsDisplay`, `PerformanceTrendGraph`, `ComparisonView`, `FilterDropdown`, `CustomizationModal`, `NotificationBanner`, `TaskManager`, and `ReviewScheduler`.
+
+2. **Data Management**
+   - Prepare dummy data for performance metrics, badges, and tasks. Organize data in a format that is easy to manipulate (e.g., JSON structure).
+
+3. **Gamification Features**
+   - Implement the points system logic to compute points based on tasks and peer reviews.
+   - Design the badge awarding system and integrate it into the `BadgeDisplay`.
+
+4. **Data Visualization**
+   - Integrate ECharts for performance trend graphs and implement the `PerformanceTrendGraph` and `ComparisonView` components.
+
+5. **Custom Sorting and Filtering**
+   - Develop `FilterDropdown` for sorting options and link it with the main display logic of `MemberCard`.
+   - Implement `CustomizationModal` to allow users to select which metrics to display.
+
+6. **Dynamic Content Updates**
+   - Create the `NotificationBanner` to handle real-time alerts and integrate with the `CalendarSync` component.
+
+7. **Productivity Tools**
+   - Develop `TaskManager` for task creation and management, and integrate it with performance metrics.
+   - Create `ReviewScheduler` to manage performance reviews linked to the relevant metrics.
+
+### Efficiency Considerations
+- Use memoization techniques for performance optimization, especially in sorting and filtering functionalities.
+- Ensure the application is optimized for fast rendering, particularly when handling real-time updates.
+
+### Technical Specifications
+- Framework: React for the component structure.
+- Charting Library: ECharts for data visualization.
+- State Management: Use React's Context API for managing state across components.
+
+### Examples
+- **Badge Display**: A user completing 10 tasks may receive a "Rising Star" badge, displayed on hover over their MemberCard.
+- **Performance Graph**: A user can view their average task completion time over the past month with a line graph indicating trends.
+
+### Edge Cases
+- Handle scenarios where no tasks are completed yet by displaying a placeholder message in the TaskManager.
+- Validate feedback submissions to ensure they comply with the guidelines for constructive feedback.
+
+### Enhancements
+- Consider adding a leaderboard feature to foster competition among team members based on points earned.
+- Implement user profile settings to customize notification preferences and visual themes for a better user experience.
+
+This comprehensive plan outlines the functionality, implementation steps, and enhancements for the MemberCard component, ensuring a robust and user-friendly experience.`
+
+## **FileRequirements**
+- Create **1 JS file** with **no styling**.
+- Use only **dummy data**. **No backend** or API calls, only dummy data should be used.
+- The entire file should be **self-contained**. **DO NOT** import any other JS files or components.
+
+## **Rules**
+
+### **General**
+- **No errors or bugs** allowed. The code must work perfectly on the first try.
+- Provide **complete, fully functional code** with no missing implementations or placeholder logic.
+- **DO NOT** ask the user to implement anything. **DO NOT** leave out any code. Recreate everything within this file, and **DO NOT** import any external JS files or components.
+- All necessary code must be included in this file, fully implemented, and functional with **no missing parts**.
+
+### **ResponseFormat**
+- Output **only** the requested code or response. **DO NOT** include explanations, comments, or additional information. Respond with the **complete code only**.
+
+### **NoHeader**
+- **DO NOT** include a header or any boilerplate explanations. Start **directly** with the code implementation.
+
+## **ComponentRequirements**
+- The component must be **fully implemented**, with **all functionality** integrated. **Nothing should be left out** or incomplete. Ensure all pieces work together seamlessly, and the code is ready to run without any issues.
+
+

@@ -10,11 +10,11 @@ import json
 import concurrent.futures
 import traceback
 import threading
-
+import os 
 import re
 import logging
 from logging.handlers import RotatingFileHandler
-
+from frontend.appJsCoder import AppJSmaker
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -25,13 +25,22 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-clear_file_if_not_empty("output.txt")
-clear_file_if_not_empty("outputs/ideas.txt")
-clear_file_if_not_empty("outputs/content.txt")
-clear_file_if_not_empty("outputs/ModulePlannerOutput.txt")
-clear_file_if_not_empty("outputs/OverallPlannerOutput.txt")
-clear_file_if_not_empty("outputs/PagePlannerOutput.txt")
-clear_file_if_not_empty("outputs/plan.txt")
+
+
+def clear_txt_files_in_directory(directory):
+    # Walk through the directory
+    for dirpath, dirnames, filenames in os.walk(directory):
+        for filename in filenames:
+            # Check if the file is a .txt file
+            if filename.endswith('.txt'):
+                file_path = os.path.join(dirpath, filename)
+                clear_file_if_not_empty(file_path)
+
+        
+        
+outputs_dir = 'outputs'
+clear_txt_files_in_directory(outputs_dir)
+clear_file_if_not_empty('output.txt')
 
 def parseModulePlannerOutput(pageOutput):
     # Split the output into individual pages, keeping the delimiter
@@ -96,3 +105,7 @@ with concurrent.futures.ThreadPoolExecutor() as module_executor:
 
 log_active_threads()
 logging.info("All modules and pages processed.")
+
+with open("output.txt",'r',encoding='utf-8') as file:    
+    content = file.read()
+    AppJSmaker("gpt-4o-2024-08-06",content).generate()
