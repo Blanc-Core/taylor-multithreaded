@@ -1,403 +1,325 @@
 
 
-## Final Plan for Resource Allocation Dashboard Page
-
-### **Purpose and Goals**
-The Resource Allocation Dashboard Page serves as the primary interface for visualizing team workloads and project assignments. It allows users to quickly assess resource allocation and identify any imbalances, ultimately leading to informed decision-making that enhances project efficiency and team satisfaction across the enterprise.
-
-### **Problem Solved**
-This page provides a clear overview of team workloads, helping to identify teams that are overworked or underutilized. It facilitates quick decision-making regarding resource reallocation and ensures that managers can make informed decisions based on real-time data, which improves overall project efficiency.
-
-### **Color Scheme**
-- Primary Color: `#004085`
-- Secondary Color: `#cce5ff`
-- Tertiary Color: `#b8daff`
-- Spacing: `8px`
-- Typography: `Roboto, sans-serif`
-
-### **New Features and Enhancements**
-
-1. **User Engagement**
-   - **Main Functionality**: Introduce a feedback system allowing users to rate team performance and workload satisfaction.
-   - **Key Components**: Rating widget, comment section.
-   - **Dummy Data**: An array of user ratings and comments.
-   - **User Interaction Flow**: Users select a team and submit their feedback.
-   - **Challenges & Solutions**: Ensuring user anonymity while collecting feedback; implementing a moderation system for comments.
-
-2. **Data Visualization Improvements**
-   - **Main Functionality**: Enhanced charts displaying workload trends over time.
-   - **Key Components**: ECharts line charts, bar charts for team performance.
-   - **Dummy Data**: Historical workload data with timestamps.
-   - **User Interaction Flow**: Users hover over data points for detailed insights.
-   - **Challenges & Solutions**: Ensuring real-time responsiveness; optimizing data loading times.
-
-3. **Interactivity**
-   - **Main Functionality**: Allow users to interact with data by filtering projects or teams.
-   - **Key Components**: Dropdown menus for selecting teams/projects, dynamic charts.
-   - **Dummy Data**: Predefined project and team lists.
-   - **User Interaction Flow**: Users select filters, resulting in immediate updates to the displayed data.
-   - **Challenges & Solutions**: Maintaining data consistency; ensuring intuitive UI.
-
-4. **Information Presentation**
-   - **Main Functionality**: Implement a summary card for each team/project with key metrics.
-   - **Key Components**: Cards displaying workload, project deadlines, and member contributions.
-   - **Dummy Data**: Sample metrics for each team.
-   - **User Interaction Flow**: Users click on a card to expand and see more details.
-   - **Challenges & Solutions**: Balancing information density without overwhelming the user.
-
-5. **Productivity Tools**
-   - **Main Functionality**: Integrate a task prioritization tool for teams.
-   - **Key Components**: Priority matrix, task lists.
-   - **Dummy Data**: Example tasks with priority levels.
-   - **User Interaction Flow**: Users drag and drop tasks to prioritize them.
-   - **Challenges & Solutions**: Ensuring synchronization of tasks with workload data; maintaining clarity in task assignments.
-
-6. **Customization Options**
-   - **Main Functionality**: Allow users to customize their dashboard view.
-   - **Key Components**: Toggle switches for different data views, layout options.
-   - **Dummy Data**: User preferences stored in local storage.
-   - **User Interaction Flow**: Users adjust settings, which persist across sessions.
-   - **Challenges & Solutions**: Ensuring changes are user-friendly; providing a reset option.
-
-7. **Gamification**
-   - **Main Functionality**: Reward system for achieving resource optimization goals.
-   - **Key Components**: Badges, progress bars.
-   - **Dummy Data**: Example achievements and user progress.
-   - **User Interaction Flow**: Users receive notifications on achievements.
-   - **Challenges & Solutions**: Balancing rewards to maintain motivation without undermining productivity.
-
-8. **Dynamic Content**
-   - **Main Functionality**: Real-time updates on workload changes.
-   - **Key Components**: Notification system for changes in resource allocations.
-   - **Dummy Data**: Simulated updates to resource allocations.
-   - **User Interaction Flow**: Users receive alerts and can view details of changes.
-   - **Challenges & Solutions**: Managing real-time data without overwhelming users.
-
-9. **Notifications**
-   - **Main Functionality**: Alerts for critical workload changes or project deadlines.
-   - **Key Components**: Notification bell icon, dropdown list for alerts.
-   - **Dummy Data**: Sample notifications for overdue tasks or workload alerts.
-   - **User Interaction Flow**: Users click the notification icon to view alerts.
-   - **Challenges & Solutions**: Ensuring notifications are relevant and timely; avoiding alert fatigue.
-
-### **Prioritization of Ideas**
-1. Data Visualization Improvements
-2. Interactivity
-3. User Engagement
-4. Information Presentation
-5. Dynamic Content
-6. Notifications
-7. Productivity Tools
-8. Customization Options
-9. Gamification
-
-### **Implementation Considerations**
-- Utilize **React** for building the component structure.
-- Leverage **Ant Design** for UI elements to maintain a professional look.
-- Implement **ECharts** for engaging data visualizations.
-- Ensure all data used is dummy data to simulate real-time functionalities without backend dependencies.
-- Focus on a desktop-first design to provide a comprehensive and user-friendly experience. 
-
-By integrating these features, the Resource Allocation Dashboard Page will enhance its functionality, user engagement, and overall effectiveness in resource management within the organization.
-
-**Final Plan for Project Overview Page**
-
-- **Description**
-    - This plan enhances the existing Project Overview Page by integrating new features and components aimed at improving user engagement, data visualization, interactivity, and overall productivity.
-
-- **Content**
-    - `{'purposeAndGoals': 'This page serves as the central hub for displaying comprehensive project details, including phases, milestones, and status updates. It provides users with an at-a-glance view of project health and progress, enabling effective project management.', 'problemSolved': 'The Project Overview Page consolidates project information into a single, streamlined view, minimizing confusion and enhancing clarity for users. It highlights upcoming milestones, ensuring that deadlines are visible and achievable, and offers quick access to detailed phase and task information, thereby improving workflow efficiency and project management effectiveness.', 'colour': {'primaryColor': '#0044CC', 'secondaryColor': '#E5E5E5', 'tertiaryColor': '#FFFFFF', 'spacing': '8px', 'typography': 'Roboto, sans-serif'}}`
-
-- **New Features and Components**
-    
-    1. **Dynamic Milestone Timeline**
-        - **Main Functionality**: Visual representation of project milestones in a timeline format that updates in real-time.
-        - **Key Components**: Timeline component using ECharts to show milestones with dates, status indicators (on-time, delayed), and descriptions.
-        - **Data Requirements**: Example milestones with dummy data including title, due date, and status.
-        - **User Interaction Flow**: Users can hover over milestones for tooltips with additional info and click to expand for details.
-        - **Potential Challenges**: Managing updates to the timeline; solution includes a simple state management system to handle updates without reloading the page.
-
-    2. **Interactive Progress Bar**
-        - **Main Functionality**: Display overall project completion percentage with visual indicators for each phase.
-        - **Key Components**: Progress bar component that segments phases and shows completion percentage.
-        - **Data Requirements**: Dummy data showing each phase's completion status (e.g., 70% done).
-        - **User Interaction Flow**: Users can click on segments to view detailed phase breakdowns.
-        - **Potential Challenges**: Ensuring accurate representation; solution includes regular updates based on task completion statuses.
-
-    3. **Task Management Widget**
-        - **Main Functionality**: Quick view for tasks associated with each phase, including functionality for adding/updating tasks.
-        - **Key Components**: A collapsible task list with add/edit capabilities using Ant Design's form components.
-        - **Data Requirements**: Dummy tasks data with titles, statuses (e.g., Not Started, In Progress, Completed), and due dates.
-        - **User Interaction Flow**: Users can add new tasks or edit existing ones, with changes reflected in real-time.
-        - **Potential Challenges**: User data persistence; solution involves using local state to manage task lists temporarily.
-
-    4. **Notification System**
-        - **Main Functionality**: Alerts for upcoming milestones and tasks due soon.
-        - **Key Components**: Notification bell icon that shows badge count for upcoming deadlines.
-        - **Data Requirements**: Dummy data indicating which tasks/milestones are due within a specified timeframe.
-        - **User Interaction Flow**: Users click for dropdown notifications, which can be marked as read.
-        - **Potential Challenges**: Timing for notifications; solution includes a simple timer that checks for due tasks/milestones at intervals.
-
-    5. **Customization Options**
-        - **Main Functionality**: Allow users to customize view settings (e.g., dark/light mode, layout preferences).
-        - **Key Components**: Settings modal for user preferences using Ant Design components.
-        - **Data Requirements**: User preference settings stored in local state.
-        - **User Interaction Flow**: Users access settings via a gear icon, adjust preferences, and apply changes immediately.
-        - **Potential Challenges**: Ensuring user preferences persist; solution includes local storage for saving settings.
-
-    6. **Gamification Elements**
-        - **Main Functionality**: Introduce achievement badges for hitting milestones or completing tasks on time.
-        - **Key Components**: Badge display section on the overview page showing earned and available badges.
-        - **Data Requirements**: Dummy data for badges associated with project milestones and task completion.
-        - **User Interaction Flow**: Users hover over badges for descriptions and can click to see related achievements.
-        - **Potential Challenges**: Balancing motivation without overwhelming users; solution includes a clear rewards system that is easy to understand.
-
-- **Prioritization**
-    1. Dynamic Milestone Timeline
-    2. Interactive Progress Bar
-    3. Task Management Widget
-    4. Notification System
-    5. Customization Options
-    6. Gamification Elements
-
-This plan aims to create a robust and user-friendly Project Overview Page that enhances project management capabilities while maintaining a visually appealing and interactive interface, fully utilizing React, Ant Design, and ECharts for a seamless desktop experience.
-
-**Final Plan for Chat Interface Page in Professional ERP**
-
-- **Description**
-    - This page serves as the central hub for real-time messaging among team members, facilitating seamless communication, collaboration, and information sharing within projects.
-
-- **Content**
-    - **Purpose and Goals**: The Chat Interface Page addresses the need for efficient, real-time communication among team members. It organizes conversations by project to maintain context, reducing reliance on email for internal discussions. By providing an intuitive layout for message exchange, it enhances team productivity and fosters a collaborative environment. It allows smooth navigation between different projects, ensuring that team members can quickly access relevant discussions and contribute effectively. The page supports file sharing, search functionality, and integrates with other task-related modules for comprehensive context. This holistic approach empowers users to manage communications efficiently, improve workflow, and maintain focus on project goals without the clutter and delay of traditional email exchanges.
-    - **Problem Solved**: It enhances team productivity and fosters a collaborative environment by streamlining communication.
-    - **Colour Palette**: 
-        - Primary Color: #004085
-        - Secondary Color: #d1ecf1
-        - Tertiary Color: #cce5ff
-        - Spacing: 5px
-        - Typography: Arial, sans-serif
-
-- **Idea Generation**
-
-1. **User Engagement Tools**
-   - **Main Functionality**: Introduce polls and surveys to gather team feedback on project decisions.
-   - **Key Components**: Poll creation module, results visualization.
-   - **Data Requirements**: Dummy poll data (e.g., question options, user responses).
-   - **User Interaction Flow**: Users create a poll, share it in the chat, and view results in real-time.
-   - **Potential Challenges and Solutions**: Ensure polling is easy to create - provide templates and guidelines.
-
-2. **Dynamic Content for Active Discussions**
-   - **Main Functionality**: Highlight active discussions with real-time updates.
-   - **Key Components**: Notification badge, dynamic message highlighting.
-   - **Data Requirements**: Dummy data for active users and recent messages.
-   - **User Interaction Flow**: Users receive notifications for new messages or mentions, and the chat updates dynamically.
-   - **Potential Challenges and Solutions**: Managing performance with multiple active chats - implement throttling on updates.
-
-3. **Data Visualization for Project Progress**
-   - **Main Functionality**: Use ECharts to visualize project milestones and deadlines.
-   - **Key Components**: Chart display area, project status overview.
-   - **Data Requirements**: Dummy data on project milestones (e.g., dates, completion status).
-   - **User Interaction Flow**: Users can view the project progress chart alongside chat messages.
-   - **Potential Challenges and Solutions**: Keeping charts updated in real-time - use a state management library for efficient updates.
-
-4. **Customizable User Profiles**
-   - **Main Functionality**: Allow users to customize their profiles with avatars and statuses.
-   - **Key Components**: Profile settings modal, avatar upload feature.
-   - **Data Requirements**: Dummy data for user profiles (e.g., names, status messages).
-   - **User Interaction Flow**: Users can edit their profile, which reflects in chat.
-   - **Potential Challenges and Solutions**: Ensuring image uploads are handled smoothly - use a built-in image uploader component.
-
-5. **Gamification Elements**
-   - **Main Functionality**: Implement a points system for active participation in discussions.
-   - **Key Components**: Points leaderboard, badges for achievements.
-   - **Data Requirements**: Dummy data for user points and achievements.
-   - **User Interaction Flow**: Users can view their points and achievements, motivating participation.
-   - **Potential Challenges and Solutions**: Balancing points to avoid misuse - create clear guidelines for earning points.
-
-6. **Integrated File Sharing**
-   - **Main Functionality**: Allow users to share files directly within the chat.
-   - **Key Components**: File upload button, preview of shared files.
-   - **Data Requirements**: Dummy data for file types and user uploads.
-   - **User Interaction Flow**: Users can drag and drop files or use the upload button, with previews displayed in chat.
-   - **Potential Challenges and Solutions**: Ensuring file types and sizes are manageable - implement file type restrictions.
-
-7. **Advanced Search Functionality**
-   - **Main Functionality**: Enhanced search bar to filter messages by project, user, or keywords.
-   - **Key Components**: Search input field, filtering options.
-   - **Data Requirements**: Dummy data representing messages and metadata.
-   - **User Interaction Flow**: Users type in search queries and view filtered results instantly.
-   - **Potential Challenges and Solutions**: Ensuring search is fast - optimize by indexing messages.
-
-- **Prioritization**
-    1. **User Engagement Tools** - High impact, feasible.
-    2. **Dynamic Content for Active Discussions** - High impact, very feasible.
-    3. **Data Visualization for Project Progress** - High impact, feasible.
-    4. **Customizable User Profiles** - Medium impact, feasible.
-    5. **Gamification Elements** - Medium impact, feasible.
-    6. **Integrated File Sharing** - Medium impact, very feasible.
-    7. **Advanced Search Functionality** - Low to medium impact, very feasible.
-
-This comprehensive plan ensures that the Chat Interface Page becomes a robust, engaging, and productive tool for team communication within the ERP framework, enhancing user experience and collaboration.
-
-**Final Plan for Team Profiles Page**
-
-- **Purpose and Goals**
-    - The Team Profiles Page serves to display all development team profiles, allowing users to create and edit team details while visualizing member workloads. It centralizes team member information for better management, provides insights into individual workloads to prevent burnout, and facilitates task assignment by showcasing team skills and availability.
-
-- **Problem Solved**
-    - This page addresses the challenge of managing a dispersed team by centralizing all team member information in one place, providing insights into their workloads to prevent burnout, and facilitating task assignment by showcasing team skills and availability. By doing so, it enhances team coordination, supports efficient resource allocation, and helps maintain a balanced workload among team members, ultimately improving productivity and team satisfaction.
-
-- **Colour and Typography**
-    - Primary Color: #1E90FF
-    - Secondary Color: #FFD700
-    - Tertiary Color: #32CD32
-    - Spacing: 16px
-    - Typography: Arial, sans-serif
-
----
-
-### New Feature Ideas
-
-1. **User Engagement Tools**
-   - **Main Functionality**: Introduce a feedback mechanism where team members can rate tasks or projects, which can help identify areas for improvement.
-   - **Key Components**: Feedback form, ratings display, and comments section.
-   - **Data Requirements**: Dummy data for ratings (1-5 scale) and comments.
-   - **User Interaction Flow**: Users can submit feedback on completed tasks, and it will be displayed alongside the task details.
-   - **Potential Challenges**: Ensuring feedback is constructive; a moderation system may be needed.
-
-2. **Enhanced Data Visualization**
-   - **Main Functionality**: Use ECharts to create interactive charts that display team workload distribution and project timelines.
-   - **Key Components**: Bar charts for workload distribution, pie charts for skill representation, and Gantt charts for project timelines.
-   - **Data Requirements**: Dummy data representing workloads, skills, and project phases.
-   - **User Interaction Flow**: Users can hover over charts for tooltips with detailed information.
-   - **Potential Challenges**: Keeping visualizations responsive; ensure they work on various screen sizes.
-
-3. **Task Assignment Interface**
-   - **Main Functionality**: Implement an intuitive drag-and-drop interface to assign tasks to team members based on their availability and skills.
-   - **Key Components**: Kanban board layout, team member cards, and task cards.
-   - **Data Requirements**: Dummy data for tasks and member availability.
-   - **User Interaction Flow**: Users can drag tasks onto team member cards to assign.
-   - **Potential Challenges**: Handling overlapping tasks; include a warning system for over-assignment.
-
-4. **Customization Options**
-   - **Main Functionality**: Allow users to customize their view of the team profiles page, such as choosing which columns to display or rearranging sections.
-   - **Key Components**: Settings menu for customization, save preferences functionality.
-   - **Data Requirements**: Dummy data for user preferences.
-   - **User Interaction Flow**: Users can open settings, select preferences, and save their view.
-   - **Potential Challenges**: Ensuring changes persist across sessions.
-
-5. **Gamification Elements**
-   - **Main Functionality**: Introduce a points system where team members earn points for completing tasks and providing feedback.
-   - **Key Components**: Points leaderboard, badges for milestones, and notifications for achievements.
-   - **Data Requirements**: Dummy data for points and achievements.
-   - **User Interaction Flow**: Users can view their points and badges on their profile.
-   - **Potential Challenges**: Maintaining motivation without overwhelming users; balance reward systems.
-
-6. **Dynamic Notifications**
-   - **Main Functionality**: Implement a notification system that alerts users about task deadlines, feedback received, and new task assignments.
-   - **Key Components**: Notification panel, alert system, and sound notifications.
-   - **Data Requirements**: Dummy data for notification types and times.
-   - **User Interaction Flow**: Users receive notifications in real-time and can click to view details.
-   - **Potential Challenges**: Avoiding notification overload; allow users to customize notification types.
-
----
-
-### Prioritization of Ideas
-
-1. **Enhanced Data Visualization** - High impact, feasible implementation with ECharts.
-2. **Task Assignment Interface** - High impact, engaging and practical use of drag-and-drop.
-3. **User Engagement Tools** - Medium impact; feedback is valuable but may require moderation.
-4. **Dynamic Notifications** - Medium impact; essential for task management but needs careful design.
-5. **Customization Options** - Low to medium impact; useful for user experience but less critical.
-6. **Gamification Elements** - Low impact; fun addition but may not be essential initially.
-
----
-
-### Conclusion
-This comprehensive plan outlines a series of enhancements to the Team Profiles Page, focusing on user engagement, data visualization, and productivity tools. Each idea is designed to improve team management and collaboration while maintaining a user-friendly interface. By implementing these features, the page will fulfill its purpose of centralizing team member information and facilitating effective task management.
-
-### Final Plan: Performance Dashboard Page
+### Final Plan for Mentor Overview Page
 
 #### Purpose and Goals
-The Performance Dashboard Page provides an overview of team and individual performance metrics, displaying key performance indicators (KPIs) through visualizations like charts and graphs. The aim is to facilitate quick assessments of productivity levels across teams and assist managers in making informed decisions based on visualized performance data.
+This page provides a comprehensive view of each mentor's profile, including their expertise, availability, and the startups they are mentoring. It serves as a dashboard for mentors to see their assigned startups and for startups to find relevant mentors.
 
 #### Problem Solved
-This dashboard serves as a centralized platform where team leaders and managers can view performance data at a glance. It visualizes performance trends over time, helping to identify patterns that could inform future planning and decision-making. The page highlights areas of strength and opportunities for improvement among team members, facilitating targeted coaching and development initiatives.
+The Mentor Overview Page centralizes mentor information, simplifying access to mentor profiles, expertise, and availability, thereby facilitating startups in identifying suitable mentors and scheduling interactions effectively. By providing a centralized hub for mentor information, startups can efficiently pinpoint mentors whose expertise aligns with their needs, while mentors can easily manage their schedules and interactions, significantly enhancing the mentorship process within the enterprise.
 
-#### Color and Typography Scheme
-- Primary Color: #1E90FF
-- Secondary Color: #F0F8FF
-- Tertiary Color: #4682B4
-- Spacing: 8px
-- Typography: Arial, sans-serif
+#### Color Scheme
+- Primary Color: `#004d40`
+- Secondary Color: `#00796b`
+- Tertiary Color: `#e0f2f1`
+- Spacing: `8px`
+- Typography: `'Roboto', sans-serif`
 
 ### New Features and Enhancements
 
-#### 1. User Engagement Features
-- **Feature:** Interactive Performance Filters
-    - **Functionality:** Users can filter data by date ranges, teams, and individual contributors.
-    - **Key Components:** Dropdown menus, date pickers.
-    - **Data Requirements:** Dummy data for various date ranges and users.
-    - **User Interaction Flow:** Select filter options -> Update visualizations.
-    - **Challenges:** Ensuring smooth updates of charts; solution: use React state management to handle updates.
+#### 1. Mentor Availability Calendar
+- **Main Functionality**: Display a visual calendar showing mentor availability.
+- **Key Components**: 
+  - Interactive calendar view (using Ant Design's Calendar component).
+  - Clickable time slots for booking sessions.
+- **Data Requirements**: Dummy data for mentor availability (e.g., `[{ mentorId: 1, date: '2023-10-01', slots: ['10:00', '11:00', '14:00'] }]`).
+- **User Interaction Flow**: Users click on a date, view available slots, and confirm a booking.
+- **Challenges/Solutions**: Potential confusion with time zones; include a time zone selector linked to user profiles.
 
-#### 2. Enhanced Data Visualization
-- **Feature:** Comparative Performance Charts
-    - **Functionality:** Allow users to compare performance metrics of different teams or individuals side-by-side.
-    - **Key Components:** Bar charts, line graphs.
-    - **Data Requirements:** Dummy datasets for various teams and individuals.
-    - **User Interaction Flow:** Select teams for comparison -> View updated charts.
-    - **Challenges:** Balancing readability with data density; solution: use tooltips for detailed data on hover.
+#### 2. Mentor Rating System
+- **Main Functionality**: Allow startups to rate mentors post-interaction.
+- **Key Components**: 
+  - Star rating UI (using Ant Design's Rate component).
+  - A feedback form for detailed comments.
+- **Data Requirements**: Dummy data for ratings (e.g., `[{ mentorId: 1, ratings: [5, 4, 3], comments: ['Great mentor!', 'Helpful advice.'] }]`).
+- **User Interaction Flow**: Startups submit ratings after each session, which updates in real-time.
+- **Challenges/Solutions**: Users might forget to rate; send a gentle reminder notification post-session.
 
-#### 3. Interactivity
-- **Feature:** Clickable Data Points
-    - **Functionality:** Clicking on a data point in a graph shows detailed metrics for that time period or individual.
-    - **Key Components:** Modal pop-ups with detailed metrics.
-    - **Data Requirements:** Dummy detailed performance data.
-    - **User Interaction Flow:** Click on data point -> Show modal with details.
-    - **Challenges:** Ensuring modals are responsive; solution: test modal sizes across devices.
+#### 3. Dynamic Mentor Recommendations
+- **Main Functionality**: Suggest mentors based on the startup’s needs and previous interactions.
+- **Key Components**: 
+  - Recommendation engine using dummy data.
+  - Display recommended mentors in a separate section with profiles.
+- **Data Requirements**: Dummy data for recommendations (e.g., `[{ startupId: 1, recommendedMentors: [1, 3, 5] }]`).
+- **User Interaction Flow**: Users see the list of recommended mentors tailored to their profiles.
+- **Challenges/Solutions**: Ensuring recommendations are relevant; utilize a scoring system based on expertise and past interactions.
 
-#### 4. Gamification
-- **Feature:** Performance Badges
-    - **Functionality:** Award badges for achieving specific KPIs, motivating users.
-    - **Key Components:** Badge icons displayed on user profiles.
-    - **Data Requirements:** Dummy criteria for badges (e.g., "Top Performer", "Most Improved").
-    - **User Interaction Flow:** Users earn badges based on performance metrics.
-    - **Challenges:** Defining clear criteria for awards; solution: involve user feedback for criteria development.
+#### 4. Interactive Data Visualization
+- **Main Functionality**: Visualize mentor expertise and startup growth through charts.
+- **Key Components**: 
+  - ECharts integration to create bar and pie charts.
+  - Display metrics like mentoring sessions held, success rates, and expertise areas.
+- **Data Requirements**: Dummy data for visualizations (e.g., `[{ mentorId: 1, sessionsHeld: 30, successRate: 85 }]`).
+- **User Interaction Flow**: Users select different metrics to visualize; charts update dynamically.
+- **Challenges/Solutions**: Data overload; limit visualizations to key metrics with clear legends.
 
-#### 5. Customization Options
-- **Feature:** Theme Switcher
-    - **Functionality:** Users can toggle between light and dark themes.
-    - **Key Components:** Toggle switch for theme selection.
-    - **Data Requirements:** Theme-related styles.
-    - **User Interaction Flow:** Switch theme -> Update styles dynamically.
-    - **Challenges:** Ensuring all components adjust to the theme; solution: use CSS variables.
+#### 5. Customizable Mentor Profiles
+- **Main Functionality**: Allow mentors to customize their profiles with skills and availability.
+- **Key Components**: 
+  - Editable fields for skills and availability (using Ant Design's Form component).
+  - Save and cancel buttons for updates.
+- **Data Requirements**: Dummy data structure for mentor profiles (e.g., `[{ mentorId: 1, skills: ['AI', 'Business Strategy'], availability: ['Monday', 'Wednesday'] }]`).
+- **User Interaction Flow**: Mentors click "Edit Profile", make changes, and save.
+- **Challenges/Solutions**: Validation of inputs; implement clear error messages for invalid data.
 
-#### 6. Dynamic Content Updates
-- **Feature:** Real-time Performance Updates
-    - **Functionality:** Automatically refresh performance data every few minutes without page reload.
-    - **Key Components:** Timer function to refresh charts.
-    - **Data Requirements:** Dummy dynamic data set to simulate real-time changes.
-    - **User Interaction Flow:** Data updates automatically; users can manually refresh if needed.
-    - **Challenges:** Managing data consistency; solution: use a state management library like Redux.
+#### 6. Notifications and Reminders
+- **Main Functionality**: Notify mentors of new bookings and remind startups of upcoming sessions.
+- **Key Components**: 
+  - Notification bell icon to view alerts.
+  - Pop-up modal for session reminders.
+- **Data Requirements**: Dummy notification data (e.g., `[{ userId: 1, message: 'Session with Mentor X at 10 AM tomorrow.' }]`).
+- **User Interaction Flow**: Users click the notification icon to see alerts; they can mark notifications as read.
+- **Challenges/Solutions**: Users may overlook notifications; implement a badge for unread notifications.
 
-#### 7. Notifications
-- **Feature:** Performance Alerts
-    - **Functionality:** Notify users when performance metrics exceed or fall below set thresholds.
-    - **Key Components:** Notification pop-ups or banners.
-    - **Data Requirements:** Dummy thresholds for various KPIs.
-    - **User Interaction Flow:** Receive alerts based on performance data updates.
-    - **Challenges:** Avoiding notification fatigue; solution: allow users to customize alert settings.
+### Prioritization
+1. Mentor Availability Calendar
+2. Mentor Rating System
+3. Dynamic Mentor Recommendations
+4. Interactive Data Visualization
+5. Customizable Mentor Profiles
+6. Notifications and Reminders
+
+This comprehensive plan optimally fills out the Mentor Overview Page while ensuring a professional ERP experience that enhances user engagement, interactivity, and productivity.
+
+### Final Plan for Investor Profile Management Page
+
+#### Purpose and Goals
+This page provides a comprehensive view of individual investor profiles, displaying their preferences, engagement history, and potential matches with startups. It helps users manage relationships and assess investor interests effectively.
+
+#### Problem Solved
+This page solves the problem of fragmented data access by centralizing investor information for easy access. It also addresses the need for engagement history tracking by logging interactions with investors for better relationship management. Additionally, it simplifies profile management by allowing users to easily edit and update investor details. By integrating these functionalities, the page enhances workflow efficiency and improves data accessibility, ultimately leading to more effective investor relationship management and potential matchmaking with startups.
+
+#### Color Scheme
+- **Primary Color**: #2C3E50
+- **Secondary Color**: #18BC9C
+- **Tertiary Color**: #ECF0F1
+- **Spacing**: 0.5rem
+- **Typography**: Roboto, sans-serif
+
+---
+
+### New Features and Enhancements
+
+#### 1. User Engagement Dashboard
+- **Main Functionality**: Create a dashboard that displays key metrics about investor engagement, such as the number of interactions per week or month.
+- **Key Components**: 
+  - Engagement metrics cards (interactions, response rates)
+  - Line chart showing interaction trends over time
+- **Data Requirements**: Dummy data for interactions per investor, historical engagement data.
+- **User Interaction Flow**: Users can hover over metrics to see a breakdown of data and click to view detailed interaction history.
+- **Potential Challenges**: Ensuring the data is visually appealing and easy to comprehend. 
+  - **Solution**: Utilize Ant Design's Card and EChart's Line Chart features for clarity and aesthetics.
+
+#### 2. Data Visualization for Preferences
+- **Main Functionality**: Visualize investor preferences using pie charts or bar graphs to show areas of interest.
+- **Key Components**: 
+  - Pie charts for industry interests
+  - Bar graphs for investment size preferences
+- **Data Requirements**: Dummy data representing different investment categories and sizes.
+- **User Interaction Flow**: Users can click on sections of the chart to filter potential matches.
+- **Potential Challenges**: Managing complex data relationships.
+  - **Solution**: Preprocess data into digestible formats for visualization.
+
+#### 3. Interaction Log with Filter Options
+- **Main Functionality**: Display a detailed log of interactions with filters to sort by date, type of interaction, or specific investors.
+- **Key Components**: 
+  - Table with columns for date, interaction type, notes, and follow-up actions
+  - Filter dropdowns for quick sorting
+- **Data Requirements**: Dummy data depicting various interaction types and notes.
+- **User Interaction Flow**: Users can apply filters to view specific logs and click on entries to edit or add new notes.
+- **Potential Challenges**: Maintaining performance with large datasets.
+  - **Solution**: Introduce pagination to limit data displayed at one time.
+
+#### 4. Customizable Investor Profiles
+- **Main Functionality**: Allow users to customize investor profile layouts and the information displayed.
+- **Key Components**: 
+  - Toggle switches for different profile sections (e.g., personal info, preferences, engagement history)
+  - Save preferences button
+- **Data Requirements**: Dummy data for customizable sections.
+- **User Interaction Flow**: Users can switch sections on or off and save their preferences, affecting how data is displayed.
+- **Potential Challenges**: Ensuring user changes are saved correctly.
+  - **Solution**: Use local state management to preserve user settings.
+
+#### 5. Dynamic Notifications for Follow-Up
+- **Main Functionality**: Implement a notification system that alerts users about upcoming follow-ups or important engagement events.
+- **Key Components**: 
+  - Notification bell icon
+  - Dropdown for recent notifications
+- **Data Requirements**: Dummy data for upcoming follow-up events.
+- **User Interaction Flow**: Users click the notification icon to see recent alerts and can mark them as read.
+- **Potential Challenges**: Ensuring timely notifications are displayed.
+  - **Solution**: Use a timer to check for new events at regular intervals.
+
+---
 
 ### Prioritization of Ideas
-1. **Interactive Performance Filters** - High impact, feasible.
-2. **Comparative Performance Charts** - High impact, feasible.
-3. **Performance Alerts** - Medium impact, feasible.
-4. **Click Data Points** - Medium impact, feasible.
-5. **Performance Badges** - Medium impact, moderate feasibility.
-6. **Real-time Performance Updates** - Medium impact, moderate feasibility.
-7. **Theme Switcher** - Low impact, easy to implement.
-8. **Dynamic Content Updates** - Low impact, moderate feasibility.
+1. User Engagement Dashboard - High impact, feasible.
+2. Dynamic Notifications for Follow-Up - High impact, essential for relationship management.
+3. Data Visualization for Preferences - Medium impact, enhances understanding.
+4. Interaction Log with Filter Options - Medium impact, crucial for tracking.
+5. Customizable Investor Profiles - Low to Medium impact, improves user personalization but less critical.
 
 ### Conclusion
-This performance dashboard aims to create an engaging and informative experience for users by incorporating interactive elements, enhanced data visualization, and gamification features. The proposed plan focuses on practical and feasible solutions while providing a comprehensive set of functionalities to meet user needs in a professional ERP context.
+This comprehensive plan outlines a series of enhancements designed to improve the investor profile management experience. By focusing on user engagement, data visualization, and interactive features, this page aims to provide valuable insights and streamline investor relationship management, all within a single-page React application using Ant Design and ECharts for a polished user interface.
+
+### Final Plan for Growth Metrics Page
+
+#### Description
+This page is designed to display detailed growth metrics for each startup, providing users with the ability to analyze and interpret performance against predefined key performance indicators (KPIs). It will serve as a comprehensive dashboard for monitoring and comparing growth trends, enabling users to make informed decisions.
+
+---
+
+### Content
+
+- **Purpose and Goals**
+    - The Growth Metrics Page aims to provide clear visibility into growth trends and automate the tracking of KPIs for consistent evaluations. It will facilitate comparisons of growth metrics across different startups to enhance insights.
+
+- **Problem Solved**
+    - The page addresses key business challenges by showcasing growth metrics, enabling users to quickly identify trends, performance gaps, and areas for improvement.
+
+- **Color Scheme**
+    - Primary Color: `#1F77B4`
+    - Secondary Color: `#FF7F0E`
+    - Tertiary Color: `#2CA02C`
+    - Spacing: `8px`
+    - Typography: `Roboto, sans-serif`
+
+---
+
+### Idea Generation
+
+#### New Features and Enhancements
+
+1. **Interactive Data Visualization**
+   - **Main Functionality**: Use ECharts to create interactive charts (line charts, bar graphs, pie charts) that display growth metrics over time.
+   - **Key Components**: Chart components for different metrics, filter options for time ranges.
+   - **Data Requirements**: Dummy data representing monthly growth over a year for multiple startups.
+   - **User Interaction Flow**: Users can hover over points to see specific data values, click to filter data by different time frames.
+   - **Potential Challenges**: Ensuring responsiveness of charts. Solution: Use ECharts' responsive settings and test across various screen sizes.
+
+2. **Comparison Tool**
+   - **Main Functionality**: Allow users to select multiple startups to compare their growth metrics side-by-side.
+   - **Key Components**: Comparison selection dropdown, a comparison summary table, and combined visualizations.
+   - **Data Requirements**: Dummy data for selected startups' KPIs.
+   - **User Interaction Flow**: Users select startups from a dropdown, and the comparison table updates dynamically.
+   - **Potential Challenges**: Managing overlapping data points. Solution: Use color coding to differentiate between startups.
+
+3. **Customizable Dashboard**
+   - **Main Functionality**: Enable users to customize the layout of the metrics they want to view (drag-and-drop functionality).
+   - **Key Components**: Dashboard layout grid, widget selection panel.
+   - **Data Requirements**: Dummy data for various KPIs.
+   - **User Interaction Flow**: Users can drag KPIs into the grid to arrange their dashboard.
+   - **Potential Challenges**: Maintaining state across user interactions. Solution: Utilize React's state management effectively.
+
+4. **Real-time Notifications and Alerts**
+   - **Main Functionality**: Provide real-time alerts for significant changes in metrics (e.g., sudden drops or spikes).
+   - **Key Components**: Notification component, settings panel for alert preferences.
+   - **Data Requirements**: Dummy data simulating changes in metrics.
+   - **User Interaction Flow**: Users receive pop-up notifications when KPIs exceed predefined thresholds.
+   - **Potential Challenges**: Avoiding alert fatigue. Solution: Allow users to customize alert thresholds and types.
+
+5. **Gamification Elements**
+   - **Main Functionality**: Introduce a points system for users who regularly check metrics and achieve performance milestones.
+   - **Key Components**: Points leaderboard, achievement badges.
+   - **Data Requirements**: Dummy data representing user engagement metrics.
+   - **User Interaction Flow**: Users can view their points and badges, encouraging regular engagement.
+   - **Potential Challenges**: Ensuring meaningful engagement. Solution: Design milestones that promote productive behaviors.
+
+6. **Dynamic Content Updates**
+   - **Main Functionality**: Update content dynamically based on user interactions without needing to refresh the page.
+   - **Key Components**: State management for dynamic data.
+   - **Data Requirements**: Dummy data for various scenarios based on user actions.
+   - **User Interaction Flow**: Users click buttons to refresh data metrics or filter views, which updates the display instantly.
+   - **Potential Challenges**: Managing data consistency. Solution: Implement effective state management using React hooks.
+
+---
+
+### Prioritization
+
+1. **Interactive Data Visualization** - High impact, feasible, enhances user engagement significantly.
+2. **Comparison Tool** - High impact, straightforward implementation, aids in decision-making.
+3. **Customizable Dashboard** - Medium impact, adds personalization but requires more complex state management.
+4. **Real-time Notifications and Alerts** - Medium impact, enhances user experience but may require user settings management.
+5. **Gamification Elements** - Medium impact, encourages engagement but may not be necessary for all users.
+6. **Dynamic Content Updates** - Medium impact, important for smooth UX but relies on effective state management.
+
+---
+
+This comprehensive plan outlines the core logic, functionality, and necessary details for developing a professional ERP Growth Metrics Page, ensuring it meets user needs while providing an engaging and insightful experience.
+
+**Final Plan**
+
+- **Purpose and Goals**
+    - The page serves as a centralized hub for YC program members, offering a comprehensive profile of individual startups. It enables users to view and manage crucial information such as key metrics, team members, funding status, and project details, thereby facilitating efficient updates and management—all in one place.
+
+- **Problem Solved**
+    - The Startup Overview Page addresses the need for a centralized information repository, allowing for easy access and management of critical startup data. It enhances workflow efficiency by providing a clear, organized view of team structures and funding information, while facilitating real-time updates and edits to maintain current data without the hassle of navigating through multiple disparate sources.
+
+- **Colour Scheme**
+    - Primary Color: #2A9D8F
+    - Secondary Color: #264653
+    - Tertiary Color: #E9C46A
+    - Spacing: 8px
+    - Typography: Roboto, sans-serif
+
+- **New Features and Enhancements**
+
+1. **User Engagement Tools**
+   - **Main Functionality**: Implement a feedback system where team members can rate each other's contributions or project status.
+   - **Key Components**: Rating widgets, comment sections.
+   - **Data Requirements**: Dummy data for ratings (1-5 stars) and comments.
+   - **User Interaction Flow**: Users rate projects or team members with a click and can leave comments.
+   - **Potential Challenges**: Ensuring constructive feedback; implement moderation tools.
+
+2. **Advanced Data Visualization**
+   - **Main Functionality**: Use ECharts to create interactive charts that display key metrics over time (e.g., funding rounds, user growth).
+   - **Key Components**: Line charts, bar graphs, pie charts.
+   - **Data Requirements**: Dummy data sets with timestamps for funding and user metrics.
+   - **User Interaction Flow**: Users hover over data points for details; click to filter by timeframes.
+   - **Potential Challenges**: Complexity in data representation; focus on simplicity.
+
+3. **Interactivity and Dynamic Content**
+   - **Main Functionality**: Create an interactive roadmap feature that allows users to visualize project milestones and timelines.
+   - **Key Components**: Timeline component, milestone indicators.
+   - **Data Requirements**: Dummy data for project milestones, including dates and descriptions.
+   - **User Interaction Flow**: Users can click on milestones to view project details or update statuses.
+   - **Potential Challenges**: Keeping the roadmap clutter-free; implement zoom and scroll features.
+
+4. **Customization Options**
+   - **Main Functionality**: Allow users to customize their dashboard layout (e.g., drag-and-drop components).
+   - **Key Components**: Draggable panels, save layout settings.
+   - **Data Requirements**: Dummy data representing user preferences (layout configurations).
+   - **User Interaction Flow**: Users can rearrange panels and save their layout.
+   - **Potential Challenges**: Ensuring a smooth drag-and-drop experience; thorough testing required.
+
+5. **Productivity Tools**
+   - **Main Functionality**: Integrate a task management tool where users can create, assign, and track tasks within their teams.
+   - **Key Components**: Task lists, assignment dropdowns, completion checkboxes.
+   - **Data Requirements**: Dummy data representing tasks, assignees, and completion statuses.
+   - **User Interaction Flow**: Users can create tasks, assign them to team members, and mark them as complete.
+   - **Potential Challenges**: Managing task dependencies; consider adding a priority system.
+
+6. **Gamification Elements**
+   - **Main Functionality**: Introduce a points and rewards system for team engagement and task completion.
+   - **Key Components**: Points leaderboard, achievement badges.
+   - **Data Requirements**: Dummy data representing user points and achievements.
+   - **User Interaction Flow**: Users can view their points and leaderboard rankings.
+   - **Potential Challenges**: Ensuring fairness in point distribution; balance between gaming and productivity.
+
+7. **Notification System**
+   - **Main Functionality**: Implement a notification system for updates on tasks, project changes, or team feedback.
+   - **Key Components**: Notification bell, dropdown list for alerts.
+   - **Data Requirements**: Dummy data for notifications (e.g., task assignments, comments).
+   - **User Interaction Flow**: Users receive alerts and can click to view details.
+   - **Potential Challenges**: Avoiding notification overload; allow users to customize notification preferences.
+
+- **Prioritization of Ideas**
+    1. Advanced Data Visualization
+    2. User Engagement Tools
+    3. Productivity Tools
+    4. Interactivity and Dynamic Content
+    5. Customization Options
+    6. Notification System
+    7. Gamification Elements
+
+This comprehensive plan outlines the core logic and functionality to enhance the Startup Overview Page for YC program members, ensuring a user-friendly, interactive experience that caters to their needs for organization and management.

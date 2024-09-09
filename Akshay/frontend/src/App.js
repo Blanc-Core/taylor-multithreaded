@@ -1,84 +1,93 @@
-
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Layout, Menu, Drawer, Button } from 'antd';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Layout, Menu, Button } from "antd";
 import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
   HomeOutlined,
   InfoCircleOutlined,
-  ContactsOutlined,
-  DashboardOutlined,
-  TeamOutlined,
-  MessageOutlined,
-  BarChartOutlined
-} from '@ant-design/icons';
+  MailOutlined,
+  BarChartOutlined,
+  UsergroupAddOutlined,
+  FundProjectionScreenOutlined,
+} from "@ant-design/icons";
+import "antd/dist/reset.css";
 
-import DashboardContainer from './components/DashboardContainer';
-import ProjectOverviewContainer from './components/ProjectOverviewContainer';
-import ChatContainer from './components/ChatContainer';
-import TeamProfilesContainer from './components/TeamProfilesContainer';
-import PerformanceDashboard from './PerformanceDashboard';
+// Import components for different pages
+import MentorDashboard from "./components/MentorDashboard";
+import MetricsOverview from "./components/GrowthMetricsPage";
+import InvestorProfileContainer from "./components/InvestorProfileContainer";
+import ERPSystemPage from "./components/ERPSystemPage";
 
-const { Header, Content } = Layout;
+const { Header, Sider, Content } = Layout;
 
 const App = () => {
-  const [drawerVisible, setDrawerVisible] = React.useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
-  const toggleDrawer = () => {
-    setDrawerVisible(!drawerVisible);
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
   };
+
+  // Define routes with appropriate paths and icons
+  const routes = [
+    { path: "/", name: "Mentor Dashboard", icon: <UsergroupAddOutlined /> },
+    { path: "/growth-metrics", name: "Growth Metrics", icon: <BarChartOutlined /> },
+    { path: "/investor-profile", name: "Investor Profile", icon: <FundProjectionScreenOutlined /> },
+    { path: "/erp-system", name: "ERP System", icon: <InfoCircleOutlined /> },
+  ];
 
   return (
     <Router>
-      <Layout style={{ minHeight: '100vh' }}>
-        <Header style={{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center' }}>
-          <Button type="primary" onClick={toggleDrawer} style={{ marginRight: '16px' }}>
-            Menu
-          </Button>
-          <h1 style={{ color: '#fff', margin: 0 }}>App</h1>
-        </Header>
-
-        <Drawer
-          title="Navigation"
-          placement="left"
-          onClose={toggleDrawer}
-          visible={drawerVisible}
-          bodyStyle={{ padding: 0 }}
+      <Layout>
+        <Sider
+          collapsible
+          collapsed={collapsed}
+          onCollapse={setCollapsed}
+          breakpoint="lg"
+          collapsedWidth="0"
+          trigger={null}
         >
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            style={{ height: '100%', borderRight: 0 }}
-          >
-            <Menu.Item key="1" icon={<InfoCircleOutlined />}>
-              <Link to="/dashboard" onClick={toggleDrawer}>Dashboard</Link>
-            </Menu.Item>
-            <Menu.Item key="3" icon={<ContactsOutlined />}>
-              <Link to="/project-overview" onClick={toggleDrawer}>Project Overview</Link>
-            </Menu.Item>
-            <Menu.Item key="4" icon={<MessageOutlined />}>
-              <Link to="/chat" onClick={toggleDrawer}>Chat</Link>
-            </Menu.Item>
-            <Menu.Item key="5" icon={<TeamOutlined />}>
-              <Link to="/team-profiles" onClick={toggleDrawer}>Team Profiles</Link>
-            </Menu.Item>
-            <Menu.Item key="6" icon={<DashboardOutlined />}>
-              <Link to="/performance-dashboard" onClick={toggleDrawer}>Performance Dashboard</Link>
-            </Menu.Item>
+          <div className="logo" style={{ padding: "16px", textAlign: "center", color: "#fff" }}>
+            {collapsed ? "Logo" : "My App"}
+          </div>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={["0"]}>
+            {routes.map((route, index) => (
+              <Menu.Item key={index} icon={route.icon}>
+                <Link to={route.path}>{route.name}</Link>
+              </Menu.Item>
+            ))}
           </Menu>
-        </Drawer>
-
-        <Layout className="site-layout" style={{ marginLeft: 0, marginTop: '64px' }}>
-          <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-            <div style={{ padding: 24, minHeight: 360 }}>
-              <Routes>
-                <Route path="/" element={<h2>Welcome to Home</h2>} />
-                <Route path="/dashboard" element={<DashboardContainer />} />
-                <Route path="/project-overview" element={<ProjectOverviewContainer />} />
-                <Route path="/chat" element={<ChatContainer />} />
-                <Route path="/team-profiles" element={<TeamProfilesContainer />} />
-                <Route path="/performance-dashboard" element={<PerformanceDashboard />} />
-              </Routes>
-            </div>
+        </Sider>
+        <Layout className="site-layout">
+          <Header
+            className="site-layout-background"
+            style={{
+              padding: "0 16px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Button type="primary" onClick={toggleCollapsed}>
+              {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            </Button>
+            <div style={{ color: "#fff", fontSize: "18px" }}>My App Header</div>
+          </Header>
+          <Content
+            style={{
+              margin: "24px 16px",
+              padding: 24,
+              background: "#fff",
+              minHeight: 280,
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<MentorDashboard />} />
+              <Route path="/growth-metrics" element={<MetricsOverview />} />
+              <Route path="/investor-profile" element={<InvestorProfileContainer />} />
+              <Route path="/erp-system" element={<ERPSystemPage />} />
+              {/* Add more routes as necessary */}
+            </Routes>
           </Content>
         </Layout>
       </Layout>

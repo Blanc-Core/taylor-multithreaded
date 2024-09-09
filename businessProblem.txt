@@ -1,98 +1,77 @@
-**Business Problem**
-We run a mid-sized software development company, managing multiple projects across different teams. Our business involves overseeing development teams, tracking progress, ensuring code quality, and meeting client deadlines. We need an internal ERP system to help manage and optimize the following:
+# Business Problem
 
-#1. Development Team and Project Management  
-   - **Team Profiles**  
-      - Each team has a detailed profile containing all relevant information for task management, workload distribution, and productivity tracking.
-      - **Details included in Team Profiles**:
-         - **Team Overview**:
-            - Team Name: A unique identifier for each team (e.g., "Frontend Wizards", "Backend Gurus").
-            - Team Type: Categorize teams based on their function (e.g., Frontend, Backend, Full-Stack, QA).
-            - Department: Associate teams with departments (e.g., Web Development, Mobile Development, DevOps).
-         - **Team Members**:
-            - **Basic Information**: Full name, contact details (email, phone), and role in the team (e.g., Full-Stack Developer, QA Lead).
-            - **Skillset**: A detailed list of programming languages, frameworks, and technologies each team member is proficient in. This should be filterable for project assignments.
-            - **Experience**: Years of experience with specific technologies, past projects worked on, and performance feedback from past projects.
-            - **Workload**: Track individual workloads based on current tasks, estimated task completion time, and overall team balance. Visualize this using a progress bar for each member.
-         - **Current Projects**: A real-time list of active projects assigned to the team, including project deadlines, status, and task breakdown.
-         - **Capacity Tracking**:
-            - Show how much work each team can handle, with a visual heatmap indicating overworked (red) or underutilized (green) teams.
-            - Provide forecasts for upcoming availability based on ongoing tasks and upcoming holidays or time off.
-         - **Time-Off and Availability**:
-            - Manage scheduled leave (e.g., vacations, personal days) and mark unavailable team members.
-            - Show this availability in project planning to avoid assigning critical tasks to unavailable team members.
-         - **Productivity Metrics**:
-            - Track key performance indicators like lines of code (LOC) written, pull requests (PRs) submitted and reviewed, and bugs fixed.
-            - Generate monthly, quarterly, and yearly performance summaries for individual team members and teams.
+We are **Y Combinator (YC)**, a renowned accelerator that supports and funds hundreds of early-stage startups across a diverse range of industries. Our operations involve managing the relationships between startups, investors, and mentors, tracking the progress of our portfolio companies, and ensuring proper support is provided throughout the development lifecycle. We need an internal ERP system to streamline our operations, improve tracking, and optimize our workflows.
 
-   - **Project Tracking and Progress Monitoring**  
-      - This section enables detailed tracking of each project's lifecycle, ensuring smooth development across planning, coding, testing, and deployment stages.
-      - **Project Overview**:
-         - **Basic Info**: Project name, start date, estimated completion date, project manager, and description.
-         - **Phases**: Break projects into clear phases (e.g., Planning, Development, QA Testing, Deployment), with visual timelines showing milestones, dependencies, and key deadlines.
-         - **Milestones and Deliverables**:
-            - Set important milestones (e.g., Alpha release, Beta release) and attach critical deliverables to each milestone (e.g., features or modules to be delivered).
-         - **Project Dependencies**:
-            - Visualize dependencies between tasks, phases, or projects (e.g., "Task A must be completed before Task B can begin") with Gantt charts or dependency graphs.
-         - **Task Breakdown**:
-            - Create and assign specific tasks and subtasks to team members.
-            - **Task Details**:
-               - Description: Brief overview of the task.
-               - Priority: Indicate whether it is critical, high, medium, or low priority.
-               - Status: Track the status of the task (e.g., Pending, In Progress, In Review, Completed).
-               - Assignee: Assign team members or groups to the task, along with any dependencies.
-               - Estimated Hours and Due Date: Allow input for estimated completion time and assign due dates.
-               - Progress Tracking: Use a progress bar or percentage completion for real-time status updates.
-         - **Code Repositories**:
-            - Integrate with GitHub/GitLab to link code repositories for each project, enabling the tracking of commits, PRs, and CI/CD pipeline statuses.
-            - Enable users to click on a task to open the related repository or PR directly.
-         - **Code Quality and Testing Metrics**:
-            - **Unit Test Coverage**: Show what percentage of the codebase is covered by unit tests, with a target threshold (e.g., 90% coverage).
-            - **Automated Testing Results**: Track results from automated tests in CI/CD pipelines and flag issues if tests fail.
-            - **Code Reviews**: Track code review submissions, assign reviewers, and visualize the approval process.
-         - **Feedback and Reviews**:
-            - Maintain a feedback loop for projects, enabling team leads to review progress and client feedback. This includes client surveys, peer reviews, and internal quality assurance checks.
+## 1. Startup Portfolio and Mentorship Management  
+### Startup Profiles
+- **Startup Overview**:
+   - **Startup Name**: Each startup has a unique profile with its name, logo, and founding team.
+   - **Industry Type**: Categorize startups based on their industry (e.g., FinTech, HealthTech, SaaS, Biotech).
+   - **Cohort**: Associate each startup with their Y Combinator batch (e.g., Summer 2024).
+   - **Status**: Track the startup’s lifecycle stage (e.g., Pre-Seed, Seed, Series A).
+- **Founders and Team**:
+   - **Founders**: Full name, role, and contact details of each founder (CEO, CTO, COO).
+   - **Team Overview**: Overview of key team members, including advisors and top executives.
+   - **Skillsets**: Track the primary skills and technical expertise of the team (e.g., Machine Learning, Web Development, Product Management).
+   - **Workload**: Visualize the workload and capacity of each startup team, including key deliverables.
+- **Funding and Financials**:
+   - **Funding Rounds**: Details of completed funding rounds (e.g., Pre-Seed, Seed, Series A), including the amount raised and key investors involved.
+   - **Valuation**: Current startup valuation based on the most recent funding round.
+   - **Burn Rate**: Track the monthly burn rate (expenses vs. revenue).
+   - **Revenue**: Display monthly recurring revenue (MRR) and key financial indicators (e.g., gross profit margin).
+- **Progress and Key Metrics**:
+   - **Product Development**: Track the status of the MVP (Minimum Viable Product), product launches, and development timelines.
+   - **Growth Metrics**: Monitor key performance indicators (KPIs) such as user acquisition, monthly active users (MAUs), and customer retention rate.
+   - **Milestones**: Key business milestones (e.g., product-market fit, partnership agreements, international expansion).
+   - **Risk Indicators**: Flag potential risks (e.g., high burn rate, regulatory issues, slow product development) for early intervention.
+- **Mentorship and Support**:
+   - **Mentor Assignments**: Assign YC mentors to startups and track their progress through regular meetings and check-ins.
+   - **Mentor Feedback**: Log feedback provided by mentors, highlighting areas of improvement and potential opportunities for growth.
 
-   - **Team Collaboration and Communication**  
-      - Facilitates smooth communication and real-time collaboration among development teams and across departments.
-      - **Collaboration Features**:
-         - **Internal Messaging**:
-            - A built-in chat feature allowing team members to send real-time messages, attach files, and share code snippets.
-            - Organize chats by project, team, or task for better clarity.
-         - **Meeting Scheduler**:
-            - An integrated calendar feature that enables scheduling of stand-ups, sprint reviews, and retrospectives with reminders.
-            - Allow meeting notes and action items to be linked directly to tasks or milestones within the project.
-         - **Task Comments and Updates**:
-            - Team members can leave comments on tasks, attach screenshots, or flag issues for attention.
-            - Create a threaded comment system so replies and updates are linked for easy tracking.
-         - **System-Wide Notifications**:
-            - Enable notifications for task status updates, upcoming deadlines, or team announcements, sent via email or internal notifications.
+### Project and Milestone Tracking
+- **Project Details**:
+   - **Project Name**: Associate each startup with active projects, such as product launches, customer pilots, or scaling initiatives.
+   - **Phases**: Divide projects into clear phases (e.g., Ideation, Development, Testing, Rollout).
+   - **Task Breakdown**: Create and assign tasks for each phase, with due dates and assigned team members.
+   - **Progress Overview**: Visualize real-time project progress using Gantt charts, task status indicators (e.g., Pending, In Progress, Completed), and milestones.
+   - **Dependencies**: Flag project dependencies (e.g., waiting for investor sign-off before launching marketing campaigns).
+   - **Feedback Loops**: Maintain continuous feedback from YC mentors, team leads, and investors to ensure smooth progress.
 
-   - **Performance and Productivity Metrics**  
-      - A comprehensive tool for tracking the performance of teams and individuals to ensure continuous improvement.
-      - **Key Features**:
-         - **Time Tracking**:
-            - Track the hours worked on each task using manual input or automated tracking (integrated with time management tools like Clockify or Toggl).
-            - Log productive time and idle time, ensuring accurate productivity analysis.
-         - **Task Completion Metrics**:
-            - Track the average time taken to complete tasks, categorize by task type (e.g., coding, testing, bug fixing), and compare against benchmarks.
-         - **Sprint Analytics**:
-            - Visualize sprint progress using burndown charts, velocity reports, and task completion rates.
-            - Track tasks moved between sprints and analyze the reasons for delays (e.g., underestimation, external dependencies).
-         - **Peer Review Metrics**:
-            - Track the number of peer reviews completed by team members, including approval rates and the number of requested changes.
-         - **Personal Productivity Scores**:
-            - Generate scores based on task completion, efficiency, and contribution to overall team objectives. This can include metrics like completed PRs, LOC, and issue resolution.
+## 2. Investor and Fundraising Management
+### Investor Profiles
+- **Investor Overview**:
+   - **Investor Name**: Unique profile for each investor, including their firm and individual partners.
+   - **Investment Preferences**: Track the industries, company sizes, and technologies each investor is interested in (e.g., SaaS, Healthcare, Artificial Intelligence).
+   - **Engagement History**: A log of past investments made in YC startups, including the funding rounds and terms.
+   - **Contact History**: Maintain a communication log of meetings, emails, and updates shared with the investor.
+- **Fundraising and Round Tracking**:
+   - **Active Rounds**: Display active funding rounds across YC startups, including the amount being raised and investor interest.
+   - **Investor Matchmaking**: Automatically suggest investors based on their past investments, industry preferences, and startup needs.
+   - **Funding Pipeline**: Visualize the fundraising progress for each startup, including initial conversations, investor commitments, and legal finalization.
 
-   - **Resource Allocation and Load Balancing**  
-      - Ensures optimal use of company resources, preventing overload or underutilization of teams and equipment.
-      - **Resource Management Features**:
-         - **Project Assignment**:
-            - Visualize which teams are assigned to each project and see real-time workloads, enabling managers to redistribute tasks if needed.
-         - **Load Balancing**:
-            - Automatically flag overworked or underutilized teams based on their task load, availability, and progress rates.
-         - **Resource Forecasting**:
-            - Predict team availability based on current project timelines and future project pipelines.
-            - Enable project managers to see when specific skills or resources will be required and match them with available teams.
-         - **Equipment and Tools Tracking**:
-            - Maintain a log of which development tools, software licenses, and hardware are assigned to each team, ensuring optimal utilization and scheduling for shared resources like testing environments or servers.
+## 3. Mentor and Startup Collaboration
+### Mentor Profiles
+- **Mentor Overview**:
+   - **Mentor Name**: Unique profiles for YC mentors, including their expertise (e.g., Product Development, Marketing, Scaling).
+   - **Mentor Assignments**: Track which startups each mentor is assigned to and the duration of the mentorship.
+   - **Mentor Feedback**: A log of feedback and recommendations given to startups during mentorship sessions, categorized by key business areas (e.g., Product, Team, Marketing, Fundraising).
+   - **Availability**: Display mentor availability for office hours, meetings, and startup check-ins.
+   - **Track Engagement**: Log the time mentors spend with startups and the outcomes of their support (e.g., improved product development, successful fundraising).
+
+### Collaboration Tools
+- **Internal Messaging**: A secure communication platform allowing mentors, YC partners, and startup founders to collaborate in real-time. Organize messages by cohort, project, or specific support requests.
+- **Meeting Scheduler**: A built-in calendar to schedule mentor-startup check-ins, investor meetings, or workshops. Automatically log meeting outcomes and feedback.
+- **Document Sharing**: Allow startups to share pitch decks, financial models, product roadmaps, and other documents with YC mentors and partners for review and feedback.
+- **Progress Reports**: Generate automated progress reports for each startup, displaying key metrics, project updates, and mentor feedback.
+
+## 4. Performance and Success Metrics
+### Startup Success Tracking
+- **Growth Metrics**: Automatically track and display the growth metrics for each startup (e.g., monthly active users, revenue growth, customer retention rates).
+- **Startup Health Dashboard**: A visual dashboard showing each startup’s performance against their KPIs, with health indicators (e.g., strong growth, at-risk).
+- **Peer and Mentor Reviews**: Enable mentors and YC partners to provide regular reviews of startup progress, highlighting their strengths and weaknesses.
+- **Success Score**: Generate a success score for each startup based on growth, financial stability, product-market fit, and investor engagement. Use this score to prioritize which startups need more YC resources.
+
+### YC Cohort and Batch Analytics
+- **Batch Overview**: Track the overall performance of a specific YC cohort (e.g., Summer 2024), displaying aggregate data on funding raised, revenue growth, and product launches.
+- **Milestone Tracking**: Track important milestones across the cohort, such as graduation to Series A, product launches, and market expansions.
+- **Investor Interest**: Visualize investor interest across cohorts, showing which startups are attracting the most attention and which may need more YC support in their fundraising efforts.

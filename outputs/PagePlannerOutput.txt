@@ -1,121 +1,221 @@
 {
     "finalOutput": {
-        "pageName": "Resource Allocation Dashboard Page",
+        "pageName": "Growth Metrics Page",
         "pageInfo": {
-            "purposeAndGoals": "The Resource Allocation Dashboard Page serves as the primary interface for visualizing team workloads and project assignments, allowing users to quickly assess resource allocation and identify any imbalances.",
-            "problemSolved": "This page provides a clear overview of team workloads, helps identify teams overworked or underutilized, facilitates quick decision-making regarding resource reallocation, and ensures managers can make informed decisions based on real-time data, ultimately improving overall project efficiency and team satisfaction across the enterprise.",
+            "purposeAndGoals": "This page is designed to display detailed growth metrics for each startup, providing users with the ability to analyze and interpret performance against predefined key performance indicators (KPIs).",
+            "problemSolved": "The Growth Metrics Page solves several key business challenges by providing clear visibility into growth trends and metrics, automating the tracking of key performance indicators to ensure consistent evaluations, and facilitating comparisons of growth metrics across different startups for enhanced insights.",
             "colour": {
-                "primaryColor": "#004085",
-                "secondaryColor": "#cce5ff",
-                "tertiaryColor": "#b8daff",
+                "primaryColor": "#1F77B4",
+                "secondaryColor": "#FF7F0E",
+                "tertiaryColor": "#2CA02C",
                 "spacing": "8px",
                 "typography": "Roboto, sans-serif"
             }
         },
         "components": [
             {
-                "componentName": "DashboardContainer",
+                "componentName": "MetricsOverview",
                 "componentInfo": {
-                    "componentDescription": "Acts as the main container for the Resource Allocation Dashboard, coordinating the layout of child components and managing overall state to provide a seamless user interface.",
-                    "functionality": "The DashboardContainer is responsible for maintaining the state of the entire Resource Allocation Dashboard. It initializes the data fetched from the backend or mock data, processes it, and distributes it to the child components such as TeamWorkloadChart, ProjectAssignmentsList, and AlertsNotification. It ensures the layout is responsive and dynamically updates the UI based on user interactions or data changes. The DashboardContainer also manages the adaptive behavior of the components, ensuring that they remain intuitive and accessible regardless of the screen size. It facilitates navigation to other pages, such as the Load Balancing Alerts Page, by managing inter-page link interactions.",
+                    "componentDescription": "Displays an overview of growth metrics across startups.",
+                    "functionality": "The MetricsOverview component is the central display area that presents a summarized view of growth metrics for various startups. It aggregates data provided by its child components, MetricCard and FilterPanel, and updates dynamically based on user interactions. This component is crucial for providing a quick snapshot of the overall performance and growth trends, enabling users to make informed decisions at a glance. It supports real-time updates and integrates seamlessly with filtering options to reflect only the relevant data as per user preferences.",
                     "details": [
-                        "Parent container should handle state management using React Context API or Redux to distribute data efficiently.",
-                        "Should include logic for fetching and updating data, possibly with hooks like useEffect for data fetching.",
-                        "Contains CSS grid or flexbox layout to ensure responsive design.",
-                        "Handles routing logic for navigation to other pages, ensuring seamless transitions."
+                        "MetricCard displays individual metrics such as Monthly Active Users (MAU), Revenue, and Customer Acquisition Cost (CAC) for each startup. Each card is distinct with a color-coded border to differentiate between metrics.",
+                        "FilterPanel allows users to select specific date ranges, startup names, or metric types to filter the displayed data. It includes dropdowns, checkboxes, and a date picker.",
+                        "The Heatmap feature within MetricsOverview provides a visual representation of performance trends. This component uses ECharts to dynamically display changes in metrics over time, providing a comprehensive view through color gradients."
                     ],
                     "isVisible": true,
                     "interconnectivity": [
                         {
-                            "pageUrl": "/load-balancing/alerts",
-                            "description": "Provides a link to the Load Balancing Alerts Page through Actions triggered in AlertsNotification."
+                            "pageUrl": "/metrics/health",
+                            "description": "The MetricsOverview component shares summarized metrics data with the Health Dashboard Page for integrated analysis."
                         }
                     ],
                     "userInteraction": {
-                        "interact": "User interacts with the overall layout, possibly clicking buttons or links within the DashboardContainer.",
-                        "possibleInteractions": "Clicking navigation links or buttons to update data or view additional details.",
-                        "result": "Navigates to requested pages or updates the displayed data within the dashboard.",
-                        "resultFunctionality": "Ensures seamless transitions and updates by managing the state and interacting with backend APIs or mock data seamlessly."
+                        "interact": "User interacts with the MetricCard to view detailed data.",
+                        "possibleInteractions": "Clicking on a MetricCard expands it to show detailed information and historical data trends. Users can also interact with the Heatmap to see specific data points.",
+                        "result": "Upon interaction, a detailed modal appears with expanded data and interactive charts.",
+                        "resultFunctionality": "The modal provides an in-depth view of the selected metric, including historical data and trend analysis through interactive line and bar charts using ECharts. Users can close the modal to return to the overview."
                     }
                 },
                 "components": [
                     {
-                        "componentName": "TeamWorkloadChart",
+                        "componentName": "MetricCard",
                         "componentInfo": {
-                            "componentDescription": "A visual representation of team workloads using a heatmap-style visualization, color-coded to indicate workload levels.",
-                            "functionality": "The TeamWorkloadChart component displays an interactive heatmap that provides an intuitive overview of team workloads. It uses color coding to easily convey the workload status of each team, allowing users to quickly identify overworked or underworked teams. This component updates in real-time as data changes, providing an up-to-date view of workloads. Users can interact with the chart to hover over specific areas for detailed information on team workload percentages, and it supports filtering based on user selection from the ProjectAssignmentsList.",
+                            "componentDescription": "Displays individual metrics for each startup.",
+                            "functionality": "Each MetricCard is designed to showcase a specific growth metric for a startup, such as Monthly Active Users (MAU), Revenue, or Customer Acquisition Cost (CAC). The card provides quick, at-a-glance data with a visual indicator like a trend arrow to represent growth direction (up or down). It's interactive, allowing users to click for more detailed views or hover for tooltips with additional info.",
                             "details": [
-                                "Utilizes ECharts for rendering heatmap visualization to represent workload data.",
-                                "Supports tooltips that display detailed workload percentages on hover.",
-                                "Interactive legend for filtering specific teams or workload levels.",
-                                "Real-time data updates through WebSockets or polling methods for dynamic data rendering."
+                                "Displays metric name and value prominently.",
+                                "Includes a trend arrow icon indicating growth direction.",
+                                "On hover, tooltips provide additional context or historical data.",
+                                "Color-coded borders indicate the type of metric."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/projects/details",
-                                    "description": "Links to detailed project information when clicking on specific teams or workload sections."
+                                    "pageUrl": "/metrics/health",
+                                    "description": "MetricCard data is shared with the Health Dashboard for cross-page metric analysis."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "User hovers over sections of the chart to view detailed workload information or clicks to filter data.",
-                                "possibleInteractions": "Hovering shows tooltips with workload percentages; clicking filters by team or workload level.",
-                                "result": "Filtered view of the workload chart based on user selection, possibly highlighting specific teams or workload levels.",
-                                "resultFunctionality": "Dynamically updates the chart view to reflect user-selected filters, providing a focused view on specific data points, enhancing decision-making capabilities."
+                                "interact": "Users click on the MetricCard for more details.",
+                                "possibleInteractions": "Hovering over a card displays a tooltip with additional insights. Clicking opens a detailed view.",
+                                "result": "A detailed view or modal opens, showcasing historical trends and detailed analysis.",
+                                "resultFunctionality": "The detailed view includes interactive charts and tables, allowing users to delve deeper into the metric's history and projections."
                             }
                         },
                         "components": []
                     },
                     {
-                        "componentName": "ProjectAssignmentsList",
+                        "componentName": "FilterPanel",
                         "componentInfo": {
-                            "componentDescription": "A detailed view of ongoing projects, listing all current projects with the teams assigned and their respective workloads.",
-                            "functionality": "The ProjectAssignmentsList component provides a comprehensive list of all current projects, displaying the teams assigned to each project and their respective workloads. This component is designed for easy scanning, with sorting and filtering capabilities to help users quickly find relevant project information. Users can click on any team or project to trigger a filter on the TeamWorkloadChart, allowing them to see the workload distribution of the selected entity. It also supports inline editing for quick modifications to project assignments or workload allocations.",
+                            "componentDescription": "Allows users to filter metrics by date range, startup, or metric type.",
+                            "functionality": "The FilterPanel component provides a user interface for filtering the displayed growth metrics by various criteria. It includes interactive elements such as dropdown menus for selecting startups, date pickers for specifying date ranges, and checkboxes for selecting metric types. The panel dynamically updates the data in the MetricsOverview and MetricsTable components, ensuring users only see data relevant to their selected filters.",
                             "details": [
-                                "Renders a table with columns for Project Name, Assigned Team, and Workload percentage.",
-                                "Includes search and filter functionality for quick data retrieval.",
-                                "Supports inline editing for project details, with validation for workload allocations.",
-                                "Handles click events to apply filters on the TeamWorkloadChart."
+                                "Includes a date range picker for custom date selections.",
+                                "Dropdown menus for selecting specific startups.",
+                                "Checkboxes for enabling or disabling specific metric types."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/projects/edit",
-                                    "description": "Navigates to a project editing page when a project is selected for more detailed management."
+                                    "pageUrl": "/metrics/cohort",
+                                    "description": "The FilterPanel settings can be shared with the Cohort Analytics Page for consistent filtering across pages."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "User clicks on project or team entries to see more details or edit assignments.",
-                                "possibleInteractions": "Clicking triggers filters on the TeamWorkloadChart or opens an editing interface.",
-                                "result": "Filtered chart display or opening of an inline editing form for project details.",
-                                "resultFunctionality": "Allows users to focus on specific project data or make quick edits to project assignments directly from the list, improving workflow efficiency."
+                                "interact": "Users select filters to refine the data displayed.",
+                                "possibleInteractions": "Selecting a date range updates the metrics to only show data within those dates. Choosing a startup limits the metrics to that company.",
+                                "result": "The MetricsOverview and MetricsTable components refresh to show only the filtered data.",
+                                "resultFunctionality": "Filtered data updates instantly across components, providing a seamless and intuitive user experience with real-time data adjustment."
                             }
                         },
                         "components": []
                     },
                     {
-                        "componentName": "AlertsNotification",
+                        "componentName": "Heatmap",
                         "componentInfo": {
-                            "componentDescription": "Displays alerts for imbalances in team workloads, notifying users of any teams exceeding predefined workload thresholds.",
-                            "functionality": "The AlertsNotification component serves as a critical alert system, notifying users of any teams that exceed predefined workload thresholds. It displays notifications in real-time, using color-coded badges to draw attention to critical alerts. Users can click on an alert to navigate to the relevant section of the dashboard or to a detailed view of the alert. This component is designed to be reusable across different pages, ensuring consistent alert management throughout the application.",
+                            "componentDescription": "Visualizes metrics in a heatmap format for quick insights.",
+                            "functionality": "The Heatmap component provides a visual representation of performance trends using color gradients to indicate various levels of metric values. It helps users quickly identify areas of high or low performance across different startups and time periods. The component is interactive, allowing users to hover over cells for detailed information and click to drill down into specific data points.",
                             "details": [
-                                "Utilizes badges to indicate alert severity, with color coding for different levels of urgency.",
-                                "Real-time updating through WebSocket connections for immediate alert display.",
-                                "Clickable alerts that link to detailed views or relevant sections of the dashboard.",
-                                "Supports integration with external alert systems for broader notification management."
+                                "Utilizes ECharts for dynamic and interactive heatmap generation.",
+                                "Color gradients represent different levels of metric performance.",
+                                "Interactive, with hover tooltips displaying detailed data and trends."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/alert/details",
-                                    "description": "Links to detailed alert information, providing a deeper dive into alert causes and potential resolutions."
+                                    "pageUrl": "/metrics/health",
+                                    "description": "Heatmap data can be exported or shared with the Health Dashboard for further analysis."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "User clicks on an alert notification to view more details or take action.",
-                                "possibleInteractions": "Clicking navigates to detailed alert information or relevant dashboard sections.",
-                                "result": "Display of detailed alert information or focused dashboard view, aiding in quick response to critical issues.",
-                                "resultFunctionality": "Ensures users can quickly address and manage workload imbalances by providing direct access to alert details and recommended actions."
+                                "interact": "Users hover or click on heatmap cells for more information.",
+                                "possibleInteractions": "Hovering provides a detailed tooltip with the exact metric value and timestamp. Clicking drills down into specific metrics, opening detailed charts.",
+                                "result": "Drill-down opens a detailed analysis chart or graph related to the selected heatmap cell.",
+                                "resultFunctionality": "The detailed analysis includes breakdowns of metric trends over time, with options to export data or view related metrics for comprehensive analysis."
+                            }
+                        },
+                        "components": []
+                    }
+                ]
+            },
+            {
+                "componentName": "MetricsTable",
+                "componentInfo": {
+                    "componentDescription": "Contains detailed tabular data of each startup's metrics.",
+                    "functionality": "The MetricsTable component provides an organized, tabular view of detailed metrics for each startup. It allows users to see all relevant data points in a structured format, facilitating easy comparisons and analysis. The table supports sorting and filtering operations, enabling users to organize data according to their needs. This component is essential for detailed data analysis and supports pagination for managing large datasets efficiently.",
+                    "details": [
+                        "TableRow displays individual rows of data for each startup and metric.",
+                        "TableCell contains the specific data point for each column within a row.",
+                        "PaginationControl allows navigation through large datasets."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/metrics/cohort",
+                            "description": "The MetricsTable's data can be used by the Cohort Analytics Page for further cohort-specific analysis."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Users interact with table rows and pagination controls.",
+                        "possibleInteractions": "Clicking on a header sorts the table by that column. Pagination controls allow users to navigate through the pages of data.",
+                        "result": "Data is re-sorted or paginated according to the user's actions.",
+                        "resultFunctionality": "Sorting reorganizes the table in ascending or descending order based on the selected column. Pagination efficiently loads new data pages without refreshing the entire table."
+                    }
+                },
+                "components": [
+                    {
+                        "componentName": "TableRow",
+                        "componentInfo": {
+                            "componentDescription": "Displays individual rows of data for each startup and metric.",
+                            "functionality": "Each TableRow represents a single data entry, containing multiple TableCells for different metrics related to a specific startup. It supports hovering for row highlighting, making it easier for users to track data across the table. This component is designed for high readability and helps in organizing data logically across the table.",
+                            "details": [
+                                "Row hover highlights for better visibility.",
+                                "Consists of multiple TableCells for different data points (e.g., MAU, Revenue)."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/metrics/growth",
+                                    "description": "TableRow data is integral to the MetricsTable's functionality and supports direct data interactions within the page."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Users hover or click on table rows.",
+                                "possibleInteractions": "Hovering highlights the row for better focus. Clicking may open a detailed view of the row's data.",
+                                "result": "Highlighted row for better visibility, with potential expansion for more data.",
+                                "resultFunctionality": "Improved focus on hovered rows, with options to expand individual rows for detailed view or adjustments."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "TableCell",
+                        "componentInfo": {
+                            "componentDescription": "Contains the specific data point for each column within a row.",
+                            "functionality": "TableCell components are the building blocks of TableRow, each containing a specific metric or data point. They support inline editing and tooltips for additional context, providing flexibility and detailed information at a glance. TableCells are designed to handle various data types, ensuring consistent presentation across the MetricsTable.",
+                            "details": [
+                                "Supports inline editing for quick data adjustments.",
+                                "Hover tooltips for additional data context."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/metrics/growth",
+                                    "description": "TableCell data is directly linked to the metrics being analyzed, supporting intra-page data interaction."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Users interact with cells for inline editing or additional info.",
+                                "possibleInteractions": "Clicking allows inline editing of the cell's data. Hovering may display a tooltip with further context.",
+                                "result": "Cell data is updated in real-time, with additional information provided via tooltips.",
+                                "resultFunctionality": "Real-time data adjustments through inline editing, maintaining data integrity and consistency across the table."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "PaginationControl",
+                        "componentInfo": {
+                            "componentDescription": "Manages pagination for the MetricsTable.",
+                            "functionality": "The PaginationControl component allows users to navigate through large datasets by providing intuitive pagination controls. It includes buttons for navigating to the next, previous, first, and last pages, as well as a dropdown for selecting the number of rows displayed per page. This component is essential for managing data efficiently, ensuring that users can easily access all relevant information without overwhelming the interface.",
+                            "details": [
+                                "Next and previous buttons for page navigation.",
+                                "Dropdown for selecting the number of rows per page.",
+                                "Page number display for current page tracking."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/metrics/growth",
+                                    "description": "PaginationControl directly affects the data displayed in the MetricsTable, ensuring manageable data viewing."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Users click on pagination buttons to navigate data pages.",
+                                "possibleInteractions": "Next and previous buttons change the currently displayed page. Dropdown adjusts the number of rows shown per page.",
+                                "result": "Table data is paginated, displaying a new set of rows as per the user's navigation choices.",
+                                "resultFunctionality": "Efficient data navigation through pagination, reducing load times and improving user experience by segmenting data into manageable parts."
                             }
                         },
                         "components": []
@@ -123,775 +223,677 @@
                 ]
             }
         ],
-        "pageUrl": "/resource-allocation/dashboard"
+        "pageUrl": "/metrics/growth"
     }
 }{
     "finalOutput": {
-        "pageName": "Project Overview Page",
+        "pageName": "Investor Overview Page",
         "pageInfo": {
-            "purposeAndGoals": "This page serves as the central hub for displaying comprehensive project details, including phases, milestones, and status updates. It provides users with an at-a-glance view of project health and progress.",
-            "problemSolved": "The Project Overview Page consolidates project information into a single, streamlined view, minimizing confusion and enhancing clarity for users. It highlights upcoming milestones, ensuring that deadlines are visible and achievable, and offers quick access to detailed phase and task information, thereby improving workflow efficiency and project management effectiveness.",
+            "purposeAndGoals": "This page provides a comprehensive view of individual investor profiles, displaying their preferences, engagement history, and potential matches with startups. It helps users manage relationships and assess investor interests effectively.",
+            "problemSolved": "This page solves the problem of fragmented data access by centralizing investor information for easy access. It also addresses the need for engagement history tracking by logging interactions with investors for better relationship management. Additionally, it simplifies profile management by allowing users to easily edit and update investor details. By integrating these functionalities, the page enhances workflow efficiency and improves data accessibility, ultimately leading to more effective investor relationship management and potential matchmaking with startups.",
             "colour": {
-                "primaryColor": "#0044CC",
-                "secondaryColor": "#E5E5E5",
-                "tertiaryColor": "#FFFFFF",
+                "primaryColor": "#2C3E50",
+                "secondaryColor": "#18BC9C",
+                "tertiaryColor": "#ECF0F1",
+                "spacing": "0.5rem",
+                "typography": "Roboto, sans-serif"
+            }
+        },
+        "components": [
+            {
+                "componentName": "InvestorProfileContainer",
+                "componentInfo": {
+                    "componentDescription": "Displays the main investor profile along with details and interactions.",
+                    "functionality": "The InvestorProfileContainer serves as the central hub for displaying comprehensive investor information, including personal details, preferences, engagement history, and potential startup matches. It dynamically updates its child components based on the selected investor, ensuring that users have access to the most relevant and up-to-date information. This component manages the flow of data between its children, synchronizing updates and maintaining a coherent view of the investor's profile. It acts as the primary container that orchestrates the display of detailed investor data, facilitating efficient navigation and interaction within the Investor Overview Page.",
+                    "details": [
+                        "The InvestorProfileContainer should have a responsive layout that adjusts based on screen size to maximize information visibility.",
+                        "It should manage state for the current investor and pass this data down to child components as props.",
+                        "This component should handle data fetching for investor details and provide loading indicators while data is being retrieved.",
+                        "The layout should allow for expansion or collapsing of certain sections, such as engagement history, to improve user navigation and focus."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/active-funding-rounds",
+                            "description": "Interacts with the Active Funding Rounds Page to pull relevant startup data for potential matches."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Investor's name in a list",
+                        "possibleInteractions": "Clicking on an investor's name loads their profile.",
+                        "result": "Displays the investor's full profile with all details in the InvestorProfileContainer.",
+                        "resultFunctionality": "Upon clicking an investor's name, a fetch request is sent to retrieve the investor's data. The response is then used to update the state within the InvestorProfileContainer, which in turn updates all child components with the new data."
+                    }
+                },
+                "components": [
+                    {
+                        "componentName": "InvestorProfileCard",
+                        "componentInfo": {
+                            "componentDescription": "Displays basic investor information such as name, organization, and contact details.",
+                            "functionality": "The InvestorProfileCard provides a succinct overview of the investor's basic information, acting as a quick reference point for users. It includes editable fields for information such as the investor's name, organization, title, and primary contact details. This component ensures that users can quickly access essential data without navigating away from the main profile view. It facilitates direct interactions for editing, allowing users to update information efficiently and maintain accurate records.",
+                            "details": [
+                                "The card should display the investor's name prominently with their organization and contact information.",
+                                "An 'Edit' button should allow users to toggle fields into edit mode, enabling updates to the investor's details.",
+                                "In edit mode, fields like name and contact should become input fields with validation checks.",
+                                "Changes should be saved to the state and also trigger backend updates upon submission."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/investor-list",
+                                    "description": "Can be reused in other pages where investor details are needed, such as a summary on an Investor List Page."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Edit button on the InvestorProfileCard",
+                                "possibleInteractions": "Clicking 'Edit' turns fields into editable input fields.",
+                                "result": "Fields become editable, allowing users to update investor information.",
+                                "resultFunctionality": "When the 'Edit' button is clicked, the component state changes to allow edits. Input fields replace static text, and a 'Save' button becomes visible. Upon saving, the state is updated with new data, and a backend call is made to persist these changes."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "InvestorPreferences",
+                        "componentInfo": {
+                            "componentDescription": "Lists investment preferences such as sectors of interest and funding range.",
+                            "functionality": "The InvestorPreferences component presents a detailed view of the investor's specific interests and criteria for investment. This includes preferred sectors, geographical locations, investment stages, and funding range. It allows users to understand the investor's focus areas at a glance, facilitating better matchmaking with startups. This component supports editing and updating preferences, ensuring that the information remains current and reflective of the investor's strategic interests.",
+                            "details": [
+                                "Displays a list of sectors with checkboxes to indicate interest, editable in 'Edit' mode.",
+                                "A range slider can be used to set the funding range the investor is interested in.",
+                                "Dropdowns or tags can be used for selecting geographical locations and investment stages.",
+                                "An 'Edit Preferences' button toggles inputs for user modifications."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/matchmaking",
+                                    "description": "Shares investor preferences with the Matchmaking Page to improve recommendations."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Edit Preferences button in the InvestorPreferences component",
+                                "possibleInteractions": "Clicking 'Edit Preferences' allows changes to investment preferences.",
+                                "result": "Investment preferences fields become interactive for users to update.",
+                                "resultFunctionality": "The 'Edit Preferences' button triggers a state change allowing users to select or deselect sectors, adjust funding ranges, and update other preferences. Once changes are confirmed, the new preferences are saved to the state and pushed to the backend."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "EngagementHistory",
+                        "componentInfo": {
+                            "componentDescription": "Shows a timeline of interactions and communications with the investor.",
+                            "functionality": "The EngagementHistory component provides a chronological timeline of all interactions between the user and the investor. This includes meetings, calls, emails, and any notes taken during these engagements. By visualizing this data, users gain insights into the relationship's progression and can identify patterns or opportunities for further engagement. It supports adding new entries, which updates both the timeline and the backend records, ensuring a comprehensive and up-to-date engagement history.",
+                            "details": [
+                                "The timeline should include dates, types of engagement (e.g., meeting, call), and a brief summary of the interaction.",
+                                "Users can click on an entry to view more details or edit the engagement information.",
+                                "A 'New Entry' button allows adding new engagements, which opens a form for data input.",
+                                "The timeline should support filtering by date range or type of engagement."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/engagement-dashboard",
+                                    "description": "Can be integrated with an Engagement Dashboard for a broader view of all investor interactions."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "New Entry button in the EngagementHistory component",
+                                "possibleInteractions": "Clicking 'New Entry' opens a form for adding a new engagement.",
+                                "result": "A form appears for users to input details about a new engagement.",
+                                "resultFunctionality": "The form includes fields for the date, type of interaction, and notes. Upon submission, the data is appended to the current timeline, updating the state and sending the new entry to the backend for persistent storage."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "MatchSuggestions",
+                        "componentInfo": {
+                            "componentDescription": "Provides a list of startups that match the investor's preferences.",
+                            "functionality": "The MatchSuggestions component delivers a curated list of startups that align with the investor's stated preferences. This list is generated based on criteria such as sector, funding stage, and geographical focus. The component allows users to explore suggested matches in more detail, facilitating effective introductions and potential investment opportunities. By leveraging real-time data and filtering capabilities, it ensures that suggestions are relevant and valuable to the investor's interests.",
+                            "details": [
+                                "A list view of startups with brief descriptions and relevance scores indicating match strength.",
+                                "Each startup in the list can be clicked to view more detailed information or initiate contact.",
+                                "Filters can adjust the match criteria, allowing users to refine the list based on updated preferences.",
+                                "A refresh button updates the matches based on the latest investor preferences and available startups."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/startup-profile",
+                                    "description": "Links to detailed profiles of startups for more information and contact initiation."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Filter options in the MatchSuggestions component",
+                                "possibleInteractions": "Using filters refines the list of suggested startups.",
+                                "result": "The list of matches updates based on selected filter criteria.",
+                                "resultFunctionality": "Applying filters triggers a recalculation of match strengths, updating the displayed list to reflect the most relevant startups based on the investor's current preferences."
+                            }
+                        },
+                        "components": []
+                    }
+                ]
+            },
+            {
+                "componentName": "EngagementTimeline",
+                "componentInfo": {
+                    "componentDescription": "Visual representation of engagement history using a timeline visualization.",
+                    "functionality": "The EngagementTimeline component provides an interactive and visual representation of the investor's engagement history. Using advanced visualization techniques such as tree graphs or heat maps, it displays the frequency and nature of interactions over time. This innovative feature allows users to quickly assess the intensity and regularity of engagements, offering insights into the relationship dynamics. It supports zooming, filtering, and detailed views for more granular analysis.",
+                    "details": [
+                        "The timeline should use a heat map or tree graph to visually represent engagement data, with color intensity indicating frequency.",
+                        "Interactive zoom allows users to focus on specific time periods for detailed analysis.",
+                        "Clicking on timeline nodes should reveal more information about specific engagements.",
+                        "Filter options enable users to adjust the timeline based on engagement type or date range."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/visual-analytics",
+                            "description": "Can be integrated with a Visual Analytics page for enhanced analytical capabilities across different investors."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Zoom controls on the EngagementTimeline component",
+                        "possibleInteractions": "Using zoom controls to focus on specific time periods.",
+                        "result": "The visual display adjusts to show engagements in the selected time period.",
+                        "resultFunctionality": "Zooming in or out modifies the visible range of the timeline, allowing users to see more or less detail. This interaction updates the display dynamically, providing a tailored view that highlights relevant engagement activities."
+                    }
+                },
+                "components": []
+            },
+            {
+                "componentName": "HeatMap",
+                "componentInfo": {
+                    "componentDescription": "Displays engagement intensity across various time periods using a heat map visualization.",
+                    "functionality": "The HeatMap component visually represents the intensity of investor engagements over time, using color gradients to indicate higher or lower levels of activity. This feature helps users identify peak interaction periods and assess the consistency of communication with investors. It allows for quick comparisons across different time frames and supports interaction for deeper exploration of specific dates or events.",
+                    "details": [
+                        "The heat map should display a calendar view with color-coded cells indicating engagement frequency.",
+                        "Hover effects reveal detailed statistics for each cell, such as the number of contacts or meetings.",
+                        "Users can click on a date to view all engagements for that day in detail.",
+                        "Filters enable adjustments to the heat map based on engagement type or investor."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/engagement-comparison",
+                            "description": "Links to an Engagement Comparison page for cross-investor analysis."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Filters on the HeatMap component",
+                        "possibleInteractions": "Applying filters to adjust the view based on engagement type.",
+                        "result": "The heat map updates to reflect filtered criteria, highlighting relevant data.",
+                        "resultFunctionality": "When filters are applied, the heat map recalibrates to show engagement intensity for the selected types, providing a focused view that emphasizes the most pertinent interactions."
+                    }
+                },
+                "components": []
+            }
+        ],
+        "pageUrl": "/investor-overview/:investorId"
+    }
+}{
+    "finalOutput": {
+        "pageName": "Startup Overview Page",
+        "pageInfo": {
+            "purposeAndGoals": "This page serves as a centralized hub for YC program members, offering a comprehensive profile of individual startups. It enables users to view and manage crucial information such as key metrics, team members, funding status, and project details, thereby facilitating efficient updates and management\u2014all in one place.",
+            "problemSolved": "The Startup Overview Page addresses the need for a centralized information repository, allowing for easy access and management of critical startup data. It enhances workflow efficiency by providing a clear, organized view of team structures and funding information, while facilitating real-time updates and edits to maintain current data without the hassle of navigating through multiple disparate sources.",
+            "colour": {
+                "primaryColor": "#2A9D8F",
+                "secondaryColor": "#264653",
+                "tertiaryColor": "#E9C46A",
                 "spacing": "8px",
                 "typography": "Roboto, sans-serif"
             }
         },
         "components": [
             {
-                "componentName": "ProjectOverviewContainer",
+                "componentName": "StartupProfileCard",
                 "componentInfo": {
-                    "componentDescription": "The main wrapper for the entire project overview layout, responsible for fetching and displaying project data.",
-                    "functionality": "The ProjectOverviewContainer serves as the backbone of the Project Overview Page, orchestrating the flow of data and the arrangement of child components. It fetches project data from a database or API and distributes it to its child components, ensuring that each component displays the most current and relevant information. This container is pivotal in maintaining the structural integrity of the page, handling state management and ensuring that updates in data are seamlessly reflected across the UI. It also facilitates inter-component communication, providing a cohesive user experience.",
+                    "componentDescription": "Displays the startup's primary information including name, industry, team members, and mission. It acts as the main focal point of the page, providing an overview of the startup's core details.",
+                    "functionality": "The StartupProfileCard component serves as the primary interface for viewing and editing essential startup information. It presents the startup's name, a brief mission statement, and a detailed list of the team members along with their roles. This component is crucial for users who need to quickly assess or update the startup's profile, offering a dynamic and user-friendly interaction point. It can toggle between view and edit modes, allowing for real-time updates to information seamlessly integrated with the system's backend.",
                     "details": [
-                        "Fetches all necessary project data from the backend or mock data sources.",
-                        "Manages the overall state of the project details, ensuring all child components receive the correct data as props.",
-                        "Handles loading and error states, displaying appropriate messages to the user.",
-                        "Integrates with other modules like Task Management and Milestone Tracking for data consistency."
+                        "**Title**: Displays the name of the startup prominently at the top of the card. This field is editable when in edit mode, allowing users to update the startup name directly.",
+                        "**Description**: Provides a concise summary of the startup\u2019s goals and mission. This text field is editable, enabling quick updates to reflect changes in the startup's focus or messaging.",
+                        "**TeamList**: Renders a list of team members with their respective roles. Each entry can be expanded to include contact details and a brief biography. Users can add, edit, or remove team members in edit mode, with a drag-and-drop feature to reorder the list."
                     ],
                     "isVisible": true,
                     "interconnectivity": [
                         {
-                            "pageUrl": "/tasks",
-                            "description": "Links to the Task Management Page for detailed task handling and updates."
-                        },
-                        {
-                            "pageUrl": "/milestones",
-                            "description": "Connects with the Milestone Tracking Page to provide comprehensive milestone reporting."
+                            "pageUrl": "/mentorship/:startupId",
+                            "description": "Pulls mentor assignments for the startup, allowing users to view and manage mentorship details directly linked to the startup's profile."
                         }
                     ],
                     "userInteraction": {
-                        "interact": "Users interact with the overall layout to view different sections of project data.",
-                        "possibleInteractions": "Clicking on any section header scrolls or focuses that section into view, allowing users to navigate the overview efficiently.",
-                        "result": "Focusing on a section will bring it into the user's view, improving accessibility and readability.",
-                        "resultFunctionality": "When a user focuses on a particular section, the page smoothly scrolls to that section, ensuring a seamless transition and keeping the user engaged with the content."
+                        "interact": "Users interact with fields like Title, Description, and TeamList to view and update details.",
+                        "possibleInteractions": "Clicking on team member names reveals more details; clicking on the edit icon enables editing mode.",
+                        "result": "Enables editing of startup information with a save button appearing to confirm changes.",
+                        "resultFunctionality": "Once in edit mode, users can directly modify fields. On saving, changes are validated and sent to the server, updating the display and providing confirmation feedback."
                     }
                 },
                 "components": [
                     {
-                        "componentName": "ProjectSummary",
+                        "componentName": "Title",
                         "componentInfo": {
-                            "componentDescription": "Displays overall project information such as project name, description, and current status.",
-                            "functionality": "The ProjectSummary component is crucial for providing an at-a-glance view of the key highlights of the project. It displays essential information such as the project name, a brief description, and the current status, whether on track, delayed, or completed. This component helps users quickly assess the overall health of the project without delving into detailed sections, thus saving time and aiding in decision-making processes.",
+                            "componentDescription": "Displays the startup's name prominently, allowing for identification and editing.",
+                            "functionality": "The Title component is vital for displaying the startup's name prominently at the top of the profile card. It allows users to quickly identify the startup being viewed. In edit mode, this component becomes an input field, enabling users to update the startup's name easily. The component ensures that any changes are reflected immediately once saved, maintaining data accuracy across the platform.",
                             "details": [
-                                "Displays the project name prominently at the top.",
-                                "Includes a brief description of the project goals and scope.",
-                                "Shows the current status of the project using color-coded indicators (e.g., green for on track, red for delayed).",
-                                "Provides a quick link to view more detailed project reports."
+                                "Uses a large, bold font for visibility. In edit mode, it transforms into a text input field with a character limit to prevent overflow."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/project-reports",
-                                    "description": "Links to a detailed project report page for in-depth analysis."
+                                    "pageUrl": "/funding-overview/:startupId",
+                                    "description": "Links to detailed funding information specific to the startup."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "Users can click on the project status to view a detailed report.",
-                                "possibleInteractions": "Hovering over the status icon provides additional information about the status, such as reasons for delays.",
-                                "result": "Clicking on the status expands a modal with a detailed project timeline and status breakdown.",
-                                "resultFunctionality": "The modal provides a comprehensive analysis of the project timeline, including phase completion rates, potential risks, and mitigation strategies, enhancing the user's understanding of the project's progress and challenges."
+                                "interact": "User clicks to enter edit mode and modify the startup's name.",
+                                "possibleInteractions": "Entering a new name updates the display upon saving.",
+                                "result": "Shows a text input with the current name pre-filled, allowing edits.",
+                                "resultFunctionality": "Edits are validated for length and special characters before being saved to ensure data consistency."
                             }
                         },
                         "components": []
                     },
                     {
-                        "componentName": "MilestoneList",
+                        "componentName": "Description",
                         "componentInfo": {
-                            "componentDescription": "Lists all project milestones along with their statuses and due dates.",
-                            "functionality": "The MilestoneList component is designed to provide a clear and concise overview of all significant milestones within a project. It displays each milestone's name, due date, and current status, helping users track progress and deadlines effectively. This component is critical for project managers to ensure that all team members are aware of upcoming milestones and any potential risks associated with delays.",
+                            "componentDescription": "Provides a brief overview of the startup\u2019s mission and goals.",
+                            "functionality": "The Description component presents a succinct overview of the startup's mission, helping users understand the startup's objectives quickly. In edit mode, it becomes an editable text area, allowing updates to the startup's mission statement. This flexibility ensures that the component can adapt to changes and keep the information relevant and up-to-date.",
                             "details": [
-                                "Lists each milestone with its name, due date, and a color-coded status indicator.",
-                                "Allows sorting and filtering of milestones by due date or status.",
-                                "Integrates with a calendar view for visual representation of milestone timelines.",
-                                "Provides tooltip details on hover for additional milestone information."
+                                "Displays text in a slightly smaller font than the title for a clear hierarchy. Editable in a text area that supports rich text formatting."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/calendar-view",
-                                    "description": "Integrates with a calendar page to provide a visual timeline of milestones."
+                                    "pageUrl": "/mentorship/:startupId",
+                                    "description": "May include links to mentorship details or related documents."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "Users can click on a milestone to view or edit its details.",
-                                "possibleInteractions": "Hovering over a milestone reveals additional details and any associated tasks.",
-                                "result": "Clicking opens a detailed view or a popup of the milestone, showing all related tasks and timelines.",
-                                "resultFunctionality": "The detailed view allows users to edit milestone details, assign tasks, and update status, with changes reflected in real-time across all related components."
+                                "interact": "User clicks to edit the mission statement.",
+                                "possibleInteractions": "Editing text automatically saves changes in real-time.",
+                                "result": "Transforms into a text area for detailed editing, with formatting options available.",
+                                "resultFunctionality": "Edits are auto-saved, ensuring that the latest mission statement is always displayed and reducing the risk of data loss."
                             }
                         },
                         "components": []
                     },
                     {
-                        "componentName": "PhaseStatus",
+                        "componentName": "TeamList",
                         "componentInfo": {
-                            "componentDescription": "Visual representation of the current project phase, with progress indicators for each phase.",
-                            "functionality": "The PhaseStatus component provides a graphical representation of the project's current phase and its progress. It uses visual elements like progress bars or circular indicators to depict how much of each phase is completed, in progress, or pending. This component is essential for providing a quick visual summary of where the project stands in its lifecycle, enabling project stakeholders to make informed decisions and prioritize resources effectively.",
+                            "componentDescription": "Renders a list of team members with roles and contact details.",
+                            "functionality": "The TeamList component is designed to display the startup's team members, including their roles and contact information. It acts as an interactive list where users can view additional information by clicking on a team member's name. In edit mode, users can add new members, edit existing ones, or reorder them using drag-and-drop functionality. This component ensures that the team structure is clear and up-to-date, facilitating easy management and communication within the startup.",
                             "details": [
-                                "Displays each project phase with a dedicated progress bar or circular chart.",
-                                "Utilizes color codes for different states: completed, in progress, and not started.",
-                                "Includes labels for phase names and percentage completion.",
-                                "Interactive elements allow users to click on a phase for more details."
+                                "Each entry includes a name, role, email, and a brief bio. Supports drag-and-drop for reordering, and inline editing for quick updates."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/phase-details",
-                                    "description": "Links to a detailed phase progress page for deeper insights."
+                                    "pageUrl": "/team-management",
+                                    "description": "Links to a detailed team management page where deeper insights and role assignments can be handled."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "Users can hover over phases to see detailed completion percentages.",
-                                "possibleInteractions": "Clicking on a phase opens a detailed breakdown of tasks and resources.",
-                                "result": "Opening a phase detail provides an expanded view with task lists, assigned team members, and deadlines.",
-                                "resultFunctionality": "The expanded view includes options to adjust task priorities, add comments, and reassign resources, ensuring adaptive project management and real-time collaboration."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "TaskBreakdown",
-                        "componentInfo": {
-                            "componentDescription": "A detailed list of tasks associated with the project, including filters for status and assignee.",
-                            "functionality": "The TaskBreakdown component serves as a detailed repository of all tasks related to the project. It provides a comprehensive list of tasks, allowing users to filter by status, assignee, or priority. This component is crucial for ensuring that all team members are aware of their responsibilities and deadlines, facilitating efficient workflow management and task completion tracking.",
-                            "details": [
-                                "Lists all tasks with descriptions, assigned team members, and current status.",
-                                "Includes filtering options by status (e.g., completed, in progress, not started) and assignee.",
-                                "Provides sorting capabilities by deadline or priority.",
-                                "Integrates with task management tools for real-time updates and notifications."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/task-details",
-                                    "description": "Links to a detailed task management page for more in-depth task handling."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users can click on tasks to view details or update status.",
-                                "possibleInteractions": "Filtering tasks by status updates the list instantly, showing only relevant tasks.",
-                                "result": "Selecting a task opens a detailed view with options to update progress and assign new resources.",
-                                "resultFunctionality": "The detailed task view allows users to change task status, update progress notes, and assign or reassign team members, synchronizing changes across all project management tools and ensuring transparency."
+                                "interact": "User clicks on a team member to view more details or edit information.",
+                                "possibleInteractions": "Clicking 'Add Member' opens a form to add new team members.",
+                                "result": "Displays a modal with detailed information or an edit form.",
+                                "resultFunctionality": "Modals provide a clutter-free way to manage team member data, ensuring that all changes are captured accurately and updated in real-time."
                             }
                         },
                         "components": []
                     }
                 ]
-            }
-        ],
-        "pageUrl": "/projects/:projectId/overview"
-    }
-}{
-    "finalOutput": {
-        "pageName": "Team Profiles Page",
-        "pageInfo": {
-            "purposeAndGoals": "The Team Profiles Page serves to display all development team profiles, allowing users to create and edit team details while visualizing member workloads. It centralizes team member information for better management, provides insights into individual workloads to prevent burnout, and facilitates task assignment by showcasing team skills and availability.",
-            "problemSolved": "This page addresses the challenge of managing a dispersed team by centralizing all team member information in one place, providing insights into their workloads to prevent burnout, and facilitating task assignment by showcasing team skills and availability. By doing so, it enhances team coordination, supports efficient resource allocation, and helps maintain a balanced workload among team members, ultimately improving productivity and team satisfaction.",
-            "colour": {
-                "primaryColor": "#1E90FF",
-                "secondaryColor": "#FFD700",
-                "tertiaryColor": "#32CD32",
-                "spacing": "16px",
-                "typography": "Arial, sans-serif"
-            }
-        },
-        "components": [
+            },
             {
-                "componentName": "TeamProfilesContainer",
+                "componentName": "FundingStatus",
                 "componentInfo": {
-                    "componentDescription": "Manages the overall state and structure of team profiles, including fetching data and handling updates.",
-                    "functionality": "The TeamProfilesContainer serves as the main hub for managing team profiles. It is responsible for fetching team data from a mock API and maintaining the state of all profiles displayed on the page. This component acts as a central controller, orchestrating updates to the list of profiles and handling the submission of new or edited profile information. It interacts closely with both the TeamProfileList and TeamProfileForm components, ensuring that any changes are reflected across the page. The container also manages the visibility of child components based on user interactions, such as opening a form to edit a profile.",
+                    "componentDescription": "Provides detailed information on the startup's funding rounds and financial health.",
+                    "functionality": "The FundingStatus component is essential for displaying comprehensive information about the startup's financial status, including past funding rounds and current financial health indicators. It includes a table of funding rounds, detailing the amounts raised and the dates, as well as a visual representation of the startup's burn rate. This component aids stakeholders in understanding the financial trajectory of the startup and making informed decisions about future funding and investments.",
                     "details": [
-                        "Fetches team profile data from a mock API and stores it in state.",
-                        "Handles submission of new or edited profile data and updates the list.",
-                        "Ensures real-time updates to TeamProfileList when profiles are added or modified.",
-                        "Manages visibility and state of TeamProfileForm based on user interactions."
+                        "**FundingRoundsTable**: A detailed table listing each funding round, including the round type (Seed, Series A, etc.), amount raised, and date.",
+                        "**BurnRateIndicator**: A visual gauge or bar that shows the current burn rate, helping users quickly assess financial health."
                     ],
                     "isVisible": true,
                     "interconnectivity": [
                         {
-                            "pageUrl": "/current-projects",
-                            "description": "Shares team member data with the Current Projects Page to allow users to view and assign tasks based on team availability."
-                        },
-                        {
-                            "pageUrl": "/dashboard",
-                            "description": "Updates workload data that reflects on the dashboard's team monitoring widgets."
+                            "pageUrl": "/financial-reports",
+                            "description": "Integrates with the financial reports page to provide deeper insights into spending and revenue."
                         }
                     ],
                     "userInteraction": {
-                        "interact": "TeamProfilesContainer handles clicks on profile cards within the TeamProfileList to open the TeamProfileForm.",
-                        "possibleInteractions": "Users can click on a profile card to edit it, or click a button to add a new profile.",
-                        "result": "When a profile is clicked, the TeamProfileForm opens with that member's data pre-filled for editing.",
-                        "resultFunctionality": "Upon clicking a profile card, the TeamProfileForm is dynamically populated with the selected team member's details, allowing users to make edits. Upon saving, the form data is submitted back to the TeamProfilesContainer, which updates the TeamProfileList and other relevant components to reflect changes."
+                        "interact": "User clicks on funding rounds for more details or to add new rounds.",
+                        "possibleInteractions": "Hovering over the burn rate indicator provides detailed tooltip information.",
+                        "result": "Opens a detailed view or a form to add/edit funding information.",
+                        "resultFunctionality": "Ensures that all financial data is accurately recorded and displayed, offering decision-makers the latest financial metrics for strategic planning."
                     }
                 },
                 "components": [
                     {
-                        "componentName": "TeamProfileList",
+                        "componentName": "FundingRoundsTable",
                         "componentInfo": {
-                            "componentDescription": "Displays a list of all team profiles with key information and allows for editing and deleting profiles.",
-                            "functionality": "The TeamProfileList component is responsible for rendering a comprehensive list of all team members. It presents key data such as names, roles, and workloads. Each profile can be clicked to open the TeamProfileForm for editing, and profiles can also be deleted directly from this list. The component is designed to handle dynamic updates from the parent container, ensuring the list is always up-to-date. It supports sorting and filtering to help users quickly locate specific team members based on various criteria like roles or skills.",
+                            "componentDescription": "A table format to display detailed funding rounds information.",
+                            "functionality": "The FundingRoundsTable component is designed to display a comprehensive list of the startup's funding rounds. It provides detailed information, including the type of round, the amount raised, the date, and any significant investors involved. This table allows users to quickly ascertain the financial history of the startup and track its funding progression over time. In edit mode, new rounds can be added, and existing entries can be modified, ensuring that all information remains current and accurate.",
                             "details": [
-                                "Renders a list of team profiles with names, roles, and workloads.",
-                                "Includes buttons for editing and deleting profiles directly from the list.",
-                                "Supports sorting and filtering by different criteria such as role or skill.",
-                                "Displays visual indicators for workload levels to highlight availability."
+                                "Columns include Round Type, Amount, Date, and Investors. Supports sorting and filtering to tailor the view to user preferences."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/team-profiles",
-                                    "description": "Provides profile data for editing within the TeamProfileForm."
-                                },
-                                {
-                                    "pageUrl": "/current-projects",
-                                    "description": "Links profiles to current project tasks, showing which team members are involved."
+                                    "pageUrl": "/investor-details",
+                                    "description": "Links to investor profiles and details about their involvement in funding rounds."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "TeamProfileList allows users to interact with profile items for editing or deletion.",
-                                "possibleInteractions": "Click a profile to edit, or click 'delete' to remove a profile.",
-                                "result": "Clicking a profile opens the TeamProfileForm pre-filled with that member's details; clicking 'delete' removes the profile from the list.",
-                                "resultFunctionality": "When a profile is clicked, the form opens with the member's information for editing. Deleting a profile triggers a confirmation dialog, and upon confirmation, the profile is removed from the list and state is updated in the TeamProfilesContainer."
+                                "interact": "User clicks on a row to view detailed funding information or edit entries.",
+                                "possibleInteractions": "Sorting by amount or date to analyze funding trends.",
+                                "result": "Displays a popup with a detailed breakdown or an edit interface.",
+                                "resultFunctionality": "Popups provide quick access to additional information without navigating away from the page, enhancing user experience and decision-making capabilities."
                             }
                         },
-                        "components": [
-                            {
-                                "componentName": "ProfileCard",
-                                "componentInfo": {
-                                    "componentDescription": "Represents individual team members within the list, displaying member details and workload visually.",
-                                    "functionality": "The ProfileCard component provides a detailed view of each team member within the TeamProfileList. It showcases crucial information such as the member's name, role, skills, and current workload. The component includes a visual workload bar, which dynamically adjusts to reflect the member's current workload percentage. This feature helps users quickly assess each team member's availability and workload distribution. ProfileCard also offers interactive elements such as edit and delete buttons, allowing users to manage profiles directly from the card.",
-                                    "details": [
-                                        "Displays team member's name, role, skills, and workload as a progress bar.",
-                                        "Offers edit and delete buttons for profile management.",
-                                        "Visually represents workload with a colored progress bar for quick assessment.",
-                                        "Supports click events to trigger editing in the TeamProfileForm."
-                                    ],
-                                    "isVisible": true,
-                                    "interconnectivity": [
-                                        {
-                                            "pageUrl": "/team-profiles",
-                                            "description": "Directly linked with TeamProfileForm to facilitate profile editing."
-                                        },
-                                        {
-                                            "pageUrl": "/dashboard",
-                                            "description": "Workload data is synchronized with dashboard analytics for team monitoring."
-                                        }
-                                    ],
-                                    "userInteraction": {
-                                        "interact": "ProfileCard allows interaction via edit and delete buttons.",
-                                        "possibleInteractions": "Click 'edit' to open the TeamProfileForm with the member's details, or click 'delete' to remove the profile.",
-                                        "result": "Clicking 'edit' opens the TeamProfileForm pre-filled with the member's data; clicking 'delete' removes the profile from the list.",
-                                        "resultFunctionality": "The 'edit' button opens the TeamProfileForm, pre-filled with the selected member's information for easy editing. The 'delete' button triggers a confirmation dialog to prevent accidental deletions. Confirming the deletion updates the TeamProfileList to remove the profile and refreshes the state in TeamProfilesContainer."
-                                    }
-                                },
-                                "components": []
-                            }
-                        ]
+                        "components": []
                     },
                     {
-                        "componentName": "TeamProfileForm",
+                        "componentName": "BurnRateIndicator",
                         "componentInfo": {
-                            "componentDescription": "Facilitates the creation and editing of team profiles, validates input, and handles form submissions.",
-                            "functionality": "The TeamProfileForm component is integral to managing team profiles, providing a user interface for creating and editing team member information. It supports comprehensive data entry fields for names, roles, skills, and workloads. The form includes validation logic to ensure that all necessary data is accurately entered before submission. This component interfaces with the TeamProfilesContainer to submit new or updated profiles, triggering state updates across the page. User feedback is provided through success alerts and error messages, enhancing the overall user experience.",
+                            "componentDescription": "A gauge or progress bar to visualize the startup's burn rate.",
+                            "functionality": "The BurnRateIndicator component provides a visual representation of the startup's current burn rate, offering stakeholders a quick glance at financial sustainability. This component uses a gauge or progress bar to indicate how quickly the startup is spending its funds relative to its revenue. By offering a clear and concise visual, it helps users to quickly assess financial health and make informed decisions about budget adjustments or funding needs.",
                             "details": [
-                                "Includes fields for name, role, skills, experience, and workload percentage.",
-                                "Validates data input to ensure all required fields are completed correctly.",
-                                "Provides submit and cancel buttons for user actions.",
-                                "Displays success alerts and error messages post-submission attempts."
+                                "Features a color-coded gauge where green indicates a healthy burn rate and red signals potential financial issues.",
+                                "Interactive tooltip shows exact figures when hovered over."
                             ],
-                            "isVisible": false,
+                            "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/team-profiles",
-                                    "description": "Submits profile data to TeamProfilesContainer for inclusion in TeamProfileList."
-                                },
-                                {
-                                    "pageUrl": "/current-projects",
-                                    "description": "Updated profile data reflects in project team assignments."
+                                    "pageUrl": "/budget-analysis",
+                                    "description": "Connects to a detailed budget analysis page for further financial insights."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "TeamProfileForm allows users to input and submit profile data.",
-                                "possibleInteractions": "Enter data in fields, click 'submit' to save or 'cancel' to discard changes.",
-                                "result": "Clicking 'submit' saves the profile data and updates the TeamProfileList; clicking 'cancel' closes the form without saving.",
-                                "resultFunctionality": "Upon submission, the form data is validated and sent to the TeamProfilesContainer. A success message is displayed upon successful update, and the TeamProfileList is refreshed to reflect changes. Canceling the form closes it without saving any changes, maintaining the original data state."
+                                "interact": "User hovers over the gauge to see detailed burn rate information.",
+                                "possibleInteractions": "Hovering displays an exact percentage and potential months of runway left.",
+                                "result": "Shows a detailed tooltip with financial breakdowns.",
+                                "resultFunctionality": "Interactive tooltips provide immediate access to detailed financial insights, enabling users to act quickly on potential financial issues."
                             }
                         },
-                        "components": [
-                            {
-                                "componentName": "WorkloadHeatmap",
-                                "componentInfo": {
-                                    "componentDescription": "Displays an interactive heatmap visualizing team member workloads.",
-                                    "functionality": "The WorkloadHeatmap component provides a visual representation of team member workloads via an interactive heatmap. It utilizes ECharts to dynamically display workload data, with intensity levels indicating availability and current commitments. This feature helps users quickly grasp the workload distribution across the team, facilitating better resource allocation and task assignments. The heatmap supports interactivity, allowing users to hover over sections for detailed insights into individual workloads, enhancing decision-making during task distribution.",
-                                    "details": [
-                                        "Utilizes ECharts for interactive visual representation of workloads.",
-                                        "Displays workload intensity through color gradients, indicating availability.",
-                                        "Supports hover interactions for detailed workload insights.",
-                                        "Adapts dynamically to changes in team member workload data."
-                                    ],
-                                    "isVisible": true,
-                                    "interconnectivity": [
-                                        {
-                                            "pageUrl": "/dashboard",
-                                            "description": "Integrates with dashboard for comprehensive team performance analytics."
-                                        },
-                                        {
-                                            "pageUrl": "/current-projects",
-                                            "description": "Helps in determining team member availability for project task allocation."
-                                        }
-                                    ],
-                                    "userInteraction": {
-                                        "interact": "Users interact with the heatmap by hovering over different sections for insights.",
-                                        "possibleInteractions": "Hover over heatmap sections to view detailed workload data.",
-                                        "result": "Hovering displays a tooltip with detailed workload information for the selected team member.",
-                                        "resultFunctionality": "The hover interaction triggers a tooltip that reveals precise workload percentages and commitments for each team member, aiding in effective task distribution by providing real-time data on team availability and workload balance."
-                                    }
-                                },
-                                "components": []
-                            },
-                            {
-                                "componentName": "SearchBar",
-                                "componentInfo": {
-                                    "componentDescription": "Provides a search and filter interface to locate specific team members based on criteria.",
-                                    "functionality": "The SearchBar component offers robust search and filter capabilities, enabling users to quickly find specific team members within the TeamProfileList. Users can input search terms or select filters based on roles, skills, or workload levels. This component dynamically updates the displayed profiles to match search criteria, streamlining the process of finding suitable team members for specific tasks. It enhances user efficiency by providing instant feedback and narrowing down results based on user-defined parameters.",
-                                    "details": [
-                                        "Includes input field for search terms and dropdowns for filter criteria.",
-                                        "Filters profiles by role, skills, and workload levels.",
-                                        "Provides real-time feedback by updating TeamProfileList based on search criteria.",
-                                        "Enhances user efficiency by reducing time to locate specific profiles."
-                                    ],
-                                    "isVisible": true,
-                                    "interconnectivity": [
-                                        {
-                                            "pageUrl": "/team-profiles",
-                                            "description": "Directly filters the profiles displayed in TeamProfileList."
-                                        },
-                                        {
-                                            "pageUrl": "/current-projects",
-                                            "description": "Assists in quickly finding team members for specific project roles."
-                                        }
-                                    ],
-                                    "userInteraction": {
-                                        "interact": "Users input search terms or select filters to refine the list of profiles.",
-                                        "possibleInteractions": "Enter search terms or select filters to narrow down displayed profiles.",
-                                        "result": "Profiles in TeamProfileList are filtered in real-time based on input criteria, showing only relevant results.",
-                                        "resultFunctionality": "The SearchBar processes input terms and filter selections to dynamically update the TeamProfileList, displaying only profiles that match the user's criteria. This feature is critical for large teams, allowing users to swiftly locate members with specific skills or available workload for project assignments."
-                                    }
-                                },
-                                "components": []
-                            }
-                        ]
+                        "components": []
                     }
                 ]
-            }
-        ],
-        "pageUrl": "/team-profiles"
-    }
-}{
-    "finalOutput": {
-        "pageName": "Chat Interface Page",
-        "pageInfo": {
-            "purposeAndGoals": "This page serves as the central hub for real-time messaging among team members, facilitating seamless communication, collaboration, and information sharing within projects.",
-            "problemSolved": "The Chat Interface Page addresses the need for efficient, real-time communication among team members. It organizes conversations by project to maintain context and reduces reliance on email for internal discussions. By providing an intuitive layout for message exchange, it enhances team productivity and fosters a collaborative environment. The page allows for smooth navigation between different projects, ensuring that team members can quickly access relevant discussions and contribute effectively. It also supports file sharing, search functionality, and integrates with other task-related modules to provide comprehensive context for discussions. This holistic approach empowers users to manage communications efficiently, improve workflow, and maintain focus on project goals without the clutter and delay of traditional email exchanges.",
-            "colour": {
-                "primaryColor": "#004085",
-                "secondaryColor": "#d1ecf1",
-                "tertiaryColor": "#cce5ff",
-                "spacing": "5px",
-                "typography": "Arial, sans-serif"
-            }
-        },
-        "components": [
+            },
             {
-                "componentName": "ChatContainer",
+                "componentName": "EditButton",
                 "componentInfo": {
-                    "componentDescription": "The main component housing the chat interface, responsible for managing the overall structure and logic of the chat system, ensuring all sub-components function cohesively.",
-                    "functionality": "The ChatContainer acts as the foundational structure for the chat interface, orchestrating the interactions between its child components. It handles the retrieval and organization of chat data, ensuring that messages are displayed accurately according to the selected project. This component is responsible for maintaining the chat session state, managing user interactions, and triggering updates across the interface when new messages are sent or received. It integrates with state management systems to ensure data consistency and provides a seamless user experience by coordinating real-time updates and rendering performance. The ChatContainer also manages the layout and styling of the interface, ensuring that all elements are visually cohesive and accessible.",
+                    "componentDescription": "A button that allows users to enter edit mode for the startup's profile.",
+                    "functionality": "The EditButton component is a crucial interactive element that enables users to toggle the entire StartupProfileCard into an editable state. When clicked, it activates edit mode, allowing users to modify startup details, add new team members, or update funding information. This button ensures that users have the flexibility to make real-time changes to startup profiles, facilitating dynamic updates and ensuring data integrity.",
                     "details": [
-                        "Manages the overall layout of the chat interface, ensuring proper spacing and alignment of child components.",
-                        "Handles state management for active chat projects and user sessions.",
-                        "Coordinates data flow between ChatSidebar, ChatMessages, and ChatInput to ensure real-time updates.",
-                        "Implements conditional rendering for responsive design, maintaining usability across different screen sizes."
+                        "Prominently displayed as a floating action button (FAB) with a pencil icon. Changes color to indicate active edit mode."
                     ],
                     "isVisible": true,
                     "interconnectivity": [
                         {
-                            "pageUrl": "/team-collaboration/chat",
-                            "description": "Central component orchestrating the real-time chat interface, integral for seamless user interactions."
+                            "pageUrl": "/profile-settings",
+                            "description": "Provides a link to profile settings for more in-depth customization and data management."
                         }
                     ],
                     "userInteraction": {
-                        "interact": "Overall chat interface navigation and interaction.",
-                        "possibleInteractions": "Users can switch between projects, send messages, and view chat history.",
-                        "result": "Updates the chat display based on user actions, such as selecting a different project or sending a message.",
-                        "resultFunctionality": "Ensures that messages are displayed in real-time, updates the UI accordingly, and maintains the context of the current chat session."
+                        "interact": "User clicks to toggle edit mode for the profile card.",
+                        "possibleInteractions": "Once in edit mode, fields become editable, and a save icon appears.",
+                        "result": "Enables all editable fields on the profile card and displays a save button.",
+                        "resultFunctionality": "The save button, when clicked, validates all changes and updates the server data, ensuring that the latest information is always available to all users."
                     }
                 },
-                "components": [
-                    {
-                        "componentName": "ChatHeader",
-                        "componentInfo": {
-                            "componentDescription": "Displays the project name and user details, providing context about the current chat session.",
-                            "functionality": "The ChatHeader serves as a navigational and informational component, positioned at the top of the chat interface. It displays the current project's name, ensuring that users are aware of the chat context at all times. Additionally, it may include user details such as the logged-in user's name or profile picture, reinforcing user identity within the chat. This component also acts as a potential anchor for additional features like project settings or quick links to related project pages. By maintaining consistent visibility, the ChatHeader ensures that users can quickly orient themselves within the chat interface, facilitating efficient communication and reducing confusion about chat contexts.",
-                            "details": [
-                                "Displays the project name prominently to indicate the current chat context.",
-                                "May include user profile information, such as a name or avatar, to personalize the chat experience.",
-                                "Potentially houses additional buttons or links for quick navigation to related project settings or pages."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/team-collaboration/chat",
-                                    "description": "Provides context for the chat session, integrating project details and user information."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users may interact with project name or settings links if available.",
-                                "possibleInteractions": "Clicking on project settings could lead to a project configuration page.",
-                                "result": "Opens related project settings or information when interacted with.",
-                                "resultFunctionality": "Facilitates quick access to project-specific settings or information, enhancing user efficiency."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "ChatMessages",
-                        "componentInfo": {
-                            "componentDescription": "Renders a list of messages for the selected project, displaying conversations with timestamps and user identifiers.",
-                            "functionality": "The ChatMessages component is crucial for displaying the chat history of the selected project, ensuring that users can view past interactions and contribute to ongoing discussions. It dynamically updates in real-time as new messages are sent or received, maintaining a continuous flow of communication. Each message displays relevant information such as the sender's name, message content, and timestamp, organized chronologically for clarity. The component may also support additional features such as message reactions, threading for related conversations, and the ability to scroll through extensive chat histories. By providing a comprehensive view of project communications, ChatMessages allows users to track discussions, reference past messages, and engage effectively in team collaboration.",
-                            "details": [
-                                "Displays messages with sender's name, content, and timestamp for context.",
-                                "Supports real-time updates, ensuring new messages appear without page refresh.",
-                                "May include features like message reactions, threading, and scrolling for extensive histories.",
-                                "Ensures accessibility with clear typography and spacing."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/team-collaboration/chat",
-                                    "description": "Central component for displaying chat history, essential for real-time communication."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users can scroll through messages and interact with message actions (like reactions or threading).",
-                                "possibleInteractions": "Clicking on a message may open a detailed view or threading options.",
-                                "result": "Displays message details or options for interaction (e.g., react, reply).",
-                                "resultFunctionality": "Enhances communication by allowing deeper engagement with specific messages, such as adding reactions or initiating threaded discussions."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "ChatInput",
-                        "componentInfo": {
-                            "componentDescription": "Allows users to compose and send messages, capturing input and initiating message dispatching.",
-                            "functionality": "The ChatInput component provides a user-friendly interface for composing and sending messages within the chat. It includes an input field for typing messages, a send button for dispatching them, and potentially additional features like attachments or emoji selection. As a critical interactive component, ChatInput handles user input, validates message content, and triggers the sending process. It integrates with the chat's real-time messaging system to ensure messages are sent immediately and appear in the ChatMessages component. This component may also include feedback mechanisms, such as loading indicators or error messages, to inform users about the status of their message dispatch. By facilitating efficient message composition and sending, ChatInput enhances the responsiveness and interactivity of the chat interface.",
-                            "details": [
-                                "Provides an input field for message composition with support for multi-line text.",
-                                "Includes a send button to dispatch messages to the chat.",
-                                "May support additional features like file attachments, emoji selection, and formatting options.",
-                                "Ensures user-friendly design with clear buttons and responsive input handling."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/team-collaboration/chat",
-                                    "description": "Enables user interaction for message composition and sending within the chat interface."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users type messages in the input field and click send to post them.",
-                                "possibleInteractions": "Typing triggers real-time typing indicators; sending queues the message for real-time dispatch.",
-                                "result": "The message is sent and appears in the ChatMessages component.",
-                                "resultFunctionality": "Ensures seamless message dispatch, updating the chat history in real-time and providing users with immediate feedback on their communication."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "ChatSidebar",
-                        "componentInfo": {
-                            "componentDescription": "Lists all projects for easy navigation, enabling users to switch between different project chats.",
-                            "functionality": "The ChatSidebar is a navigational component designed to list all active projects, allowing users to switch between different chat contexts effortlessly. It displays project names in a scrollable list, providing quick access to project-specific discussions. When a user selects a project from the sidebar, the chat interface updates to display the relevant ChatMessages for that project. This component may also include search functionality to filter projects, ensuring users can quickly find and access the desired chat. By organizing projects in an accessible manner, ChatSidebar enhances user navigation, reduces time spent searching for specific chats, and facilitates multitasking across different project discussions.",
-                            "details": [
-                                "Displays a list of active projects with clear labels for navigation.",
-                                "Supports project selection, triggering updates to the ChatMessages component.",
-                                "May include search functionality to filter and locate specific projects quickly.",
-                                "Designed with responsive behavior, collapsing on smaller screens to maximize space."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/team-collaboration/chat",
-                                    "description": "Facilitates navigation between project-specific chats, integrating seamlessly with the chat interface."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users click on project names to switch chat contexts.",
-                                "possibleInteractions": "Selecting a project updates the displayed messages to those related to that project.",
-                                "result": "Updates the chat interface to show messages for the selected project.",
-                                "resultFunctionality": "Ensures users can efficiently navigate between different project discussions, maintaining focus and context within the chat interface."
-                            }
-                        },
-                        "components": []
+                "components": []
+            },
+            {
+                "componentName": "WebSocketManager",
+                "componentInfo": {
+                    "componentDescription": "Handles real-time data updates for the page using a WebSocket connection.",
+                    "functionality": "The WebSocketManager component is responsible for maintaining an active WebSocket connection to handle real-time updates to the Startup Overview Page. This component ensures that any changes made by mentors, investors, or other stakeholders are immediately reflected on the page, providing users with the most current data. By efficiently managing the data flow between the server and the client, it enhances the responsiveness and dynamism of the platform, particularly in collaborative environments.",
+                    "details": [
+                        "Establishes a persistent connection to receive updates.",
+                        "Includes error handling for connection drops and ensures reconnection attempts."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/live-updates",
+                            "description": "Links to a detailed page on how live updates are managed throughout the system."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Invisible to users, but ensures data is always up-to-date.",
+                        "possibleInteractions": "Handles background data updates, ensuring seamless user experience.",
+                        "result": "Real-time updates to page components without manual refresh.",
+                        "resultFunctionality": "Guarantees that all users see the most current data, reducing discrepancies and enhancing collaborative efforts."
                     }
-                ]
+                },
+                "components": []
             }
         ],
-        "pageUrl": "/team-collaboration/chat"
+        "pageUrl": "/startup-overview/:startupId"
     }
 }{
     "finalOutput": {
-        "pageName": "Performance Dashboard Page",
+        "pageName": "Mentor Overview Page",
         "pageInfo": {
-            "purposeAndGoals": "Provides an overview of team and individual performance metrics, displaying key performance indicators (KPIs) through visualizations like charts and graphs.",
-            "problemSolved": "The Performance Dashboard Page allows quick assessment of productivity levels across teams by providing a centralized platform where team leaders and managers can view performance data at a glance. It visualizes performance trends over time, helping in identifying patterns that could inform future planning and decision-making. The page highlights areas of strength and improvement opportunities for team members, facilitating targeted coaching and development initiatives.",
+            "purposeAndGoals": "This page provides a comprehensive view of each mentor's profile, including their expertise, availability, and the startups they are mentoring. It serves as a dashboard for mentors to see their assigned startups and for startups to find relevant mentors.",
+            "problemSolved": "The Mentor Overview Page centralizes mentor information, simplifying access to mentor profiles, expertise, and availability, thereby facilitating startups in identifying suitable mentors and scheduling interactions effectively. By providing a centralized hub for mentor information, startups can efficiently pinpoint mentors whose expertise aligns with their needs, while mentors can easily manage their schedules and interactions, significantly enhancing the mentorship process within the enterprise.",
             "colour": {
-                "primaryColor": "#1E90FF",
-                "secondaryColor": "#F0F8FF",
-                "tertiaryColor": "#4682B4",
+                "primaryColor": "#004d40",
+                "secondaryColor": "#00796b",
+                "tertiaryColor": "#e0f2f1",
                 "spacing": "8px",
-                "typography": "Arial, sans-serif"
+                "typography": "'Roboto', sans-serif"
             }
         },
         "components": [
             {
-                "componentName": "PerformanceDashboard",
+                "componentName": "MentorDashboard",
                 "componentInfo": {
-                    "componentDescription": "Main container for the dashboard, it acts as the primary interface for users to view and interact with performance data.",
-                    "functionality": "The PerformanceDashboard component serves as the central hub for performance-related data within the ERP system. It aggregates data from various child components and presents them in a coherent and understandable format. This component is responsible for fetching data from the APIs, managing the state of the dashboard, and updating the visualizations in real time through WebSocket connections. It ensures that all child components receive the necessary props and context to function correctly. The dashboard is designed to provide a seamless user experience, with intuitive navigation and interactive elements that allow users to drill down into specific performance metrics. The component is optimized for performance, ensuring that data is loaded quickly and efficiently, with minimal impact on system resources. It also includes error handling and fallback mechanisms to ensure reliability even in the event of data retrieval issues.",
+                    "componentDescription": "Responsible for rendering the overall layout and fetching mentor data, acting as the central hub of the Mentor Overview Page.",
+                    "functionality": "The MentorDashboard component serves as the main container for the Mentor Overview Page. It fetches data from a backend service or mock API and manages the overall state of the page. Through useState and useEffect hooks, it handles the lifecycle of data fetching, ensuring data integrity and loading indicators are appropriately triggered. It provides context to child components for accessing mentor data efficiently. The dashboard also handles user interaction events such as filter application and mentor card selection, updating child components dynamically based on these interactions. It ensures the page layout is responsive and visually consistent with the enterprise's branding guidelines.",
                     "details": [
-                        "Handles API data fetching using React's useEffect for lifecycle management.",
-                        "Maintains state using useState hooks for real-time data updates.",
-                        "Provides a context or props to child components to ensure data consistency across the dashboard.",
-                        "Implements error handling to manage API call failures and display user-friendly messages.",
-                        "Supports real-time updates through WebSocket connections to ensure the dashboard displays the latest performance metrics.",
-                        "Incorporates responsive design principles to ensure usability across different screen sizes."
+                        "Fetches mentor data from a backend service or mock API, managing state with useState and useEffect.",
+                        "Provides a centralized context for accessing mentor data across child components.",
+                        "Handles user interactions such as filter application and mentor card selection.",
+                        "Ensures responsive layout and consistent visual design."
                     ],
                     "isVisible": true,
                     "interconnectivity": [
                         {
-                            "pageUrl": "/time-tracking",
-                            "description": "Links to the Time Tracking Page for detailed time log analysis."
+                            "pageUrl": "/mentors/feedback_log",
+                            "description": "Provides access to mentors' feedback sessions from the Mentor Overview Page, allowing users to seamlessly navigate and view feedback related to mentors."
                         },
                         {
-                            "pageUrl": "/sprint-analysis",
-                            "description": "Links to the Sprint Analysis Page for detailed sprint performance reviews."
+                            "pageUrl": "/mentors/profile",
+                            "description": "Navigates to a detailed mentor profile page when a MentorCard is clicked, enabling users to view comprehensive mentor details."
                         }
                     ],
                     "userInteraction": {
-                        "interact": "Users interact with the main dashboard view, navigating between different sections and components.",
-                        "possibleInteractions": "Users can click on different sections to expand or collapse them, hover over elements for tooltip information, and use filters to adjust the data view.",
-                        "result": "Interacting with the dashboard sections or filters will update the displayed data, providing a more focused view of specific performance metrics.",
-                        "resultFunctionality": "When users apply filters or click on specific components, the dashboard will re-fetch data or adjust the displayed data set to match the user's selections. This ensures that the information is always relevant to the user's current focus."
+                        "interact": "MentorFilter",
+                        "possibleInteractions": "User selects expertise filter 'Marketing' and availability 'Available Now'.",
+                        "result": "Updates MentorProfileList to only show mentors matching 'Marketing' expertise and available now.",
+                        "resultFunctionality": "The MentorProfileList component dynamically updates to reflect mentors that match the selected filters. This enables users to quickly identify mentors who are immediately available and possess the desired expertise, enhancing the efficiency of mentor selection."
                     }
                 },
                 "components": [
                     {
-                        "componentName": "KPISection",
+                        "componentName": "MentorProfileList",
                         "componentInfo": {
-                            "componentDescription": "Displays key performance indicators relevant to team and individual metrics.",
-                            "functionality": "The KPISection breaks down the most critical performance indicators into easily digestible cards, allowing users to quickly assess overall team performance. Each KPICard within the section is designed to highlight a specific metric, such as the total number of tasks completed, average completion time, or the number of peer reviews. The section updates dynamically as new data is received, ensuring that users always have access to the latest information. It allows users to focus on key metrics without sifting through large amounts of data, making it an essential tool for managers and team leads monitoring performance trends. The KPISection uses a grid layout to organize the cards efficiently, with responsive design elements ensuring it adapts to different screen sizes without losing clarity or accessibility.",
+                            "componentDescription": "Displays a list of mentors, dynamically updating based on applied filters.",
+                            "functionality": "The MentorProfileList component is responsible for rendering the list of mentor profiles. It receives data from the MentorDashboard component and filters it according to the criteria set in the MentorFilter component. The list is displayed in a card format, each card representing a mentor, with concise information such as their name, expertise, and availability. The component listens for changes in the filtering criteria and updates the displayed list in real-time, offering a seamless user experience. It also includes sorting functionality, allowing users to sort mentors by name, availability, or expertise, thereby enhancing data accessibility and usability.",
                             "details": [
-                                "Includes multiple KPICard components, each representing a different KPI.",
-                                "Uses CSS Grid or Flexbox for layout management, allowing for responsive resizing.",
-                                "Supports dynamic data updates, ensuring real-time metrics display.",
-                                "Incorporates hover effects or tooltips for additional context or explanations of KPIs.",
-                                "Allows for filtering or sorting of KPIs based on user preferences."
+                                "Renders mentor profiles in a card format with name, expertise, and availability.",
+                                "Listens for changes in filtering criteria from MentorFilter component.",
+                                "Offers sorting functionality by name, availability, or expertise.",
+                                "Displays a loading spinner when data is being fetched."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/time-tracking",
-                                    "description": "KPIs are linked to detailed time tracking data for deeper insights."
+                                    "pageUrl": "/mentors/profile",
+                                    "description": "Allows users to navigate to the mentor's detailed profile by clicking on a MentorCard within the MentorProfileList."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "Users can hover over KPICards for more detailed information or click on them to view trends over time.",
-                                "possibleInteractions": "Hovering over KPI values reveals additional metrics or historical data trends.",
-                                "result": "Hovering or clicking on a KPI could display a modal with a trend chart or more detailed breakdowns.",
-                                "resultFunctionality": "The modal provides an expanded view of the KPI, including historical data visualizations and potential action items based on performance."
+                                "interact": "MentorCard",
+                                "possibleInteractions": "User clicks on a 'John Doe' MentorCard.",
+                                "result": "Opens a detailed modal with further mentor information.",
+                                "resultFunctionality": "The modal displays comprehensive details about the mentor, such as their full profile, past mentorship experiences, and detailed availability calendar. This feature enhances the user's ability to make informed decisions about mentor selection and scheduling."
                             }
                         },
                         "components": [
                             {
-                                "componentName": "KPICard",
+                                "componentName": "MentorCard",
                                 "componentInfo": {
-                                    "componentDescription": "Displays a single key performance indicator value and its context.",
-                                    "functionality": "The KPICard component is a reusable element designed to present a specific performance measure, such as tasks completed or average time to completion, in a concise and visually appealing format. Each card features the metric's name, its current value, and any relevant percentage change or trend indicator. The design ensures that users can quickly grasp the key information without being overwhelmed by detail. KPICards are built to be responsive, with adaptive styling that maintains readability across different devices. The component supports real-time updates, with animations to smoothly transition between data states, providing an intuitive user experience. KPICards are also interactive, offering hover effects or clickable links to more in-depth reports or analytics, enabling users to explore metrics further as needed.",
+                                    "componentDescription": "Displays individual mentor details, including name, expertise, and availability.",
+                                    "functionality": "The MentorCard component is designed to present a compact and informative overview of each mentor. Each card includes the mentor's name, a list of their areas of expertise displayed as tags, and an availability indicator that provides real-time status updates on the mentor's current availability for new mentorship engagements. The card is interactive, allowing users to click on it to reveal additional information or to initiate contact with the mentor. The design of the MentorCard is modular, allowing it to be reused across different pages and contexts within the enterprise software, such as in the Feedback Log Page or personal mentor profiles.",
                                     "details": [
-                                        "Includes metric name, current value, and percentage change indicators.",
-                                        "Utilizes CSS animations for smooth transitions between data states.",
-                                        "Supports hover effects for additional context or links to detailed reports.",
-                                        "Designed with adaptive styling to remain legible across varied screen sizes.",
-                                        "Incorporates color coding to indicate positive or negative changes at a glance."
+                                        "Includes mentor's name prominently displayed.",
+                                        "Features ExpertiseTag components to highlight areas of expertise.",
+                                        "Incorporates AvailabilityIndicator to show real-time availability.",
+                                        "Interactive design allows for clicks to reveal more details or initiate contact."
                                     ],
                                     "isVisible": true,
                                     "interconnectivity": [
                                         {
-                                            "pageUrl": "/detailed-metrics",
-                                            "description": "Links to detailed metric reports for in-depth analysis."
+                                            "pageUrl": "/mentors/profile",
+                                            "description": "Enables navigation to the mentor's detailed profile view."
+                                        },
+                                        {
+                                            "pageUrl": "/mentors/contact",
+                                            "description": "Facilitates initiation of contact with the mentor directly from the card."
                                         }
                                     ],
                                     "userInteraction": {
-                                        "interact": "Users interact by hovering over the card for more details or clicking for expanded views.",
-                                        "possibleInteractions": "Hovering reveals a tooltip with historical data; clicking opens a detailed analysis page.",
-                                        "result": "Clicking opens a new page or modal with detailed analytics and historical data trends.",
-                                        "resultFunctionality": "The new page or modal provides comprehensive analytics, including graphs and charts, to explore the KPI in depth."
+                                        "interact": "AvailabilityIndicator",
+                                        "possibleInteractions": "User hovers over the availability indicator on a MentorCard.",
+                                        "result": "Displays a tooltip with detailed availability information.",
+                                        "resultFunctionality": "The tooltip provides specific details regarding the mentor's availability, such as their available time slots or upcoming free periods. This feature is designed to assist startups in scheduling meetings or mentorship sessions more effectively by providing immediate access to the mentor's schedule."
                                     }
                                 },
-                                "components": []
+                                "components": [
+                                    {
+                                        "componentName": "AvailabilityIndicator",
+                                        "componentInfo": {
+                                            "componentDescription": "Shows whether a mentor is available for new startups.",
+                                            "functionality": "The AvailabilityIndicator component is a visual cue that represents the mentor's current availability status. It dynamically updates based on real-time data, indicating whether the mentor is currently available, busy, or completely booked. This component is crucial for startups looking to engage with mentors quickly, as it provides immediate feedback on whether a mentor can accommodate new sessions. The design includes color-coded indicators and text descriptions, ensuring clarity and ease of understanding for users. It enhances the overall user experience by reducing the need for additional queries regarding mentor availability.",
+                                            "details": [
+                                                "Color-coded status indicators (green for available, red for busy, grey for booked).",
+                                                "Text descriptions accompany color indicators for clarity.",
+                                                "Real-time updates based on mentor's schedule and commitments.",
+                                                "Tooltip interaction for detailed availability information."
+                                            ],
+                                            "isVisible": true,
+                                            "interconnectivity": [
+                                                {
+                                                    "pageUrl": "/mentors/schedule",
+                                                    "description": "Links to the mentor's scheduling page for detailed availability and booking options."
+                                                }
+                                            ],
+                                            "userInteraction": {
+                                                "interact": "Color-coded indicator",
+                                                "possibleInteractions": "User clicks on the green indicator showing 'Available'.",
+                                                "result": "Redirects to a booking page for scheduling a session with the mentor.",
+                                                "resultFunctionality": "The booking page allows users to view available time slots and book a mentorship session directly. The integration ensures a seamless transition from availability checking to scheduling, enhancing the efficiency of the process."
+                                            }
+                                        },
+                                        "components": []
+                                    },
+                                    {
+                                        "componentName": "ExpertiseTag",
+                                        "componentInfo": {
+                                            "componentDescription": "Highlights the mentor's areas of expertise with tags.",
+                                            "functionality": "The ExpertiseTag component visually represents the specific areas of expertise that a mentor possesses. These tags are prominently displayed on the MentorCard and are clickable, allowing users to filter other mentors based on similar expertise. The tags are designed for easy readability and quick recognition, using a distinct color scheme that contrasts with the background of the MentorCard. This component facilitates users in identifying mentors with the right skill sets quickly, enhancing the overall search and selection process. It is particularly useful for startups looking for mentors with niche expertise.",
+                                            "details": [
+                                                "Displays mentor's areas of expertise as clickable tags.",
+                                                "Uses distinct color scheme for easy recognition.",
+                                                "Tags are interactive, allowing filtering based on expertise.",
+                                                "Supports a wide range of expertise areas, with dynamic rendering based on mentor data."
+                                            ],
+                                            "isVisible": true,
+                                            "interconnectivity": [
+                                                {
+                                                    "pageUrl": "/mentors/search",
+                                                    "description": "Allows redirection to a search page filtered by the selected expertise tag."
+                                                }
+                                            ],
+                                            "userInteraction": {
+                                                "interact": "Clickable expertise tags",
+                                                "possibleInteractions": "User clicks on a 'Marketing' expertise tag.",
+                                                "result": "Filters the MentorProfileList to show only mentors with 'Marketing' expertise.",
+                                                "resultFunctionality": "The filtering action narrows down the list of mentors, displaying only those who have 'Marketing' as a part of their expertise. This functionality is designed to streamline the mentor search process, allowing users to focus on mentors who are most relevant to their needs."
+                                            }
+                                        },
+                                        "components": []
+                                    }
+                                ]
                             }
                         ]
                     },
                     {
-                        "componentName": "PerformanceChart",
+                        "componentName": "MentorFilter",
                         "componentInfo": {
-                            "componentDescription": "Visual representation of productivity trends using various chart types.",
-                            "functionality": "The PerformanceChart component is a versatile visualization tool that presents performance data trends using interactive charts. It includes multiple chart types such as line charts for time series analysis and heat maps to display intensity over time. The component leverages ECharts for robust and customizable charting capabilities. Users can interact with these charts to explore data points, view detailed tooltips, and adjust the time frame for analysis. The component is designed to handle large datasets efficiently, ensuring fast rendering and smooth interactions. It also supports customization options, allowing users to tailor the visualization according to their analytical needs. PerformanceChart is integral for identifying trends, anomalies, and peak performance periods, making it a critical component for performance analysis and strategic decision-making.",
+                            "componentDescription": "Provides filtering options for expertise and availability, enabling users to narrow down mentor selections.",
+                            "functionality": "The MentorFilter component enhances the Mentor Overview Page by offering users the ability to filter mentors based on specific criteria such as expertise areas and availability status. It consists of dropdown menus and checkboxes that allow users to select desired filters. The component listens for user changes and communicates these preferences to the MentorProfileList, ensuring that the displayed mentors match the selected filters. By providing granular control over the mentor selection process, this component significantly improves the user experience, making it easier to find suitable mentors efficiently.",
                             "details": [
-                                "Includes a LineChart for time series data visualization, showing trends over weeks or months.",
-                                "Incorporates a HeatMap to display data intensity over days or shifts.",
-                                "Uses ECharts library for advanced charting features and interactivity.",
-                                "Supports zooming and panning for detailed data exploration.",
-                                "Provides tooltips and legends for context and clarity in data reading."
+                                "Includes dropdown menus for selecting expertise areas.",
+                                "Checkboxes for availability status ('Available Now', 'Busy', 'Booked').",
+                                "Real-time communication with MentorProfileList to apply filters.",
+                                "Responsive design to ensure usability on various screen sizes."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/trend-analysis",
-                                    "description": "Links to a page dedicated to in-depth trend analysis and historical comparisons."
+                                    "pageUrl": "/mentors/overview",
+                                    "description": "Directly interacts with the MentorProfileList on the Mentor Overview Page to filter mentors based on user-selected criteria."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "Users interact with charts by hovering, clicking, and dragging to explore data points and adjust views.",
-                                "possibleInteractions": "Hovering displays tooltips with data details; clicking selects time ranges for focused analysis.",
-                                "result": "Interactions update the chart view, focusing on selected time frames or data subsets.",
-                                "resultFunctionality": "Updated chart views provide detailed insights into specific periods, with options for exporting data or integrating analysis into reports."
+                                "interact": "Dropdown menus and checkboxes",
+                                "possibleInteractions": "User selects 'Technology' as expertise and checks 'Available Now'.",
+                                "result": "MentorProfileList updates to display only mentors with 'Technology' expertise who are currently available.",
+                                "resultFunctionality": "The MentorProfileList component dynamically adjusts to show only those mentors who fit the selected criteria, providing users with a streamlined list that matches their specific needs. This interaction enhances the efficiency and effectiveness of the mentor selection process for startups."
                             }
                         },
-                        "components": [
-                            {
-                                "componentName": "LineChart",
-                                "componentInfo": {
-                                    "componentDescription": "Displays productivity trends over time using a line graph format.",
-                                    "functionality": "The LineChart component is designed to provide a clear and concise view of productivity trends over time. It uses a line graph format to plot data points along a time axis, allowing users to easily identify patterns, spikes, and drops in performance. The component uses ECharts for rendering, ensuring high-quality visuals and interactive features such as zooming, panning, and tooltip displays. Users can hover over data points to see exact values and trends, making it easy to analyze performance fluctuations. The LineChart is configurable, supporting different time intervals (daily, weekly, monthly) and data sets, offering flexibility for various analysis needs. It updates in real time, ensuring that users always have access to the most current data, making it a vital tool for continuous performance monitoring and decision-making.",
-                                    "details": [
-                                        "Plots performance data points over time, using ECharts for rendering.",
-                                        "Includes interactive features like zooming, panning, and tooltips for detailed exploration.",
-                                        "Supports various time intervals for trend analysis, such as daily, weekly, or monthly views.",
-                                        "Updates dynamically to reflect the latest data, maintaining relevance and accuracy.",
-                                        "Configurable to display different data sets, enhancing analytical flexibility."
-                                    ],
-                                    "isVisible": true,
-                                    "interconnectivity": [
-                                        {
-                                            "pageUrl": "/historical-trends",
-                                            "description": "Links to a dedicated page for exploring historical performance trends in detail."
-                                        }
-                                    ],
-                                    "userInteraction": {
-                                        "interact": "Users interact by hovering over data points and adjusting the time range for analysis.",
-                                        "possibleInteractions": "Hovering displays detailed tooltips; adjusting time range focuses the analysis on specific periods.",
-                                        "result": "Interactions refine the chart view, highlighting selected data trends and periods.",
-                                        "resultFunctionality": "Refined views offer detailed insights into specific performance trends, supporting deeper analysis and reporting."
-                                    }
-                                },
-                                "components": []
-                            },
-                            {
-                                "componentName": "HeatMap",
-                                "componentInfo": {
-                                    "componentDescription": "Displays performance intensity over periods using a color-coded grid format.",
-                                    "functionality": "The HeatMap component provides a visual representation of performance intensity over specific time periods, using color coding to indicate varying levels of productivity. This component is designed to highlight patterns such as peak performance times or periods of inactivity, helping teams optimize workflow and resource allocation. It uses ECharts for rendering, offering interactive features such as tooltips and data value displays on hover. Users can select different time frames, such as days, weeks, or shifts, to customize their analysis. The HeatMap is particularly useful for identifying correlations between time and productivity, enabling teams to make data-driven decisions about scheduling and resource management. It updates in real time to reflect the latest performance data, ensuring users always have access to accurate and relevant insights.",
-                                    "details": [
-                                        "Displays data intensity using a color gradient, with ECharts for rendering.",
-                                        "Supports interactive features like hover tooltips and data value displays.",
-                                        "Allows selection of different time frames for customized analysis.",
-                                        "Updates dynamically to reflect current data, ensuring relevance and accuracy.",
-                                        "Highlights patterns and correlations between time and productivity, aiding decision-making."
-                                    ],
-                                    "isVisible": true,
-                                    "interconnectivity": [
-                                        {
-                                            "pageUrl": "/heatmap-analysis",
-                                            "description": "Links to a detailed page for exploring heat map analyses and insights."
-                                        }
-                                    ],
-                                    "userInteraction": {
-                                        "interact": "Users interact by hovering over grid cells to view detailed data values and trends.",
-                                        "possibleInteractions": "Hovering reveals tooltips with data values; selecting time frames adjusts analysis focus.",
-                                        "result": "Interactions highlight specific periods and data intensities, supporting detailed analysis.",
-                                        "resultFunctionality": "Highlighted views offer insights into time-based productivity patterns, aiding strategic planning and optimization."
-                                    }
-                                },
-                                "components": []
-                            }
-                        ]
-                    },
-                    {
-                        "componentName": "MemberPerformance",
-                        "componentInfo": {
-                            "componentDescription": "Displays a list of individual performances with detailed metrics for each team member.",
-                            "functionality": "The MemberPerformance component provides a detailed view of each team member's performance metrics, allowing managers and team leads to track individual contributions and identify areas for improvement or recognition. Each MemberCard within the component displays key metrics such as tasks completed, peer reviews, and average completion time. The component supports sorting and filtering options, enabling users to organize the data according to specific criteria or focus on particular team members. It updates in real time, ensuring that performance data is always current and accurate. This component is essential for personalized performance management, helping teams foster accountability and encourage continuous improvement. The design ensures clarity and accessibility, with responsive layouts that adapt to different screen sizes and user preferences.",
-                            "details": [
-                                "Includes multiple MemberCard components, each representing a team member.",
-                                "Supports sorting and filtering by metrics such as tasks completed or peer reviews.",
-                                "Updates dynamically to reflect current performance data, ensuring accuracy.",
-                                "Provides a clear, accessible design with responsive layouts for different screen sizes.",
-                                "Essential for personalized performance management and fostering accountability."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/member-details",
-                                    "description": "Links to a detailed page with in-depth analyses of individual team member performances."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users interact by clicking on member cards for detailed views and sorting/filtering the list.",
-                                "possibleInteractions": "Clicking expands member details; sorting/filtering refines the list view.",
-                                "result": "Interactions provide expanded views of individual metrics and reorganize the list according to criteria.",
-                                "resultFunctionality": "Expanded views offer detailed insights into individual performances, supporting targeted feedback and development actions."
-                            }
-                        },
-                        "components": [
-                            {
-                                "componentName": "MemberCard",
-                                "componentInfo": {
-                                    "componentDescription": "Displays individual member performance metrics in a concise format.",
-                                    "functionality": "The MemberCard component is designed to present a concise overview of an individual team member's performance metrics. It highlights key achievements and contributions, such as the number of tasks completed, peer reviews received, and average completion times. Each card is interactive, allowing users to click for more detailed performance data or adjust sorting criteria. The component is built to be responsive, ensuring legibility and accessibility across various devices. MemberCards are designed to be easily scannable, with clear typography and visual indicators for performance trends or achievements. They update in real time, ensuring that users have access to the latest performance data. This component is crucial for promoting transparency and fostering a culture of accountability and recognition within teams.",
-                                    "details": [
-                                        "Includes key metrics such as tasks completed and peer reviews.",
-                                        "Interactive, allowing clicks for detailed performance data or sorting adjustments.",
-                                        "Designed for responsiveness, maintaining clarity and accessibility across devices.",
-                                        "Uses clear typography and visual indicators for performance trends or achievements.",
-                                        "Updates dynamically to reflect current performance data, ensuring accuracy."
-                                    ],
-                                    "isVisible": true,
-                                    "interconnectivity": [
-                                        {
-                                            "pageUrl": "/individual-performance",
-                                            "description": "Links to a page with detailed individual performance reports and analysis."
-                                        }
-                                    ],
-                                    "userInteraction": {
-                                        "interact": "Users interact by clicking on cards for expanded details or sorting the list of members.",
-                                        "possibleInteractions": "Clicking reveals detailed performance data; sorting adjusts list order by criteria.",
-                                        "result": "Interactions provide detailed views of individual metrics and reorganize the list accordingly.",
-                                        "resultFunctionality": "Detailed views offer comprehensive insights into each member's performance, supporting personalized feedback and development."
-                                    }
-                                },
-                                "components": []
-                            }
-                        ]
+                        "components": []
                     }
                 ]
+            },
+            {
+                "componentName": "Interconnections",
+                "componentInfo": {
+                    "componentDescription": "Manages the connectivity between different pages and modules within the ERP system, facilitating seamless user navigation and data flow.",
+                    "functionality": "The Interconnections component is designed to manage and maintain the relationships between various pages within the ERP system. It ensures that navigation between pages such as the Mentor Overview Page, Feedback Log Page, and detailed mentor profiles is smooth and intuitive. By managing URL routing and state sharing across pages, this component supports consistent user experience and data integrity. It plays a critical role in enabling seamless user journeys, allowing users to transition between different sections of the application without losing context or data.",
+                    "details": [
+                        "Handles URL routing and navigation between pages.",
+                        "Manages state sharing across modules to ensure data consistency.",
+                        "Supports seamless user journeys across different sections of the application.",
+                        "Integrates with a shared context provider for data access and manipulation."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/mentors/overview",
+                            "description": "Facilitates navigation to the Mentor Overview Page from other sections such as the main dashboard."
+                        },
+                        {
+                            "pageUrl": "/mentors/profile",
+                            "description": "Enables transitions to detailed mentor profiles from the Mentor Overview Page."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Navigation links and buttons",
+                        "possibleInteractions": "User clicks on a sidebar 'Mentors' tab.",
+                        "result": "Navigates to the Mentor Overview Page, displaying the MentorDashboard component.",
+                        "resultFunctionality": "The navigation action directs the user to the Mentor Overview Page, where the MentorDashboard component is rendered. This interaction is designed to be seamless and intuitive, ensuring that users can easily access the mentor information they seek without unnecessary steps."
+                    }
+                },
+                "components": []
             }
         ],
-        "pageUrl": "/performance/dashboard"
+        "pageUrl": "/mentors/overview"
     }
 }

@@ -25,7 +25,23 @@ userPrompt = """
     - The code should support a structure where **new pages can be added** without modifying the core layout logic.
   </ComponentRequirements>
 
-  #### Plan
+
+{code}
+"""
+
+
+class AppJSmaker:
+    def __init__(self, model, verbose, allTheCode):
+        self.model = model
+        self.verbose = verbose
+        self.userPrompt = userPrompt.format(code = allTheCode)
+
+    def generate(self):
+        self.systemPrompt = """
+        you are to generate app.js by importing the correct files and thinking carefully and routes with react router dom and setting app.js js up for react
+        make sure to do correct imports as well read the code properly
+        
+          #### Plan
   - Set up the **router** using `react-router-dom` to handle dynamic pages.
   - Create a **drawer layout** with Ant Design, ensuring it collapses and expands properly based on screen size.
   - Ensure **dynamic page routing** so new pages can easily be added.
@@ -127,19 +143,8 @@ const App = () => {
 };
 
 export default App;
-"""
 
-
-class AppJSmaker:
-    def __init__(self, model, verbose, allTheCode):
-        self.model = model
-        self.verbose = verbose
-        self.userPrompt = userPrompt.format(code = allTheCode)
-
-    def generate(self):
-        self.systemPrompt = """
-        you are to generate app.js by importing the correct files and thinking carefully and routes with react router dom and setting app.js js up for react
-        make sure to do correct imports as well read the code properly
+but make sure to change the things shown in the drawer to be relavent!!!!!!
         """
         coder = ClientRequest(self.systemPrompt, self.model, self.userPrompt, True)
         generatedAppJs = coder.generate()
