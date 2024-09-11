@@ -1,861 +1,289 @@
 {
     "finalOutput": {
-        "pageName": "Growth Metrics Page",
+        "pageName": "Mentor Profiles Page",
         "pageInfo": {
-            "purposeAndGoals": "This page is designed to display detailed growth metrics for each startup, providing users with the ability to analyze and interpret performance against predefined key performance indicators (KPIs).",
-            "problemSolved": "The Growth Metrics Page solves several key business challenges by providing clear visibility into growth trends and metrics, automating the tracking of key performance indicators to ensure consistent evaluations, and facilitating comparisons of growth metrics across different startups for enhanced insights.",
-            "colour": {
-                "primaryColor": "#1F77B4",
-                "secondaryColor": "#FF7F0E",
-                "tertiaryColor": "#2CA02C",
-                "spacing": "8px",
-                "typography": "Roboto, sans-serif"
-            }
-        },
-        "components": [
-            {
-                "componentName": "MetricsOverview",
-                "componentInfo": {
-                    "componentDescription": "Displays an overview of growth metrics across startups.",
-                    "functionality": "The MetricsOverview component is the central display area that presents a summarized view of growth metrics for various startups. It aggregates data provided by its child components, MetricCard and FilterPanel, and updates dynamically based on user interactions. This component is crucial for providing a quick snapshot of the overall performance and growth trends, enabling users to make informed decisions at a glance. It supports real-time updates and integrates seamlessly with filtering options to reflect only the relevant data as per user preferences.",
-                    "details": [
-                        "MetricCard displays individual metrics such as Monthly Active Users (MAU), Revenue, and Customer Acquisition Cost (CAC) for each startup. Each card is distinct with a color-coded border to differentiate between metrics.",
-                        "FilterPanel allows users to select specific date ranges, startup names, or metric types to filter the displayed data. It includes dropdowns, checkboxes, and a date picker.",
-                        "The Heatmap feature within MetricsOverview provides a visual representation of performance trends. This component uses ECharts to dynamically display changes in metrics over time, providing a comprehensive view through color gradients."
-                    ],
-                    "isVisible": true,
-                    "interconnectivity": [
-                        {
-                            "pageUrl": "/metrics/health",
-                            "description": "The MetricsOverview component shares summarized metrics data with the Health Dashboard Page for integrated analysis."
-                        }
-                    ],
-                    "userInteraction": {
-                        "interact": "User interacts with the MetricCard to view detailed data.",
-                        "possibleInteractions": "Clicking on a MetricCard expands it to show detailed information and historical data trends. Users can also interact with the Heatmap to see specific data points.",
-                        "result": "Upon interaction, a detailed modal appears with expanded data and interactive charts.",
-                        "resultFunctionality": "The modal provides an in-depth view of the selected metric, including historical data and trend analysis through interactive line and bar charts using ECharts. Users can close the modal to return to the overview."
-                    }
-                },
-                "components": [
-                    {
-                        "componentName": "MetricCard",
-                        "componentInfo": {
-                            "componentDescription": "Displays individual metrics for each startup.",
-                            "functionality": "Each MetricCard is designed to showcase a specific growth metric for a startup, such as Monthly Active Users (MAU), Revenue, or Customer Acquisition Cost (CAC). The card provides quick, at-a-glance data with a visual indicator like a trend arrow to represent growth direction (up or down). It's interactive, allowing users to click for more detailed views or hover for tooltips with additional info.",
-                            "details": [
-                                "Displays metric name and value prominently.",
-                                "Includes a trend arrow icon indicating growth direction.",
-                                "On hover, tooltips provide additional context or historical data.",
-                                "Color-coded borders indicate the type of metric."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/metrics/health",
-                                    "description": "MetricCard data is shared with the Health Dashboard for cross-page metric analysis."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users click on the MetricCard for more details.",
-                                "possibleInteractions": "Hovering over a card displays a tooltip with additional insights. Clicking opens a detailed view.",
-                                "result": "A detailed view or modal opens, showcasing historical trends and detailed analysis.",
-                                "resultFunctionality": "The detailed view includes interactive charts and tables, allowing users to delve deeper into the metric's history and projections."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "FilterPanel",
-                        "componentInfo": {
-                            "componentDescription": "Allows users to filter metrics by date range, startup, or metric type.",
-                            "functionality": "The FilterPanel component provides a user interface for filtering the displayed growth metrics by various criteria. It includes interactive elements such as dropdown menus for selecting startups, date pickers for specifying date ranges, and checkboxes for selecting metric types. The panel dynamically updates the data in the MetricsOverview and MetricsTable components, ensuring users only see data relevant to their selected filters.",
-                            "details": [
-                                "Includes a date range picker for custom date selections.",
-                                "Dropdown menus for selecting specific startups.",
-                                "Checkboxes for enabling or disabling specific metric types."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/metrics/cohort",
-                                    "description": "The FilterPanel settings can be shared with the Cohort Analytics Page for consistent filtering across pages."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users select filters to refine the data displayed.",
-                                "possibleInteractions": "Selecting a date range updates the metrics to only show data within those dates. Choosing a startup limits the metrics to that company.",
-                                "result": "The MetricsOverview and MetricsTable components refresh to show only the filtered data.",
-                                "resultFunctionality": "Filtered data updates instantly across components, providing a seamless and intuitive user experience with real-time data adjustment."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "Heatmap",
-                        "componentInfo": {
-                            "componentDescription": "Visualizes metrics in a heatmap format for quick insights.",
-                            "functionality": "The Heatmap component provides a visual representation of performance trends using color gradients to indicate various levels of metric values. It helps users quickly identify areas of high or low performance across different startups and time periods. The component is interactive, allowing users to hover over cells for detailed information and click to drill down into specific data points.",
-                            "details": [
-                                "Utilizes ECharts for dynamic and interactive heatmap generation.",
-                                "Color gradients represent different levels of metric performance.",
-                                "Interactive, with hover tooltips displaying detailed data and trends."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/metrics/health",
-                                    "description": "Heatmap data can be exported or shared with the Health Dashboard for further analysis."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users hover or click on heatmap cells for more information.",
-                                "possibleInteractions": "Hovering provides a detailed tooltip with the exact metric value and timestamp. Clicking drills down into specific metrics, opening detailed charts.",
-                                "result": "Drill-down opens a detailed analysis chart or graph related to the selected heatmap cell.",
-                                "resultFunctionality": "The detailed analysis includes breakdowns of metric trends over time, with options to export data or view related metrics for comprehensive analysis."
-                            }
-                        },
-                        "components": []
-                    }
-                ]
-            },
-            {
-                "componentName": "MetricsTable",
-                "componentInfo": {
-                    "componentDescription": "Contains detailed tabular data of each startup's metrics.",
-                    "functionality": "The MetricsTable component provides an organized, tabular view of detailed metrics for each startup. It allows users to see all relevant data points in a structured format, facilitating easy comparisons and analysis. The table supports sorting and filtering operations, enabling users to organize data according to their needs. This component is essential for detailed data analysis and supports pagination for managing large datasets efficiently.",
-                    "details": [
-                        "TableRow displays individual rows of data for each startup and metric.",
-                        "TableCell contains the specific data point for each column within a row.",
-                        "PaginationControl allows navigation through large datasets."
-                    ],
-                    "isVisible": true,
-                    "interconnectivity": [
-                        {
-                            "pageUrl": "/metrics/cohort",
-                            "description": "The MetricsTable's data can be used by the Cohort Analytics Page for further cohort-specific analysis."
-                        }
-                    ],
-                    "userInteraction": {
-                        "interact": "Users interact with table rows and pagination controls.",
-                        "possibleInteractions": "Clicking on a header sorts the table by that column. Pagination controls allow users to navigate through the pages of data.",
-                        "result": "Data is re-sorted or paginated according to the user's actions.",
-                        "resultFunctionality": "Sorting reorganizes the table in ascending or descending order based on the selected column. Pagination efficiently loads new data pages without refreshing the entire table."
-                    }
-                },
-                "components": [
-                    {
-                        "componentName": "TableRow",
-                        "componentInfo": {
-                            "componentDescription": "Displays individual rows of data for each startup and metric.",
-                            "functionality": "Each TableRow represents a single data entry, containing multiple TableCells for different metrics related to a specific startup. It supports hovering for row highlighting, making it easier for users to track data across the table. This component is designed for high readability and helps in organizing data logically across the table.",
-                            "details": [
-                                "Row hover highlights for better visibility.",
-                                "Consists of multiple TableCells for different data points (e.g., MAU, Revenue)."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/metrics/growth",
-                                    "description": "TableRow data is integral to the MetricsTable's functionality and supports direct data interactions within the page."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users hover or click on table rows.",
-                                "possibleInteractions": "Hovering highlights the row for better focus. Clicking may open a detailed view of the row's data.",
-                                "result": "Highlighted row for better visibility, with potential expansion for more data.",
-                                "resultFunctionality": "Improved focus on hovered rows, with options to expand individual rows for detailed view or adjustments."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "TableCell",
-                        "componentInfo": {
-                            "componentDescription": "Contains the specific data point for each column within a row.",
-                            "functionality": "TableCell components are the building blocks of TableRow, each containing a specific metric or data point. They support inline editing and tooltips for additional context, providing flexibility and detailed information at a glance. TableCells are designed to handle various data types, ensuring consistent presentation across the MetricsTable.",
-                            "details": [
-                                "Supports inline editing for quick data adjustments.",
-                                "Hover tooltips for additional data context."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/metrics/growth",
-                                    "description": "TableCell data is directly linked to the metrics being analyzed, supporting intra-page data interaction."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users interact with cells for inline editing or additional info.",
-                                "possibleInteractions": "Clicking allows inline editing of the cell's data. Hovering may display a tooltip with further context.",
-                                "result": "Cell data is updated in real-time, with additional information provided via tooltips.",
-                                "resultFunctionality": "Real-time data adjustments through inline editing, maintaining data integrity and consistency across the table."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "PaginationControl",
-                        "componentInfo": {
-                            "componentDescription": "Manages pagination for the MetricsTable.",
-                            "functionality": "The PaginationControl component allows users to navigate through large datasets by providing intuitive pagination controls. It includes buttons for navigating to the next, previous, first, and last pages, as well as a dropdown for selecting the number of rows displayed per page. This component is essential for managing data efficiently, ensuring that users can easily access all relevant information without overwhelming the interface.",
-                            "details": [
-                                "Next and previous buttons for page navigation.",
-                                "Dropdown for selecting the number of rows per page.",
-                                "Page number display for current page tracking."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/metrics/growth",
-                                    "description": "PaginationControl directly affects the data displayed in the MetricsTable, ensuring manageable data viewing."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Users click on pagination buttons to navigate data pages.",
-                                "possibleInteractions": "Next and previous buttons change the currently displayed page. Dropdown adjusts the number of rows shown per page.",
-                                "result": "Table data is paginated, displaying a new set of rows as per the user's navigation choices.",
-                                "resultFunctionality": "Efficient data navigation through pagination, reducing load times and improving user experience by segmenting data into manageable parts."
-                            }
-                        },
-                        "components": []
-                    }
-                ]
-            }
-        ],
-        "pageUrl": "/metrics/growth"
-    }
-}{
-    "finalOutput": {
-        "pageName": "Investor Overview Page",
-        "pageInfo": {
-            "purposeAndGoals": "This page provides a comprehensive view of individual investor profiles, displaying their preferences, engagement history, and potential matches with startups. It helps users manage relationships and assess investor interests effectively.",
-            "problemSolved": "This page solves the problem of fragmented data access by centralizing investor information for easy access. It also addresses the need for engagement history tracking by logging interactions with investors for better relationship management. Additionally, it simplifies profile management by allowing users to easily edit and update investor details. By integrating these functionalities, the page enhances workflow efficiency and improves data accessibility, ultimately leading to more effective investor relationship management and potential matchmaking with startups.",
+            "purposeAndGoals": "The Mentor Profiles Page serves as a centralized hub to display all mentor profiles, showcasing their expertise, assigned startups, and feedback logs. It facilitates easy access to mentor information for startups and provides insights into mentor engagement.",
+            "problemSolved": "The Mentor Profiles Page provides a clear overview of available mentors and their qualifications, enhances communication by summarizing mentor engagements with startups, and allows startups to quickly find relevant mentors based on expertise.",
             "colour": {
                 "primaryColor": "#2C3E50",
                 "secondaryColor": "#18BC9C",
                 "tertiaryColor": "#ECF0F1",
-                "spacing": "0.5rem",
-                "typography": "Roboto, sans-serif"
-            }
-        },
-        "components": [
-            {
-                "componentName": "InvestorProfileContainer",
-                "componentInfo": {
-                    "componentDescription": "Displays the main investor profile along with details and interactions.",
-                    "functionality": "The InvestorProfileContainer serves as the central hub for displaying comprehensive investor information, including personal details, preferences, engagement history, and potential startup matches. It dynamically updates its child components based on the selected investor, ensuring that users have access to the most relevant and up-to-date information. This component manages the flow of data between its children, synchronizing updates and maintaining a coherent view of the investor's profile. It acts as the primary container that orchestrates the display of detailed investor data, facilitating efficient navigation and interaction within the Investor Overview Page.",
-                    "details": [
-                        "The InvestorProfileContainer should have a responsive layout that adjusts based on screen size to maximize information visibility.",
-                        "It should manage state for the current investor and pass this data down to child components as props.",
-                        "This component should handle data fetching for investor details and provide loading indicators while data is being retrieved.",
-                        "The layout should allow for expansion or collapsing of certain sections, such as engagement history, to improve user navigation and focus."
-                    ],
-                    "isVisible": true,
-                    "interconnectivity": [
-                        {
-                            "pageUrl": "/active-funding-rounds",
-                            "description": "Interacts with the Active Funding Rounds Page to pull relevant startup data for potential matches."
-                        }
-                    ],
-                    "userInteraction": {
-                        "interact": "Investor's name in a list",
-                        "possibleInteractions": "Clicking on an investor's name loads their profile.",
-                        "result": "Displays the investor's full profile with all details in the InvestorProfileContainer.",
-                        "resultFunctionality": "Upon clicking an investor's name, a fetch request is sent to retrieve the investor's data. The response is then used to update the state within the InvestorProfileContainer, which in turn updates all child components with the new data."
-                    }
-                },
-                "components": [
-                    {
-                        "componentName": "InvestorProfileCard",
-                        "componentInfo": {
-                            "componentDescription": "Displays basic investor information such as name, organization, and contact details.",
-                            "functionality": "The InvestorProfileCard provides a succinct overview of the investor's basic information, acting as a quick reference point for users. It includes editable fields for information such as the investor's name, organization, title, and primary contact details. This component ensures that users can quickly access essential data without navigating away from the main profile view. It facilitates direct interactions for editing, allowing users to update information efficiently and maintain accurate records.",
-                            "details": [
-                                "The card should display the investor's name prominently with their organization and contact information.",
-                                "An 'Edit' button should allow users to toggle fields into edit mode, enabling updates to the investor's details.",
-                                "In edit mode, fields like name and contact should become input fields with validation checks.",
-                                "Changes should be saved to the state and also trigger backend updates upon submission."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/investor-list",
-                                    "description": "Can be reused in other pages where investor details are needed, such as a summary on an Investor List Page."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Edit button on the InvestorProfileCard",
-                                "possibleInteractions": "Clicking 'Edit' turns fields into editable input fields.",
-                                "result": "Fields become editable, allowing users to update investor information.",
-                                "resultFunctionality": "When the 'Edit' button is clicked, the component state changes to allow edits. Input fields replace static text, and a 'Save' button becomes visible. Upon saving, the state is updated with new data, and a backend call is made to persist these changes."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "InvestorPreferences",
-                        "componentInfo": {
-                            "componentDescription": "Lists investment preferences such as sectors of interest and funding range.",
-                            "functionality": "The InvestorPreferences component presents a detailed view of the investor's specific interests and criteria for investment. This includes preferred sectors, geographical locations, investment stages, and funding range. It allows users to understand the investor's focus areas at a glance, facilitating better matchmaking with startups. This component supports editing and updating preferences, ensuring that the information remains current and reflective of the investor's strategic interests.",
-                            "details": [
-                                "Displays a list of sectors with checkboxes to indicate interest, editable in 'Edit' mode.",
-                                "A range slider can be used to set the funding range the investor is interested in.",
-                                "Dropdowns or tags can be used for selecting geographical locations and investment stages.",
-                                "An 'Edit Preferences' button toggles inputs for user modifications."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/matchmaking",
-                                    "description": "Shares investor preferences with the Matchmaking Page to improve recommendations."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Edit Preferences button in the InvestorPreferences component",
-                                "possibleInteractions": "Clicking 'Edit Preferences' allows changes to investment preferences.",
-                                "result": "Investment preferences fields become interactive for users to update.",
-                                "resultFunctionality": "The 'Edit Preferences' button triggers a state change allowing users to select or deselect sectors, adjust funding ranges, and update other preferences. Once changes are confirmed, the new preferences are saved to the state and pushed to the backend."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "EngagementHistory",
-                        "componentInfo": {
-                            "componentDescription": "Shows a timeline of interactions and communications with the investor.",
-                            "functionality": "The EngagementHistory component provides a chronological timeline of all interactions between the user and the investor. This includes meetings, calls, emails, and any notes taken during these engagements. By visualizing this data, users gain insights into the relationship's progression and can identify patterns or opportunities for further engagement. It supports adding new entries, which updates both the timeline and the backend records, ensuring a comprehensive and up-to-date engagement history.",
-                            "details": [
-                                "The timeline should include dates, types of engagement (e.g., meeting, call), and a brief summary of the interaction.",
-                                "Users can click on an entry to view more details or edit the engagement information.",
-                                "A 'New Entry' button allows adding new engagements, which opens a form for data input.",
-                                "The timeline should support filtering by date range or type of engagement."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/engagement-dashboard",
-                                    "description": "Can be integrated with an Engagement Dashboard for a broader view of all investor interactions."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "New Entry button in the EngagementHistory component",
-                                "possibleInteractions": "Clicking 'New Entry' opens a form for adding a new engagement.",
-                                "result": "A form appears for users to input details about a new engagement.",
-                                "resultFunctionality": "The form includes fields for the date, type of interaction, and notes. Upon submission, the data is appended to the current timeline, updating the state and sending the new entry to the backend for persistent storage."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "MatchSuggestions",
-                        "componentInfo": {
-                            "componentDescription": "Provides a list of startups that match the investor's preferences.",
-                            "functionality": "The MatchSuggestions component delivers a curated list of startups that align with the investor's stated preferences. This list is generated based on criteria such as sector, funding stage, and geographical focus. The component allows users to explore suggested matches in more detail, facilitating effective introductions and potential investment opportunities. By leveraging real-time data and filtering capabilities, it ensures that suggestions are relevant and valuable to the investor's interests.",
-                            "details": [
-                                "A list view of startups with brief descriptions and relevance scores indicating match strength.",
-                                "Each startup in the list can be clicked to view more detailed information or initiate contact.",
-                                "Filters can adjust the match criteria, allowing users to refine the list based on updated preferences.",
-                                "A refresh button updates the matches based on the latest investor preferences and available startups."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/startup-profile",
-                                    "description": "Links to detailed profiles of startups for more information and contact initiation."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "Filter options in the MatchSuggestions component",
-                                "possibleInteractions": "Using filters refines the list of suggested startups.",
-                                "result": "The list of matches updates based on selected filter criteria.",
-                                "resultFunctionality": "Applying filters triggers a recalculation of match strengths, updating the displayed list to reflect the most relevant startups based on the investor's current preferences."
-                            }
-                        },
-                        "components": []
-                    }
-                ]
-            },
-            {
-                "componentName": "EngagementTimeline",
-                "componentInfo": {
-                    "componentDescription": "Visual representation of engagement history using a timeline visualization.",
-                    "functionality": "The EngagementTimeline component provides an interactive and visual representation of the investor's engagement history. Using advanced visualization techniques such as tree graphs or heat maps, it displays the frequency and nature of interactions over time. This innovative feature allows users to quickly assess the intensity and regularity of engagements, offering insights into the relationship dynamics. It supports zooming, filtering, and detailed views for more granular analysis.",
-                    "details": [
-                        "The timeline should use a heat map or tree graph to visually represent engagement data, with color intensity indicating frequency.",
-                        "Interactive zoom allows users to focus on specific time periods for detailed analysis.",
-                        "Clicking on timeline nodes should reveal more information about specific engagements.",
-                        "Filter options enable users to adjust the timeline based on engagement type or date range."
-                    ],
-                    "isVisible": true,
-                    "interconnectivity": [
-                        {
-                            "pageUrl": "/visual-analytics",
-                            "description": "Can be integrated with a Visual Analytics page for enhanced analytical capabilities across different investors."
-                        }
-                    ],
-                    "userInteraction": {
-                        "interact": "Zoom controls on the EngagementTimeline component",
-                        "possibleInteractions": "Using zoom controls to focus on specific time periods.",
-                        "result": "The visual display adjusts to show engagements in the selected time period.",
-                        "resultFunctionality": "Zooming in or out modifies the visible range of the timeline, allowing users to see more or less detail. This interaction updates the display dynamically, providing a tailored view that highlights relevant engagement activities."
-                    }
-                },
-                "components": []
-            },
-            {
-                "componentName": "HeatMap",
-                "componentInfo": {
-                    "componentDescription": "Displays engagement intensity across various time periods using a heat map visualization.",
-                    "functionality": "The HeatMap component visually represents the intensity of investor engagements over time, using color gradients to indicate higher or lower levels of activity. This feature helps users identify peak interaction periods and assess the consistency of communication with investors. It allows for quick comparisons across different time frames and supports interaction for deeper exploration of specific dates or events.",
-                    "details": [
-                        "The heat map should display a calendar view with color-coded cells indicating engagement frequency.",
-                        "Hover effects reveal detailed statistics for each cell, such as the number of contacts or meetings.",
-                        "Users can click on a date to view all engagements for that day in detail.",
-                        "Filters enable adjustments to the heat map based on engagement type or investor."
-                    ],
-                    "isVisible": true,
-                    "interconnectivity": [
-                        {
-                            "pageUrl": "/engagement-comparison",
-                            "description": "Links to an Engagement Comparison page for cross-investor analysis."
-                        }
-                    ],
-                    "userInteraction": {
-                        "interact": "Filters on the HeatMap component",
-                        "possibleInteractions": "Applying filters to adjust the view based on engagement type.",
-                        "result": "The heat map updates to reflect filtered criteria, highlighting relevant data.",
-                        "resultFunctionality": "When filters are applied, the heat map recalibrates to show engagement intensity for the selected types, providing a focused view that emphasizes the most pertinent interactions."
-                    }
-                },
-                "components": []
-            }
-        ],
-        "pageUrl": "/investor-overview/:investorId"
-    }
-}{
-    "finalOutput": {
-        "pageName": "Startup Overview Page",
-        "pageInfo": {
-            "purposeAndGoals": "This page serves as a centralized hub for YC program members, offering a comprehensive profile of individual startups. It enables users to view and manage crucial information such as key metrics, team members, funding status, and project details, thereby facilitating efficient updates and management\u2014all in one place.",
-            "problemSolved": "The Startup Overview Page addresses the need for a centralized information repository, allowing for easy access and management of critical startup data. It enhances workflow efficiency by providing a clear, organized view of team structures and funding information, while facilitating real-time updates and edits to maintain current data without the hassle of navigating through multiple disparate sources.",
-            "colour": {
-                "primaryColor": "#2A9D8F",
-                "secondaryColor": "#264653",
-                "tertiaryColor": "#E9C46A",
-                "spacing": "8px",
-                "typography": "Roboto, sans-serif"
-            }
-        },
-        "components": [
-            {
-                "componentName": "StartupProfileCard",
-                "componentInfo": {
-                    "componentDescription": "Displays the startup's primary information including name, industry, team members, and mission. It acts as the main focal point of the page, providing an overview of the startup's core details.",
-                    "functionality": "The StartupProfileCard component serves as the primary interface for viewing and editing essential startup information. It presents the startup's name, a brief mission statement, and a detailed list of the team members along with their roles. This component is crucial for users who need to quickly assess or update the startup's profile, offering a dynamic and user-friendly interaction point. It can toggle between view and edit modes, allowing for real-time updates to information seamlessly integrated with the system's backend.",
-                    "details": [
-                        "**Title**: Displays the name of the startup prominently at the top of the card. This field is editable when in edit mode, allowing users to update the startup name directly.",
-                        "**Description**: Provides a concise summary of the startup\u2019s goals and mission. This text field is editable, enabling quick updates to reflect changes in the startup's focus or messaging.",
-                        "**TeamList**: Renders a list of team members with their respective roles. Each entry can be expanded to include contact details and a brief biography. Users can add, edit, or remove team members in edit mode, with a drag-and-drop feature to reorder the list."
-                    ],
-                    "isVisible": true,
-                    "interconnectivity": [
-                        {
-                            "pageUrl": "/mentorship/:startupId",
-                            "description": "Pulls mentor assignments for the startup, allowing users to view and manage mentorship details directly linked to the startup's profile."
-                        }
-                    ],
-                    "userInteraction": {
-                        "interact": "Users interact with fields like Title, Description, and TeamList to view and update details.",
-                        "possibleInteractions": "Clicking on team member names reveals more details; clicking on the edit icon enables editing mode.",
-                        "result": "Enables editing of startup information with a save button appearing to confirm changes.",
-                        "resultFunctionality": "Once in edit mode, users can directly modify fields. On saving, changes are validated and sent to the server, updating the display and providing confirmation feedback."
-                    }
-                },
-                "components": [
-                    {
-                        "componentName": "Title",
-                        "componentInfo": {
-                            "componentDescription": "Displays the startup's name prominently, allowing for identification and editing.",
-                            "functionality": "The Title component is vital for displaying the startup's name prominently at the top of the profile card. It allows users to quickly identify the startup being viewed. In edit mode, this component becomes an input field, enabling users to update the startup's name easily. The component ensures that any changes are reflected immediately once saved, maintaining data accuracy across the platform.",
-                            "details": [
-                                "Uses a large, bold font for visibility. In edit mode, it transforms into a text input field with a character limit to prevent overflow."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/funding-overview/:startupId",
-                                    "description": "Links to detailed funding information specific to the startup."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "User clicks to enter edit mode and modify the startup's name.",
-                                "possibleInteractions": "Entering a new name updates the display upon saving.",
-                                "result": "Shows a text input with the current name pre-filled, allowing edits.",
-                                "resultFunctionality": "Edits are validated for length and special characters before being saved to ensure data consistency."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "Description",
-                        "componentInfo": {
-                            "componentDescription": "Provides a brief overview of the startup\u2019s mission and goals.",
-                            "functionality": "The Description component presents a succinct overview of the startup's mission, helping users understand the startup's objectives quickly. In edit mode, it becomes an editable text area, allowing updates to the startup's mission statement. This flexibility ensures that the component can adapt to changes and keep the information relevant and up-to-date.",
-                            "details": [
-                                "Displays text in a slightly smaller font than the title for a clear hierarchy. Editable in a text area that supports rich text formatting."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/mentorship/:startupId",
-                                    "description": "May include links to mentorship details or related documents."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "User clicks to edit the mission statement.",
-                                "possibleInteractions": "Editing text automatically saves changes in real-time.",
-                                "result": "Transforms into a text area for detailed editing, with formatting options available.",
-                                "resultFunctionality": "Edits are auto-saved, ensuring that the latest mission statement is always displayed and reducing the risk of data loss."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "TeamList",
-                        "componentInfo": {
-                            "componentDescription": "Renders a list of team members with roles and contact details.",
-                            "functionality": "The TeamList component is designed to display the startup's team members, including their roles and contact information. It acts as an interactive list where users can view additional information by clicking on a team member's name. In edit mode, users can add new members, edit existing ones, or reorder them using drag-and-drop functionality. This component ensures that the team structure is clear and up-to-date, facilitating easy management and communication within the startup.",
-                            "details": [
-                                "Each entry includes a name, role, email, and a brief bio. Supports drag-and-drop for reordering, and inline editing for quick updates."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/team-management",
-                                    "description": "Links to a detailed team management page where deeper insights and role assignments can be handled."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "User clicks on a team member to view more details or edit information.",
-                                "possibleInteractions": "Clicking 'Add Member' opens a form to add new team members.",
-                                "result": "Displays a modal with detailed information or an edit form.",
-                                "resultFunctionality": "Modals provide a clutter-free way to manage team member data, ensuring that all changes are captured accurately and updated in real-time."
-                            }
-                        },
-                        "components": []
-                    }
-                ]
-            },
-            {
-                "componentName": "FundingStatus",
-                "componentInfo": {
-                    "componentDescription": "Provides detailed information on the startup's funding rounds and financial health.",
-                    "functionality": "The FundingStatus component is essential for displaying comprehensive information about the startup's financial status, including past funding rounds and current financial health indicators. It includes a table of funding rounds, detailing the amounts raised and the dates, as well as a visual representation of the startup's burn rate. This component aids stakeholders in understanding the financial trajectory of the startup and making informed decisions about future funding and investments.",
-                    "details": [
-                        "**FundingRoundsTable**: A detailed table listing each funding round, including the round type (Seed, Series A, etc.), amount raised, and date.",
-                        "**BurnRateIndicator**: A visual gauge or bar that shows the current burn rate, helping users quickly assess financial health."
-                    ],
-                    "isVisible": true,
-                    "interconnectivity": [
-                        {
-                            "pageUrl": "/financial-reports",
-                            "description": "Integrates with the financial reports page to provide deeper insights into spending and revenue."
-                        }
-                    ],
-                    "userInteraction": {
-                        "interact": "User clicks on funding rounds for more details or to add new rounds.",
-                        "possibleInteractions": "Hovering over the burn rate indicator provides detailed tooltip information.",
-                        "result": "Opens a detailed view or a form to add/edit funding information.",
-                        "resultFunctionality": "Ensures that all financial data is accurately recorded and displayed, offering decision-makers the latest financial metrics for strategic planning."
-                    }
-                },
-                "components": [
-                    {
-                        "componentName": "FundingRoundsTable",
-                        "componentInfo": {
-                            "componentDescription": "A table format to display detailed funding rounds information.",
-                            "functionality": "The FundingRoundsTable component is designed to display a comprehensive list of the startup's funding rounds. It provides detailed information, including the type of round, the amount raised, the date, and any significant investors involved. This table allows users to quickly ascertain the financial history of the startup and track its funding progression over time. In edit mode, new rounds can be added, and existing entries can be modified, ensuring that all information remains current and accurate.",
-                            "details": [
-                                "Columns include Round Type, Amount, Date, and Investors. Supports sorting and filtering to tailor the view to user preferences."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/investor-details",
-                                    "description": "Links to investor profiles and details about their involvement in funding rounds."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "User clicks on a row to view detailed funding information or edit entries.",
-                                "possibleInteractions": "Sorting by amount or date to analyze funding trends.",
-                                "result": "Displays a popup with a detailed breakdown or an edit interface.",
-                                "resultFunctionality": "Popups provide quick access to additional information without navigating away from the page, enhancing user experience and decision-making capabilities."
-                            }
-                        },
-                        "components": []
-                    },
-                    {
-                        "componentName": "BurnRateIndicator",
-                        "componentInfo": {
-                            "componentDescription": "A gauge or progress bar to visualize the startup's burn rate.",
-                            "functionality": "The BurnRateIndicator component provides a visual representation of the startup's current burn rate, offering stakeholders a quick glance at financial sustainability. This component uses a gauge or progress bar to indicate how quickly the startup is spending its funds relative to its revenue. By offering a clear and concise visual, it helps users to quickly assess financial health and make informed decisions about budget adjustments or funding needs.",
-                            "details": [
-                                "Features a color-coded gauge where green indicates a healthy burn rate and red signals potential financial issues.",
-                                "Interactive tooltip shows exact figures when hovered over."
-                            ],
-                            "isVisible": true,
-                            "interconnectivity": [
-                                {
-                                    "pageUrl": "/budget-analysis",
-                                    "description": "Connects to a detailed budget analysis page for further financial insights."
-                                }
-                            ],
-                            "userInteraction": {
-                                "interact": "User hovers over the gauge to see detailed burn rate information.",
-                                "possibleInteractions": "Hovering displays an exact percentage and potential months of runway left.",
-                                "result": "Shows a detailed tooltip with financial breakdowns.",
-                                "resultFunctionality": "Interactive tooltips provide immediate access to detailed financial insights, enabling users to act quickly on potential financial issues."
-                            }
-                        },
-                        "components": []
-                    }
-                ]
-            },
-            {
-                "componentName": "EditButton",
-                "componentInfo": {
-                    "componentDescription": "A button that allows users to enter edit mode for the startup's profile.",
-                    "functionality": "The EditButton component is a crucial interactive element that enables users to toggle the entire StartupProfileCard into an editable state. When clicked, it activates edit mode, allowing users to modify startup details, add new team members, or update funding information. This button ensures that users have the flexibility to make real-time changes to startup profiles, facilitating dynamic updates and ensuring data integrity.",
-                    "details": [
-                        "Prominently displayed as a floating action button (FAB) with a pencil icon. Changes color to indicate active edit mode."
-                    ],
-                    "isVisible": true,
-                    "interconnectivity": [
-                        {
-                            "pageUrl": "/profile-settings",
-                            "description": "Provides a link to profile settings for more in-depth customization and data management."
-                        }
-                    ],
-                    "userInteraction": {
-                        "interact": "User clicks to toggle edit mode for the profile card.",
-                        "possibleInteractions": "Once in edit mode, fields become editable, and a save icon appears.",
-                        "result": "Enables all editable fields on the profile card and displays a save button.",
-                        "resultFunctionality": "The save button, when clicked, validates all changes and updates the server data, ensuring that the latest information is always available to all users."
-                    }
-                },
-                "components": []
-            },
-            {
-                "componentName": "WebSocketManager",
-                "componentInfo": {
-                    "componentDescription": "Handles real-time data updates for the page using a WebSocket connection.",
-                    "functionality": "The WebSocketManager component is responsible for maintaining an active WebSocket connection to handle real-time updates to the Startup Overview Page. This component ensures that any changes made by mentors, investors, or other stakeholders are immediately reflected on the page, providing users with the most current data. By efficiently managing the data flow between the server and the client, it enhances the responsiveness and dynamism of the platform, particularly in collaborative environments.",
-                    "details": [
-                        "Establishes a persistent connection to receive updates.",
-                        "Includes error handling for connection drops and ensures reconnection attempts."
-                    ],
-                    "isVisible": true,
-                    "interconnectivity": [
-                        {
-                            "pageUrl": "/live-updates",
-                            "description": "Links to a detailed page on how live updates are managed throughout the system."
-                        }
-                    ],
-                    "userInteraction": {
-                        "interact": "Invisible to users, but ensures data is always up-to-date.",
-                        "possibleInteractions": "Handles background data updates, ensuring seamless user experience.",
-                        "result": "Real-time updates to page components without manual refresh.",
-                        "resultFunctionality": "Guarantees that all users see the most current data, reducing discrepancies and enhancing collaborative efforts."
-                    }
-                },
-                "components": []
-            }
-        ],
-        "pageUrl": "/startup-overview/:startupId"
-    }
-}{
-    "finalOutput": {
-        "pageName": "Mentor Overview Page",
-        "pageInfo": {
-            "purposeAndGoals": "This page provides a comprehensive view of each mentor's profile, including their expertise, availability, and the startups they are mentoring. It serves as a dashboard for mentors to see their assigned startups and for startups to find relevant mentors.",
-            "problemSolved": "The Mentor Overview Page centralizes mentor information, simplifying access to mentor profiles, expertise, and availability, thereby facilitating startups in identifying suitable mentors and scheduling interactions effectively. By providing a centralized hub for mentor information, startups can efficiently pinpoint mentors whose expertise aligns with their needs, while mentors can easily manage their schedules and interactions, significantly enhancing the mentorship process within the enterprise.",
-            "colour": {
-                "primaryColor": "#004d40",
-                "secondaryColor": "#00796b",
-                "tertiaryColor": "#e0f2f1",
                 "spacing": "8px",
                 "typography": "'Roboto', sans-serif"
             }
         },
         "components": [
             {
-                "componentName": "MentorDashboard",
+                "componentName": "MentorList",
                 "componentInfo": {
-                    "componentDescription": "Responsible for rendering the overall layout and fetching mentor data, acting as the central hub of the Mentor Overview Page.",
-                    "functionality": "The MentorDashboard component serves as the main container for the Mentor Overview Page. It fetches data from a backend service or mock API and manages the overall state of the page. Through useState and useEffect hooks, it handles the lifecycle of data fetching, ensuring data integrity and loading indicators are appropriately triggered. It provides context to child components for accessing mentor data efficiently. The dashboard also handles user interaction events such as filter application and mentor card selection, updating child components dynamically based on these interactions. It ensures the page layout is responsive and visually consistent with the enterprise's branding guidelines.",
+                    "componentDescription": "Displays a list of all mentors with their brief details and links to their profiles.",
+                    "functionality": "The MentorList component is designed to aggregate and efficiently render mentor data. It serves as the parent component that manages the state of the mentor data and passes it down to child components like MentorCard and MentorFilter. The MentorList is responsible for fetching data from a mock API or backend service, maintaining the state for filtered results, and rendering the list of MentorCard components based on the user\u2019s input in the MentorFilter. This component acts as the brain of the Mentor Profiles Page, coordinating the flow of data and ensuring real-time updates to the displayed mentor list when users interact with filters.",
                     "details": [
-                        "Fetches mentor data from a backend service or mock API, managing state with useState and useEffect.",
-                        "Provides a centralized context for accessing mentor data across child components.",
-                        "Handles user interactions such as filter application and mentor card selection.",
-                        "Ensures responsive layout and consistent visual design."
+                        "The MentorList component fetches data from a mock API service to simulate backend interactions.",
+                        "It maintains the state of the list using React's useState hook, ensuring real-time updates.",
+                        "Implements lazy loading to enhance performance and scalability.",
+                        "Responsible for rendering MentorCard components based on filtered results from MentorFilter."
                     ],
                     "isVisible": true,
                     "interconnectivity": [
                         {
-                            "pageUrl": "/mentors/feedback_log",
-                            "description": "Provides access to mentors' feedback sessions from the Mentor Overview Page, allowing users to seamlessly navigate and view feedback related to mentors."
+                            "pageUrl": "/mentor-detail",
+                            "description": "Interacts with the Mentor Detail Page by providing links from MentorCard to detailed profiles."
                         },
                         {
-                            "pageUrl": "/mentors/profile",
-                            "description": "Navigates to a detailed mentor profile page when a MentorCard is clicked, enabling users to view comprehensive mentor details."
+                            "pageUrl": "/feedback-management",
+                            "description": "Shares mentor data with the Feedback Management Page to display relevant feedback."
                         }
                     ],
                     "userInteraction": {
-                        "interact": "MentorFilter",
-                        "possibleInteractions": "User selects expertise filter 'Marketing' and availability 'Available Now'.",
-                        "result": "Updates MentorProfileList to only show mentors matching 'Marketing' expertise and available now.",
-                        "resultFunctionality": "The MentorProfileList component dynamically updates to reflect mentors that match the selected filters. This enables users to quickly identify mentors who are immediately available and possess the desired expertise, enhancing the efficiency of mentor selection."
+                        "interact": "User types in the MentorFilter or clicks on a MentorCard.",
+                        "possibleInteractions": "Typing in the MentorFilter refines the list of mentors displayed. Clicking a MentorCard navigates to the Mentor Detail Page.",
+                        "result": "Filtered mentor list reflecting user input and navigation to detailed mentor profiles upon card click.",
+                        "resultFunctionality": "Upon interaction, the MentorList dynamically updates the displayed list of MentorCard components based on the inputs from MentorFilter. Clicking a MentorCard triggers a page navigation to the Mentor Detail Page, providing an enriched view of the mentor's professional details, feedback logs, and a history of engagements."
                     }
                 },
                 "components": [
                     {
-                        "componentName": "MentorProfileList",
+                        "componentName": "MentorCard",
                         "componentInfo": {
-                            "componentDescription": "Displays a list of mentors, dynamically updating based on applied filters.",
-                            "functionality": "The MentorProfileList component is responsible for rendering the list of mentor profiles. It receives data from the MentorDashboard component and filters it according to the criteria set in the MentorFilter component. The list is displayed in a card format, each card representing a mentor, with concise information such as their name, expertise, and availability. The component listens for changes in the filtering criteria and updates the displayed list in real-time, offering a seamless user experience. It also includes sorting functionality, allowing users to sort mentors by name, availability, or expertise, thereby enhancing data accessibility and usability.",
+                            "componentDescription": "Represents individual mentor profiles with their name, expertise, and assigned startups.",
+                            "functionality": "MentorCard is a clickable component that presents a concise view of a mentor's profile, including their name, areas of expertise, and the startups they have been assigned to. This component is designed to be visually appealing and informative, providing users with essential mentor details at a glance. Each MentorCard includes a link to a more detailed Mentor Detail Page, allowing users to explore further information about a mentor's background, feedback logs, and other engagements. The MentorCard also includes hover effects to enhance user interaction, such as displaying quick stats like the number of startups mentored and the date of the last feedback received.",
                             "details": [
-                                "Renders mentor profiles in a card format with name, expertise, and availability.",
-                                "Listens for changes in filtering criteria from MentorFilter component.",
-                                "Offers sorting functionality by name, availability, or expertise.",
-                                "Displays a loading spinner when data is being fetched."
+                                "Displays mentor name, expertise tags, and assigned startups.",
+                                "Includes a hover-over tooltip feature showing quick stats like the number of startups mentored.",
+                                "Clickable, with navigation to a detailed Mentor Detail Page.",
+                                "Designed with responsive hover effects and animations to attract user attention."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/mentors/profile",
-                                    "description": "Allows users to navigate to the mentor's detailed profile by clicking on a MentorCard within the MentorProfileList."
+                                    "pageUrl": "/mentor-detail",
+                                    "description": "Links to the Mentor Detail Page, providing a detailed view of a mentor's profile."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "MentorCard",
-                                "possibleInteractions": "User clicks on a 'John Doe' MentorCard.",
-                                "result": "Opens a detailed modal with further mentor information.",
-                                "resultFunctionality": "The modal displays comprehensive details about the mentor, such as their full profile, past mentorship experiences, and detailed availability calendar. This feature enhances the user's ability to make informed decisions about mentor selection and scheduling."
+                                "interact": "User hovers over or clicks on a MentorCard.",
+                                "possibleInteractions": "Hovering displays a tooltip with quick stats; clicking navigates to the detailed profile page.",
+                                "result": "A tooltip appears on hover, and a new page loads on click, showing detailed mentor information.",
+                                "resultFunctionality": "When a user hovers over a MentorCard, a tooltip provides additional information such as the number of startups the mentor is currently engaged with and the date of the last feedback received. Clicking on a MentorCard redirects the user to the Mentor Detail Page, where they can view more comprehensive information about the mentor, including their biography, recent activities, and a complete list of startups they have mentored."
                             }
                         },
                         "components": [
                             {
-                                "componentName": "MentorCard",
+                                "componentName": "Tooltip",
                                 "componentInfo": {
-                                    "componentDescription": "Displays individual mentor details, including name, expertise, and availability.",
-                                    "functionality": "The MentorCard component is designed to present a compact and informative overview of each mentor. Each card includes the mentor's name, a list of their areas of expertise displayed as tags, and an availability indicator that provides real-time status updates on the mentor's current availability for new mentorship engagements. The card is interactive, allowing users to click on it to reveal additional information or to initiate contact with the mentor. The design of the MentorCard is modular, allowing it to be reused across different pages and contexts within the enterprise software, such as in the Feedback Log Page or personal mentor profiles.",
+                                    "componentDescription": "Displays additional information upon hovering over MentorCard.",
+                                    "functionality": "The Tooltip component enhances the user experience by providing quick access to supplementary information without navigating away from the current view. Positioned above the MentorCard, it reveals further details about the mentor, such as the total number of startups mentored and the last feedback date. This feature is crucial for users who wish to gather more information swiftly without clicking through to another page.",
                                     "details": [
-                                        "Includes mentor's name prominently displayed.",
-                                        "Features ExpertiseTag components to highlight areas of expertise.",
-                                        "Incorporates AvailabilityIndicator to show real-time availability.",
-                                        "Interactive design allows for clicks to reveal more details or initiate contact."
+                                        "Activated on hover over a MentorCard.",
+                                        "Shows information such as number of startups mentored and last feedback date.",
+                                        "Smooth fade-in and fade-out animations for improved user experience."
                                     ],
-                                    "isVisible": true,
-                                    "interconnectivity": [
-                                        {
-                                            "pageUrl": "/mentors/profile",
-                                            "description": "Enables navigation to the mentor's detailed profile view."
-                                        },
-                                        {
-                                            "pageUrl": "/mentors/contact",
-                                            "description": "Facilitates initiation of contact with the mentor directly from the card."
-                                        }
-                                    ],
+                                    "isVisible": false,
+                                    "interconnectivity": [],
                                     "userInteraction": {
-                                        "interact": "AvailabilityIndicator",
-                                        "possibleInteractions": "User hovers over the availability indicator on a MentorCard.",
-                                        "result": "Displays a tooltip with detailed availability information.",
-                                        "resultFunctionality": "The tooltip provides specific details regarding the mentor's availability, such as their available time slots or upcoming free periods. This feature is designed to assist startups in scheduling meetings or mentorship sessions more effectively by providing immediate access to the mentor's schedule."
+                                        "interact": "User hovers over a MentorCard.",
+                                        "possibleInteractions": "The tooltip appears, displaying additional mentor information.",
+                                        "result": "Displays extra details in a non-intrusive manner, aiding quick decision-making.",
+                                        "resultFunctionality": "Upon hovering over a MentorCard, the Tooltip component activates and provides immediate, additional insights into the mentor's current engagements and feedback history. This allows the user to make more informed decisions about which mentors to explore further without needing to click."
                                     }
                                 },
-                                "components": [
-                                    {
-                                        "componentName": "AvailabilityIndicator",
-                                        "componentInfo": {
-                                            "componentDescription": "Shows whether a mentor is available for new startups.",
-                                            "functionality": "The AvailabilityIndicator component is a visual cue that represents the mentor's current availability status. It dynamically updates based on real-time data, indicating whether the mentor is currently available, busy, or completely booked. This component is crucial for startups looking to engage with mentors quickly, as it provides immediate feedback on whether a mentor can accommodate new sessions. The design includes color-coded indicators and text descriptions, ensuring clarity and ease of understanding for users. It enhances the overall user experience by reducing the need for additional queries regarding mentor availability.",
-                                            "details": [
-                                                "Color-coded status indicators (green for available, red for busy, grey for booked).",
-                                                "Text descriptions accompany color indicators for clarity.",
-                                                "Real-time updates based on mentor's schedule and commitments.",
-                                                "Tooltip interaction for detailed availability information."
-                                            ],
-                                            "isVisible": true,
-                                            "interconnectivity": [
-                                                {
-                                                    "pageUrl": "/mentors/schedule",
-                                                    "description": "Links to the mentor's scheduling page for detailed availability and booking options."
-                                                }
-                                            ],
-                                            "userInteraction": {
-                                                "interact": "Color-coded indicator",
-                                                "possibleInteractions": "User clicks on the green indicator showing 'Available'.",
-                                                "result": "Redirects to a booking page for scheduling a session with the mentor.",
-                                                "resultFunctionality": "The booking page allows users to view available time slots and book a mentorship session directly. The integration ensures a seamless transition from availability checking to scheduling, enhancing the efficiency of the process."
-                                            }
-                                        },
-                                        "components": []
-                                    },
-                                    {
-                                        "componentName": "ExpertiseTag",
-                                        "componentInfo": {
-                                            "componentDescription": "Highlights the mentor's areas of expertise with tags.",
-                                            "functionality": "The ExpertiseTag component visually represents the specific areas of expertise that a mentor possesses. These tags are prominently displayed on the MentorCard and are clickable, allowing users to filter other mentors based on similar expertise. The tags are designed for easy readability and quick recognition, using a distinct color scheme that contrasts with the background of the MentorCard. This component facilitates users in identifying mentors with the right skill sets quickly, enhancing the overall search and selection process. It is particularly useful for startups looking for mentors with niche expertise.",
-                                            "details": [
-                                                "Displays mentor's areas of expertise as clickable tags.",
-                                                "Uses distinct color scheme for easy recognition.",
-                                                "Tags are interactive, allowing filtering based on expertise.",
-                                                "Supports a wide range of expertise areas, with dynamic rendering based on mentor data."
-                                            ],
-                                            "isVisible": true,
-                                            "interconnectivity": [
-                                                {
-                                                    "pageUrl": "/mentors/search",
-                                                    "description": "Allows redirection to a search page filtered by the selected expertise tag."
-                                                }
-                                            ],
-                                            "userInteraction": {
-                                                "interact": "Clickable expertise tags",
-                                                "possibleInteractions": "User clicks on a 'Marketing' expertise tag.",
-                                                "result": "Filters the MentorProfileList to show only mentors with 'Marketing' expertise.",
-                                                "resultFunctionality": "The filtering action narrows down the list of mentors, displaying only those who have 'Marketing' as a part of their expertise. This functionality is designed to streamline the mentor search process, allowing users to focus on mentors who are most relevant to their needs."
-                                            }
-                                        },
-                                        "components": []
-                                    }
-                                ]
+                                "components": []
                             }
                         ]
                     },
                     {
                         "componentName": "MentorFilter",
                         "componentInfo": {
-                            "componentDescription": "Provides filtering options for expertise and availability, enabling users to narrow down mentor selections.",
-                            "functionality": "The MentorFilter component enhances the Mentor Overview Page by offering users the ability to filter mentors based on specific criteria such as expertise areas and availability status. It consists of dropdown menus and checkboxes that allow users to select desired filters. The component listens for user changes and communicates these preferences to the MentorProfileList, ensuring that the displayed mentors match the selected filters. By providing granular control over the mentor selection process, this component significantly improves the user experience, making it easier to find suitable mentors efficiently.",
+                            "componentDescription": "A filtering component to search for mentors based on expertise or name.",
+                            "functionality": "The MentorFilter component provides an intuitive interface for users to refine the list of mentors displayed on the MentorList. It allows users to input search criteria, such as a mentor's name or area of expertise, and dynamically updates the MentorList to reflect these filters. The MentorFilter is equipped with tag-based search capabilities, enabling users to select multiple areas of expertise to narrow down their search results effectively. This component significantly enhances the user experience by making it easier to find relevant mentors quickly and efficiently.",
                             "details": [
-                                "Includes dropdown menus for selecting expertise areas.",
-                                "Checkboxes for availability status ('Available Now', 'Busy', 'Booked').",
-                                "Real-time communication with MentorProfileList to apply filters.",
-                                "Responsive design to ensure usability on various screen sizes."
+                                "Includes an input field for name search and a dropdown for expertise selection.",
+                                "Implements a tag-based filtering system, allowing for the selection of multiple expertise areas.",
+                                "Real-time updates to the MentorList upon input changes."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [],
+                            "userInteraction": {
+                                "interact": "User types in the search input or selects expertise tags.",
+                                "possibleInteractions": "The MentorList updates to show only mentors matching the entered criteria.",
+                                "result": "Filtered list of mentors based on user input, ensuring relevant results.",
+                                "resultFunctionality": "As the user types into the search field or selects expertise tags, the MentorFilter component updates its state. This triggers a re-render of the MentorList, which filters and displays only those mentors that match the user's criteria. This interaction is seamless and occurs in real-time, providing immediate feedback to the user."
+                            }
+                        },
+                        "components": [
+                            {
+                                "componentName": "TagSelector",
+                                "componentInfo": {
+                                    "componentDescription": "Allows users to select specific tags for expertise filtering.",
+                                    "functionality": "The TagSelector component enhances the MentorFilter by enabling users to select predefined tags that represent various areas of expertise. This functionality allows users to filter mentors by multiple expertise areas simultaneously, providing a more targeted search experience. The component is designed with an easy-to-use interface where users can click to add or remove tags, dynamically updating the MentorList according to their selections.",
+                                    "details": [
+                                        "Displays a list of expertise tags available for selection.",
+                                        "Allows multiple tags to be selected, creating a compound filter.",
+                                        "Interactive UI with clear visual feedback for selected tags."
+                                    ],
+                                    "isVisible": true,
+                                    "interconnectivity": [],
+                                    "userInteraction": {
+                                        "interact": "User clicks on expertise tags to select or deselect them.",
+                                        "possibleInteractions": "Selected tags apply filters to the MentorList in real-time.",
+                                        "result": "Displays mentors with expertise matching selected tags.",
+                                        "resultFunctionality": "When a user selects expertise tags, the TagSelector component updates its internal state to reflect these selections. This state change triggers an update in the MentorList, which filters the displayed mentors to include only those with matching expertise. This filtering process is efficient and provides users with precise control over the search results."
+                                    }
+                                },
+                                "components": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "pageUrl": "/mentor-profiles"
+    }
+}{
+    "finalOutput": {
+        "pageName": "Investor Profiles Page",
+        "pageInfo": {
+            "purposeAndGoals": "This page displays comprehensive profiles of all investors, highlighting their preferences, engagement history, and potential interests in startups.",
+            "problemSolved": "This page provides a centralized view of investor information, aiding startups in targeting the right investors. It enhances understanding of investor preferences, facilitating better matchmaking. Additionally, it tracks investor engagement history to optimize follow-up strategies, making it a vital tool for effective investor relations management.",
+            "colour": {
+                "primaryColor": "#0A74DA",
+                "secondaryColor": "#FFC107",
+                "tertiaryColor": "#E0E0E0",
+                "spacing": "8px",
+                "typography": "Roboto, sans-serif"
+            }
+        },
+        "components": [
+            {
+                "componentName": "InvestorProfilesContainer",
+                "componentInfo": {
+                    "componentDescription": "Acts as the main container for displaying investor profiles, managing the state of investor data.",
+                    "functionality": "The InvestorProfilesContainer serves as the overarching structure that holds and manages the state of the investor data. It is responsible for fetching the investor data (mocked initially), maintaining the current state of the filtered and selected investors, and rendering the appropriate child components such as InvestorProfileCard, InvestorFilter, and InvestorDetailModal. It efficiently handles the flow of data between the components and ensures that any updates, such as changes in filters or selection, are propagated to the relevant components. It also manages the lifecycle methods of data fetching and incorporates error handling to ensure robust data management.",
+                    "details": [
+                        "Utilizes useState for managing state of investor list and filtered results.",
+                        "Fetches mock data using useEffect to simulate backend calls.",
+                        "Passes props to child components for rendering and interaction."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/matchmaking",
+                            "description": "Shares filtered investor profiles with the Matchmaking Page to enhance investor-startup matchmaking."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Sidebar link labeled 'Investor Profiles'.",
+                        "possibleInteractions": "Click to navigate to the Investor Profiles Page.",
+                        "result": "Navigates the user to the Investor Profiles Page.",
+                        "resultFunctionality": "The navigation is seamless and integrates with the app's routing, ensuring that when a user clicks the sidebar link, the Investor Profiles Page is displayed with all its components ready for interaction."
+                    }
+                },
+                "components": [
+                    {
+                        "componentName": "InvestorFilter",
+                        "componentInfo": {
+                            "componentDescription": "Filters investor profiles based on preferences and investment history.",
+                            "functionality": "InvestorFilter allows users to narrow down the list of investors by applying various filters such as industry preferences, geographical location, investment amount, and engagement activity. It features a dynamic multi-select dropdown that fetches options from the available investor data. The filtering logic is implemented using a combination of useState to track selected filters and useEffect to apply these filters on the data. It updates the InvestorProfilesContainer with filtered results in real-time. The component also includes a reset button that clears all selections, returning to the default state of displaying all investors.",
+                            "details": [
+                                "Multi-select dropdowns for industry preferences.",
+                                "Range sliders for investment amount.",
+                                "Checkboxes for engagement activity.",
+                                "Reset button to clear filters."
                             ],
                             "isVisible": true,
                             "interconnectivity": [
                                 {
-                                    "pageUrl": "/mentors/overview",
-                                    "description": "Directly interacts with the MentorProfileList on the Mentor Overview Page to filter mentors based on user-selected criteria."
+                                    "pageUrl": "/analytics",
+                                    "description": "The filtering data may be sent to an analytics component to generate reports on investor engagement trends."
                                 }
                             ],
                             "userInteraction": {
-                                "interact": "Dropdown menus and checkboxes",
-                                "possibleInteractions": "User selects 'Technology' as expertise and checks 'Available Now'.",
-                                "result": "MentorProfileList updates to display only mentors with 'Technology' expertise who are currently available.",
-                                "resultFunctionality": "The MentorProfileList component dynamically adjusts to show only those mentors who fit the selected criteria, providing users with a streamlined list that matches their specific needs. This interaction enhances the efficiency and effectiveness of the mentor selection process for startups."
+                                "interact": "Filter options such as dropdowns, sliders, and checkboxes.",
+                                "possibleInteractions": "Select an industry, adjust investment range, check engagement activities.",
+                                "result": "Filtered investor profiles are displayed in the InvestorProfileCard component.",
+                                "resultFunctionality": "Upon selecting filter criteria, the component updates the state in InvestorProfilesContainer, which in turn triggers a re-render of the InvestorProfileCard components to display only those profiles matching the selected criteria."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "InvestorProfileCard",
+                        "componentInfo": {
+                            "componentDescription": "Displays individual investor information, including name, preferences, and engagement summary.",
+                            "functionality": "InvestorProfileCard provides a concise overview of each investor, displaying key information such as the investor's name, primary investment preferences, summary of past engagements, and a brief note on potential interests. These cards are rendered dynamically based on the investor data passed down from InvestorProfilesContainer. Each card is designed to be interactive, allowing users to click for more detailed information. The component uses React's map function to iterate over the filtered list of investors and renders a card for each entry. It is styled for clarity and quick comprehension, ensuring users can easily scan through profiles.",
+                            "details": [
+                                "Investor name and photo.",
+                                "List of top 3 investment preferences.",
+                                "Summary of recent engagements.",
+                                "Button to view detailed profile."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/investor-details",
+                                    "description": "Clicking a card opens the InvestorDetailModal with detailed information."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Click on an InvestorProfileCard.",
+                                "possibleInteractions": "Click to view detailed profile.",
+                                "result": "Opens the InvestorDetailModal component.",
+                                "resultFunctionality": "The card click triggers a state change in InvestorProfilesContainer that sets the selected investor, which in turn displays the InvestorDetailModal with comprehensive details about the chosen investor."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "InvestorDetailModal",
+                        "componentInfo": {
+                            "componentDescription": "Shows detailed information about a selected investor, including engagement history and contact information.",
+                            "functionality": "The InvestorDetailModal is a modal component that appears when a user selects an InvestorProfileCard. It provides an in-depth view of the selected investor's profile, including a detailed history of past engagements, contact information, and notes on potential interests. This modal is conditionally rendered based on the state managed by InvestorProfilesContainer. It uses a backdrop to focus the user's attention on the detailed view and includes navigation buttons to allow for easy dismissal or further actions such as contacting the investor directly. The modal also integrates with the analytics component to track which profiles are viewed most frequently, providing valuable data for investor relations strategies.",
+                            "details": [
+                                "Display of investor's full contact information.",
+                                "Detailed engagement history list.",
+                                "Notes on potential interests and preferences.",
+                                "Buttons for 'Contact Investor' and 'Close Modal'."
+                            ],
+                            "isVisible": false,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/contact-investor",
+                                    "description": "Directly opens a form to contact the investor from within the modal."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Click 'View Details' in InvestorDetailModal.",
+                                "possibleInteractions": "Click to contact or close modal.",
+                                "result": "Opens contact form or closes the modal.",
+                                "resultFunctionality": "When the user chooses 'Contact Investor', a form is presented to send a message or schedule a meeting, enhancing direct interaction with the investor."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "HeatMapComponent",
+                        "componentInfo": {
+                            "componentDescription": "Visualizes investor preferences across different sectors and categories.",
+                            "functionality": "The HeatMapComponent provides a visual representation of investor preferences, using a heat map to depict the intensity of interest across various industries and sectors. This component processes aggregated data from the investor profiles to map out trends and highlight areas of high interest. It uses ECharts for rendering, providing an interactive and visually appealing representation. Users can hover over different sectors to view more detailed data, such as the number of investors interested and the average investment amount. The heat map is updated dynamically based on the data filtered by the InvestorFilter, allowing users to see real-time changes in investor interest patterns.",
+                            "details": [
+                                "ECharts integration for dynamic rendering.",
+                                "Interactive tooltips displaying detailed information.",
+                                "Color gradients to indicate level of interest.",
+                                "Responsive design to fit within the page layout."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/sector-insights",
+                                    "description": "Users can click on a sector to navigate to a detailed insights page."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Hover over sectors, click for detailed insights.",
+                                "possibleInteractions": "Hover to see data, click for more info.",
+                                "result": "Displays tooltips or navigates to insights page.",
+                                "resultFunctionality": "The user can interact with the heat map to gain insights into investor trends, with detailed tooltips providing immediate data and clicks allowing further exploration on a dedicated insights page."
                             }
                         },
                         "components": []
@@ -863,37 +291,424 @@
                 ]
             },
             {
-                "componentName": "Interconnections",
+                "componentName": "NavigationLinks",
                 "componentInfo": {
-                    "componentDescription": "Manages the connectivity between different pages and modules within the ERP system, facilitating seamless user navigation and data flow.",
-                    "functionality": "The Interconnections component is designed to manage and maintain the relationships between various pages within the ERP system. It ensures that navigation between pages such as the Mentor Overview Page, Feedback Log Page, and detailed mentor profiles is smooth and intuitive. By managing URL routing and state sharing across pages, this component supports consistent user experience and data integrity. It plays a critical role in enabling seamless user journeys, allowing users to transition between different sections of the application without losing context or data.",
+                    "componentDescription": "Provides navigation to related pages such as Funding Rounds and Matchmaking.",
+                    "functionality": "The NavigationLinks component offers users easy access to other related sections of the ERP system. It typically appears at the bottom of the InvestorProfilesContainer, providing buttons or links to the Funding Rounds Page and Matchmaking Page. These links are styled to fit seamlessly with the overall design and include hover effects for improved user experience. The component ensures that users can easily transition between different sections, maintaining workflow continuity and enhancing the usability of the system as a whole.",
                     "details": [
-                        "Handles URL routing and navigation between pages.",
-                        "Manages state sharing across modules to ensure data consistency.",
-                        "Supports seamless user journeys across different sections of the application.",
-                        "Integrates with a shared context provider for data access and manipulation."
+                        "Button or link to 'Funding Rounds'.",
+                        "Button or link to 'Matchmaking'.",
+                        "Hover effects for better UX."
                     ],
                     "isVisible": true,
                     "interconnectivity": [
                         {
-                            "pageUrl": "/mentors/overview",
-                            "description": "Facilitates navigation to the Mentor Overview Page from other sections such as the main dashboard."
+                            "pageUrl": "/funding-rounds",
+                            "description": "Direct link to the Funding Rounds Page for exploring funding opportunities."
                         },
                         {
-                            "pageUrl": "/mentors/profile",
-                            "description": "Enables transitions to detailed mentor profiles from the Mentor Overview Page."
+                            "pageUrl": "/matchmaking",
+                            "description": "Direct link to the Matchmaking Page for investor-startup connections."
                         }
                     ],
                     "userInteraction": {
-                        "interact": "Navigation links and buttons",
-                        "possibleInteractions": "User clicks on a sidebar 'Mentors' tab.",
-                        "result": "Navigates to the Mentor Overview Page, displaying the MentorDashboard component.",
-                        "resultFunctionality": "The navigation action directs the user to the Mentor Overview Page, where the MentorDashboard component is rendered. This interaction is designed to be seamless and intuitive, ensuring that users can easily access the mentor information they seek without unnecessary steps."
+                        "interact": "Click navigation links.",
+                        "possibleInteractions": "Hover to see effects, click to navigate.",
+                        "result": "Navigates to the selected page.",
+                        "resultFunctionality": "The navigation process is smooth, leveraging the app's routing to quickly transition the user to the chosen page, either opening the Funding Rounds or Matchmaking Page with all necessary data preloaded."
                     }
                 },
                 "components": []
             }
         ],
-        "pageUrl": "/mentors/overview"
+        "pageUrl": "/investor-profiles"
+    }
+}{
+    "finalOutput": {
+        "pageName": "Startup Profiles Page",
+        "pageInfo": {
+            "purposeAndGoals": "This page serves as a centralized hub for viewing and managing the profiles of all startups within the Y Combinator portfolio. It allows users to access detailed information about each startup, facilitating effective management and oversight.",
+            "problemSolved": "This page provides a consolidated view of all startups, enhancing visibility into their status. It enables quick access to startup profiles for efficient monitoring and support, addressing the challenge of inadequate tracking by offering detailed information and easy navigation. The page is designed to improve workflow efficiency by allowing users to filter and search through startups effectively, reducing time spent on manual tracking and increasing accessibility to vital startup data across the organization. Additionally, the integration with other modules such as the Funding Overview Page and Mentorship Page ensures comprehensive data connectivity, allowing for a holistic approach to startup management within the ERP system.",
+            "colour": {
+                "primaryColor": "#2C3E50",
+                "secondaryColor": "#2980B9",
+                "tertiaryColor": "#ECF0F1",
+                "spacing": "8px",
+                "typography": "Roboto, sans-serif"
+            }
+        },
+        "components": [
+            {
+                "componentName": "StartupProfilesContainer",
+                "componentInfo": {
+                    "componentDescription": "Manages the overall layout and state of the startup profiles.",
+                    "functionality": "The StartupProfilesContainer serves as the central management unit for the Startup Profiles Page. It is responsible for fetching and maintaining the list of startups from the backend or a mock data source. This component also orchestrates the interactions between various child components such as the StartupList, SearchBar, Filters, and Pagination. It handles state management using React's useState and useEffect hooks to ensure that data is consistently updated across the page. This component also manages routing to detailed startup profiles and integrates with other modules for comprehensive startup management.",
+                    "details": [
+                        "Fetches startup data from a mock API or backend service and stores it in the state.",
+                        "Manages interactions with SearchBar and Filters to dynamically update the list of startups.",
+                        "Routes user interactions to detailed startup profiles when a StartupCard is clicked."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/mentorship",
+                            "description": "Integrates with the Mentorship Page to provide additional mentor information related to selected startups."
+                        },
+                        {
+                            "pageUrl": "/funding-overview",
+                            "description": "Shares data with the Funding Overview Page for insights into funding needs and updates."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "SearchBar, Filters, StartupCard",
+                        "possibleInteractions": "User types in the SearchBar to filter startups, applies different filters, and clicks on a StartupCard to view details.",
+                        "result": "Filtered list of startups displayed, detailed view of startup profile shown on click.",
+                        "resultFunctionality": "The result functionality involves dynamically updating the startup list based on real-time search and filter inputs. When a user clicks on a StartupCard, a detailed view of the startup profile is loaded, potentially in the same page or as a modal, showing comprehensive details about the startup."
+                    }
+                },
+                "components": [
+                    {
+                        "componentName": "StartupList",
+                        "componentInfo": {
+                            "componentDescription": "Displays the list of startup summaries.",
+                            "functionality": "The StartupList component is responsible for rendering a list of startups based on the data provided by the StartupProfilesContainer. It maps through the startup data and generates a StartupCard for each entry. This component ensures that the list is updated dynamically as search queries or filters are applied by the user. It supports infinite scrolling or pagination to efficiently handle large datasets. The StartupList interacts with the StartupProfilesContainer to receive data updates and trigger actions based on user interactions.",
+                            "details": [
+                                "Maps through startup data to render a list of StartupCards.",
+                                "Supports dynamic updates based on filtered or searched data.",
+                                "Handles infinite scrolling or pagination for large datasets."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/startups/profiles/details",
+                                    "description": "Links to detailed profiles of startups when a StartupCard is clicked."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "StartupCard",
+                                "possibleInteractions": "User clicks on a StartupCard to view more details.",
+                                "result": "Detailed view of the startup profile is displayed.",
+                                "resultFunctionality": "Upon clicking a StartupCard, the component triggers a navigation event or a modal popup displaying detailed information about the selected startup, including its industry, cohort, founders, and any associated documents or reports."
+                            }
+                        },
+                        "components": [
+                            {
+                                "componentName": "StartupCard",
+                                "componentInfo": {
+                                    "componentDescription": "Represents individual startup summaries with key information and action buttons.",
+                                    "functionality": "The StartupCard component encapsulates a brief overview of each startup, presenting key information such as the startup's name, industry, cohort, and an action button for viewing more details. This component is clickable and designed to facilitate quick navigation to the startup's detailed profile. It incorporates responsive design elements to ensure clarity and accessibility, providing visual feedback on hover or click. The StartupCard is reusable across different pages where startup information is required.",
+                                    "details": [
+                                        "Displays the startup's name, industry, cohort, and a button for details.",
+                                        "Responsive design with hover effects for better user engagement.",
+                                        "Action buttons for quick navigation to detailed startup profiles."
+                                    ],
+                                    "isVisible": true,
+                                    "interconnectivity": [
+                                        {
+                                            "pageUrl": "/startups/profiles/details",
+                                            "description": "Navigates to the detailed profile of the startup when clicked."
+                                        }
+                                    ],
+                                    "userInteraction": {
+                                        "interact": "Action button on StartupCard",
+                                        "possibleInteractions": "User clicks the 'View Details' button on the StartupCard.",
+                                        "result": "Navigates to a detailed view of the startup profile.",
+                                        "resultFunctionality": "The action button initiates a navigation command, loading a comprehensive profile of the startup that includes extended details such as funding history, team members, and strategic goals."
+                                    }
+                                },
+                                "components": []
+                            }
+                        ]
+                    },
+                    {
+                        "componentName": "SearchBar",
+                        "componentInfo": {
+                            "componentDescription": "Allows users to search for specific startups.",
+                            "functionality": "The SearchBar component provides a user interface for inputting search queries to filter the list of startups. It captures user input and triggers a search function in the StartupProfilesContainer, updating the displayed list to match the search criteria. The component includes features like a clear button to reset the search and a debounce function to optimize performance, preventing excessive calls to the search function while typing. It aims to enhance user experience by providing fast and relevant search results.",
+                            "details": [
+                                "Input field for entering search queries.",
+                                "Clear button to reset the search input and results.",
+                                "Debounce function to manage input effectively and enhance performance."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/startups/profiles",
+                                    "description": "Directly interacts with the StartupProfilesContainer to filter startup data."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Search input field",
+                                "possibleInteractions": "User types a query into the SearchBar, potentially clearing it with the clear button.",
+                                "result": "The list of startups is filtered based on the search query.",
+                                "resultFunctionality": "The search input is processed in real-time to filter the list of startups shown on the page. The debounce function ensures that the filtering operation is performed efficiently, reducing unnecessary re-renders and improving the responsiveness of the search feature."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "Filters",
+                        "componentInfo": {
+                            "componentDescription": "Provides options to filter startups by industry or cohort.",
+                            "functionality": "The Filters component offers a range of filtering options for users to refine the list of startups based on specific criteria such as industry or cohort. It includes multiple dropdown menus or checkboxes that allow users to select the desired filters. Once a filter is applied, it communicates with the StartupProfilesContainer to update the displayed list accordingly. The component is designed to be easily extendable, allowing new filters to be added with minimal changes to the existing structure.",
+                            "details": [
+                                "Dropdown menus or checkboxes for selecting filters.",
+                                "Interacts with the state in StartupProfilesContainer to update startup list.",
+                                "Supports multiple filter criteria like industry, cohort, and more."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/startups/profiles",
+                                    "description": "Communicates with the StartupProfilesContainer to apply selected filters to the startup data."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Filter dropdowns or checkboxes",
+                                "possibleInteractions": "User selects or deselects various filters to refine the list of startups.",
+                                "result": "The list of startups is updated to show results that match the selected filters.",
+                                "resultFunctionality": "The filters apply specific criteria to the dataset, narrowing down the list of startups displayed. This component manages both single and multiple filter selections, ensuring that the list reflects all active filters and updates dynamically as filters are changed."
+                            }
+                        },
+                        "components": []
+                    },
+                    {
+                        "componentName": "Pagination",
+                        "componentInfo": {
+                            "componentDescription": "Manages navigation through multiple pages of startup results.",
+                            "functionality": "The Pagination component is responsible for dividing the list of startup results into manageable pages. It provides navigation controls that allow users to move forward and backward through the pages, jump to the first or last page, and select specific page numbers. This component enhances the user experience by efficiently handling large datasets, reducing load times, and maintaining a clear and organized display of information. It interacts with the StartupProfilesContainer to update the displayed data according to the current page selection.",
+                            "details": [
+                                "Navigation controls for moving between pages (next, previous, first, last).",
+                                "Displays current page number and total pages available.",
+                                "Interacts with the StartupProfilesContainer to update the list of displayed startups based on the current page."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/startups/profiles",
+                                    "description": "Works with the StartupProfilesContainer to manage the pagination of startup data."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Pagination controls",
+                                "possibleInteractions": "User clicks on pagination buttons to navigate through pages.",
+                                "result": "Displays the startups corresponding to the selected page.",
+                                "resultFunctionality": "The pagination controls facilitate seamless navigation through large lists of startups. As users interact with these controls, the component fetches and displays the relevant page of startup data, ensuring that the user can access the full dataset without overwhelming the interface."
+                            }
+                        },
+                        "components": []
+                    }
+                ]
+            }
+        ],
+        "pageUrl": "/startups/profiles"
+    }
+}{
+    "finalOutput": {
+        "pageName": "Dashboard Page",
+        "pageInfo": {
+            "purposeAndGoals": "This page serves as the central hub for viewing the overall performance metrics of startups within the Y Combinator portfolio, aggregating key performance indicators (KPIs) and success scores to provide a comprehensive overview of startup health.",
+            "problemSolved": "The Dashboard Page addresses the need for a centralized location for tracking the performance of multiple startups, enabling users to quickly identify startups that require assistance based on their metrics. It supports informed decision-making through visualized data, ensuring that users can efficiently manage their portfolio. The page also allows for quick identification of startups that are performing exceptionally well or those that need intervention, helping stakeholders to allocate resources effectively and make strategic decisions based on real-time data insights. By offering visual tools like tree maps and KPI cards, it ensures that complex data is presented in an easily digestible format, enhancing user experience and engagement.",
+            "colour": {
+                "primaryColor": "#1F4E79",
+                "secondaryColor": "#A6B8C7",
+                "tertiaryColor": "#EDEDED",
+                "spacing": "8px",
+                "typography": "Roboto, sans-serif"
+            }
+        },
+        "components": [
+            {
+                "componentName": "DashboardContainer",
+                "componentInfo": {
+                    "componentDescription": "Core component responsible for layout and state management of the dashboard page.",
+                    "functionality": "The DashboardContainer serves as the main wrapper for the dashboard page, handling the layout structure and managing the state of its child components. It is responsible for fetching necessary data, updating the state based on real-time inputs, and distributing this data to its children for rendering. The component implements React hooks to manage the state and side effects, ensuring that updates to KPIs and success scores are reflected dynamically in the UI. Additionally, it incorporates responsive design techniques to adjust the layout based on screen size, making it adaptable to different resolutions and ensuring a seamless user experience.",
+                    "details": [
+                        "Handles data fetching and state management for the page.",
+                        "Ensures responsive design for different screen sizes.",
+                        "Distributes data to child components like KPIDashboard, SuccessScoreChart, and AlertsSection."
+                    ],
+                    "isVisible": true,
+                    "interconnectivity": [
+                        {
+                            "pageUrl": "/success-score",
+                            "description": "Navigation to the Success Score Page to view detailed metrics and insights."
+                        },
+                        {
+                            "pageUrl": "/peer-review",
+                            "description": "Navigation to the Peer Review Page for further analysis of startup performance."
+                        }
+                    ],
+                    "userInteraction": {
+                        "interact": "Sidebar menu item labeled 'Dashboard'",
+                        "possibleInteractions": "Navigate to the Dashboard Page",
+                        "result": "Display the Dashboard Page with all components loaded",
+                        "resultFunctionality": "Upon navigation, the DashboardContainer fetches the latest data, initializes the state for the child components, and renders the page with the most current performance metrics."
+                    }
+                },
+                "components": [
+                    {
+                        "componentName": "KPIDashboard",
+                        "componentInfo": {
+                            "componentDescription": "Displays key performance indicators in a card format for startups.",
+                            "functionality": "The KPIDashboard component is designed to present a set of key performance indicators (KPIs) for each startup in the form of individual cards. It receives data from the DashboardContainer and maps this data into KpiCard components, each representing a specific KPI like Monthly Recurring Revenue (MRR), Monthly Active Users (MAUs), etc. The KPIDashboard dynamically updates the KPI cards based on real-time data inputs, ensuring that users always have access to the most recent metrics. The component also manages the layout of the KPI cards, arranging them in a visually appealing and easily navigable manner.",
+                            "details": [
+                                "Iterates over startup data to create KpiCard components.",
+                                "Handles dynamic updates to KPI data.",
+                                "Ensures consistent styling and layout for KPI cards."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/cohort-analytics",
+                                    "description": "Reuses KpiCard components to display KPIs in the Cohort Analytics Page."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "Individual KpiCard components",
+                                "possibleInteractions": "Click on a KpiCard to view detailed KPI data or historical trends.",
+                                "result": "Display a modal or redirect to a detailed KPI view page.",
+                                "resultFunctionality": "When a KpiCard is clicked, the system fetches detailed historical data for that KPI and presents it in a modal or a new page, allowing users to analyze trends and patterns over time."
+                            }
+                        },
+                        "components": [
+                            {
+                                "componentName": "KpiCard",
+                                "componentInfo": {
+                                    "componentDescription": "Individual card displaying a specific KPI, such as MRR or MAUs.",
+                                    "functionality": "The KpiCard component is a reusable card component that displays specific metrics related to a startup's performance. Each card includes a title, the KPI value, and a brief description or trend indicator (e.g., arrow up/down). It is designed to be visually distinct, using color coding and icons to quickly convey the status of the metric (positive, neutral, or negative). The KpiCard also integrates loading indicators to inform users when data is being fetched or updated, ensuring a smooth user experience. Its reusability allows it to be implemented across different pages that require KPI displays.",
+                                    "details": [
+                                        "Displays KPI title, value, and trend indicator.",
+                                        "Includes loading indicators for data fetching.",
+                                        "Uses color coding to indicate performance status."
+                                    ],
+                                    "isVisible": true,
+                                    "interconnectivity": [
+                                        {
+                                            "pageUrl": "/peer-review",
+                                            "description": "Shares the AlertItem component for displaying alerts in the Peer Review Page."
+                                        }
+                                    ],
+                                    "userInteraction": {
+                                        "interact": "KpiCard",
+                                        "possibleInteractions": "Hover to see more details or click to access a detailed view.",
+                                        "result": "Tooltip on hover or a modal with expanded information on click.",
+                                        "resultFunctionality": "Hovering over a KpiCard shows a tooltip with additional context or related KPIs. Clicking opens a modal with detailed graphs and historical data, allowing for in-depth analysis of the metric."
+                                    }
+                                },
+                                "components": []
+                            }
+                        ]
+                    },
+                    {
+                        "componentName": "SuccessScoreChart",
+                        "componentInfo": {
+                            "componentDescription": "Visualizes success scores using a tree map, illustrating performance clusters.",
+                            "functionality": "The SuccessScoreChart component is responsible for visualizing the success scores of startups using a tree map. This unique visualization method clusters startups based on performance, allowing users to quickly identify high-performing clusters and those needing attention. The component receives success score data from the DashboardContainer and uses a charting library like ECharts to render the tree map. It supports dynamic updates, automatically adjusting the visualization when success scores change. The component also provides interactive features like tooltips and zoom capabilities, enhancing the user's ability to explore and understand the data.",
+                            "details": [
+                                "Renders tree map using ECharts for success scores.",
+                                "Supports interactive features like tooltips and zoom.",
+                                "Automatically updates with new success score data."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/success-score",
+                                    "description": "Utilizes success scores computed on the Success Score Page for its visualization."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "SuccessScoreTreeMap",
+                                "possibleInteractions": "Hover over regions to see detailed metrics or click to focus on a specific cluster.",
+                                "result": "Tooltip with metrics on hover, zoom into a cluster on click.",
+                                "resultFunctionality": "Hovering over a region in the tree map shows detailed metrics for that cluster. Clicking on a cluster zooms in, allowing users to focus on specific startups within that cluster and understand their relative performance."
+                            }
+                        },
+                        "components": [
+                            {
+                                "componentName": "SuccessScoreTreeMap",
+                                "componentInfo": {
+                                    "componentDescription": "Component rendering a tree map to represent success scores visually.",
+                                    "functionality": "The SuccessScoreTreeMap is a specialized component that provides a visual representation of startup success scores through a tree map. It divides the available space into rectangles, where each rectangle represents a startup, and its area corresponds to the success score. This visualization helps users quickly understand the distribution of success across the portfolio. The component leverages ECharts for rendering, ensuring high-quality and interactive graphics. Users can interact with the tree map to gain insights into individual startup performances and identify patterns or outliers within the dataset.",
+                                    "details": [
+                                        "Utilizes ECharts for interactive tree map rendering.",
+                                        "Represents each startup with a rectangle proportional to its success score.",
+                                        "Provides interactive tooltips and zoom functionality."
+                                    ],
+                                    "isVisible": true,
+                                    "interconnectivity": [
+                                        {
+                                            "pageUrl": "/success-score",
+                                            "description": "Integrates success score data from the Success Score Page for visualization."
+                                        }
+                                    ],
+                                    "userInteraction": {
+                                        "interact": "Tree map rectangles",
+                                        "possibleInteractions": "Hover for tooltip, click for zoom.",
+                                        "result": "Detailed tooltip or zoomed-in view of specific startups.",
+                                        "resultFunctionality": "Users can hover over rectangles to view success score details in tooltips. Clicking allows users to zoom into specific areas of the tree map, focusing on startups of interest for deeper analysis."
+                                    }
+                                },
+                                "components": []
+                            }
+                        ]
+                    },
+                    {
+                        "componentName": "AlertsSection",
+                        "componentInfo": {
+                            "componentDescription": "Displays alerts for startups needing immediate attention.",
+                            "functionality": "The AlertsSection component is designed to highlight startups that require immediate attention due to potential issues or opportunities identified through their performance metrics. It receives a list of alerts from the DashboardContainer and displays each alert as an AlertItem component. The AlertsSection uses visual cues like color coding and icons to prioritize alerts, ensuring that critical issues are easily identifiable. It allows users to quickly assess the situation and take necessary actions, providing a direct link to detailed pages or functionalities for addressing the alerts.",
+                            "details": [
+                                "Displays a list of alerts with priority indicators.",
+                                "Uses color coding and icons for quick identification of urgent alerts.",
+                                "Provides links to detailed views or actions for each alert."
+                            ],
+                            "isVisible": true,
+                            "interconnectivity": [
+                                {
+                                    "pageUrl": "/peer-review",
+                                    "description": "Shares AlertItem components for alert display in the Peer Review Page."
+                                }
+                            ],
+                            "userInteraction": {
+                                "interact": "AlertItem",
+                                "possibleInteractions": "Hover for alert details, click for detailed action page.",
+                                "result": "Tooltip with alert details on hover, redirect to action page on click.",
+                                "resultFunctionality": "Hovering over an AlertItem shows a tooltip with detailed information about the alert. Clicking on an alert redirects the user to a detailed page where they can take action or view more information about the issue."
+                            }
+                        },
+                        "components": [
+                            {
+                                "componentName": "AlertItem",
+                                "componentInfo": {
+                                    "componentDescription": "Displays individual alerts for startups that require immediate review.",
+                                    "functionality": "The AlertItem component is a concise, actionable item that represents individual alerts for startups needing attention. It includes a brief description of the alert, its priority level, and an icon indicating its status (e.g., critical, warning, informational). The AlertItem is designed to be visually distinct, using color coding to quickly convey the urgency of the alert. It allows users to hover for more details or click to navigate to a page where they can address the alert. This component is essential for keeping users informed about critical issues and facilitating prompt action.",
+                                    "details": [
+                                        "Displays alert description, priority level, and status icon.",
+                                        "Uses color coding for urgency indication.",
+                                        "Provides interaction capabilities for further action."
+                                    ],
+                                    "isVisible": true,
+                                    "interconnectivity": [
+                                        {
+                                            "pageUrl": "/peer-review",
+                                            "description": "Reused for displaying alerts on the Peer Review Page."
+                                        }
+                                    ],
+                                    "userInteraction": {
+                                        "interact": "AlertItem",
+                                        "possibleInteractions": "Hover to see full alert details or click to navigate to the alert action page.",
+                                        "result": "Tooltip with full details on hover, redirect to detailed alert page on click.",
+                                        "resultFunctionality": "Hovering over an AlertItem reveals a tooltip with comprehensive alert details. Clicking on the item redirects the user to a dedicated alert page where they can view more information and take corrective actions."
+                                    }
+                                },
+                                "components": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "pageUrl": "/dashboard"
     }
 }

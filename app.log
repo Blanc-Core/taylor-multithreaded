@@ -4523,3 +4523,97 @@ UnicodeEncodeError: 'charmap' codec can't encode characters in position 25347-25
 2024-09-09 15:15:38 - root - INFO - Active threads: 1
 2024-09-09 15:15:38 - root - INFO - All modules and pages processed.
 2024-09-09 15:15:40 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:31:34 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:08 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:28 - root - INFO - Active threads: 2
+2024-09-11 00:32:28 - root - INFO - Active threads: 3
+2024-09-11 00:32:28 - root - INFO - Active threads: 4
+2024-09-11 00:32:28 - root - INFO - Active threads: 5
+2024-09-11 00:32:28 - root - INFO - Active threads: 5
+2024-09-11 00:32:30 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:30 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:30 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:30 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:36 - root - INFO - Module output: ### Page Name: Dashboard Page
+
+#### 1. **Name and Purpose**
+   - **Name:** Dashboard Page
+   - **Pur...
+2024-09-11 00:32:36 - root - INFO - Active threads: 6
+2024-09-11 00:32:36 - root - INFO - Active threads: 6
+2024-09-11 00:32:36 - root - INFO - Module output: ### Page Name: Investor Profiles Page
+
+#### 1. **Name and Purpose**
+   - **Name:** Investor Profiles...
+2024-09-11 00:32:36 - root - INFO - Active threads: 7
+2024-09-11 00:32:36 - root - INFO - Active threads: 7
+2024-09-11 00:32:37 - root - INFO - Module output: ### Page Name: Mentor Profiles Page
+
+#### 1. **Name and Purpose**
+   - **Name:** Mentor Profiles Pag...
+2024-09-11 00:32:37 - root - INFO - Active threads: 8
+2024-09-11 00:32:37 - root - INFO - Active threads: 8
+2024-09-11 00:32:37 - root - INFO - Module output: ### Page Name: Startup Profiles Page
+
+#### 1. **Name and Purpose**
+   - **Name:** Startup Profiles P...
+2024-09-11 00:32:37 - root - INFO - Active threads: 9
+2024-09-11 00:32:37 - root - INFO - Active threads: 9
+2024-09-11 00:32:56 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:56 - root - INFO - Page output: {
+    "finalOutput": {
+        "pageName": "Mentor Profiles Page",
+        "pageInfo": {
+           ...
+2024-09-11 00:32:56 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:58 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:58 - root - INFO - Page output: {
+    "finalOutput": {
+        "pageName": "Investor Profiles Page",
+        "pageInfo": {
+         ...
+2024-09-11 00:32:58 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:59 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:32:59 - root - INFO - Page output: {
+    "finalOutput": {
+        "pageName": "Startup Profiles Page",
+        "pageInfo": {
+          ...
+2024-09-11 00:32:59 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:01 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:01 - root - INFO - Page output: {
+    "finalOutput": {
+        "pageName": "Dashboard Page",
+        "pageInfo": {
+            "purp...
+2024-09-11 00:33:02 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:11 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:14 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:14 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:14 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:21 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:28 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:29 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:31 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:31 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:37 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:39 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:41 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:42 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:49 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:50 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:52 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:54 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:33:59 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:02 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:03 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:04 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:05 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:10 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:10 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:13 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:14 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:19 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:21 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:23 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-09-11 00:34:25 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"

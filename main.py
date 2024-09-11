@@ -14,7 +14,7 @@ import os
 import re
 import logging
 from logging.handlers import RotatingFileHandler
-from frontend.appJsCoder import AppJSmaker
+from appJsCoder import AppJSmaker
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,

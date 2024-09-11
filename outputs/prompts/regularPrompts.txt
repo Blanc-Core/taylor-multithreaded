@@ -3,2919 +3,121 @@
 
 ## **Plan**
 - Use the **exact** plan outlined below as the foundation for your implementation.
-- `Component Name: MentorCard, Component requirements: ## Final Plan for MentorCard Component Enhancement
-
-### **Component Overview**
-- **Description**
-  - The MentorCard component displays individual mentor details, including their name, areas of expertise, and real-time availability. This component aims to facilitate user engagement with mentors through interactive features.
-
-### **Core Functionality**
-- **Main Features**
-  - Each card presents:
-    - **Mentor's Name**: Displayed prominently.
-    - **Areas of Expertise**: Shown as tags via ExpertiseTag components.
-    - **Real-time Availability**: Indicated through an AvailabilityIndicator that reflects current status.
-    - **Interactive Elements**: Users can click for additional information or to initiate contact.
-
-### **Enhanced Features & Ideas**
-1. **Dynamic Availability Updates**
-   - **Functionality**: Incorporate an auto-refresh feature that updates the AvailabilityIndicator every few minutes to reflect real-time status changes.
-   - **Key Components**: 
-     - Timer to check for updates (use `setInterval` in React).
-     - Mock data for availability (e.g., available, busy, offline).
-   - **User Interaction Flow**: Users see the most current availability without needing to refresh the page.
-   - **Potential Challenges**: Ensure performance is not impacted by frequent updates.
-   - **Solution**: Use efficient data handling and limit the number of updates to necessary intervals (every 5 minutes is a reasonable time frame).
-
-2. **Expertise Filter and Search Functionality**
-   - **Functionality**: Allow users to filter mentors based on areas of expertise.
-   - **Key Components**: 
-     - Search bar for expertise tags with debounce functionality to minimize re-renders.
-     - Dropdown for selecting specific areas of expertise.
-   - **User Interaction Flow**: Users can type or select tags to narrow down mentor options.
-   - **Potential Challenges**: Handling large datasets efficiently.
-   - **Solution**: Implement efficient search algorithms on dummy data; consider using libraries like `fuse.js` for fuzzy searching.
-
-3. **Mentor Ratings and Reviews System**
-   - **Functionality**: Users can rate mentors and leave reviews after sessions.
-   - **Key Components**: 
-     - Rating stars for quick ratings (using a library like `react-star-ratings`).
-     - Text area for written reviews.
-   - **User Interaction Flow**: After mentorship, users are prompted to rate and review.
-   - **Potential Challenges**: Ensuring reviews are constructive and relevant.
-   - **Solution**: Implement moderation features, even on dummy data, to filter out inappropriate content.
-
-4. **Gamification Elements**
-   - **Functionality**: Introduce a points system for users who engage with mentors frequently or leave reviews.
-   - **Key Components**: 
-     - Points display on the MentorCard.
-     - Badge system for achievements (e.g., 'Top Reviewer', 'Frequent User').
-   - **User Interaction Flow**: Users are encouraged to engage more to earn points and badges.
-   - **Potential Challenges**: Keeping the system fair and motivating.
-   - **Solution**: Set clear criteria for earning points and display them clearly, with a dedicated section for users to track their points and badges.
-
-5. **Mentor Session Scheduling Tool**
-   - **Functionality**: Integrate a scheduling tool that allows users to book sessions directly from the MentorCard.
-   - **Key Components**: 
-     - Calendar picker for selecting dates and times (using a library like `react-datepicker`).
-     - Confirmation modal to finalize the session.
-   - **User Interaction Flow**: Users can see mentors' availability and book sessions seamlessly.
-   - **Potential Challenges**: Handling overlapping bookings.
-   - **Solution**: Implement locking mechanisms to temporarily disable slots once booked, and show a warning if a user tries to book an already occupied time.
-
-### **User Interaction Enhancements**
-- **Tooltips & Detailed Availability**
-  - **Functionality**: Hovering over the AvailabilityIndicator reveals detailed availability data (e.g., time slots).
-  - **User Interaction Flow**: Users can quickly access detailed information without leaving the card.
-
-- **Contact Initiation**
-  - **Functionality**: A direct "Contact" button that opens a modal for messaging (using dummy data for success/failure responses).
-  - **User Interaction Flow**: Users can initiate contact efficiently from the MentorCard.
-
-### **Prioritization of Ideas**
-1. **Dynamic Availability Updates** - High impact, high feasibility.
-2. **Mentor Session Scheduling Tool** - High impact, moderate feasibility.
-3. **Expertise Filter and Search Functionality** - Moderate impact, high feasibility.
-4. **Mentor Ratings and Reviews System** - Moderate impact, moderate feasibility.
-5. **Gamification Elements** - Low impact, moderate feasibility.
-
-### **Data Requirements**
-- **Dummy Data Examples**:
-  - Mentor profiles with names, expertise areas, availability statuses, and ratings.
-  - Sample review texts and user ratings for the reviews system.
-  - Mock data for scheduling availability (e.g., available slots).
-
-### **Implementation Notes**
-- Focus on using React for the component structure, Ant Design for UI elements, and ECharts for possible data visualizations (e.g., displaying overall ratings).
-- Ensure that the design is responsive and fits the desktop application context.
-- Maintain a consistent theme aligning with the existing page purpose and style.
-
-### **Step-by-Step Plan**
-1. **Set Up Component Structure**:
-   - Create a functional component for `MentorCard`.
-   - Use React hooks for managing state and side effects.
-
-2. **Implement Dynamic Availability**:
-   - Create state variables for availability.
-   - Set up an interval to update the availability every 5 minutes.
-
-3. **Add Expertise Filter and Search**:
-   - Create a filter component that allows users to input text or select tags.
-   - Implement search logic to filter mentor cards based on input.
-
-4. **Develop Ratings and Reviews**:
-   - Implement star ratings and a text area for reviews.
-   - Create a submission handler to capture and display user feedback.
-
-5. **Incorporate Gamification**:
-   - Develop a points system and integrate it into the `MentorCard`.
-   - Create a badge display and logic for earning badges.
-
-6. **Build the Scheduling Tool**:
-   - Integrate a calendar component for selecting dates/times.
-   - Create a booking confirmation modal that handles session bookings.
-
-7. **Enhance User Interaction**:
-   - Implement tooltips for detailed availability.
-   - Create a contact modal that allows users to message mentors directly.
-
-### **Edge Cases**
-- **Availability Conflicts**: If two users attempt to book the same time slot, display a warning message.
-- **Review Validation**: Ensure that users cannot submit empty reviews or inappropriate content.
-- **Search Debounce**: Implement a debounce function to prevent excessive re-renders during typing in the search bar.
-
-### **Conclusion**
-This plan outlines a comprehensive strategy for enhancing the MentorCard component, focusing on user engagement, interactivity, and productivity tools. Each enhancement builds on the core functionality, ensuring a cohesive and user-friendly experience while keeping all ideas practical and implementable within a single-page React application.`
-- **Integrate** the plan directly into the code components provided, ensuring every part of the plan is fully reflected in the code. The integration must be seamless, with no missing details or gaps. All pieces should function together as a single, cohesive file.
-
-## **CodeComponents**
-- **Rewrite EVERY SINGLE LINE** of the components below as **const** functions within the current file.
-- **DO NOT** leave out any provided code.
-- **DO NOT** import any components or functions from other files. Every component must be rewritten as a **const** function in this file, fully recoded from scratch.
-- **Adjust** the code so that it **dynamically works** for your current code structure. Every function should be self-contained, with dynamic behavior that adapts to the current project setup.
-- `
-
-```javascript
-// File Path: AvailabilityIndicator.js
-import React, { useState, useEffect } from 'react';
-import { Badge, Tooltip, Modal, Switch, Calendar } from 'antd';
-import { Link } from 'react-router-dom';
-import ReactECharts from 'echarts-for-react';
-
-const initialAvailability = [
-  { status: 'available', time: '09:00 - 10:00' },
-  { status: 'busy', time: '10:00 - 11:00' },
-  { status: 'booked', time: '11:00 - 12:00' },
-];
-
-const AvailabilityIndicator = () => {
-  const [availability, setAvailability] = useState(initialAvailability);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [points, setPoints] = useState(0);
-  const [availabilityData, setAvailabilityData] = useState([]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      randomizeAvailability();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const randomizeAvailability = () => {
-    const randomStatus = ['available', 'busy', 'booked'];
-    const newAvailability = initialAvailability.map(slot => ({
-      ...slot,
-      status: randomStatus[Math.floor(Math.random() * randomStatus.length)],
-    }));
-    setAvailability(newAvailability);
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'available':
-        return 'success';
-      case 'busy':
-        return 'error';
-      case 'booked':
-        return 'default';
-      default:
-        return 'default';
-    }
-  };
-
-  const getDetailedAvailability = () => {
-    return availability.map(slot => `${slot.time}: ${slot.status}`).join(', ');
-  };
-
-  const handleBookingClick = () => {
-    setPoints(points + 1);
-  };
-
-  const dateCellRender = (date) => {
-    const currentDate = date.format('YYYY-MM-DD');
-    return <div>Available</div>;
-  };
-
-  const options = {
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [{
-      data: availabilityData,
-      type: 'line',
-    }],
-  };
-
-  return (
-    <div>
-      <Tooltip title={getDetailedAvailability()} placement="top">
-        <Badge status={getStatusColor(availability[0].status)} />
-      </Tooltip>
-      <Link to="/booking">
-        <Badge status="success" onClick={handleBookingClick} />
-      </Link>
-      <span>{points} points earned!</span>
-      <Switch checked={notificationsEnabled} onChange={setNotificationsEnabled} />
-      <Modal title="Notification Preferences" visible={true}>
-        <Switch checked={notificationsEnabled} onChange={setNotificationsEnabled} />
-      </Modal>
-      <ReactECharts option={options} />
-      <Calendar dateCellRender={dateCellRender} />
-    </div>
-  );
-};
-
-export default AvailabilityIndicator;
-```
-
-```javascript
-// File Path: ExpertiseTag.js
-import React, { useState } from 'react';
-import { Tag } from 'antd';
-import { useHistory } from 'react-router-dom';
-
-const ExpertiseTag = () => {
-  const history = useHistory();
-  const [expertiseAreas] = useState([
-    'Marketing',
-    'Product Management',
-    'Data Analysis',
-    'Software Development',
-    'UI/UX Design',
-    'Business Strategy',
-  ]);
-
-  const handleTagClick = (expertise) => {
-    // Redirect to the search page with the selected expertise
-    history.push(`/mentors/search?expertise=${expertise}`);
-  };
-
-  return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', marginTop: '20px' }}>
-      {expertiseAreas.map((expertise) => (
-        <Tag
-          key={expertise}
-          color="blue"
-          style={{ margin: '5px', cursor: 'pointer' }}
-          onClick={() => handleTagClick(expertise)}
-        >
-          {expertise}
-        </Tag>
-      ))}
-    </div>
-  );
-};
-
-export default ExpertiseTag;
-````
-- Ensure that every line of code is **faithfully recoded**. **No shortcuts, no omissions, no imports.** Every component should be rewritten as a **const** function and fully integrated into the file.
-
-## **FileRequirements**
-- Create a single **JavaScript** file.
-- **DO NOT** include any external styling (e.g., CSS files). Styling should not be a part of this task.
-- Use only **dummy data**, with no backend, API calls, or external services.
-- Include only necessary React imports (e.g., `useState`, `useEffect` if needed).
-- **DO NOT** import any custom components or functions from other files. All logic and components must be fully contained within the single file.
-
-## **Rules**
-
-### **General**
-- **NO ERRORS**: The code must work perfectly on the first try, without bugs or issues.
-- Provide **complete code**, fully functional and self-contained. **Recreate every part of the code in this file** with no omissions, placeholders, or imports.
-- **DO NOT** import any external JS files or components. **Recreate every component and function exactly as specified**, rewriting each as a **const** function.
-
-## **Goal**
-- The final product should be a **single, complete component** that integrates the plan and code components fully.
-- Every component and function provided should be **recoded, rewritten as const functions**, and **integrated perfectly** into the current file without summarization, omission, or importation from other files.
-- The result should be **100% functional**, fully dynamic, and self-contained with no missing code. It should fully reflect the plan provided and **adapt to the current code structure**.
-
----
-
-**Important**: Absolutely **NO summarization**. Every single piece of code must be **rewritten as a const function**, fully integrated and dynamically functional within the current file. The goal is to have one **complete, error-free**, and **self-contained** file with everything implemented as described.
-
-
-
-
-
-# **Instructions**
-
-## **Plan**
-- Use the **exact** plan outlined below as the foundation for your implementation.
-- `Component Name: MentorProfileList, Component requirements: **Final Plan for MentorProfileList Component Enhancements**
-
-### Component Description
-The MentorProfileList component is designed to display a dynamic list of mentors, updating based on applied filters and additional interactivity features. This component aims to enhance user engagement and productivity while providing an intuitive interface for users seeking mentorship.
-
-### Functionality
-The MentorProfileList will:
-- Render mentor profiles in a card format, showcasing essential information like name, expertise, and availability.
-- Listen for changes in filtering criteria from the MentorFilter component and update the displayed list in real-time.
-- Offer sorting functionality by name, availability, or expertise.
-- Display a loading spinner during data fetching.
-- Incorporate user engagement features such as ratings and reviews for mentors.
-- Provide notifications for mentor availability updates.
-
-### Details
-- **Rendering Mentor Profiles**: Each card will display:
-  - Mentor Name
-  - Area of Expertise
-  - Availability Status (e.g., available, booked)
-  
-- **Filtering System**: 
-  - Users can filter mentors based on:
-    - Expertise
-    - Availability (e.g., available for the next week)
-    - Rating (above a certain threshold)
-    
-- **Sorting Options**: 
-  - Users can sort the mentor list by:
-    - Name (A-Z or Z-A)
-    - Availability (earliest available first)
-    - Expertise (most relevant first)
-
-- **Loading Indicator**: 
-  - A spinner will be displayed when data is being fetched, improving user experience during loading times.
-
-### Interconnectivity
-- **Detailed Mentor Profiles**: 
-  - Clicking on a MentorCard will navigate to `/mentors/profile`, displaying a comprehensive view of the mentor's background, expertise, availability, and user reviews.
-  
-- **Mentor Comparison Tool**: 
-  - Users can select multiple mentors and click "Compare" to navigate to a comparison page where they can evaluate mentors side-by-side based on chosen criteria.
-
-### User Interaction
-- **MentorCard Interaction**: 
-  - Users can interact with MentorCards to open a detailed modal with comprehensive information about each mentor, including:
-    - Profile details
-    - Past mentorship experiences
-    - Availability calendar
-    - Rating system for user feedback
-
-### New Features and Improvements
-
-1. **Mentor Ratings and Reviews**
-   - **Functionality**: Users can rate mentors (1-5 stars) and leave reviews post-session.
-   - **Key Components**:
-     - Stars for rating input.
-     - Text box for review input.
-     - Display average ratings on MentorCards.
-   - **User Flow**: After a session, users can directly rate and review mentors from the MentorCard.
-   - **Moderation**: Implement an approval system for reviews before they are displayed.
-
-2. **Mentor Availability Notifications**
-   - **Functionality**: Real-time notifications for mentor availability changes.
-   - **Components**:
-     - Notification banner at the top of the page.
-     - User settings for notification preferences (email, dashboard).
-   - **User Flow**: Users receive notifications when followed mentors become available.
-
-3. **Mentor Comparison Tool**
-   - **Functionality**: Side-by-side comparison of mentors based on selected criteria.
-   - **Components**:
-     - Comparison table layout.
-     - Filter options for expertise, availability, and ratings.
-   - **User Flow**: Selecting mentors and clicking "Compare" will lead to a new comparison page.
-
-4. **Dynamic Content with ECharts**
-   - **Functionality**: Visual representation of mentor statistics (e.g., total sessions, average rating).
-   - **Components**:
-     - ECharts component for data visualization.
-   - **User Flow**: Users can view charts on the mentor profile or the dashboard.
-
-5. **Gamification Elements**
-   - **Functionality**: Badges and rewards system for frequent user engagement.
-   - **Components**:
-     - Badge display section on user profiles.
-     - Criteria for earning badges.
-   - **User Flow**: Users see earned badges on their profiles, encouraging further engagement.
-
-### Prioritization
-1. **Mentor Ratings and Reviews** - High impact, moderate feasibility.
-2. **Mentor Availability Notifications** - High impact, easy implementation.
-3. **Mentor Comparison Tool** - Moderate impact, moderate feasibility.
-4. **Dynamic Content with ECharts** - Moderate impact, moderate feasibility.
-5. **Gamification Elements** - Low impact, moderate complexity.
-
-### Step-By-Step Implementation Plan
-
-#### 1. Mentor Ratings and Reviews
-- **Clarification**: Implement a star rating system and a review text box.
-- **Implementation Guidance**:
-  - Create a `RatingComponent` for displaying and collecting ratings.
-  - Create a `ReviewComponent` for text input.
-- **Efficiency**: Store ratings in a state management solution to allow immediate updates.
-- **Data Requirements**: Dummy data structure for ratings (e.g., `{mentorId: 1, rating: 4.5, review: "Great mentor!"}`).
-- **Edge Cases**: Handle cases where users attempt to submit reviews without a rating; provide a validation message.
-- **Enhancements**: Allow users to edit or delete their reviews post-submission.
-
-#### 2. Mentor Availability Notifications
-- **Clarification**: Users should receive notifications for mentor availability.
-- **Implementation Guidance**:
-  - Create a `NotificationComponent` for displaying notifications.
-  - Implement user preference settings for notification types.
-- **Efficiency**: Use websockets for real-time notifications.
-- **Data Requirements**: Dummy notification data format (e.g., `{mentorId: 1, message: "John Doe is now available!"}`).
-- **Edge Cases**: Ensure notifications are not sent for mentors the user is not following.
-- **Enhancements**: Add a snooze feature for notifications.
-
-#### 3. Mentor Comparison Tool
-- **Clarification**: Users can compare selected mentors based on various criteria.
-- **Implementation Guidance**:
-  - Create a `ComparisonComponent` to display selected mentors in a table format.
-  - Integrate sorting and filtering options within the comparison view.
-- **Efficiency**: Utilize Ant Design’s table component for easy implementation.
-- **Data Requirements**: Dummy comparison data structure (e.g., an array of mentor objects).
-- **Edge Cases**: Handle scenarios where no mentors are selected for comparison with an appropriate message.
-- **Enhancements**: Allow users to save comparison results for future reference.
-
-#### 4. Dynamic Content with ECharts
-- **Clarification**: Visualize mentor statistics using charts.
-- **Implementation Guidance**:
-  - Integrate ECharts into the mentor profile and dashboard to display relevant data.
-- **Efficiency**: Use hooks for data fetching and chart updates.
-- **Data Requirements**: Dummy data format for charts (e.g., `{sessionsHeld: 50, averageRating: 4.5}`).
-- **Edge Cases**: Handle cases where data is unavailable or incomplete; provide fallback visuals.
-- **Enhancements**: Enable users to export charts as images.
-
-#### 5. Gamification Elements
-- **Clarification**: Encourage user engagement through badges and rewards.
-- **Implementation Guidance**:
-  - Create a `BadgesComponent` to display earned badges.
-  - Define criteria for badge achievement.
-- **Efficiency**: Update user profiles dynamically as badges are earned.
-- **Data Requirements**: Dummy badge data structure (e.g., `{userId: 1, badges: ["First Session", "Top Reviewer"]}`).
-- **Edge Cases**: Ensure badges cannot be earned multiple times for the same achievement.
-- **Enhancements**: Allow users to share their badges on social media.
-
-This comprehensive enhancement strategy for the MentorProfileList component focuses on user engagement, interactivity, and data visualization, ultimately providing a more robust and engaging experience for users seeking mentorship.`
-- **Integrate** the plan directly into the code components provided, ensuring every part of the plan is fully reflected in the code. The integration must be seamless, with no missing details or gaps. All pieces should function together as a single, cohesive file.
-
-## **CodeComponents**
-- **Rewrite EVERY SINGLE LINE** of the components below as **const** functions within the current file.
-- **DO NOT** leave out any provided code.
-- **DO NOT** import any components or functions from other files. Every component must be rewritten as a **const** function in this file, fully recoded from scratch.
-- **Adjust** the code so that it **dynamically works** for your current code structure. Every function should be self-contained, with dynamic behavior that adapts to the current project setup.
-- `
-
-```javascript
-import React, { useState, useEffect } from 'react';
-import { Badge, Tooltip, Modal, Switch, Calendar, Tag } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import ReactECharts from 'echarts-for-react';
-
-// Dummy data for initial availability
-const initialAvailability = [
-  { status: 'available', time: '09:00 - 10:00' },
-  { status: 'busy', time: '10:00 - 11:00' },
-  { status: 'booked', time: '11:00 - 12:00' },
-];
-
-// MentorCard Component
-const MentorCard = () => {
-  const navigate = useNavigate();
-  const [availability, setAvailability] = useState(initialAvailability);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [points, setPoints] = useState(0);
-  const [availabilityData, setAvailabilityData] = useState([]);
-  const [expertiseAreas] = useState([
-    'Marketing',
-    'Product Management',
-    'Data Analysis',
-    'Software Development',
-    'UI/UX Design',
-    'Business Strategy',
-  ]);
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      randomizeAvailability();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const randomizeAvailability = () => {
-    const randomStatus = ['available', 'busy', 'booked'];
-    const newAvailability = initialAvailability.map(slot => ({
-      ...slot,
-      status: randomStatus[Math.floor(Math.random() * randomStatus.length)],
-    }));
-    setAvailability(newAvailability);
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'available':
-        return 'success';
-      case 'busy':
-        return 'error';
-      case 'booked':
-        return 'default';
-      default:
-        return 'default';
-    }
-  };
-
-  const getDetailedAvailability = () => {
-    return availability.map(slot => `${slot.time}: ${slot.status}`).join(', ');
-  };
-
-  const handleBookingClick = () => {
-    setPoints(points + 1);
-  };
-
-  const dateCellRender = (date) => {
-    return <div>Available</div>;
-  };
-
-  const options = {
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [{
-      data: availabilityData,
-      type: 'line',
-    }],
-  };
-
-  const handleTagClick = (expertise) => {
-    navigate(`/mentors/search?expertise=${expertise}`);
-  };
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', padding: '20px' }}>
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Tooltip title={getDetailedAvailability()} placement="top">
-          <Badge status={getStatusColor(availability[0].status)} />
-        </Tooltip>
-        <Link to="/booking">
-          <Badge status="success" onClick={handleBookingClick} />
-        </Link>
-        <span>{points} points earned!</span>
-        <Switch checked={notificationsEnabled} onChange={setNotificationsEnabled} />
-        <Modal title="Notification Preferences" visible={true}>
-          <Switch checked={notificationsEnabled} onChange={setNotificationsEnabled} />
-        </Modal>
-        <ReactECharts option={options} />
-        <Calendar dateCellRender={dateCellRender} />
-      </div>
-      <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap', marginTop: '20px' }}>
-        {expertiseAreas.map((expertise) => (
-          <Tag
-            key={expertise}
-            color="blue"
-            style={{ margin: '5px', cursor: 'pointer' }}
-            onClick={() => handleTagClick(expertise)}
-          >
-            {expertise}
-          </Tag>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default MentorCard;
-```
-
-This code defines the `MentorCard` component, integrating all the specified features and functionality, including dynamic availability updates, expertise tagging, and user interaction elements. The layout fills the entire page, ensuring a seamless user experience without any external CSS or imports.`
-- Ensure that every line of code is **faithfully recoded**. **No shortcuts, no omissions, no imports.** Every component should be rewritten as a **const** function and fully integrated into the file.
-
-## **FileRequirements**
-- Create a single **JavaScript** file.
-- **DO NOT** include any external styling (e.g., CSS files). Styling should not be a part of this task.
-- Use only **dummy data**, with no backend, API calls, or external services.
-- Include only necessary React imports (e.g., `useState`, `useEffect` if needed).
-- **DO NOT** import any custom components or functions from other files. All logic and components must be fully contained within the single file.
-
-## **Rules**
-
-### **General**
-- **NO ERRORS**: The code must work perfectly on the first try, without bugs or issues.
-- Provide **complete code**, fully functional and self-contained. **Recreate every part of the code in this file** with no omissions, placeholders, or imports.
-- **DO NOT** import any external JS files or components. **Recreate every component and function exactly as specified**, rewriting each as a **const** function.
-
-## **Goal**
-- The final product should be a **single, complete component** that integrates the plan and code components fully.
-- Every component and function provided should be **recoded, rewritten as const functions**, and **integrated perfectly** into the current file without summarization, omission, or importation from other files.
-- The result should be **100% functional**, fully dynamic, and self-contained with no missing code. It should fully reflect the plan provided and **adapt to the current code structure**.
-
----
-
-**Important**: Absolutely **NO summarization**. Every single piece of code must be **rewritten as a const function**, fully integrated and dynamically functional within the current file. The goal is to have one **complete, error-free**, and **self-contained** file with everything implemented as described.
-
-
-
-
-
-# **Instructions**
-
-## **Plan**
-- Use the **exact** plan outlined below as the foundation for your implementation.
-- `Component Name: MetricsOverview, Component requirements: ### Final Plan for MetricsOverview Component
-
-#### **Component Description**
-The MetricsOverview component serves as a centralized dashboard for displaying growth metrics across startups. It aggregates data from child components (MetricCard and FilterPanel) and provides real-time updates along with dynamic filtering options to enable informed decision-making.
-
-#### **Functionality**
-- Displays summarized growth metrics for quick insights.
-- Supports real-time updates based on user interactions.
-- Integrates filtering options to tailor displayed metrics.
-
-#### **Core Components and Features**
-
-1. **MetricCard**
-   - **Functionality**: Each card displays metrics such as Monthly Active Users (MAU), Revenue, and Customer Acquisition Cost (CAC).
-   - **Details**: Uses distinct color-coded borders for immediate recognition of metrics.
-   - **Enhancements**:
-     - **Trend Arrows**: Visual indicators that show trends (upward or downward) alongside metrics.
-   - **Implementation Guidance**:
-     - Use a card component that accepts props for metric data and style.
-     - Implement trend arrows using simple SVG icons based on metric change.
-
-2. **FilterPanel**
-   - **Functionality**: Enables users to filter metrics by date, startup names, and types of metrics.
-   - **Details**: Contains dropdowns, checkboxes, and a date picker for versatile options.
-   - **Enhancements**:
-     - **Saved Filters**: Allow users to save and quickly access frequently used filters.
-     - **Reset Button**: Provides a way to reset all filters to their default state.
-   - **Implementation Guidance**:
-     - Build controlled components for dropdowns and checkboxes.
-     - Store saved filters in local storage or state management.
-     - Ensure the reset button clears all selected filters and returns to default.
-
-3. **Heatmap**
-   - **Functionality**: Visual representation of performance trends using ECharts.
-   - **Details**: Dynamically displays changes in metrics over time with color gradients.
-   - **Enhancements**:
-     - **Tooltips**: Show exact data values when hovering over specific points.
-   - **Implementation Guidance**:
-     - Integrate ECharts library for rendering the heatmap.
-     - Use event listeners to display tooltips with relevant data upon hover.
-
-4. **Detailed Metric Modal**
-   - **Functionality**: Expands upon clicking a MetricCard to show detailed metrics and historical trends.
-   - **Details**: Interactive charts (line and bar) for deeper analysis.
-   - **Enhancements**:
-     - **Comparison Feature**: Users can select multiple metrics for side-by-side comparison.
-   - **Implementation Guidance**:
-     - Create a modal component that receives data from the MetricCard.
-     - Use ECharts within the modal to render comparative charts.
-
-5. **User Engagement Features**
-   - **Notifications**: Inform users of significant metric changes or threshold crossings.
-   - **Gamification**: Introduce achievement badges for user interactions (e.g., viewing metrics).
-   - **Implementation Guidance**:
-     - Use a notification library or custom component to display notifications.
-     - Track user interactions and manage achievements in state.
-
-6. **Customization Options**
-   - **Theme Selector**: Users can toggle between light and dark themes.
-   - **Card Layout Options**: Options to switch between grid and list views.
-   - **Implementation Guidance**:
-     - Use CSS variables for theming and toggle class names for layout changes.
-     - Store user preferences in local state or local storage.
-
-#### **User Interaction Flow**
-1. Users land on the MetricsOverview page.
-2. Users interact with the FilterPanel to apply their desired filters.
-3. MetricCards update to display relevant metrics based on filters.
-4. Hovering over the Heatmap reveals detailed insights.
-5. Clicking on a MetricCard opens the Detailed Metric Modal for deeper analysis.
-6. Users receive notifications for significant changes in metrics.
-
-#### **Potential Challenges and Solutions**
-- **Data Volume**: Large datasets could hinder performance.
-  - **Solution**: Implement pagination or lazy loading for MetricCards to manage display.
-- **User Overwhelm**: Too much information can confuse users.
-  - **Solution**: Simplify the interface and allow users to customize their view.
-- **Real-time Updates**: Ensuring seamless updates may be complex.
-  - **Solution**: Utilize efficient state management (e.g., Redux) to handle updates smoothly.
-
-#### **Prioritization**
-1. **MetricCard Enhancements** (Trend Arrows, Comparison Feature)
-2. **FilterPanel Improvements** (Saved Filters, Reset Button)
-3. **Heatmap Tooltips**
-4. **Detailed Metric Modal Improvements**
-5. **User Engagement Features** (Notifications, Gamification)
-6. **Customization Options** (Theme Selector, Card Layout Options)
-
-### Conclusion
-The MetricsOverview component provides a comprehensive view of growth metrics while enhancing user engagement and interactivity through thoughtful design and dynamic features. Implementing these enhancements will create a professional and user-friendly ERP tool, optimized for analyzing startup performance effectively.
-
-### Final Implementation Steps
-1. **Setup Environment**: Initialize the project with necessary dependencies (React, ECharts, etc.).
-2. **Create Core Components**: Build MetricCard, FilterPanel, Heatmap, and Detailed Metric Modal.
-3. **Implement State Management**: Use context or Redux to manage state for metrics and filters.
-4. **Integrate ECharts**: Implement the heatmap and charts within the modal.
-5. **Add User Engagement Features**: Implement notifications and gamification aspects.
-6. **Testing**: Conduct thorough testing, focusing on edge cases such as no data scenarios, rapid filter changes, and responsiveness.
-7. **User Feedback Loop**: Gather user feedback post-deployment to iterate on enhancements and usability improvements.
-
-This structured plan ensures all functionalities work together cohesively while providing a rich user experience.`
-- **Integrate** the plan directly into the code components provided, ensuring every part of the plan is fully reflected in the code. The integration must be seamless, with no missing details or gaps. All pieces should function together as a single, cohesive file.
-
-## **CodeComponents**
-- **Rewrite EVERY SINGLE LINE** of the components below as **const** functions within the current file.
-- **DO NOT** leave out any provided code.
-- **DO NOT** import any components or functions from other files. Every component must be rewritten as a **const** function in this file, fully recoded from scratch.
-- **Adjust** the code so that it **dynamically works** for your current code structure. Every function should be self-contained, with dynamic behavior that adapts to the current project setup.
-- `
-
-```javascript
-// File Path: MetricCard.js
-import React, { useState, useContext, createContext } from 'react';
-import ReactECharts from 'echarts-for-react';
-import { Modal, Checkbox, notification, Button } from 'antd';
-
-const MetricContext = createContext();
-
-const dummyData = {
-  metrics: [
-    { id: 1, name: 'Monthly Active Users', value: 1200, threshold: 1000, achievements: 1 },
-    { id: 2, name: 'Revenue', value: 30000, threshold: 25000, achievements: 2 },
-    { id: 3, name: 'Customer Acquisition Cost', value: 150, threshold: 200, achievements: 3 },
-  ],
-};
-
-const MetricCard = ({ metric }) => {
-  const { selectedMetrics, setSelectedMetrics } = useContext(MetricContext);
-  const [isSelected, setIsSelected] = useState(false);
-
-  const handleSelect = () => {
-    const newSelection = isSelected
-      ? selectedMetrics.filter(id => id !== metric.id)
-      : [...selectedMetrics, metric.id];
-    setSelectedMetrics(newSelection);
-    setIsSelected(!isSelected);
-  };
-
-  const showBadge = metric.value >= metric.threshold;
-
-  return (
-    <div style={{ width: '300px', border: '1px solid #ccc', padding: '20px', margin: '10px' }}>
-      <Checkbox checked={isSelected} onChange={handleSelect}>
-        Select for Comparison
-      </Checkbox>
-      <h3>{metric.name}</h3>
-      <p>Value: {metric.value}</p>
-      {showBadge && <span>🏆 Badge Unlocked!</span>}
-      <Button onClick={() => notification.info({ message: `${metric.name} has a significant change!` })}>
-        Check Notifications
-      </Button>
-    </div>
-  );
-};
-
-const ComparisonModal = ({ visible, onClose, metrics }) => {
-  const chartData = metrics.map(metric => ({
-    name: metric.name,
-    value: metric.value,
-  }));
-
-  const option = {
-    title: { text: 'Metric Comparison' },
-    tooltip: {},
-    xAxis: {
-      type: 'category',
-      data: chartData.map(item => item.name),
-    },
-    yAxis: { type: 'value' },
-    series: [{ data: chartData.map(item => item.value), type: 'bar' }],
-  };
-
-  return (
-    <Modal title="Comparison Chart" visible={visible} onCancel={onClose} footer={null}>
-      <ReactECharts option={option} />
-    </Modal>
-  );
-};
-
-const MetricDashboard = () => {
-  const [selectedMetrics, setSelectedMetrics] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const openComparisonModal = () => {
-    if (selectedMetrics.length < 2) {
-      notification.warning({ message: 'Select at least two metrics to compare.' });
-    } else {
-      setIsModalVisible(true);
-    }
-  };
-
-  return (
-    <MetricContext.Provider value={{ selectedMetrics, setSelectedMetrics }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {dummyData.metrics.map(metric => (
-          <MetricCard key={metric.id} metric={metric} />
-        ))}
-      </div>
-      <Button onClick={openComparisonModal}>Compare Selected Metrics</Button>
-      <ComparisonModal
-        visible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-        metrics={dummyData.metrics.filter(metric => selectedMetrics.includes(metric.id))}
-      />
-    </MetricContext.Provider>
-  );
-};
-
-export default MetricDashboard;
-```
-
-```javascript
-import React, { useState, useEffect } from 'react';
-import ReactECharts from 'echarts-for-react';
-
-const FilterPanel = () => {
-  const [startups, setStartups] = useState(['Startup A', 'Startup B', 'Startup C']);
-  const [selectedStartup, setSelectedStartup] = useState(startups[0]);
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [metricTypes, setMetricTypes] = useState(['Revenue', 'User Growth']);
-  const [selectedMetrics, setSelectedMetrics] = useState(['Revenue', 'User Growth']);
-  const [chartData, setChartData] = useState([]);
-  const [threshold, setThreshold] = useState(100);
-  const [notifications, setNotifications] = useState([]);
-  
-  const dummyData = {
-    'Startup A': { revenue: [120, 132, 101, 134, 90, 230, 210], userGrowth: [10, 20, 30, 25, 20, 15, 10] },
-    'Startup B': { revenue: [220, 182, 191, 234, 290, 330, 310], userGrowth: [50, 60, 70, 80, 90, 100, 110] },
-    'Startup C': { revenue: [150, 232, 201, 154, 190, 330, 410], userGrowth: [15, 25, 35, 45, 55, 65, 75] }
-  };
-
-  useEffect(() => {
-    updateChartData();
-  }, [selectedStartup, dateRange, selectedMetrics]);
-
-  const updateChartData = () => {
-    const data = dummyData[selectedStartup];
-    setChartData(data);
-    checkThresholds(data);
-  };
-
-  const checkThresholds = (data) => {
-    const revenueExceed = data.revenue.some(value => value > threshold);
-    const userGrowthExceed = data.userGrowth.some(value => value > threshold);
-    
-    if (revenueExceed) {
-      setNotifications(prev => [...prev, 'Revenue exceeded threshold!']);
-    }
-    if (userGrowthExceed) {
-      setNotifications(prev => [...prev, 'User Growth exceeded threshold!']);
-    }
-  };
-
-  const handleMetricChange = (metric) => {
-    setSelectedMetrics(prev => 
-      prev.includes(metric) ? prev.filter(m => m !== metric) : [...prev, metric]
-    );
-  };
-
-  const getOption = () => {
-    const series = selectedMetrics.map(metric => ({
-      name: metric,
-      type: 'line',
-      data: chartData[metric.toLowerCase()] || []
-    }));
-    
-    return {
-      title: { text: 'Metrics Overview' },
-      tooltip: { trigger: 'axis' },
-      xAxis: { type: 'category', data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
-      yAxis: { type: 'value' },
-      series
-    };
-  };
-
-  return (
-    <div>
-      <div>
-        <label>Startup:</label>
-        <select value={selectedStartup} onChange={e => setSelectedStartup(e.target.value)}>
-          {startups.map(startup => <option key={startup} value={startup}>{startup}</option>)}
-        </select>
-      </div>
-      <div>
-        <label>Date Range:</label>
-        <input 
-          type="date" 
-          value={dateRange[0] || ''} 
-          onChange={e => setDateRange([e.target.value, dateRange[1]])} 
-        />
-        <input 
-          type="date" 
-          value={dateRange[1] || ''} 
-          onChange={e => setDateRange([dateRange[0], e.target.value])} 
-        />
-      </div>
-      <div>
-        <label>Metrics:</label>
-        {metricTypes.map(metric => (
-          <div key={metric}>
-            <input 
-              type="checkbox" 
-              checked={selectedMetrics.includes(metric)} 
-              onChange={() => handleMetricChange(metric)} 
-            />
-            {metric}
-          </div>
-        ))}
-      </div>
-      <div>
-        <label>Threshold:</label>
-        <input 
-          type="number" 
-          value={threshold} 
-          onChange={e => setThreshold(Number(e.target.value))} 
-        />
-      </div>
-      <div>
-        <ReactECharts option={getOption()} />
-      </div>
-      <div>
-        {notifications.map((note, index) => <div key={index}>{note}</div>)}
-      </div>
-    </div>
-  );
-};
-
-export default FilterPanel;
-```
-
-```javascript
-// File Path: Heatmap.js
-import React, { useState } from 'react';
-import ReactECharts from 'echarts-for-react';
-import { Checkbox, Button, notification } from 'antd';
-
-const dummyData = {
-    metrics: [
-        { name: 'Metric A', values: [80, 90, 70, 60, 50] },
-        { name: 'Metric B', values: [30, 40, 70, 80, 90] },
-        { name: 'Metric C', values: [20, 50, 90, 40, 60] },
-    ],
-    timestamps: ['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-04', '2023-01-05'],
-};
-
-const Heatmap = () => {
-    const [selectedMetrics, setSelectedMetrics] = useState([true, false, false]);
-    const [feedback, setFeedback] = useState({ up: 0, down: 0 });
-
-    const handleMetricChange = (index) => {
-        const newMetrics = [...selectedMetrics];
-        newMetrics[index] = !newMetrics[index];
-        setSelectedMetrics(newMetrics);
-    };
-
-    const getHeatmapData = () => {
-        const data = [];
-        for (let i = 0; i < dummyData.timestamps.length; i++) {
-            for (let j = 0; j < selectedMetrics.length; j++) {
-                if (selectedMetrics[j]) {
-                    data.push([i, j, dummyData.metrics[j].values[i]]);
-                }
-            }
-        }
-        return data;
-    };
-
-    const handleCellClick = (params) => {
-        const { data } = params;
-        notification.open({
-            message: 'Cell Clicked',
-            description: `Metric: ${dummyData.metrics[data[1]].name}, Value: ${data[2]}, Date: ${dummyData.timestamps[data[0]]}`,
-        });
-    };
-
-    const getOption = () => {
-        return {
-            tooltip: { position: 'top' },
-            grid: { height: '80%', width: '80%', top: '10%' },
-            xAxis: {
-                type: 'category',
-                data: dummyData.timestamps,
-            },
-            yAxis: {
-                type: 'category',
-                data: dummyData.metrics.map(m => m.name),
-            },
-            visualMap: {
-                min: 0,
-                max: 100,
-                calculable: true,
-                inRange: {
-                    color: ['#ffffff', '#ff0000'],
-                },
-            },
-            series: [
-                {
-                    name: 'Heatmap',
-                    type: 'heatmap',
-                    data: getHeatmapData(),
-                    label: {
-                        show: true,
-                    },
-                    emphasis: {
-                        itemStyle: {
-                            shadowBlur: 10,
-                            shadowColor: '#333',
-                        },
-                    },
-                },
-            ],
-        };
-    };
-
-    return (
-        <div>
-            <Checkbox.Group>
-                {dummyData.metrics.map((metric, index) => (
-                    <Checkbox
-                        key={index}
-                        checked={selectedMetrics[index]}
-                        onChange={() => handleMetricChange(index)}
-                    >
-                        {metric.name}
-                    </Checkbox>
-                ))}
-            </Checkbox.Group>
-            <Button onClick={() => setFeedback({ ...feedback, up: feedback.up + 1 })}>👍 {feedback.up}</Button>
-            <Button onClick={() => setFeedback({ ...feedback, down: feedback.down + 1 })}>👎 {feedback.down}</Button>
-            <ReactECharts
-                option={getOption()}
-                onEvents={{ 'click': handleCellClick }}
-            />
-        </div>
-    );
-};
-
-export default Heatmap;
-````
-- Ensure that every line of code is **faithfully recoded**. **No shortcuts, no omissions, no imports.** Every component should be rewritten as a **const** function and fully integrated into the file.
-
-## **FileRequirements**
-- Create a single **JavaScript** file.
-- **DO NOT** include any external styling (e.g., CSS files). Styling should not be a part of this task.
-- Use only **dummy data**, with no backend, API calls, or external services.
-- Include only necessary React imports (e.g., `useState`, `useEffect` if needed).
-- **DO NOT** import any custom components or functions from other files. All logic and components must be fully contained within the single file.
-
-## **Rules**
-
-### **General**
-- **NO ERRORS**: The code must work perfectly on the first try, without bugs or issues.
-- Provide **complete code**, fully functional and self-contained. **Recreate every part of the code in this file** with no omissions, placeholders, or imports.
-- **DO NOT** import any external JS files or components. **Recreate every component and function exactly as specified**, rewriting each as a **const** function.
-
-## **Goal**
-- The final product should be a **single, complete component** that integrates the plan and code components fully.
-- Every component and function provided should be **recoded, rewritten as const functions**, and **integrated perfectly** into the current file without summarization, omission, or importation from other files.
-- The result should be **100% functional**, fully dynamic, and self-contained with no missing code. It should fully reflect the plan provided and **adapt to the current code structure**.
-
----
-
-**Important**: Absolutely **NO summarization**. Every single piece of code must be **rewritten as a const function**, fully integrated and dynamically functional within the current file. The goal is to have one **complete, error-free**, and **self-contained** file with everything implemented as described.
-
-
-
-
-
-# **Instructions**
-
-## **Plan**
-- Use the **exact** plan outlined below as the foundation for your implementation.
-- `Component Name: StartupProfileCard, Component requirements: ### Final Plan for StartupProfileCard Component
-
-#### Component Description
-The StartupProfileCard will serve as the main focal point, displaying essential information about the startup. It will include:
-- **Startup Name**: Editable text field for the startup's name.
-- **Mission Statement**: Editable text area for a concise summary of the startup's mission.
-- **Team Members**: Detailed list of team members, including roles, contact details, and bios, with options to add, edit, remove, and reorder members.
-
-#### Functionality
-The StartupProfileCard offers a dual mode for user interaction:
-- **View Mode**: Users can see the startup's information and team details.
-- **Edit Mode**: Users can edit startup details, team member information, and save changes.
-
-#### Details
-- **Title**: Editable field displaying the startup's name.
-- **Description**: Editable area for the startup's mission.
-- **TeamList**: Displays team members with add/edit/remove functionality and drag-and-drop reordering capability.
-
-#### User Interaction
-- Clicking on the Title or Description enters Edit Mode.
-- Team member names can be clicked to reveal a detailed view.
-- An edit icon is present for each section, and a save button appears when in Edit Mode.
-
-#### Interconnectivity
-- Links to mentorship details via a page URL (`/mentorship/:startupId`).
-
-### New Features and Enhancements
-
-1. **User Engagement**
-   - **Feature**: Comment Section
-     - **Functionality**: Users can post comments, reply, and like others' comments.
-     - **User Interaction**: Comments are displayed below the StartupProfileCard.
-     - **Implementation**: Use dummy data for comments stored in an array.
-     - **Challenges**: Implement a flagging system for moderation.
-
-2. **Data Visualization**
-   - **Feature**: Team Performance Dashboard
-     - **Functionality**: Visual graphs showing contributions over time.
-     - **User Interaction**: Users can select a time range to view performance metrics.
-     - **Implementation**: Use ECharts to create interactive charts.
-     - **Challenges**: Include tooltips for clarity on data points.
-
-3. **Interactivity**
-   - **Feature**: Team Member Profiles
-     - **Functionality**: Clicking a member's name opens a modal showing detailed profiles.
-     - **User Interaction**: Display skills, projects, and achievements in a tabbed interface.
-     - **Implementation**: Use modals with state management to handle profile data.
-     - **Challenges**: Keep the interface clean; use tabs for organization.
-
-4. **Productivity Tools**
-   - **Feature**: Task Assignment Module
-     - **Functionality**: Assign tasks with due dates to team members.
-     - **User Interaction**: Form to create tasks, assign members, and set deadlines.
-     - **Implementation**: Use a list to display tasks with status indicators.
-     - **Challenges**: Color code tasks based on status (e.g., completed, pending).
-
-5. **Customization Options**
-   - **Feature**: Theme Switcher
-     - **Functionality**: Toggle between light and dark themes.
-     - **User Interaction**: A toggle button at the top of the card.
-     - **Implementation**: Use CSS variables for dynamic theme changes.
-     - **Challenges**: Ensure all elements adapt correctly through testing.
-
-6. **Gamification**
-   - **Feature**: Achievement Badges
-     - **Functionality**: Display badges for milestones achieved by team members.
-     - **User Interaction**: Badges shown on team member profiles.
-     - **Implementation**: Use dummy data for badges earned.
-     - **Challenges**: Define criteria for earning badges collaboratively.
-
-7. **Dynamic Content**
-   - **Feature**: News Feed for Updates
-     - **Functionality**: Stream of updates related to the startup or industry.
-     - **User Interaction**: Users scroll through updates; click for details.
-     - **Implementation**: Use dummy data to simulate a news feed.
-     - **Challenges**: Provide a filtering option for user preferences.
-
-8. **Notifications**
-   - **Feature**: Alert System for Changes
-     - **Functionality**: Notify users of changes to profiles or team.
-     - **User Interaction**: Notifications appear as toast messages.
-     - **Implementation**: Use a state management system to trigger notifications.
-     - **Challenges**: Allow users to manage notification settings.
-
-### Prioritization
-1. **Team Performance Dashboard**: High impact, Medium feasibility
-2. **Comment Section**: Medium impact, High feasibility
-3. **Task Assignment Module**: Medium impact, Medium feasibility
-4. **Team Member Profiles**: Medium impact, High feasibility
-5. **Achievement Badges**: Medium impact, Low feasibility
-6. **News Feed for Updates**: Low impact, Medium feasibility
-7. **Theme Switcher**: Low impact, High feasibility
-8. **Alert System for Changes**: Low impact, Medium feasibility
-
-### Step-by-Step Implementation Plan
-
-#### Step 1: Clarification
-- Ensure that each feature is clearly defined and that the user interactions are straightforward.
-
-#### Step 2: Implementation Guidance
-- **Title & Description**: Use input fields that toggle between read-only and editable states.
-- **TeamList**: Implement a dynamic list using a state management system to handle adds/edits/removes.
-- **Comment Section**: Create a component to manage comment submissions and display.
-- **Team Performance Dashboard**: Integrate ECharts for data visualization.
-- **Task Assignment Module**: Create a task form and display tasks in a list with status indicators.
-
-#### Step 3: Efficiency
-- Structure code components logically, using reusable components where possible to minimize redundancy.
-
-#### Step 4: Technical Specifications
-- Use React or Vue.js for component management, CSS for styling, and ECharts for data visualization.
-
-#### Step 5: Examples
-- For the Team Member Profiles, provide a modal example that includes tabs for skills, projects, and achievements.
-
-#### Step 6: Edge Cases
-- Ensure input validation for all forms (e.g., required fields, correct formats).
-- Test scenarios where a user may attempt to submit empty comments or tasks.
-
-#### Step 7: Enhancements
-- Consider implementing user roles to manage permissions for editing and commenting.
-- Enhance the performance dashboard with filtering options and export capabilities.
-
-### Conclusion
-This comprehensive plan outlines the core functionality, details, enhancements, and potential challenges of the StartupProfileCard component, ensuring a detailed, user-friendly experience in a professional ERP interface. With a focus on interconnectivity and user engagement, the plan aims to provide a seamless experience for users in managing startup information effectively.`
-- **Integrate** the plan directly into the code components provided, ensuring every part of the plan is fully reflected in the code. The integration must be seamless, with no missing details or gaps. All pieces should function together as a single, cohesive file.
-
-## **CodeComponents**
-- **Rewrite EVERY SINGLE LINE** of the components below as **const** functions within the current file.
-- **DO NOT** leave out any provided code.
-- **DO NOT** import any components or functions from other files. Every component must be rewritten as a **const** function in this file, fully recoded from scratch.
-- **Adjust** the code so that it **dynamically works** for your current code structure. Every function should be self-contained, with dynamic behavior that adapts to the current project setup.
-- `
-
-```javascript
-import React, { useState } from 'react';
-import ReactECharts from 'echarts-for-react';
-
-const TitleComponent = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [startupName, setStartupName] = useState("Current Startup Name");
-  const [error, setError] = useState("");
-  
-  const handleNameChange = (e) => {
-    const value = e.target.value;
-    const regex = /^[a-zA-Z0-9\s]*$/;
-
-    if (value.length <= 50 && regex.test(value)) {
-      setStartupName(value);
-      setError("");
-    } else {
-      setError("Invalid characters or too long");
-    }
-  };
-
-  const handleBlur = () => {
-    setIsEditing(false);
-  };
-
-  const handleClick = () => {
-    setIsEditing(true);
-  };
-
-  const fundingData = [
-    { date: '2023-01-01', amount: 50000 },
-    { date: '2023-06-01', amount: 100000 },
-    { date: '2023-12-01', amount: 150000 },
-  ];
-
-  const getChartOptions = () => ({
-    title: { text: 'Funding Overview' },
-    tooltip: { trigger: 'axis' },
-    xAxis: {
-      type: 'category',
-      data: fundingData.map(data => data.date),
-    },
-    yAxis: {
-      type: 'value',
-      name: 'Amount ($)',
-    },
-    series: [{
-      name: 'Funding Amount',
-      type: 'line',
-      data: fundingData.map(data => data.amount),
-    }],
-  });
-
-  return (
-    <div>
-      <div>
-        {isEditing ? (
-          <input
-            type="text"
-            value={startupName}
-            onChange={handleNameChange}
-            onBlur={handleBlur}
-            style={{ fontSize: '24px', fontWeight: '700' }}
-          />
-        ) : (
-          <h1 onClick={handleClick} style={{ fontSize: '24px', fontWeight: '700' }}>{startupName}</h1>
-        )}
-        {error && <div style={{ color: 'red' }}>{error}</div>}
-      </div>
-      <ReactECharts option={getChartOptions()} />
-    </div>
-  );
-};
-
-const DynamicTagline = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [tagline, setTagline] = useState("Innovating the Future");
-  const [error, setError] = useState("");
-
-  const handleTaglineChange = (e) => {
-    const value = e.target.value;
-    const regex = /^[a-zA-Z0-9\s]*$/;
-
-    if (value.length <= 50 && regex.test(value)) {
-      setTagline(value);
-      setError("");
-    } else {
-      setError("Invalid characters or too long");
-    }
-  };
-
-  const handleBlur = () => {
-    setIsEditing(false);
-  };
-
-  const handleClick = () => {
-    setIsEditing(true);
-  };
-
-  return (
-    <div>
-      {isEditing ? (
-        <input
-          type="text"
-          value={tagline}
-          onChange={handleTaglineChange}
-          onBlur={handleBlur}
-          style={{ fontSize: '18px', fontStyle: 'italic' }}
-        />
-      ) : (
-        <h2 onClick={handleClick} style={{ fontSize: '18px', fontStyle: 'italic' }}>{tagline}</h2>
-      )}
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-    </div>
-  );
-};
-
-const CollaboratorsSection = () => {
-  const [collaborators, setCollaborators] = useState([]);
-  const [newCollaborator, setNewCollaborator] = useState({ name: '', role: '', contact: '' });
-
-  const addCollaborator = () => {
-    if (newCollaborator.name && newCollaborator.role && newCollaborator.contact) {
-      setCollaborators([...collaborators, { ...newCollaborator, id: Date.now() }]);
-      setNewCollaborator({ name: '', role: '', contact: '' });
-    }
-  };
-
-  const removeCollaborator = (id) => {
-    setCollaborators(collaborators.filter(collab => collab.id !== id));
-  };
-
-  return (
-    <div>
-      {collaborators.map(collab => (
-        <div key={collab.id}>
-          <span>{collab.name} - {collab.role} - {collab.contact}</span>
-          <button onClick={() => removeCollaborator(collab.id)}>Remove</button>
-        </div>
-      ))}
-      <input
-        type="text"
-        placeholder="Name"
-        value={newCollaborator.name}
-        onChange={e => setNewCollaborator({ ...newCollaborator, name: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Role"
-        value={newCollaborator.role}
-        onChange={e => setNewCollaborator({ ...newCollaborator, role: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Contact"
-        value={newCollaborator.contact}
-        onChange={e => setNewCollaborator({ ...newCollaborator, contact: e.target.value })}
-      />
-      <button onClick={addCollaborator}>Add Collaborator</button>
-    </div>
-  );
-};
-
-const NotificationsPanel = () => {
-  const [notifications, setNotifications] = useState([
-    { id: 1, message: "New funding opportunity available", read: false },
-    { id: 2, message: "You have a message from a collaborator", read: false },
-  ]);
-
-  const markAsRead = (id) => {
-    setNotifications(notifications.map(note => note.id === id ? { ...note, read: true } : note));
-  };
-
-  return (
-    <div>
-      {notifications.map(note => (
-        <div key={note.id} style={{ textDecoration: note.read ? 'line-through' : 'none' }}>
-          {note.message}
-          <button onClick={() => markAsRead(note.id)}>Mark as Read</button>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-const CustomizationOptions = () => {
-  const [theme, setTheme] = useState('default');
-
-  const changeTheme = (newTheme) => {
-    setTheme(newTheme);
-    // Ideally, save the theme preference to local storage or context
-  };
-
-  return (
-    <div>
-      <button onClick={() => changeTheme('dark')}>Dark Theme</button>
-      <button onClick={() => changeTheme('light')}>Light Theme</button>
-    </div>
-  );
-};
-
-const MainComponent = () => {
-  return (
-    <div>
-      <TitleComponent />
-      <DynamicTagline />
-      <CollaboratorsSection />
-      <NotificationsPanel />
-      <CustomizationOptions />
-    </div>
-  );
-};
-
-export default MainComponent;
-```
-
-```javascript
-import React, { useState, useEffect } from 'react';
-import ReactECharts from 'echarts-for-react';
-
-const Dashboard = () => {
-  const [missionStatement, setMissionStatement] = useState("Our mission is to empower businesses.");
-  const [editable, setEditable] = useState(false);
-  const [feedback, setFeedback] = useState('');
-  const [feedbackList, setFeedbackList] = useState([{ userId: '1', feedback: 'Clear mission!' }]);
-  const [milestones, setMilestones] = useState([
-    { milestone: 'Launch', status: 'Completed' },
-    { milestone: 'First 100 Users', status: 'In Progress' }
-  ]);
-  const [notifications, setNotifications] = useState([{ type: 'update', message: 'Mission statement updated!', timestamp: '2023-10-01' }]);
-  const [chartData, setChartData] = useState([{ month: 'Jan', users: 100 }, { month: 'Feb', users: 150 }]);
-  const [customization, setCustomization] = useState({ fontSize: 16, color: '#000000' });
-  const [dynamicMetrics, setDynamicMetrics] = useState([{ metric: 'User Growth', views: 200 }]);
-  const [showNotification, setShowNotification] = useState(false);
-  
-  const handleMissionChange = (e) => setMissionStatement(e.target.value);
-  
-  const handleFeedbackSubmit = () => {
-    setFeedbackList([...feedbackList, { userId: `${feedbackList.length + 1}`, feedback }]);
-    setFeedback('');
-  };
-  
-  const handleCustomizationChange = (e) => {
-    const { name, value } = e.target;
-    setCustomization(prev => ({ ...prev, [name]: value }));
-  };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setEditable(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, [editable]);
-
-  const getOption = () => ({
-    xAxis: {
-      type: 'category',
-      data: chartData.map(item => item.month)
-    },
-    yAxis: {
-      type: 'value'
-    },
-    series: [{
-      data: chartData.map(item => item.users),
-      type: 'line'
-    }]
-  });
-
-  return (
-    <div style={{ width: '1920px', height: '1080px' }}>
-      <div style={{ marginBottom: '20px', fontSize: customization.fontSize, color: customization.color }}>
-        {editable ? (
-          <input type="text" value={missionStatement} onChange={handleMissionChange} onBlur={() => setEditable(false)} />
-        ) : (
-          <span onClick={() => setEditable(true)}>{missionStatement}</span>
-        )}
-        <button onClick={() => setShowNotification(!showNotification)}>Feedback</button>
-        {showNotification && (
-          <div>
-            <textarea value={feedback} onChange={(e) => setFeedback(e.target.value)} />
-            <button onClick={handleFeedbackSubmit}>Submit Feedback</button>
-          </div>
-        )}
-      </div>
-      
-      <ReactECharts option={getOption()} />
-
-      <div>
-        {milestones.map((milestone, index) => (
-          <div key={index} style={{ display: 'flex', marginBottom: '10px' }}>
-            <div style={{ width: '200px', backgroundColor: milestone.status === 'Completed' ? 'green' : 'yellow' }}>
-              {milestone.milestone}
-            </div>
-            <div>{milestone.status}</div>
-          </div>
-        ))}
-      </div>
-
-      <div>
-        <h3>Notifications</h3>
-        {notifications.map((note, index) => (
-          <div key={index}>
-            <span>{note.message} - {note.timestamp}</span>
-            <button onClick={() => setNotifications(notifications.filter((_, i) => i !== index))}>Dismiss</button>
-          </div>
-        ))}
-      </div>
-
-      <div>
-        <h3>Customize</h3>
-        <input type="range" name="fontSize" min="10" max="30" value={customization.fontSize} onChange={handleCustomizationChange} />
-        <input type="color" name="color" value={customization.color} onChange={handleCustomizationChange} />
-      </div>
-
-      <div>
-        <h3>Dynamic Metrics</h3>
-        {dynamicMetrics.map((metric, index) => (
-          <div key={index}>{metric.metric} - {metric.views} views</div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default Dashboard;
-```
-
-```javascript
-// File Path: TeamList.js
-
-import React, { useState } from 'react';
-import ReactECharts from 'echarts-for-react';
-import { useDrag, useDrop } from 'react-dnd';
-import { Star } from 'react-stars';
-
-const membersData = [
-  { id: 1, name: 'John Doe', role: 'Developer', email: 'john.doe@example.com', bio: 'Full stack developer with a passion for coding.', status: 'Available', rating: 4.5 },
-  { id: 2, name: 'Jane Smith', role: 'Designer', email: 'jane.smith@example.com', bio: 'Creative designer with a love for UI/UX.', status: 'In a Meeting', rating: 4.0 },
-  { id: 3, name: 'Alice Johnson', role: 'Project Manager', email: 'alice.johnson@example.com', bio: 'Experienced project manager focused on deliverables.', status: 'Available', rating: 5.0 }
-];
-
-const TeamMember = ({ member, index, moveMember }) => {
-  const [, ref] = useDrag({
-    type: 'teamMember',
-    item: { index }
-  });
-
-  const [, drop] = useDrop({
-    accept: 'teamMember',
-    hover(item) {
-      if (item.index !== index) {
-        moveMember(item.index, index);
-        item.index = index;
-      }
-    }
-  });
-
-  return (
-    <div ref={ref(drop())} style={{ padding: '10px', border: '1px solid #ccc', margin: '5px', backgroundColor: '#f9f9f9' }}>
-      <h4 onClick={() => alert(`Details for ${member.name}`)}>{member.name}</h4>
-      <p>Role: {member.role}</p>
-      <p>Email: {member.email}</p>
-      <p>Bio: {member.bio}</p>
-      <p>Status: <span style={{ color: member.status === 'Available' ? 'green' : 'orange' }}>{member.status}</span></p>
-      <Star 
-        count={5} 
-        value={member.rating} 
-        onChange={(newRating) => alert(`Rating for ${member.name} updated to ${newRating}`)} 
-      />
-      <button onClick={() => alert(`Assign task to ${member.name}`)}>Assign Task</button>
-    </div>
-  );
-};
-
-const TeamList = () => {
-  const [members, setMembers] = useState(membersData);
-
-  const moveMember = (fromIndex, toIndex) => {
-    const updatedMembers = [...members];
-    const [movedMember] = updatedMembers.splice(fromIndex, 1);
-    updatedMembers.splice(toIndex, 0, movedMember);
-    setMembers(updatedMembers);
-  };
-
-  const roleDistribution = members.reduce((acc, member) => {
-    acc[member.role] = (acc[member.role] || 0) + 1;
-    return acc;
-  }, {});
-
-  const getOption = () => ({
-    title: {
-      text: 'Team Composition'
-    },
-    tooltip: {},
-    series: [{
-      type: 'pie',
-      radius: '50%',
-      data: Object.entries(roleDistribution).map(([role, count]) => ({ value: count, name: role })),
-      emphasis: {
-        itemStyle: {
-          shadowBlur: 10,
-          shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        }
-      }
-    }]
-  });
-
-  return (
-    <div style={{ width: '1920px', height: '1080px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-      <h2>Team List</h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {members.map((member, index) => (
-          <TeamMember key={member.id} member={member} index={index} moveMember={moveMember} />
-        ))}
-      </div>
-      <h3>Team Composition Chart</h3>
-      <ReactECharts option={getOption()} style={{ height: '400px', width: '600px' }} />
-    </div>
-  );
-};
-
-export default TeamList;
-````
-- Ensure that every line of code is **faithfully recoded**. **No shortcuts, no omissions, no imports.** Every component should be rewritten as a **const** function and fully integrated into the file.
-
-## **FileRequirements**
-- Create a single **JavaScript** file.
-- **DO NOT** include any external styling (e.g., CSS files). Styling should not be a part of this task.
-- Use only **dummy data**, with no backend, API calls, or external services.
-- Include only necessary React imports (e.g., `useState`, `useEffect` if needed).
-- **DO NOT** import any custom components or functions from other files. All logic and components must be fully contained within the single file.
-
-## **Rules**
-
-### **General**
-- **NO ERRORS**: The code must work perfectly on the first try, without bugs or issues.
-- Provide **complete code**, fully functional and self-contained. **Recreate every part of the code in this file** with no omissions, placeholders, or imports.
-- **DO NOT** import any external JS files or components. **Recreate every component and function exactly as specified**, rewriting each as a **const** function.
-
-## **Goal**
-- The final product should be a **single, complete component** that integrates the plan and code components fully.
-- Every component and function provided should be **recoded, rewritten as const functions**, and **integrated perfectly** into the current file without summarization, omission, or importation from other files.
-- The result should be **100% functional**, fully dynamic, and self-contained with no missing code. It should fully reflect the plan provided and **adapt to the current code structure**.
-
----
-
-**Important**: Absolutely **NO summarization**. Every single piece of code must be **rewritten as a const function**, fully integrated and dynamically functional within the current file. The goal is to have one **complete, error-free**, and **self-contained** file with everything implemented as described.
-
-
-
-
-
-# **Instructions**
-
-## **Plan**
-- Use the **exact** plan outlined below as the foundation for your implementation.
-- `Component Name: InvestorProfileContainer, Component requirements: # Final Plan for InvestorProfileContainer Component
-
-## Description
-This plan outlines the enhancements and features for the InvestorProfileContainer component, which serves as a central hub for displaying comprehensive investor information. The aim is to improve user engagement, data visualization, interactivity, information presentation, and overall productivity within a desktop application using React, Ant Design, and ECharts.
-
-## Content
-
-### Component Description
-- The InvestorProfileContainer displays the main investor profile along with their details and interactions, providing a seamless user experience.
-
-### Functionality
-- The InvestorProfileContainer serves as the central hub for displaying comprehensive investor information, including:
-  - Personal Details
-  - Preferences
-  - Engagement History
-  - Potential Startup Matches
-
-- The component dynamically updates its child components based on the selected investor, ensuring users have access to the most relevant information. It manages data flow between children, synchronizing updates for a coherent view of the investor's profile.
-
-### Details
-- The component features a responsive layout that adjusts based on screen size to maximize visibility.
-- It manages the state for the current investor and passes this data down to child components as props.
-- It handles data fetching for investor details, showing loading indicators while data is retrieved.
-- The layout allows for the expansion or collapsing of sections (e.g., engagement history) to improve navigation.
-
-## New Features and Enhancements
-
-1. **User Engagement Tools**
-   - **Functionality**: Integrate an engagement tracker for recent activities and engagements with startups.
-   - **Key Components**: Engagement History Module.
-   - **Data Requirements**: Dummy data for activities (e.g., meetings scheduled, follow-ups).
-   - **User Interaction Flow**: Click on the Engagement History tab to view detailed logs and insights.
-   - **Challenges/Solutions**: Use state management to refresh data without full re-renders.
-
-2. **Data Visualization Dashboard**
-   - **Functionality**: Introduce a dashboard displaying investment trends and portfolio performance using ECharts.
-   - **Key Components**: Charts for investment breakdown, performance over time, and sector allocations.
-   - **Data Requirements**: Dummy data simulating investment amounts and performance metrics.
-   - **User Interaction Flow**: Hover over charts for tooltips; click to view more information.
-   - **Challenges/Solutions**: Use different chart types for clarity in representation.
-
-3. **Interactive Proposal Section**
-   - **Functionality**: Allow investors to view and interact with proposals from startups.
-   - **Key Components**: Proposal List Component with filters and sorting options.
-   - **Data Requirements**: Dummy proposal data with attributes like title, amount requested, and status.
-   - **User Interaction Flow**: Filter proposals by status and click for details.
-   - **Challenges/Solutions**: Implement pagination or infinite scroll for large lists.
-
-4. **Customization Options**
-   - **Functionality**: Provide options for users to customize their view (e.g., layout preferences, visible metrics).
-   - **Key Components**: Settings Modal for customization options.
-   - **Data Requirements**: Dummy configurations stored in local state.
-   - **User Interaction Flow**: Access settings to adjust preferences, which persist on session.
-   - **Challenges/Solutions**: Use local storage for persistence of user preferences.
-
-5. **Gamification Element**
-   - **Functionality**: Introduce a rewards system to encourage frequent interactions with startups.
-   - **Key Components**: Badges and rewards display.
-   - **Data Requirements**: Dummy data for achievements and rewards.
-   - **User Interaction Flow**: Users receive notifications upon achieving milestones.
-   - **Challenges/Solutions**: Balance engagement without overwhelming users; keep rewards meaningful.
-
-6. **Dynamic Notifications**
-   - **Functionality**: Implement a notification system for updates regarding investments or new proposals.
-   - **Key Components**: Notification Bell Icon and Dropdown.
-   - **Data Requirements**: Dummy notification data simulating alerts.
-   - **User Interaction Flow**: Click the notification bell to view alerts and mark read/unread.
-   - **Challenges/Solutions**: Set intervals for fetching new notifications to ensure timely updates.
-
-## Interconnectivity
-- The InvestorProfileContainer should interact with the Active Funding Rounds Page to pull relevant startup data for potential matches.
-
-## User Interaction
-### Interactivity
-- Clicking on an investor's name loads their profile in the InvestorProfileContainer, triggering a fetch request to retrieve data, which updates the state and subsequently updates child components.
-
-## Prioritization
-- Rank the ideas based on their potential impact and feasibility:
-  1. Data Visualization Dashboard
-  2. User Engagement Tools
-  3. Interactive Proposal Section
-  4. Dynamic Notifications
-  5. Customization Options
-  6. Gamification Element
-
-# Step-by-Step Plan
-
-### 1. Clarification
-- Ensure the functionality of each feature is well-defined, focusing on user experience and data handling.
-
-### 2. Implementation Guidance
-- **User Engagement Tools**:
-  - Create an Engagement History Module that fetches and displays user engagement data.
-  - Use React's state hooks to manage the engagement history.
-  
-- **Data Visualization Dashboard**:
-  - Integrate ECharts for displaying investment trends.
-  - Define datasets and configure chart types based on the data needs.
-
-- **Interactive Proposal Section**:
-  - Develop a Proposal List Component with filtering and sorting capabilities.
-  - Implement pagination to handle large datasets.
-
-- **Customization Options**:
-  - Create a Settings Modal for user preferences.
-  - Use local storage to persist user settings.
-
-- **Gamification Element**:
-  - Design a rewards display integrated into the user profile.
-  - Use notifications to inform users of new achievements.
-
-- **Dynamic Notifications**:
-  - Create a notification system that checks for updates regularly.
-  - Use React state to manage the read/unread status of notifications.
-
-### 3. Efficiency
-- Structure the component logically, separating concerns into smaller functions or modules. This will yield greater maintainability and readability.
-
-### 4. Technical Specifications
-- Frameworks/Technologies: React, Ant Design, ECharts.
-- State Management: React Hooks.
-- Data Handling: Local state and local storage for persistence.
-
-### 5. Examples
-- **User Engagement Tools**: Clicking the Engagement History tab fetches and displays activities related to the investor.
-- **Data Visualization Dashboard**: Hovering over a sector allocation chart displays detailed investment percentages.
-
-### 6. Edge Cases
-- Handle scenarios where no engagement data exists gracefully by displaying a friendly message.
-- Ensure that the proposal list handles empty states and shows appropriate messages to the user.
-
-### 7. Enhancements
-- Consider implementing a dark mode for the component to enhance user experience.
-- Explore the use of animations when transitioning between different views or upon data fetching to provide visual feedback.
-
-## Conclusion
-This comprehensive plan enhances the InvestorProfileContainer's functionality and user experience, maximizing engagement and providing valuable insights for investors in a desktop application environment. The outlined steps ensure clarity in implementation while addressing potential user needs effectively.`
-- **Integrate** the plan directly into the code components provided, ensuring every part of the plan is fully reflected in the code. The integration must be seamless, with no missing details or gaps. All pieces should function together as a single, cohesive file.
-
-## **CodeComponents**
-- **Rewrite EVERY SINGLE LINE** of the components below as **const** functions within the current file.
-- **DO NOT** leave out any provided code.
-- **DO NOT** import any components or functions from other files. Every component must be rewritten as a **const** function in this file, fully recoded from scratch.
-- **Adjust** the code so that it **dynamically works** for your current code structure. Every function should be self-contained, with dynamic behavior that adapts to the current project setup.
-- `
-
-```javascript
-// File Path: InvestorProfileCard.js
-
-import React, { useState } from 'react';
-import ReactECharts from 'echarts-for-react';
-
-const InvestorProfileCard = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [investorData, setInvestorData] = useState({
-    name: 'John Doe',
-    organization: 'Finance Corp',
-    title: 'Senior Investor',
-    contact: 'john.doe@example.com',
-  });
-  const [comments, setComments] = useState(['Great investor to work with!', 'Follow up on recent investment.']);
-  const [newComment, setNewComment] = useState('');
-  const [tasks, setTasks] = useState([{ id: 1, task: 'Schedule meeting', completed: false }]);
-  const [newTask, setNewTask] = useState('');
-
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInvestorData({ ...investorData, [name]: value });
-  };
-
-  const handleSave = () => {
-    setIsEditing(false);
-    // Dummy backend update logic here
-  };
-
-  const handleAddComment = () => {
-    if (newComment.trim()) {
-      setComments([...comments, newComment]);
-      setNewComment('');
-    }
-  };
-
-  const handleDeleteComment = (index) => {
-    const updatedComments = comments.filter((_, idx) => idx !== index);
-    setComments(updatedComments);
-  };
-
-  const handleAddTask = () => {
-    if (newTask.trim()) {
-      setTasks([...tasks, { id: tasks.length + 1, task: newTask, completed: false }]);
-      setNewTask('');
-    }
-  };
-
-  const handleTaskToggle = (id) => {
-    setTasks(tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task));
-  };
-
-  const getOption = () => ({
-    title: { text: 'Investment Overview' },
-    tooltip: {},
-    xAxis: { data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'] },
-    yAxis: {},
-    series: [{
-      name: 'Investments',
-      type: 'bar',
-      data: [5, 20, 36, 10, 10, 20, 30],
-    }],
-  });
-
-  return (
-    <div>
-      <div>
-        {isEditing ? (
-          <input name="name" value={investorData.name} onChange={handleInputChange} />
-        ) : (
-          <h2>{investorData.name}</h2>
-        )}
-        {isEditing ? (
-          <input name="organization" value={investorData.organization} onChange={handleInputChange} />
-        ) : (
-          <p>{investorData.organization}</p>
-        )}
-        {isEditing ? (
-          <input name="title" value={investorData.title} onChange={handleInputChange} />
-        ) : (
-          <p>{investorData.title}</p>
-        )}
-        {isEditing ? (
-          <input name="contact" value={investorData.contact} onChange={handleInputChange} />
-        ) : (
-          <p>{investorData.contact}</p>
-        )}
-        <button onClick={isEditing ? handleSave : handleEditToggle}>
-          {isEditing ? 'Save' : 'Edit'}
-        </button>
-      </div>
-      
-      <div>
-        <h3>Comments</h3>
-        <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)} />
-        <button onClick={handleAddComment}>Add Comment</button>
-        <ul>
-          {comments.map((comment, index) => (
-            <li key={index}>
-              {comment} <button onClick={() => handleDeleteComment(index)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h3>Tasks</h3>
-        <input value={newTask} onChange={(e) => setNewTask(e.target.value)} />
-        <button onClick={handleAddTask}>Add Task</button>
-        <ul>
-          {tasks.map(task => (
-            <li key={task.id} style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
-              <input type="checkbox" checked={task.completed} onChange={() => handleTaskToggle(task.id)} />
-              {task.task}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h3>Investment Overview</h3>
-        <ReactECharts option={getOption()} />
-      </div>
-
-      <div>
-        <h3>Activity Log</h3>
-        <ul>
-          <li>Met with investor on 01/01/2023</li>
-          <li>Email sent on 02/01/2023</li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-export default InvestorProfileCard;
-```
-
-```javascript
-// File Path: InvestorPreferences.js
-import React, { useState } from 'react';
-import ReactECharts from 'echarts-for-react';
-import Slider from 'react-slider';
-
-const InvestorPreferences = () => {
-  const [sectors, setSectors] = useState([]);
-  const [fundingRange, setFundingRange] = useState([10000, 5000000]);
-  const [locations, setLocations] = useState([]);
-  const [stages, setStages] = useState([]);
-  const [isEditable, setIsEditable] = useState(false);
-  const [error, setError] = useState('');
-  
-  const sectorOptions = ["Technology", "Healthcare", "Finance", "Education"];
-  const locationOptions = ["North America", "Europe", "Asia"];
-  const stageOptions = ["Seed", "Series A", "Series B", "IPO"];
-  
-  const handleSectorChange = (sector) => {
-    setSectors((prev) => 
-      prev.includes(sector) ? prev.filter(s => s !== sector) : [...prev, sector]
-    );
-  };
-
-  const handleLocationChange = (location) => {
-    setLocations((prev) => 
-      prev.includes(location) ? prev.filter(l => l !== location) : [...prev, location]
-    );
-  };
-
-  const handleStageChange = (stage) => {
-    setStages((prev) => 
-      prev.includes(stage) ? prev.filter(s => s !== stage) : [...prev, stage]
-    );
-  };
-
-  const handleSave = () => {
-    if (sectors.length === 0 || locations.length === 0 || stages.length === 0) {
-      setError('Please select at least one sector, location, and stage.');
-      return;
-    }
-    if (fundingRange[0] >= fundingRange[1]) {
-      setError('Minimum funding must be less than maximum funding.');
-      return;
-    }
-    setError('');
-    setIsEditable(false);
-    // Here you would update the preferences to the matchmaking page context/state
-  };
-
-  const options = {
-    title: {
-      text: 'Investment Preferences - Sectors',
-    },
-    tooltip: {},
-    series: [{
-      type: 'pie',
-      data: sectorOptions.map((sector) => ({
-        name: sector,
-        value: sectors.includes(sector) ? 1 : 0,
-      })),
-    }],
-  };
-
-  return (
-    <div style={{ width: '1920px', height: '1080px' }}>
-      <h2>Investor Preferences</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <div>
-        <h3>Sectors</h3>
-        <div>
-          {sectorOptions.map((sector) => (
-            <label key={sector}>
-              <input 
-                type="checkbox" 
-                checked={sectors.includes(sector)}
-                onChange={() => handleSectorChange(sector)} 
-                disabled={!isEditable}
-              />
-              {sector}
-            </label>
-          ))}
-        </div>
-      </div>
-      
-      <div>
-        <h3>Funding Range</h3>
-        <div>
-          <span>{`$${fundingRange[0]} - $${fundingRange[1]}`}</span>
-          <Slider
-            min={10000}
-            max={5000000}
-            value={fundingRange}
-            onChange={setFundingRange}
-            disabled={!isEditable}
-          />
-        </div>
-      </div>
-
-      <div>
-        <h3>Geographical Locations</h3>
-        <div>
-          {locationOptions.map((location) => (
-            <label key={location}>
-              <input 
-                type="checkbox" 
-                checked={locations.includes(location)}
-                onChange={() => handleLocationChange(location)} 
-                disabled={!isEditable}
-              />
-              {location}
-            </label>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h3>Investment Stages</h3>
-        <div>
-          {stageOptions.map((stage) => (
-            <label key={stage}>
-              <input 
-                type="checkbox" 
-                checked={stages.includes(stage)}
-                onChange={() => handleStageChange(stage)} 
-                disabled={!isEditable}
-              />
-              {stage}
-            </label>
-          ))}
-        </div>
-      </div>
-
-      <button onClick={() => setIsEditable(!isEditable)}>
-        {isEditable ? 'Cancel' : 'Edit Preferences'}
-      </button>
-      {isEditable && <button onClick={handleSave}>Save Changes</button>}
-
-      <ReactECharts option={options} />
-    </div>
-  );
-};
-
-export default InvestorPreferences;
-```
-
-```javascript
-// File Path: EngagementHistory.js
-import React, { useState } from 'react';
-import ReactECharts from 'echarts-for-react';
-import { Modal, Button, Select, Input, DatePicker, notification } from 'antd';
-
-const { Option } = Select;
-
-const dummyEngagements = [
-    { date: '2023-10-01', type: 'Meeting', summary: 'Discussed quarterly performance', category: 'High Priority' },
-    { date: '2023-10-05', type: 'Call', summary: 'Follow-up on investment', category: 'Follow-up' },
-    { date: '2023-10-10', type: 'Email', summary: 'Sent updated reports', category: 'Low Priority' },
-];
-
-const EngagementHistory = () => {
-    const [engagements, setEngagements] = useState(dummyEngagements);
-    const [visible, setVisible] = useState(false);
-    const [newEntry, setNewEntry] = useState({ date: '', type: '', summary: '', category: '' });
-    const [filter, setFilter] = useState({ type: '', category: '' });
-
-    const showModal = () => setVisible(true);
-    const handleCancel = () => setVisible(false);
-    
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewEntry({ ...newEntry, [name]: value });
-    };
-
-    const handleSelectChange = (name, value) => {
-        setNewEntry({ ...newEntry, [name]: value });
-    };
-
-    const handleDateChange = (date, dateString) => {
-        setNewEntry({ ...newEntry, date: dateString });
-    };
-
-    const handleSubmit = () => {
-        setEngagements([...engagements, newEntry]);
-        notification.success({ message: 'Engagement added successfully!' });
-        setVisible(false);
-        setNewEntry({ date: '', type: '', summary: '', category: '' });
-    };
-
-    const filteredEngagements = engagements.filter(e => 
-        (filter.type ? e.type === filter.type : true) &&
-        (filter.category ? e.category === filter.category : true)
-    );
-
-    const getOption = () => ({
-        title: { text: 'Engagement Frequency' },
-        tooltip: {},
-        xAxis: {
-            type: 'category',
-            data: ['2023-10-01', '2023-10-05', '2023-10-10'],
-        },
-        yAxis: { type: 'value' },
-        series: [{
-            name: 'Engagements',
-            type: 'line',
-            data: [1, 2, 1], // Dummy data for counts
-        }],
-    });
-
-    return (
-        <div>
-            <Button type="primary" onClick={showModal}>New Entry</Button>
-            <div>
-                <Select placeholder="Filter by Type" onChange={(value) => setFilter({ ...filter, type: value })}>
-                    <Option value="Meeting">Meeting</Option>
-                    <Option value="Call">Call</Option>
-                    <Option value="Email">Email</Option>
-                </Select>
-                <Select placeholder="Filter by Category" onChange={(value) => setFilter({ ...filter, category: value })}>
-                    <Option value="High Priority">High Priority</Option>
-                    <Option value="Follow-up">Follow-up</Option>
-                    <Option value="Low Priority">Low Priority</Option>
-                </Select>
-            </div>
-            <ReactECharts option={getOption()} />
-            <ul>
-                {filteredEngagements.map((engagement, index) => (
-                    <li key={index}>
-                        {engagement.date} - {engagement.type}: {engagement.summary} ({engagement.category})
-                    </li>
-                ))}
-            </ul>
-            <Modal title="New Engagement" visible={visible} onOk={handleSubmit} onCancel={handleCancel}>
-                <DatePicker onChange={handleDateChange} />
-                <Select placeholder="Type" onChange={(value) => handleSelectChange('type', value)}>
-                    <Option value="Meeting">Meeting</Option>
-                    <Option value="Call">Call</Option>
-                    <Option value="Email">Email</Option>
-                </Select>
-                <Input placeholder="Summary" name="summary" onChange={handleInputChange} />
-                <Select placeholder="Category" onChange={(value) => handleSelectChange('category', value)}>
-                    <Option value="High Priority">High Priority</Option>
-                    <Option value="Follow-up">Follow-up</Option>
-                    <Option value="Low Priority">Low Priority</Option>
-                </Select>
-            </Modal>
-        </div>
-    );
-};
-
-export default EngagementHistory;
-```
-
-```javascript
-import React, { useState } from 'react';
-import ReactECharts from 'echarts-for-react';
-
-const dummyData = [
-  {
-    name: "Tech Innovators",
-    description: "A startup focusing on AI solutions.",
-    sector: "Technology",
-    fundingStage: "Seed",
-    geographicFocus: "North America",
-    relevanceScore: 85,
-  },
-  {
-    name: "Eco Green",
-    description: "Sustainable energy solutions.",
-    sector: "Environment",
-    fundingStage: "Series A",
-    geographicFocus: "Europe",
-    relevanceScore: 78,
-  },
-];
-
-const MatchSuggestions = () => {
-  const [filter, setFilter] = useState({ sector: [], fundingStage: [], geographicFocus: [] });
-  const [filteredData, setFilteredData] = useState(dummyData);
-  const [selectedStartup, setSelectedStartup] = useState(null);
-  const [notifications, setNotifications] = useState([]);
-
-  const handleFilterChange = (type, value) => {
-    const newFilters = { ...filter };
-    if (newFilters[type].includes(value)) {
-      newFilters[type] = newFilters[type].filter(item => item !== value);
-    } else {
-      newFilters[type].push(value);
-    }
-    setFilter(newFilters);
-    updateFilteredData(newFilters);
-  };
-
-  const updateFilteredData = (newFilters) => {
-    setFilteredData(dummyData.filter(startup => {
-      const matchesSector = newFilters.sector.length === 0 || newFilters.sector.includes(startup.sector);
-      const matchesFundingStage = newFilters.fundingStage.length === 0 || newFilters.fundingStage.includes(startup.fundingStage);
-      const matchesGeographicFocus = newFilters.geographicFocus.length === 0 || newFilters.geographicFocus.includes(startup.geographicFocus);
-      return matchesSector && matchesFundingStage && matchesGeographicFocus;
-    }));
-  };
-
-  const refreshList = () => {
-    setFilteredData(dummyData);
-    setFilter({ sector: [], fundingStage: [], geographicFocus: [] });
-  };
-
-  const openModal = (startup) => {
-    setSelectedStartup(startup);
-  };
-
-  const closeModal = () => {
-    setSelectedStartup(null);
-  };
-
-  const notifyUser = (message) => {
-    setNotifications([...notifications, message]);
-    setTimeout(() => {
-      setNotifications(notifications.filter((_, index) => index !== 0));
-    }, 3000);
-  };
-
-  const handleCardClick = (startup) => {
-    openModal(startup);
-    notifyUser(`You are viewing ${startup.name}`);
-  };
-
-  return (
-    <div style={{ width: '1920px', height: '1080px', padding: '20px' }}>
-      <div>
-        <button onClick={refreshList}>Refresh</button>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '20px' }}>
-        {filteredData.map((startup, index) => (
-          <div key={index} 
-               onClick={() => handleCardClick(startup)} 
-               style={{ border: '1px solid #ccc', padding: '20px', margin: '10px', cursor: 'pointer', transition: '0.3s', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
-            <h3>{startup.name}</h3>
-            <p>{startup.description}</p>
-            <p>Relevance Score: {startup.relevanceScore}</p>
-          </div>
-        ))}
-      </div>
-      {selectedStartup && (
-        <div style={{ position: 'fixed', top: '0', left: '0', right: '0', bottom: '0', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <div style={{ background: 'white', padding: '20px', borderRadius: '5px', width: '50%' }}>
-            <h2>{selectedStartup.name}</h2>
-            <p>{selectedStartup.description}</p>
-            <p>Sector: {selectedStartup.sector}</p>
-            <p>Funding Stage: {selectedStartup.fundingStage}</p>
-            <p>Geographic Focus: {selectedStartup.geographicFocus}</p>
-            <p>Relevance Score: {selectedStartup.relevanceScore}</p>
-            <button onClick={closeModal}>Close</button>
-            <button>Book a Meeting</button>
-          </div>
-        </div>
-      )}
-      {notifications.map((notification, index) => (
-        <div key={index} style={{ position: 'fixed', top: `${20 + index * 50}px`, right: '20px', background: 'lightyellow', padding: '10px', borderRadius: '5px' }}>
-          {notification}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export default MatchSuggestions;
-````
-- Ensure that every line of code is **faithfully recoded**. **No shortcuts, no omissions, no imports.** Every component should be rewritten as a **const** function and fully integrated into the file.
-
-## **FileRequirements**
-- Create a single **JavaScript** file.
-- **DO NOT** include any external styling (e.g., CSS files). Styling should not be a part of this task.
-- Use only **dummy data**, with no backend, API calls, or external services.
-- Include only necessary React imports (e.g., `useState`, `useEffect` if needed).
-- **DO NOT** import any custom components or functions from other files. All logic and components must be fully contained within the single file.
-
-## **Rules**
-
-### **General**
-- **NO ERRORS**: The code must work perfectly on the first try, without bugs or issues.
-- Provide **complete code**, fully functional and self-contained. **Recreate every part of the code in this file** with no omissions, placeholders, or imports.
-- **DO NOT** import any external JS files or components. **Recreate every component and function exactly as specified**, rewriting each as a **const** function.
-
-## **Goal**
-- The final product should be a **single, complete component** that integrates the plan and code components fully.
-- Every component and function provided should be **recoded, rewritten as const functions**, and **integrated perfectly** into the current file without summarization, omission, or importation from other files.
-- The result should be **100% functional**, fully dynamic, and self-contained with no missing code. It should fully reflect the plan provided and **adapt to the current code structure**.
-
----
-
-**Important**: Absolutely **NO summarization**. Every single piece of code must be **rewritten as a const function**, fully integrated and dynamically functional within the current file. The goal is to have one **complete, error-free**, and **self-contained** file with everything implemented as described.
-
-
-
-
-
-# **Instructions**
-
-## **Plan**
-- Use the **exact** plan outlined below as the foundation for your implementation.
-- `Component Name: MentorDashboard, Component requirements: ## Final Plan for Mentor Overview Page
-
-### Component Overview
-- **Component Description**: 
-    - The MentorDashboard component acts as the central hub for the Mentor Overview Page, responsible for rendering the overall layout and fetching mentor data.
-
-- **Functionality**: 
-    - The MentorDashboard component serves as the main container for the Mentor Overview Page. It fetches data from a mock API and manages the overall state of the page using `useState` and `useEffect` hooks, ensuring data integrity and loading indicators are appropriately triggered. It provides context to child components for efficient access to mentor data. The dashboard also manages user interaction events such as filter application and mentor card selection, dynamically updating child components based on these interactions. It ensures a responsive layout and visually consistent design aligned with the enterprise's branding guidelines.
-
-- **Details**:
-    - Fetches mentor data from a mock API, managing state with `useState` and `useEffect`.
-    - Provides a centralized context for accessing mentor data across child components.
-    - Handles user interactions such as filter application and mentor card selection.
-    - Ensures a responsive layout and consistent visual design.
-
-- **Interconnectivity**:
-    - `/mentors/feedback_log`: Access to mentor feedback sessions, allowing users to navigate and view feedback related to mentors.
-    - `/mentors/profile`: Navigates to a detailed mentor profile page upon clicking a MentorCard, enabling users to view comprehensive mentor details.
-
-- **User Interaction**:
-    - **Interact**: MentorFilter
-    - **Possible Interactions**: 
-        - User selects expertise filter 'Marketing' and availability 'Available Now'.
-    - **Result**: 
-        - Updates MentorProfileList to show mentors matching 'Marketing' expertise and available now.
-    - **Result Functionality**: 
-        - The MentorProfileList component dynamically updates to reflect mentors that match the selected filters, enhancing the efficiency of mentor selection.
-
-### New Feature Ideas
-1. **Enhanced Data Visualization**:
-   - **Main Functionality**: Integrate ECharts to provide visual insights into mentor statistics (e.g., availability trends, expertise distribution, mentor ratings).
-   - **Key Components**: MentorStatisticsChart, RatingDistributionChart.
-   - **Data Requirements**: Dummy data simulating statistics for various mentors.
-   - **User Interaction Flow**: Users can hover over charts to see detailed metrics, click on segments for detailed views.
-   - **Potential Challenges**: Ensuring charts are responsive; solution involves using Ant Design's grid system.
-
-2. **Mentor Matching Algorithm**:
-   - **Main Functionality**: Implement a matching system based on user preferences and mentor profiles.
-   - **Key Components**: MentorMatchComponent.
-   - **Data Requirements**: Dummy data representing user preferences and mentor profiles.
-   - **User Interaction Flow**: Users provide input on preferences, and mentors are suggested based on compatibility.
-   - **Potential Challenges**: Developing an efficient matching algorithm; utilize a simple scoring system based on selected criteria.
-
-3. **Interactive Feedback System**:
-   - **Main Functionality**: Allow users to leave feedback on mentors directly within the dashboard.
-   - **Key Components**: FeedbackForm, FeedbackList.
-   - **Data Requirements**: Dummy data to simulate feedback entries.
-   - **User Interaction Flow**: Users can fill out a form to submit feedback, which updates the FeedbackList dynamically.
-   - **Potential Challenges**: Managing state for feedback submissions; implement local state handling and display updates.
-
-4. **Gamification Elements**:
-   - **Main Functionality**: Introduce a points system for users who engage with mentors (e.g., scheduling meetings, providing feedback).
-   - **Key Components**: PointsDashboard, BadgesComponent.
-   - **Data Requirements**: Dummy data for user points and badges.
-   - **User Interaction Flow**: Users can see their points and earned badges, encouraging more interactions.
-   - **Potential Challenges**: Keeping the gamification balanced; regularly update points based on user activity.
-
-5. **Customization Options**:
-   - **Main Functionality**: Allow users to customize their dashboard view (e.g., choosing which metrics to display).
-   - **Key Components**: CustomizationMenu, DashboardLayoutComponent.
-   - **Data Requirements**: Dummy data for user preferences.
-   - **User Interaction Flow**: Users can select which components appear on their dashboard, leading to a more personalized experience.
-   - **Potential Challenges**: Maintaining layout integrity; utilize CSS grid to manage layouts effectively.
-
-### Step-by-Step Plan
-
-#### 1. Clarification
-   - Ensure clarity in functionality descriptions and component roles. Specify the relationships between components for better understanding.
-   - Remove unnecessary jargon, focusing on straightforward descriptions.
-
-#### 2. Implementation Guidance
-   - **MentorDashboard**:
-       - Use `useEffect` for fetching data from the mock API and `useState` for managing mentor data.
-       - Structure component to pass down context to child components (e.g., MentorProfileList, MentorFilter).
-       - Error handling: Implement a loading state and error state to manage UI feedback during data fetching.
-
-   - **MentorFilter**:
-       - Create state variables for filters (expertise, availability).
-       - Implement event handlers for filter changes that trigger updates in the MentorProfileList based on selected filters.
-
-   - **MentorProfileList**:
-       - Render a list of MentorCard components based on the filtered mentor data.
-       - Implement click handlers on MentorCard to navigate to the mentor profile page.
-
-   - **Enhanced Data Visualization**:
-       - Integrate ECharts for visual representation of statistics.
-       - Create a responsive grid layout using Ant Design to house the charts.
-
-   - **Mentor Matching Algorithm**:
-       - Create a scoring function that evaluates user preferences against mentor profiles.
-       - Design the MentorMatchComponent to display a list of suggested mentors based on this algorithm.
-
-   - **Interactive Feedback System**:
-       - Create FeedbackForm to capture user feedback.
-       - Manage feedback submissions in local state and render within FeedbackList.
-
-   - **Gamification Elements**:
-       - Create PointsDashboard to display user points and badges.
-       - Implement point allocation logic based on user activities.
-
-   - **Customization Options**:
-       - Create a CustomizationMenu allowing users to select which metrics or components to display.
-       - Persist user preferences locally to maintain dashboard customization across sessions.
-
-#### 3. Efficiency
-   - Structure the code with clear modular components, ensuring each component has a single responsibility.
-   - Optimize re-renders by using `React.memo` or `useCallback` where necessary.
-
-#### 4. Technical Specifications
-   - Use React for component structure.
-   - Use Ant Design for UI components and grid layout.
-   - Use ECharts for data visualization.
-   - Utilize React Router for navigation between mentor profile and feedback log pages.
-
-#### 5. Examples
-   - **Example of Filter Logic**:
-     ```javascript
-     const handleFilterChange = (newFilters) => {
-         setFilters(newFilters);
-         const filteredMentors = allMentors.filter(mentor => {
-             return (
-                 (newFilters.expertise ? mentor.expertise === newFilters.expertise : true) &&
-                 (newFilters.availability ? mentor.availability === newFilters.availability : true)
-             );
-         });
-         setFilteredMentors(filteredMentors);
-     };
-     ```
-
-   - **Example of Data Fetching**:
-     ```javascript
-     useEffect(() => {
-         const fetchMentors = async () => {
-             try {
-                 const response = await fetch('/api/mentors');
-                 const data = await response.json();
-                 setMentors(data);
-             } catch (error) {
-                 console.error('Error fetching mentor data:', error);
-             }
-         };
-         fetchMentors();
-     }, []);
-     ```
-
-#### 6. Edge Cases
-   - Handle cases where no mentors are available after filtering by displaying a user-friendly message.
-   - Validate feedback submissions to ensure they meet minimum criteria (e.g., length, content).
-   - Test the responsiveness of charts on different screen sizes.
-
-#### 7. Enhancements
-   - Consider using animations for transitions between mentor cards and charts to enhance user experience.
-   - Implement user onboarding tutorials for first-time users to guide them through filtering, feedback, and customization options.
-   - Regularly refresh the mentor data from the API to ensure users have the most up-to-date information.
-
-This comprehensive plan focuses on enhancing the Mentor Overview Page by integrating new interactive features and improving user engagement through thoughtful design and functionality. Each feature is designed to align with the core purpose of the page while ensuring a seamless user experience.`
-- **Integrate** the plan directly into the code components provided, ensuring every part of the plan is fully reflected in the code. The integration must be seamless, with no missing details or gaps. All pieces should function together as a single, cohesive file.
-
-## **CodeComponents**
-- **Rewrite EVERY SINGLE LINE** of the components below as **const** functions within the current file.
-- **DO NOT** leave out any provided code.
-- **DO NOT** import any components or functions from other files. Every component must be rewritten as a **const** function in this file, fully recoded from scratch.
-- **Adjust** the code so that it **dynamically works** for your current code structure. Every function should be self-contained, with dynamic behavior that adapts to the current project setup.
-- `
-
-```javascript
-import React, { useState, useEffect } from 'react';
-import { Badge, Tooltip, Modal, Switch, Calendar, Tag } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import ReactECharts from 'echarts-for-react';
-
-// Dummy data for initial availability
-const initialAvailability = [
-  { status: 'available', time: '09:00 - 10:00' },
-  { status: 'busy', time: '10:00 - 11:00' },
-  { status: 'booked', time: '11:00 - 12:00' },
-];
-
-// MentorCard Component
-const MentorProfileList = () => {
-  const navigate = useNavigate();
-  const [availability, setAvailability] = useState(initialAvailability);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [points, setPoints] = useState(0);
-  const [availabilityData, setAvailabilityData] = useState([0, 0, 0, 0, 0]);
-  const [expertiseAreas] = useState([
-    'Marketing',
-    'Product Management',
-    'Data Analysis',
-    'Software Development',
-    'UI/UX Design',
-    'Business Strategy',
-  ]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      randomizeAvailability();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const randomizeAvailability = () => {
-    const randomStatus = ['available', 'busy', 'booked'];
-    const newAvailability = initialAvailability.map(slot => ({
-      ...slot,
-      status: randomStatus[Math.floor(Math.random() * randomStatus.length)],
-    }));
-    setAvailability(newAvailability);
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'available':
-        return 'success';
-      case 'busy':
-        return 'error';
-      case 'booked':
-        return 'default';
-      default:
-        return 'default';
-    }
-  };
-
-  const getDetailedAvailability = () => {
-    return availability.map(slot => `${slot.time}: ${slot.status}`).join(', ');
-  };
-
-  const handleBookingClick = () => {
-    setPoints(points + 1);
-  };
-
-  const dateCellRender = (date) => {
-    return <div>Available</div>;
-  };
-
-  const options = {
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [{
-      data: availabilityData,
-      type: 'line',
-    }],
-  };
-
-  const handleTagClick = (expertise) => {
-    navigate(`/mentors/search?expertise=${expertise}`);
-  };
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', padding: '20px' }}>
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Tooltip title={getDetailedAvailability()} placement="top">
-          <Badge status={getStatusColor(availability[0].status)} />
-        </Tooltip>
-        <Link to="/booking">
-          <Badge status="success" onClick={handleBookingClick} />
-        </Link>
-        <span>{points} points earned!</span>
-        <Switch checked={notificationsEnabled} onChange={setNotificationsEnabled} />
-        <Modal title="Notification Preferences" visible={true}>
-          <Switch checked={notificationsEnabled} onChange={setNotificationsEnabled} />
-        </Modal>
-        <ReactECharts option={options} />
-        <Calendar dateCellRender={dateCellRender} />
-      </div>
-      <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap', marginTop: '20px' }}>
-        {expertiseAreas.map((expertise) => (
-          <Tag
-            key={expertise}
-            color="blue"
-            style={{ margin: '5px', cursor: 'pointer' }}
-            onClick={() => handleTagClick(expertise)}
-          >
-            {expertise}
-          </Tag>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default MentorProfileList;
-```
-
-In this code, the `MentorProfileList` component has been fully implemented based on the detailed plan provided. The component includes all specified features such as dynamic availability updates, user interaction with badges, real-time notifications, expertise filtering, and data visualization using ECharts. The entire layout is designed to fill the screen, ensuring a seamless and engaging user experience.
-
-```javascript
-// File Path: MentorFilter.js
-import React, { useState } from 'react';
-import ReactECharts from 'echarts-for-react';
-
-const MentorFilter = () => {
-  const expertiseOptions = [
-    { value: 'Technology', label: 'Technology' },
-    { value: 'Marketing', label: 'Marketing' },
-    { value: 'Finance', label: 'Finance' },
-  ];
-
-  const [selectedExpertise, setSelectedExpertise] = useState('');
-  const [availability, setAvailability] = useState({
-    availableNow: false,
-    busy: false,
-    booked: false,
-  });
-
-  const mentors = [
-    { id: 1, name: 'John Doe', expertise: 'Technology', status: 'Available Now', rating: 4 },
-    { id: 2, name: 'Jane Smith', expertise: 'Marketing', status: 'Busy', rating: 5 },
-    { id: 3, name: 'Alice Johnson', expertise: 'Finance', status: 'Booked', rating: 3 },
-    { id: 4, name: 'Bob Brown', expertise: 'Technology', status: 'Available Now', rating: 4.5 },
-  ];
-
-  const handleExpertiseChange = (event) => {
-    setSelectedExpertise(event.target.value);
-  };
-
-  const handleAvailabilityChange = (event) => {
-    const { name, checked } = event.target;
-    setAvailability((prev) => ({ ...prev, [name]: checked }));
-  };
-
-  const filteredMentors = mentors.filter((mentor) => {
-    const expertiseMatch = selectedExpertise ? mentor.expertise === selectedExpertise : true;
-    const availabilityMatch = (availability.availableNow && mentor.status === 'Available Now') ||
-                              (availability.busy && mentor.status === 'Busy') ||
-                              (availability.booked && mentor.status === 'Booked') ||
-                              (!availability.availableNow && !availability.busy && !availability.booked);
-    return expertiseMatch && availabilityMatch;
-  });
-
-  const getChartOptions = () => {
-    return {
-      title: { text: 'Mentor Ratings' },
-      xAxis: {
-        type: 'category',
-        data: filteredMentors.map((mentor) => mentor.name),
-      },
-      yAxis: { type: 'value' },
-      series: [{
-        data: filteredMentors.map((mentor) => mentor.rating),
-        type: 'bar',
-      }],
-    };
-  };
-
-  return (
-    <div>
-      <div>
-        <select onChange={handleExpertiseChange}>
-          <option value="">Select Expertise</option>
-          {expertiseOptions.map((option) => (
-            <option key={option.value} value={option.value}>{option.label}</option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label>
-          <input type="checkbox" name="availableNow" onChange={handleAvailabilityChange} />
-          Available Now
-        </label>
-        <label>
-          <input type="checkbox" name="busy" onChange={handleAvailabilityChange} />
-          Busy
-        </label>
-        <label>
-          <input type="checkbox" name="booked" onChange={handleAvailabilityChange} />
-          Booked
-        </label>
-      </div>
-      <div>
-        <ReactECharts option={getChartOptions()} />
-      </div>
-      <div>
-        <h3>Mentors List:</h3>
-        <ul>
-          {filteredMentors.map((mentor) => (
-            <li key={mentor.id}>
-              {mentor.name} - {mentor.expertise} - {mentor.status} - {mentor.rating} Stars
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-export default MentorFilter;
-````
-- Ensure that every line of code is **faithfully recoded**. **No shortcuts, no omissions, no imports.** Every component should be rewritten as a **const** function and fully integrated into the file.
-
-## **FileRequirements**
-- Create a single **JavaScript** file.
-- **DO NOT** include any external styling (e.g., CSS files). Styling should not be a part of this task.
-- Use only **dummy data**, with no backend, API calls, or external services.
-- Include only necessary React imports (e.g., `useState`, `useEffect` if needed).
-- **DO NOT** import any custom components or functions from other files. All logic and components must be fully contained within the single file.
-
-## **Rules**
-
-### **General**
-- **NO ERRORS**: The code must work perfectly on the first try, without bugs or issues.
-- Provide **complete code**, fully functional and self-contained. **Recreate every part of the code in this file** with no omissions, placeholders, or imports.
-- **DO NOT** import any external JS files or components. **Recreate every component and function exactly as specified**, rewriting each as a **const** function.
-
-## **Goal**
-- The final product should be a **single, complete component** that integrates the plan and code components fully.
-- Every component and function provided should be **recoded, rewritten as const functions**, and **integrated perfectly** into the current file without summarization, omission, or importation from other files.
-- The result should be **100% functional**, fully dynamic, and self-contained with no missing code. It should fully reflect the plan provided and **adapt to the current code structure**.
-
----
-
-**Important**: Absolutely **NO summarization**. Every single piece of code must be **rewritten as a const function**, fully integrated and dynamically functional within the current file. The goal is to have one **complete, error-free**, and **self-contained** file with everything implemented as described.
-
-
-
-
-
-# **Instructions**
-
-## **Plan**
-- Use the **exact** plan outlined below as the foundation for your implementation.
-- `Component Name: FundingStatus, Component requirements: ### Final Plan for Funding Status Component in ERP
+- `Component Name: KPIDashboard, Component requirements: ### Final Plan for KPIDashboard Component
 
 #### Description
-The FundingStatus component is designed to provide a comprehensive overview of a startup's funding history and financial health, crucial for stakeholders to gauge the startup's financial trajectory. This component will enhance user understanding, facilitate strategic decision-making, and present critical financial metrics in an engaging manner.
-
----
+The KPIDashboard component serves as an interactive interface for startups to visualize and analyze their key performance indicators (KPIs). This plan outlines enhancements to improve user engagement, data visualization, and overall functionality. The focus will be on creating a professional, user-friendly dashboard tailored for desktop use.
 
 #### Content
 
-- **Component Description**: Provides detailed information on the startup's funding rounds and financial health.
-  
-- **Functionality**: 
-  - Displays comprehensive information about the startup's financial status, including past funding rounds and current financial health indicators.
-  - Includes a table of funding rounds detailing amounts raised and dates.
-  - Features a visual representation of the startup's burn rate, aiding stakeholders in understanding the financial trajectory.
+##### Component Description
+- The KPIDashboard will display key performance indicators in a card format, allowing for real-time updates and detailed analysis.
+- Each KPI will be represented as a KpiCard component, displaying essential metrics such as Monthly Recurring Revenue (MRR), Monthly Active Users (MAUs), Customer Acquisition Cost (CAC), and more.
 
-- **Key Components**:
-  - **FundingRoundsTable**: A detailed table listing each funding round, including:
-    - Round Type (Seed, Series A, etc.)
-    - Amount Raised
-    - Date
-  - **BurnRateIndicator**: A visual gauge or bar that shows the current burn rate.
-  - **Funding Insights Dashboard**: A section displaying key metrics visually.
-  - **Funding Trends Graph**: A line graph to visualize funding trends over time.
-  - **Pie Chart for Funding Sources**: Displays the percentage of funding from different sources.
+##### Functionality
+- The dashboard will iteratively create KpiCard components based on startup data.
+- Each card will dynamically update according to real-time data inputs, ensuring users have the latest metrics available.
+- Consistent styling and layout for KPI cards will be enforced to provide a cohesive visual experience.
+- Users will have customization options to select which KPIs are displayed according to their preferences.
 
-- **User Interaction**:
-  - Users can click on funding rounds for more details or to add new rounds.
-  - Hovering over the burn rate indicator provides detailed tooltip information.
-  
-- **Interconnectivity**:
-  - Integrates with the financial reports page for deeper insights into spending and revenue.
+##### Interconnectivity
+- KpiCard components will be reused to display KPIs in the Cohort Analytics Page, providing a consistent user experience across different sections of the application.
 
----
+##### User Interaction
+- Users can interact with individual KpiCard components to access detailed KPI data or historical trends.
+- Upon clicking a KpiCard, the system will fetch detailed historical data for that KPI and present it in a modal or dedicated page for in-depth analysis.
 
-#### Enhancements and New Features
+### New Ideas for Enhancements
 
-1. **User Engagement**:
-   - **Funding Insights Dashboard**: Cards displaying total funds raised, average funding round size, and other key metrics.
-   - **Real-time Updates**: Notification system to alert users of new funding rounds or updates.
+1. **Data Visualization Enhancements**
+    - **Main Functionality**: Integrate ECharts or Chart.js for graphical representations of data trends for each KPI.
+    - **Key Components**: Line charts for MRR growth, bar charts for MAU trends, and pie charts for user demographics.
+    - **User Interaction Flow**: Users can hover over charts to see tooltips containing detailed data points.
+    - **Potential Challenges**: Ensure charts are responsive and load quickly.
+        - **Solution**: Optimize data fetching and rendering processes.
 
-2. **Data Visualization**:
-   - **Funding Trends Graph**: ECharts line graph to visualize funding trends over time.
-   - **Pie Chart for Funding Sources**: Visual representation of funding sources.
+2. **Interactive Notifications**
+    - **Main Functionality**: Notify users of significant KPI changes or when thresholds are met.
+    - **Key Components**: Notification pop-ups or toast messages that are visually distinct.
+    - **User Interaction Flow**: Notifications will appear on the dashboard and can be clicked for more details.
+    - **Potential Challenges**: Avoid overwhelming users with notifications.
+        - **Solution**: Implement priority settings for notifications based on user-defined thresholds.
 
-3. **Interactivity**:
-   - **Interactive Drill-downs**: Clickable funding rounds leading to detailed views.
-   - **Detailed Funding Narrative**: Collapsible section under funding rounds table highlighting key milestones.
+3. **Customization Options**
+    - **Main Functionality**: Allow users to customize which KPIs are displayed on their dashboard.
+    - **Key Components**: A settings panel where users can select or deselect KPIs.
+    - **User Interaction Flow**: Users can save their preferences, and the dashboard will update in real-time.
+    - **Potential Challenges**: Managing state across user sessions.
+        - **Solution**: Use local storage or a state management library to save user preferences.
 
-4. **Productivity Tools**:
-   - **Export Functionality**: Users can export funding data and trends as CSV or PDF.
-   - **User Preferences**: Settings for users to customize visible metrics.
+4. **Gamification Elements**
+    - **Main Functionality**: Introduce a rewards system based on engagement and achievement of KPI targets.
+    - **Key Components**: Badges or a points system displayed on the dashboard.
+    - **User Interaction Flow**: Users can track their progress and earn rewards based on KPI improvements.
+    - **Potential Challenges**: Ensuring that gamification encourages positive engagement.
+        - **Solution**: Focus on personal milestones rather than competition among users.
 
-5. **Gamification**:
-   - **Milestone Badges**: Badge system rewarding users for reaching funding milestones.
-
-6. **Dynamic Content**:
-   - **Recent News Feed**: Pulls in articles related to funding trends.
-
-7. **Notifications**:
-   - **Funding Alerts**: Alerts when specific thresholds are met (e.g., burn rate exceeds a certain percentage).
-
----
-
-### Implementation Outline for New Ideas
-
-1. **Funding Insights Dashboard**
-   - **Main Functionality**: Display key metrics visually using cards.
-   - **Key Components**: Metric cards with hover tooltips for additional info.
-   - **Data Requirements**: Structured data for metrics.
-   - **User Interaction Flow**: Users hover over cards for detailed insights.
-   - **Challenges**: Ensuring accuracy; implement state management.
-
-2. **Funding Trends Graph**
-   - **Main Functionality**: Visualize trends over time.
-   - **Key Components**: ECharts line graph.
-   - **Data Requirements**: Time-series data for funding rounds.
-   - **User Interaction Flow**: Users click on graph points for details.
-   - **Challenges**: Performance with large datasets; implement lazy loading.
-
-3. **Interactive Drill-downs**
-   - **Main Functionality**: Provide detailed views for funding rounds.
-   - **Key Components**: Modal or expandable sections for detailed info.
-   - **Data Requirements**: Detailed funding data for each round.
-   - **User Interaction Flow**: Users click on a round for more information.
-   - **Challenges**: Managing state for multiple expanded views; use local state management.
-
-4. **Export Functionality**
-   - **Main Functionality**: Facilitate data export for reporting.
-   - **Key Components**: Export button with format options (CSV/PDF).
-   - **Data Requirements**: Structured data for export formats.
-   - **User Interaction Flow**: Users select format and initiate download.
-   - **Challenges**: Formatting data correctly; use libraries for CSV/PDF generation.
-
----
-
-### Edge Cases and Testing
-
-- **Funding Rounds Table**: Ensure proper handling of empty datasets and display "No funding rounds available" when applicable.
-- **Burn Rate Calculation**: Verify calculations are accurate, especially when financial data updates.
-- **Export Functionality**: Test exports with various datasets to ensure integrity and handle file generation errors.
-
----
+5. **Dynamic Content Updates**
+    - **Main Functionality**: Implement real-time data refreshes for KPIs.
+    - **Key Components**: Auto-refresh mechanism for KpiCard components.
+    - **User Interaction Flow**: Users will see live updates without manual page refreshes.
+    - **Potential Challenges**: Managing performance with frequent updates.
+        - **Solution**: Optimize refresh intervals based on user activity and system performance.
 
 ### Prioritization
+1. Data Visualization Enhancements - High impact, feasible.
+2. Interactive Notifications - High impact, feasible.
+3. Customization Options - Medium impact, feasible.
+4. Dynamic Content Updates - Medium impact, feasible.
+5. Gamification Elements - Low impact, feasible.
 
-1. **Funding Trends Graph** - High impact, provides valuable insights.
-2. **Funding Insights Dashboard** - High impact, enhances user engagement.
-3. **Interactive Drill-downs** - Medium impact, improves understanding of funding rounds.
-4. **Export Functionality** - Medium impact, practical utility for users.
-5. **Real-time Updates** - Medium impact, keeps users informed of changes.
-6. **User Preferences** - Low impact, enhances customization.
-7. **Milestone Badges** - Low impact, adds fun but less critical.
-8. **Dynamic Content** - Low impact, informative but secondary to core functionality.
-9. **Funding Alerts** - Low impact, valuable but complex to implement.
+### Step-by-Step Implementation Plan
 
----
+#### Step 1: Clarification of Requirements
+- Review and clarify the user requirements for each KPI and the desired interactivity level.
+- Ensure a comprehensive understanding of the KPIs relevant to startups.
 
-This comprehensive plan ensures that the FundingStatus component is not only informative but also engaging, interactive, and tailored to meet the needs of stakeholders in a professional ERP environment. The outlined features and functionalities work together to create a cohesive and user-friendly experience, fostering better financial decision-making and user engagement.`
+#### Step 2: Implementation of KpiCard Component
+- Create a KpiCard component that accepts props for each KPI metric and displays it in a visually appealing card format.
+- Ensure the cards are styled consistently using CSS or a styling library (e.g., styled-components).
+
+#### Step 3: Data Integration
+- Set up a mechanism to fetch and integrate real-time data for each KPI.
+- Use libraries like Axios or Fetch API to pull data from predefined endpoints or simulate data with dummy datasets.
+
+#### Step 4: Chart Integration
+- Integrate ECharts or Chart.js within the KpiCard to visualize KPI data dynamically.
+- Implement hover functionality on the charts to reveal tooltips with detailed information.
+
+#### Step 5: Notification System
+- Develop a notification system to alert users about significant KPI changes, using either a pop-up or toast message system.
+- Create logic to trigger notifications based on user-defined thresholds.
+
+#### Step 6: Customization Panel
+- Implement a settings panel allowing users to select which KPIs to display.
+- Use local storage or a state management solution to save user preferences and update the dashboard accordingly.
+
+#### Step 7: Gamification Mechanism
+- Design and implement a rewards system where users earn points or badges based on their performance against set KPIs.
+- Display user progress and achievements on the dashboard.
+
+#### Step 8: Auto-refresh Logic
+- Set up an auto-refresh mechanism to update KPI data at specified intervals.
+- Ensure that refreshes do not impact performance negatively.
+
+### Edge Cases
+1. **Data Fetching Errors**: Implement error handling to manage failed API calls.
+    - Example: Display an error message on the dashboard if data fails to load.
+2. **No Data Available**: Handle scenarios where no KPI data is available.
+    - Example: Show a message indicating no data is available for the selected KPIs.
+3. **User Preferences State Management**: Ensure user preferences are correctly loaded and saved.
+    - Example: Verify that changes in the customization panel persist across sessions.
+
+### Enhancements
+- Consider using CSS animations to enhance user engagement when KPIs are updated.
+- Implement user feedback mechanisms to gather insights on the dashboard usability and performance.
+
+This comprehensive plan provides a structured approach to enhancing the KPIDashboard component, focusing on user engagement, data visualization, interactivity, and overall functionality, ensuring a professional and cohesive experience for users.`
 - **Integrate** the plan directly into the code components provided, ensuring every part of the plan is fully reflected in the code. The integration must be seamless, with no missing details or gaps. All pieces should function together as a single, cohesive file.
 
 ## **CodeComponents**
@@ -2926,624 +128,651 @@ This comprehensive plan ensures that the FundingStatus component is not only inf
 - `
 
 ```javascript
-// File Path: FundingRoundsTable.js
+// File Path: KpiCard.js
 import React, { useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 
-const FundingRoundsTable = () => {
-    const [fundingRounds, setFundingRounds] = useState([
-        { id: 1, roundType: "Seed", amount: 500000, date: "2023-01-15", investors: ["Investor A", "Investor B"] },
-        { id: 2, roundType: "Series A", amount: 2000000, date: "2023-06-20", investors: ["Investor C"] },
-        { id: 3, roundType: "Series B", amount: 5000000, date: "2023-09-10", investors: ["Investor A", "Investor D"] }
-    ]);
-    
-    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
-    const [filterType, setFilterType] = useState('');
-    const [filterInvestor, setFilterInvestor] = useState('');
-    
-    const sortedRounds = [...fundingRounds].sort((a, b) => {
-        if (sortConfig.key === 'amount') {
-            return sortConfig.direction === 'ascending' ? a.amount - b.amount : b.amount - a.amount;
-        }
-        if (sortConfig.key === 'date') {
-            return sortConfig.direction === 'ascending' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
-        }
-        return 0;
-    }).filter(round => 
-        (filterType ? round.roundType === filterType : true) &&
-        (filterInvestor ? round.investors.includes(filterInvestor) : true)
-    );
+const KpiCard = ({ title, value, trend, description }) => {
+  const [loading, setLoading] = useState(false);
+  const [showChart, setShowChart] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  
+  const handleChartToggle = () => {
+    setShowChart((prev) => !prev);
+  };
 
-    const handleSort = (key) => {
-        let direction = 'ascending';
-        if (sortConfig.key === key && sortConfig.direction === 'ascending') {
-            direction = 'descending';
-        }
-        setSortConfig({ key, direction });
-    };
+  const handleNotificationClick = () => {
+    alert('Viewing recent alerts...');
+  };
 
-    const totalFundsRaised = fundingRounds.reduce((total, round) => total + round.amount, 0);
-    const fundingTrendData = fundingRounds.map(round => ({ date: round.date, amount: round.amount }));
-    
-    const getOption = () => ({
-        title: { text: 'Funding Trends Over Time' },
-        tooltip: {},
-        xAxis: {
-            type: 'category',
-            data: fundingTrendData.map(item => item.date)
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [{
-            name: 'Amount Raised',
-            type: 'line',
-            data: fundingTrendData.map(item => item.amount)
-        }]
-    });
+  const getColor = (trend) => {
+    if (trend === 'up') return 'green';
+    if (trend === 'down') return 'red';
+    return 'yellow';
+  };
 
+  const getTrendIndicator = () => {
+    return trend === 'up' ? '↑' : trend === 'down' ? '↓' : '→';
+  };
+
+  const chartOption = {
+    title: {
+      text: 'KPI Trend',
+    },
+    tooltip: {},
+    xAxis: {
+      data: ['Last Month', 'Current Month'],
+    },
+    yAxis: {},
+    series: [
+      {
+        name: title,
+        type: 'line',
+        data: [9000, parseInt(value.replace(/[^0-9]/g, ''))],
+      },
+    ],
+  };
+
+  return (
+    <div
+      style={{
+        border: `2px solid ${getColor(trend)}`,
+        borderRadius: '10px',
+        padding: '20px',
+        width: '400px',
+        position: 'relative',
+        backgroundColor: 'white',
+      }}
+      onClick={handleChartToggle}
+      onMouseEnter={() => setLoading(true)}
+      onMouseLeave={() => setLoading(false)}
+    >
+      {loading && <div>Loading...</div>}
+      <h3>{title}</h3>
+      <h2 style={{ color: getColor(trend) }}>{value} {getTrendIndicator()}</h2>
+      <p>{description}</p>
+      <div style={{ cursor: 'pointer', color: 'blue' }} onClick={handleNotificationClick}>
+        Notifications ({notifications.length})
+      </div>
+      {showChart && (
+        <div style={{ marginTop: '20px' }}>
+          <ReactECharts option={chartOption} style={{ height: '200px' }} />
+        </div>
+      )}
+    </div>
+  );
+};
+
+const App = () => {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <KpiCard 
+        title="Monthly Recurring Revenue" 
+        value="$10,000" 
+        trend="up" 
+        description="Increased by 5% from last month" 
+      />
+      <KpiCard 
+        title="Monthly Active Users" 
+        value="1,500" 
+        trend="down" 
+        description="Decreased by 10% from last month" 
+      />
+    </div>
+  );
+};
+
+export default App;
+````
+- Ensure that every line of code is **faithfully recoded**. **No shortcuts, no omissions, no imports.** Every component should be rewritten as a **const** function and fully integrated into the file.
+
+## **FileRequirements**
+- Create a single **JavaScript** file.
+- **DO NOT** include any external styling (e.g., CSS files). Styling should not be a part of this task.
+- Use only **dummy data**, with no backend, API calls, or external services.
+- Include only necessary React imports (e.g., `useState`, `useEffect` if needed).
+- **DO NOT** import any custom components or functions from other files. All logic and components must be fully contained within the single file.
+
+## **Rules**
+
+### **General**
+- **NO ERRORS**: The code must work perfectly on the first try, without bugs or issues.
+- Provide **complete code**, fully functional and self-contained. **Recreate every part of the code in this file** with no omissions, placeholders, or imports.
+- **DO NOT** import any external JS files or components. **Recreate every component and function exactly as specified**, rewriting each as a **const** function.
+
+## **Goal**
+- The final product should be a **single, complete component** that integrates the plan and code components fully.
+- Every component and function provided should be **recoded, rewritten as const functions**, and **integrated perfectly** into the current file without summarization, omission, or importation from other files.
+- The result should be **100% functional**, fully dynamic, and self-contained with no missing code. It should fully reflect the plan provided and **adapt to the current code structure**.
+
+---
+
+**Important**: Absolutely **NO summarization**. Every single piece of code must be **rewritten as a const function**, fully integrated and dynamically functional within the current file. The goal is to have one **complete, error-free**, and **self-contained** file with everything implemented as described.
+
+
+
+
+
+# **Instructions**
+
+## **Plan**
+- Use the **exact** plan outlined below as the foundation for your implementation.
+- `Component Name: StartupList, Component requirements: ### Final Plan for StartupList Component
+
+#### Component Description
+The StartupList component serves as a comprehensive hub for users to explore startup summaries, enhancing engagement and interactivity. It supports efficient navigation through various startup profiles and offers a robust set of features to provide users with valuable insights.
+
+#### Functionality
+The StartupList component will display a dynamic list of startups sourced from the StartupProfilesContainer. It will facilitate user interactions through various means such as search queries, filters, infinite scrolling, and pagination, ensuring a smooth experience even with large datasets.
+
+#### Core Details
+- **Mapping and Rendering**: Use the `.map()` function to iterate over the startup data array and render a list of StartupCards. Each StartupCard should showcase essential startup information, including name, description, funding status, and a thumbnail image.
+- **Dynamic Updates**: Implement a controlled input for search queries and filter options. Utilize React state management to reflect real-time updates in the displayed list based on user input.
+- **Scrolling and Pagination**: Choose between implementing infinite scrolling using the Intersection Observer API or traditional pagination to manage extensive datasets, ensuring minimal load times.
+
+#### User Interaction
+- **Interaction Mechanics**: Each StartupCard should be clickable, leading to a detailed view of the selected startup profile. Implement a routing mechanism (e.g., React Router) to navigate to `/startups/profiles/details/:id`.
+- **Outcome**: The detailed view will include comprehensive information about the startup, including industry sector, founding team, funding history, and links to associated documents or reports.
+
+### New Features and Enhancements
+
+#### 1. User Engagement Features
+- **Startup Comparison Tool**
+    - **Functionality**: Users can select multiple startups for side-by-side comparison of key metrics.
+    - **Components**: Create a modal component that displays selected startups with relevant data such as funding, team size, and market reach.
+    - **Data Requirements**: Include dummy data for the startups, ensuring metrics are defined.
+    - **User Interaction Flow**: Users select startups via checkboxes, click ‘Compare’, and view results in a modal.
+    - **Challenges & Solutions**: Design the layout to accommodate varying numbers of metrics; use CSS Grid or Flexbox for flexibility.
+
+#### 2. Data Visualization
+- **Interactive Charts and Graphs**
+    - **Functionality**: Visualize funding trends, market growth, and demographic data using libraries like ECharts or Chart.js.
+    - **Components**: Integrate chart components either directly within the StartupList or in a dedicated analytics section.
+    - **Data Requirements**: Create dummy datasets that demonstrate trends over time or comparisons.
+    - **User Interaction Flow**: Enable hover interactions on data points for detailed insights.
+    - **Challenges & Solutions**: Maintain a visually appealing design while ensuring clarity; use Ant Design for uniform styling across components.
+
+#### 3. Customization Options
+- **User-Defined Filters**
+    - **Functionality**: Users can define and save custom filters for easy access in future sessions.
+    - **Components**: Design a filter configuration panel that allows users to specify criteria (e.g., industry type, funding range).
+    - **Data Requirements**: Store user filter preferences in local storage for persistence.
+    - **User Interaction Flow**: Users set their filters, save preferences, and apply them, reflecting changes in real-time.
+    - **Challenges & Solutions**: Manage browser storage limits effectively; ensure efficient retrieval and application of stored filters.
+
+#### 4. Notifications
+- **Real-Time Updates**
+    - **Functionality**: Notify users of new startups that match their saved interests or filters.
+    - **Components**: Implement a notification bell icon that indicates alerts.
+    - **Data Requirements**: Utilize dummy data simulating new startup entries based on user preferences.
+    - **User Interaction Flow**: Clicking on the notification bell reveals a dropdown with alerts.
+    - **Challenges & Solutions**: Ensure notifications are tailored to user preferences, possibly using a subscription approach for updates.
+
+#### 5. Gamification
+- **Achievement Badges**
+    - **Functionality**: Users earn badges for actions like viewing profiles and comparing startups.
+    - **Components**: Create a dedicated section in the user profile to display earned badges.
+    - **Data Requirements**: Design dummy data that outlines badge types and the criteria for earning them.
+    - **User Interaction Flow**: Users receive badges upon completing specified actions, with descriptions available for each badge.
+    - **Challenges & Solutions**: Maintain ongoing engagement; provide clear descriptions and visual indicators of progress towards earning badges.
+
+### Prioritization of Ideas
+1. **User Engagement Features** - High impact on usability and user interaction.
+2. **Data Visualization** - Critical for enhancing understanding of startup performance.
+3. **Customization Options** - Personalizes user experience, adding value.
+4. **Notifications** - Essential for user retention and engagement.
+5. **Gamification** - Adds a fun aspect, but requires careful design to maintain interest.
+
+### Conclusion
+This enhanced StartupList component plan integrates engaging user interactions, valuable data visualization, and customization options designed to create a comprehensive user experience. Each feature is designed for practical implementation in a single-page React application, ensuring seamless integration with existing components while maintaining consistent design and functionality.
+
+### Step-by-Step Plan
+
+#### Clarification
+- Ensure that each feature aligns with user goals and expectations for the StartupList component.
+
+#### Implementation Guidance
+1. **Mapping and Rendering**
+   - Use React’s `.map()` to create StartupCards.
+2. **Dynamic Updates**
+   - Set up state to store search queries and apply filters.
+3. **Scrolling and Pagination**
+   - Decide between infinite scrolling or pagination based on user experience goals.
+4. **Comparison Tool**
+   - Develop a modal for comparisons.
+   - Handle data aggregation in the modal.
+5. **Data Visualization**
+   - Integrate ECharts or Chart.js for graphing metrics.
+6. **User Filters**
+   - Create a filter panel and manage state for saved filters.
+7. **Notifications**
+   - Design a notification system to alert users of relevant updates.
+8. **Gamification**
+   - Implement badge logic and criteria tracking.
+
+#### Efficiency
+- Structure components modularly to enhance maintainability and reusability.
+
+#### Technical Specifications
+- Use React for component structure.
+- Utilize CSS-in-JS or styled-components for styling.
+- Ensure responsiveness using Flexbox or Grid layouts.
+
+#### Examples
+- Provide examples of user flows, such as selecting startups for comparison or applying filters.
+
+#### Edge Cases
+- Test for scenarios where no startups meet the filter criteria.
+- Handle cases where the user navigates away before saving preferences.
+
+#### Enhancements
+- Implement lazy loading for images to improve performance.
+- Use a state management library (like Redux) for larger datasets or complex state management.
+
+This plan outlines the necessary steps and considerations to create a robust StartupList component tailored for desktop use, ensuring a rich user experience that is both engaging and informative.`
+- **Integrate** the plan directly into the code components provided, ensuring every part of the plan is fully reflected in the code. The integration must be seamless, with no missing details or gaps. All pieces should function together as a single, cohesive file.
+
+## **CodeComponents**
+- **Rewrite EVERY SINGLE LINE** of the components below as **const** functions within the current file.
+- **DO NOT** leave out any provided code.
+- **DO NOT** import any components or functions from other files. Every component must be rewritten as a **const** function in this file, fully recoded from scratch.
+- **Adjust** the code so that it **dynamically works** for your current code structure. Every function should be self-contained, with dynamic behavior that adapts to the current project setup.
+- `
+
+```javascript
+// File Path: StartupCard.js
+import React, { useState } from 'react';
+import ReactECharts from 'echarts-for-react';
+
+const dummyStartups = [
+    { id: 1, name: 'Startup A', industry: 'Technology', cohort: '2023', rating: 4, metrics: [10, 20, 30, 40, 50] },
+    { id: 2, name: 'Startup B', industry: 'Finance', cohort: '2023', rating: 3, metrics: [15, 25, 35, 45, 55] },
+    { id: 3, name: 'Startup C', industry: 'Health', cohort: '2023', rating: 5, metrics: [20, 30, 40, 50, 60] },
+];
+
+const RatingStars = ({ rating, onRate }) => {
     return (
         <div>
-            <div>
-                <input 
-                    type="text" 
-                    placeholder="Filter by Investor" 
-                    value={filterInvestor} 
-                    onChange={(e) => setFilterInvestor(e.target.value)} 
-                />
-                <select onChange={(e) => setFilterType(e.target.value)}>
-                    <option value="">All Round Types</option>
-                    <option value="Seed">Seed</option>
-                    <option value="Series A">Series A</option>
-                    <option value="Series B">Series B</option>
-                </select>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th onClick={() => handleSort('roundType')}>Round Type</th>
-                        <th onClick={() => handleSort('amount')}>Amount</th>
-                        <th onClick={() => handleSort('date')}>Date</th>
-                        <th>Investors</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sortedRounds.map(round => (
-                        <tr key={round.id}>
-                            <td>{round.roundType}</td>
-                            <td>{round.amount}</td>
-                            <td>{round.date}</td>
-                            <td>{round.investors.join(", ")}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div>
-                <h3>Total Funds Raised: ${totalFundsRaised}</h3>
-                <ReactECharts option={getOption()} />
-            </div>
+            {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                    key={star}
+                    onClick={() => onRate(star)}
+                    style={{ cursor: 'pointer', color: star <= rating ? 'gold' : 'gray' }}
+                >
+                    ★
+                </span>
+            ))}
         </div>
     );
 };
 
-export default FundingRoundsTable;
+const FollowButton = ({ isFollowed, onToggle }) => {
+    return (
+        <button onClick={onToggle} style={{ backgroundColor: isFollowed ? 'lightcoral' : 'lightgreen' }}>
+            {isFollowed ? 'Following' : 'Follow'}
+        </button>
+    );
+};
+
+const MiniChart = ({ data }) => {
+    const option = {
+        xAxis: {
+            type: 'category',
+            data: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'],
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [{
+            data: data,
+            type: 'line',
+        }],
+    };
+
+    return <ReactECharts option={option} style={{ height: '100px', width: '200px' }} />;
+};
+
+const StartupCard = ({ startup }) => {
+    const [rating, setRating] = useState(startup.rating);
+    const [isFollowed, setIsFollowed] = useState(false);
+
+    const handleRate = (newRating) => {
+        setRating(newRating);
+    };
+
+    const toggleFollow = () => {
+        setIsFollowed(!isFollowed);
+    };
+
+    return (
+        <div
+            onClick={() => window.location.href = `/startups/profiles/details`}
+            style={{ border: '1px solid black', padding: '20px', margin: '10px', cursor: 'pointer' }}
+        >
+            <h3>{startup.name}</h3>
+            <p>Industry: {startup.industry}</p>
+            <p>Cohort: {startup.cohort}</p>
+            <RatingStars rating={rating} onRate={handleRate} />
+            <FollowButton isFollowed={isFollowed} onToggle={toggleFollow} />
+            <MiniChart data={startup.metrics} />
+        </div>
+    );
+};
+
+const StartupList = () => {
+    return (
+        <div>
+            {dummyStartups.map(startup => (
+                <StartupCard key={startup.id} startup={startup} />
+            ))}
+        </div>
+    );
+};
+
+const App = () => {
+    return (
+        <div>
+            <StartupList />
+        </div>
+    );
+};
+
+export default App;
+````
+- Ensure that every line of code is **faithfully recoded**. **No shortcuts, no omissions, no imports.** Every component should be rewritten as a **const** function and fully integrated into the file.
+
+## **FileRequirements**
+- Create a single **JavaScript** file.
+- **DO NOT** include any external styling (e.g., CSS files). Styling should not be a part of this task.
+- Use only **dummy data**, with no backend, API calls, or external services.
+- Include only necessary React imports (e.g., `useState`, `useEffect` if needed).
+- **DO NOT** import any custom components or functions from other files. All logic and components must be fully contained within the single file.
+
+## **Rules**
+
+### **General**
+- **NO ERRORS**: The code must work perfectly on the first try, without bugs or issues.
+- Provide **complete code**, fully functional and self-contained. **Recreate every part of the code in this file** with no omissions, placeholders, or imports.
+- **DO NOT** import any external JS files or components. **Recreate every component and function exactly as specified**, rewriting each as a **const** function.
+
+## **Goal**
+- The final product should be a **single, complete component** that integrates the plan and code components fully.
+- Every component and function provided should be **recoded, rewritten as const functions**, and **integrated perfectly** into the current file without summarization, omission, or importation from other files.
+- The result should be **100% functional**, fully dynamic, and self-contained with no missing code. It should fully reflect the plan provided and **adapt to the current code structure**.
+
+---
+
+**Important**: Absolutely **NO summarization**. Every single piece of code must be **rewritten as a const function**, fully integrated and dynamically functional within the current file. The goal is to have one **complete, error-free**, and **self-contained** file with everything implemented as described.
+
+
+
+
+
+# **Instructions**
+
+## **Plan**
+- Use the **exact** plan outlined below as the foundation for your implementation.
+- `Component Name: MentorCard, Component requirements: ### Final Plan
+
+#### **Description**
+This plan outlines an enhanced `MentorCard` component for a professional ERP (Enterprise Resource Planning) system, focusing on individual mentor profiles. The objective is to improve user engagement, data visualization, and interactivity while maintaining a clean and coherent user experience.
+
+#### **Content**
+- **Component Description**
+    - The `MentorCard` represents individual mentor profiles, showcasing their name, expertise, assigned startups, and additional interactive features.
+
+- **Functionality**
+    - The `MentorCard` is designed to be a visually appealing, clickable component that provides a quick overview of a mentor's profile. It includes:
+        - Mentor's name
+        - Areas of expertise (displayed as tags)
+        - Startups assigned to the mentor
+        - Quick statistics displayed on hover (number of startups mentored, date of last feedback)
+        - A link to a more detailed `Mentor Detail Page` for in-depth exploration of the mentor's background and engagements.
+
+- **Details**
+    - Displays mentor name, expertise tags, assigned startups.
+    - Includes a hover-over tooltip feature showing quick stats.
+    - Clickable, linking to a detailed `Mentor Detail Page`.
+    - Responsive hover effects and animations to enhance user interaction.
+    - Integration of a rating system where users can rate mentors based on their experiences.
+
+- **Interconnectivity**
+    - Links to the `Mentor Detail Page` for a detailed view of a mentor's profile.
+
+- **User Interaction**
+    - **Interact**: User can hover over or click on a `MentorCard`.
+    - **Possible Interactions**:
+        - Hovering displays a tooltip with quick stats.
+        - Clicking navigates to the detailed profile page.
+    - **Result**: Tooltip appears on hover; a new page loads on click, showing detailed mentor information.
+    - **Result Functionality**: Displays additional information upon hover and redirects to the detailed profile on click.
+
+#### **Idea Generation**
+Based on the previous plan, the following features and components could enhance the user experience:
+
+1. **Mentor Rating System**
+   - **Main Functionality**: Allow users to rate mentors and provide feedback.
+   - **Key Components**: Star rating widget, feedback text area.
+   - **Data Requirements**: Dummy data for ratings and reviews.
+   - **User Interaction Flow**: Users click on the rating stars, submit feedback, and see average ratings on the `MentorCard`.
+   - **Challenges & Solutions**: Moderation of feedback could be a challenge; implement a review system for feedback before publishing.
+
+2. **Dynamic Feedback Loop**
+   - **Main Functionality**: Display real-time feedback and updates on the `MentorCard`.
+   - **Key Components**: Notification badge for new feedback, real-time updates section.
+   - **Data Requirements**: Dummy data simulating new feedback entries.
+   - **User Interaction Flow**: Users receive notifications and can click to read new feedback.
+   - **Challenges & Solutions**: Keeping the UI clean with numerous feedback; utilize a notification center to manage visibility.
+
+3. **Interactive Data Visualization**
+   - **Main Functionality**: Visual representation of mentor activities and startup engagements.
+   - **Key Components**: ECharts integrated graphs/charts.
+   - **Data Requirements**: Dummy data showcasing engagements and stats.
+   - **User Interaction Flow**: Users can hover over graphs for more details.
+   - **Challenges & Solutions**: Ensuring visual clarity; maintain a balance between information density and legibility.
+
+4. **Customization Options**
+   - **Main Functionality**: Allow users to customize the display of mentor cards (e.g., sort by expertise or recent activity).
+   - **Key Components**: Dropdown filters and sorting options.
+   - **Data Requirements**: Dummy data reflecting various mentors and their attributes.
+   - **User Interaction Flow**: Users select sorting/filtering criteria, and the `MentorCard` updates dynamically.
+   - **Challenges & Solutions**: Maintain performance with large datasets; implement efficient state management.
+
+5. **Gamification Elements**
+   - **Main Functionality**: Introduce badges or rewards for mentors based on user interactions.
+   - **Key Components**: Badge display within the `MentorCard`.
+   - **Data Requirements**: Dummy data for badges and achievements.
+   - **User Interaction Flow**: Users see badges on mentors and can click for more details about the achievements.
+   - **Challenges & Solutions**: Designing meaningful achievements; ensure the system is engaging without being overwhelming.
+
+#### **Prioritization**
+1. **Mentor Rating System** - High impact, moderate feasibility.
+2. **Dynamic Feedback Loop** - High impact, moderate feasibility.
+3. **Interactive Data Visualization** - Medium impact, high feasibility.
+4. **Customization Options** - Medium impact, moderate feasibility.
+5. **Gamification Elements** - Low impact, high feasibility.
+
+### Step-by-Step Plan
+
+#### **Clarification**
+1. **MentorCard Component**: Ensure clarity on the visual layout of the card, including the positioning of name, expertise tags, and assigned startups.
+2. **Interactive Features**: Clearly define how the hover effects and tooltips will function, including what statistics are displayed and their format.
+
+#### **Implementation Guidance**
+1. **MentorCard Creation**
+    - Use a card component structure (e.g., defined via CSS Flexbox or Grid).
+    - Incorporate props for mentor's name, expertise, and startups.
+  
+2. **Hover Tooltip Implementation**
+    - Utilize CSS for hover effects.
+    - Display a tooltip with quick stats using a state variable to manage visibility.
+  
+3. **Clickable Navigation**
+    - Add an `onClick` event handler to the `MentorCard` that routes to the `Mentor Detail Page`.
+
+4. **Rating System Integration**
+    - Implement a star rating widget using a library like React Stars.
+    - Create a feedback form component that takes user input and submits it.
+
+5. **Dynamic Feedback Loop**
+    - Include a notification badge that updates based on new feedback.
+    - Use a state management solution to reflect changes in real-time.
+
+6. **Interactive Data Visualization**
+    - Integrate ECharts or Chart.js for data visualization.
+    - Ensure that the graphs are responsive and provide tooltips on hover.
+
+7. **Customization Options**
+    - Use dropdown components to provide filtering and sorting functionalities.
+    - Implement state management to update the displayed list of MentorCards dynamically.
+
+8. **Gamification Elements**
+    - Create a badge display section on the `MentorCard` to showcase achievements.
+    - Define criteria for earning badges and ensure these are visually distinct.
+
+#### **Efficiency**
+- Structure components for reusability, e.g., create a reusable `Tooltip` and `Rating` component.
+- Use memoization techniques where necessary to avoid unnecessary re-renders.
+
+#### **Technical Specifications**
+- Framework: React.js (or a similar front-end framework).
+- State Management: React's Context API or Redux.
+- Styling: CSS-in-JS libraries (e.g., styled-components) or traditional CSS/SASS.
+
+#### **Examples**
+- **MentorCard Example**:
+```jsx
+<MentorCard 
+    name="John Doe" 
+    expertise={["Finance", "Marketing"]} 
+    startups={["Startup A", "Startup B"]} 
+/>
 ```
 
+#### **Edge Cases**
+1. **No Assigned Startups**: Display a placeholder message or icon.
+2. **No Ratings Yet**: Show a default state indicating that ratings are welcome.
+3. **Feedback Moderation**: Ensure that feedback submitted is validated before displaying it.
+
+#### **Enhancements**
+- Implement dark/light mode toggle for better accessibility.
+- Add animations for loading states when data is fetched for mentors.
+- Introduce keyboard navigation for improved accessibility.
+
+By implementing these features, the `MentorCard` component can provide a comprehensive and engaging experience for users, encouraging exploration and interaction while presenting information in a visually appealing manner.`
+- **Integrate** the plan directly into the code components provided, ensuring every part of the plan is fully reflected in the code. The integration must be seamless, with no missing details or gaps. All pieces should function together as a single, cohesive file.
+
+## **CodeComponents**
+- **Rewrite EVERY SINGLE LINE** of the components below as **const** functions within the current file.
+- **DO NOT** leave out any provided code.
+- **DO NOT** import any components or functions from other files. Every component must be rewritten as a **const** function in this file, fully recoded from scratch.
+- **Adjust** the code so that it **dynamically works** for your current code structure. Every function should be self-contained, with dynamic behavior that adapts to the current project setup.
+- `
+
 ```javascript
-// File Path: BurnRateIndicator.js
+// File Path: Tooltip.js
 import React, { useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 
-const BurnRateIndicator = () => {
-  const [burnRate, setBurnRate] = useState(60); // Percentage
-  const [monthlyRevenue, setMonthlyRevenue] = useState(100000);
-  const [monthlyExpenses, setMonthlyExpenses] = useState(60000);
-  const [runwayMonths, setRunwayMonths] = useState(Math.floor(monthlyRevenue / monthlyExpenses));
-  const historicalData = [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150]; // Dummy data for last 12 months
+const Tooltip = () => {
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [mentorData] = useState({
+    name: "Mentor XYZ",
+    startupsMentored: 10,
+    lastFeedbackDate: "01/12/2023",
+    bio: "Expert in tech startups with a background in software engineering.",
+  });
 
-  const getGaugeColor = () => {
-    if (burnRate < 50) return 'green';
-    if (burnRate >= 50 && burnRate < 75) return 'yellow';
-    return 'red';
+  const [chartData] = useState({
+    pieData: [
+      { value: 5, name: 'Tech' },
+      { value: 3, name: 'Health' },
+      { value: 2, name: 'Finance' },
+    ],
+    barData: [
+      { date: 'Jan', feedback: 2 },
+      { date: 'Feb', feedback: 4 },
+      { date: 'Mar', feedback: 1 },
+    ],
+  });
+
+  const showTooltip = () => {
+    setTooltipVisible(true);
   };
 
-  const option = {
+  const hideTooltip = () => {
+    setTooltipVisible(false);
+  };
+
+  const getOption = () => ({
     tooltip: {
-      formatter: () => (
-        `<div>
-          <p>Current Burn Rate: ${burnRate}%</p>
-          <p>Runway: ${runwayMonths} months</p>
-          <p>Expenses: $${monthlyExpenses}</p>
-          <p>Revenue: $${monthlyRevenue}</p>
-        </div>`
-      ),
       trigger: 'item',
     },
     series: [
       {
-        name: 'Burn Rate',
-        type: 'gauge',
-        detail: { formatter: '{value}%' },
-        data: [{ value: burnRate }],
-        title: { fontSize: 20 },
-        axisLine: {
-          lineStyle: {
-            color: [[0.5, 'green'], [0.75, 'yellow'], [1, 'red']],
-            width: 30,
+        name: 'Startups Mentored',
+        type: 'pie',
+        radius: '50%',
+        data: chartData.pieData,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
         },
       },
     ],
-  };
+  });
 
-  const historicalOption = {
-    tooltip: {
-      trigger: 'axis',
-      formatter: (params) => {
-        const month = params[0].name;
-        const burnRate = params[0].value;
-        return `Month: ${month}<br/>Burn Rate: ${burnRate}`;
-      },
-    },
+  const getBarOption = () => ({
     xAxis: {
       type: 'category',
-      data: [...Array(12).keys()].map(i => `Month ${i + 1}`),
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [{
-      name: 'Historical Burn Rate',
-      type: 'line',
-      data: historicalData,
-    }],
-  };
-
-  const handleForecast = (newExpenses, newRevenue) => {
-    setMonthlyExpenses(newExpenses);
-    setMonthlyRevenue(newRevenue);
-    setBurnRate(Math.round((newExpenses / newRevenue) * 100));
-    setRunwayMonths(Math.floor(newRevenue / newExpenses));
-  };
-
-  return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{ width: '50%', height: '300px' }}>
-        <ReactECharts option={option} />
-      </div>
-      <div style={{ marginTop: '20px' }}>
-        <h2>Historical Burn Rate</h2>
-        <div style={{ width: '50%', height: '300px' }}>
-          <ReactECharts option={historicalOption} />
-        </div>
-      </div>
-      <div style={{ marginTop: '20px' }}>
-        <h3>Forecasting Tool</h3>
-        <input
-          type="number"
-          placeholder="Projected Expenses"
-          onChange={(e) => handleForecast(Number(e.target.value), monthlyRevenue)}
-        />
-        <input
-          type="number"
-          placeholder="Projected Revenue"
-          onChange={(e) => handleForecast(monthlyExpenses, Number(e.target.value))}
-        />
-      </div>
-      <div style={{ marginTop: '20px', color: getGaugeColor() }}>
-        <h3 style={{ color: getGaugeColor() }}>Current Burn Rate: {burnRate}%</h3>
-      </div>
-    </div>
-  );
-};
-
-export default BurnRateIndicator;
-````
-- Ensure that every line of code is **faithfully recoded**. **No shortcuts, no omissions, no imports.** Every component should be rewritten as a **const** function and fully integrated into the file.
-
-## **FileRequirements**
-- Create a single **JavaScript** file.
-- **DO NOT** include any external styling (e.g., CSS files). Styling should not be a part of this task.
-- Use only **dummy data**, with no backend, API calls, or external services.
-- Include only necessary React imports (e.g., `useState`, `useEffect` if needed).
-- **DO NOT** import any custom components or functions from other files. All logic and components must be fully contained within the single file.
-
-## **Rules**
-
-### **General**
-- **NO ERRORS**: The code must work perfectly on the first try, without bugs or issues.
-- Provide **complete code**, fully functional and self-contained. **Recreate every part of the code in this file** with no omissions, placeholders, or imports.
-- **DO NOT** import any external JS files or components. **Recreate every component and function exactly as specified**, rewriting each as a **const** function.
-
-## **Goal**
-- The final product should be a **single, complete component** that integrates the plan and code components fully.
-- Every component and function provided should be **recoded, rewritten as const functions**, and **integrated perfectly** into the current file without summarization, omission, or importation from other files.
-- The result should be **100% functional**, fully dynamic, and self-contained with no missing code. It should fully reflect the plan provided and **adapt to the current code structure**.
-
----
-
-**Important**: Absolutely **NO summarization**. Every single piece of code must be **rewritten as a const function**, fully integrated and dynamically functional within the current file. The goal is to have one **complete, error-free**, and **self-contained** file with everything implemented as described.
-
-
-
-
-
-# **Instructions**
-
-## **Plan**
-- Use the **exact** plan outlined below as the foundation for your implementation.
-- `Component Name: MetricsTable, Component requirements: # Final Plan for MetricsTable Component Enhancement
-
-## Component Description:
-The MetricsTable component presents detailed tabular data of each startup's metrics, designed for comparative analysis and data visualization. This enhancement aims to elevate user engagement and improve the overall user experience by integrating various interactive features.
-
-## Functionality:
-The MetricsTable will maintain its core function of providing an organized, tabular view of metrics while being augmented with additional features such as data visualization tools, customizable views, and enhanced interactivity options for deeper insights into the data.
-
-## Key Enhancements:
-
-### 1. Data Visualization Integration
-- **Main Functionality**: Integrate ECharts to provide visual representations (bar charts, line graphs) of selected metrics.
-- **Key Components**:
-  - `VisualizationPanel`: A side section displaying chart representations of highlighted metrics.
-- **Data Requirements**: Dummy data arrays representing metrics over time (e.g., funding amounts, user growth).
-- **User Interaction Flow**: 
-  - Users select a metric from the table.
-  - The relevant visualization updates in real-time.
-- **Implementation Guidance**:
-  - Use ECharts library to create charts.
-  - Create a data-binding mechanism to update charts based on user selection.
-- **Edge Cases**: 
-  - Handle cases where no data is available for selected metrics. Show a default message or placeholder.
-  
-### 2. Customizable Table Views
-- **Main Functionality**: Allow users to customize the columns displayed, enabling focus on metrics that matter most.
-- **Key Components**:
-  - `ColumnSelector`: A modal dialog for users to select/deselect columns.
-- **Data Requirements**: Predefined array of available metrics.
-- **User Interaction Flow**:
-  - Users click on a settings icon.
-  - Select desired metrics, and the table updates dynamically.
-- **Implementation Guidance**:
-  - Maintain state for selected columns using React's state management.
-  - Implement local storage to persist user preferences.
-- **Edge Cases**:
-  - If no columns are selected, provide a default view with essential metrics.
-
-### 3. Enhanced Interactivity with Tooltips
-- **Main Functionality**: Add tooltips that provide additional context or historical data on hover.
-- **Key Components**:
-  - `Tooltip`: Displays extra information about the hovered metric.
-- **Data Requirements**: A mapping of metrics to historical data points for tooltip display.
-- **User Interaction Flow**:
-  - Users hover over a table cell to view the tooltip.
-- **Implementation Guidance**:
-  - Create a Tooltip component that accepts data as props.
-  - Use a debounce technique to optimize rendering performance.
-- **Edge Cases**:
-  - Ensure tooltips don't overflow the viewport; implement positioning logic.
-
-### 4. Gamification Elements
-- **Main Functionality**: Introduce achievement badges for frequent interaction or completion of analyses.
-- **Key Components**:
-  - `BadgeDisplay`: A section showing user achievements.
-- **Data Requirements**: Dummy data for achievements based on user interactions.
-- **User Interaction Flow**:
-  - Users earn badges based on usage patterns, displayed in their profile.
-- **Implementation Guidance**:
-  - Track user actions with event listeners.
-  - Display badges using conditional rendering based on user data.
-- **Edge Cases**:
-  - Ensure achievements are not reset on page refresh; persist data in local storage.
-
-### 5. Dynamic Content with Notifications
-- **Main Functionality**: Alert users of significant metric changes (e.g., funding spikes, user growth) via notifications.
-- **Key Components**:
-  - `NotificationCenter`: A component that lists recent notifications.
-- **Data Requirements**: Predefined notification triggers based on dummy data analysis.
-- **User Interaction Flow**:
-  - Users receive notifications, which they can click to view associated metrics.
-- **Implementation Guidance**:
-  - Create a notification system that checks for metric changes at intervals.
-  - Allow users to customize notification preferences.
-- **Edge Cases**:
-  - Ensure notifications are relevant; implement filters based on user settings.
-
-## Prioritization of Ideas
-1. Data Visualization Integration (High Impact, High Feasibility)
-2. Customizable Table Views (High Impact, Medium Feasibility)
-3. Enhanced Interactivity with Tooltips (Medium Impact, High Feasibility)
-4. Dynamic Content with Notifications (Medium Impact, Medium Feasibility)
-5. Gamification Elements (Low Impact, Medium Feasibility)
-
-## Interconnectivity
-- The enhanced MetricsTable will continue to interconnect with other components such as the Cohort Analytics Page, ensuring that all data insights feed into broader analyses.
-
-## User Interaction
-- Users will engage with the table through sorting, filtering, and enhanced features such as dynamic visualizations and customizable views. The interaction will be intuitive and responsive, providing a seamless experience.
-
-## Enhancements for Better User Experience:
-- **Accessibility**: Ensure the table is navigable via keyboard and screen readers.
-- **Responsive Design**: Although this plan focuses on desktop, ensure that the layout is adaptable for future mobile versions.
-- **Performance Optimization**: Use memoization techniques for rendering large datasets to enhance performance.
-- **User Tutorial**: Create an onboarding tutorial to guide users through new features.
-
-This comprehensive plan aims to transform the MetricsTable component into a robust, interactive tool that meets the needs of users seeking in-depth analysis of startup metrics, fostering a productive and engaging environment.`
-- **Integrate** the plan directly into the code components provided, ensuring every part of the plan is fully reflected in the code. The integration must be seamless, with no missing details or gaps. All pieces should function together as a single, cohesive file.
-
-## **CodeComponents**
-- **Rewrite EVERY SINGLE LINE** of the components below as **const** functions within the current file.
-- **DO NOT** leave out any provided code.
-- **DO NOT** import any components or functions from other files. Every component must be rewritten as a **const** function in this file, fully recoded from scratch.
-- **Adjust** the code so that it **dynamically works** for your current code structure. Every function should be self-contained, with dynamic behavior that adapts to the current project setup.
-- `
-
-```javascript
-// File Path: TableRow.js
-import React, { useState } from 'react';
-import ReactECharts from 'echarts-for-react';
-
-const dummyData = [
-  {
-    id: 1,
-    name: 'Startup A',
-    mau: 5000,
-    revenue: 15000,
-    detail: 'Detailed insights about Startup A'
-  },
-  {
-    id: 2,
-    name: 'Startup B',
-    mau: 3000,
-    revenue: 8000,
-    detail: 'Detailed insights about Startup B'
-  },
-  {
-    id: 3,
-    name: 'Startup C',
-    mau: 7000,
-    revenue: 25000,
-    detail: 'Detailed insights about Startup C'
-  },
-];
-
-const TableRow = () => {
-  const [expandedRow, setExpandedRow] = useState(null);
-  const [filteredData, setFilteredData] = useState(dummyData);
-  
-  const handleRowClick = (id) => {
-    setExpandedRow(expandedRow === id ? null : id);
-  };
-
-  const getChartOption = (mau, revenue) => ({
-    xAxis: {
-      type: 'category',
-      data: ['MAU', 'Revenue'],
+      data: chartData.barData.map(item => item.date),
     },
     yAxis: {
       type: 'value',
     },
     series: [
       {
-        data: [mau, revenue],
+        data: chartData.barData.map(item => item.feedback),
         type: 'bar',
       },
     ],
   });
 
   return (
-    <div>
-      <div>
-        {filteredData.map((startup) => (
-          <div 
-            key={startup.id} 
-            onClick={() => handleRowClick(startup.id)} 
-            style={{
-              padding: '10px',
-              margin: '5px',
-              backgroundColor: expandedRow === startup.id ? '#e0e0e0' : '#fff',
-              cursor: 'pointer',
-              transition: 'background-color 0.3s'
-            }}
-          >
-            <div>{startup.name}</div>
-            <div>MAU: {startup.mau}</div>
-            <div>Revenue: {startup.revenue}</div>
-            {expandedRow === startup.id && (
-              <div>
-                <div>{startup.detail}</div>
-                <ReactECharts option={getChartOption(startup.mau, startup.revenue)} />
-              </div>
-            )}
-          </div>
-        ))}
+    <div style={{ position: 'relative', width: '500px', height: '400px' }}>
+      <div
+        onMouseEnter={showTooltip}
+        onMouseLeave={hideTooltip}
+        style={{ padding: '20px', border: '1px solid black', cursor: 'pointer' }}
+      >
+        {mentorData.name}
       </div>
-    </div>
-  );
-};
-
-export default TableRow;
-```
-
-```javascript
-// File Path: EnhancedMetricsTable.js
-import React, { useState, useEffect } from 'react';
-import ReactECharts from 'echarts-for-react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-const dummyData = [
-  { id: 1, name: 'Revenue', value: 1000, trend: [900, 950, 1000, 1100] },
-  { id: 2, name: 'Profit', value: 300, trend: [250, 280, 300, 350] },
-  { id: 3, name: 'Expenses', value: 700, trend: [650, 680, 700, 720] },
-];
-
-const TableCell = ({ metric, onSave }) => {
-  const [inputValue, setInputValue] = useState(metric.value);
-  const [isEditing, setIsEditing] = useState(false);
-  
-  const handleSave = () => {
-    if (!isNaN(inputValue) && inputValue >= 0) {
-      onSave(metric.id, parseFloat(inputValue));
-      setIsEditing(false);
-    } else {
-      toast.error('Invalid input. Please enter a valid number.');
-    }
-  };
-
-  return (
-    <div style={{ padding: '10px', border: '1px solid #ccc', display: 'flex', alignItems: 'center' }}>
-      {isEditing ? (
-        <input
-          type="number"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onBlur={handleSave}
-          style={{ width: '60px' }}
-        />
-      ) : (
-        <span onClick={() => setIsEditing(true)} style={{ cursor: 'pointer' }}>
-          {metric.value}
-        </span>
+      {tooltipVisible && (
+        <div style={{
+          position: 'absolute',
+          backgroundColor: 'white',
+          border: '1px solid black',
+          padding: '10px',
+          top: '40px',
+          left: '0',
+          transition: 'opacity 0.5s ease',
+          zIndex: 1000,
+        }}>
+          <p>Mentored: {mentorData.startupsMentored} Startups</p>
+          <p>Last Feedback: {mentorData.lastFeedbackDate}</p>
+          <p>Bio: {mentorData.bio}</p>
+        </div>
       )}
+      <ReactECharts option={getOption()} style={{ height: '200px', marginTop: '20px' }} />
+      <ReactECharts option={getBarOption()} style={{ height: '200px', marginTop: '20px' }} />
     </div>
   );
 };
 
-const Chart = ({ data }) => {
-  const option = {
-    title: {
-      text: 'Metric Trends'
-    },
-    tooltip: {},
-    xAxis: {
-      type: 'category',
-      data: ['Last Month', 'Two Months Ago', 'Three Months Ago', 'Four Months Ago']
-    },
-    yAxis: {
-      type: 'value'
-    },
-    series: [{
-      name: 'Trends',
-      type: 'line',
-      data: data.trend
-    }]
-  };
-
-  return <ReactECharts option={option} style={{ height: '400px', width: '100%' }} />;
-};
-
-const EnhancedMetricsTable = () => {
-  const [metrics, setMetrics] = useState(dummyData);
-  const [selectedMetric, setSelectedMetric] = useState(metrics[0]);
-
-  const handleSave = (id, newValue) => {
-    const updatedMetrics = metrics.map(metric => 
-      metric.id === id ? { ...metric, value: newValue } : metric
-    );
-    setMetrics(updatedMetrics);
-    toast.success('Metric updated successfully!');
-  };
-
-  useEffect(() => {
-    const socket = new WebSocket('ws://dummy.websocket.url');
-    
-    socket.onmessage = (event) => {
-      const updatedData = JSON.parse(event.data);
-      setMetrics(updatedData);
-    };
-
-    return () => socket.close();
-  }, []);
-
-  return (
-    <div style={{ width: '1920px', height: '1080px', padding: '20px' }}>
-      <ToastContainer />
-      <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '20px' }}>
-        {metrics.map(metric => (
-          <TableCell key={metric.id} metric={metric} onSave={handleSave} />
-        ))}
-      </div>
-      <Chart data={selectedMetric} />
-    </div>
-  );
-};
-
-export default EnhancedMetricsTable;
-```
-
-```javascript
-// File Path: PaginationControl.js
-import React, { useState } from 'react';
-
-const PaginationControl = () => {
-  const totalRecords = 100;
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(totalRecords / rowsPerPage);
-
-  const handleNext = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
-
-  const handlePrevious = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
-
-  const handleFirstPage = () => {
-    setCurrentPage(1);
-  };
-
-  const handleLastPage = () => {
-    setCurrentPage(totalPages);
-  };
-
-  const handleRowsPerPageChange = (e) => {
-    setRowsPerPage(Number(e.target.value));
-    setCurrentPage(1);
-  };
-
-  const handleJumpToPage = (e) => {
-    const pageNumber = Number(e.target.value);
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
-    }
-  };
-
-  const startRecord = (currentPage - 1) * rowsPerPage + 1;
-  const endRecord = Math.min(currentPage * rowsPerPage, totalRecords);
-
-  return (
-    <div>
-      <button onClick={handleFirstPage} disabled={currentPage === 1}>First</button>
-      <button onClick={handlePrevious} disabled={currentPage === 1}>Previous</button>
-      <button onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
-      <button onClick={handleLastPage} disabled={currentPage === totalPages}>Last</button>
-      
-      <select value={rowsPerPage} onChange={handleRowsPerPageChange}>
-        <option value={5}>5</option>
-        <option value={10}>10</option>
-        <option value={25}>25</option>
-        <option value={50}>50</option>
-      </select>
-      
-      <span>Page {currentPage} of {totalPages}</span>
-      
-      <input 
-        type="number" 
-        min="1" 
-        max={totalPages} 
-        onChange={handleJumpToPage} 
-        placeholder="Jump to page"
-      />
-      
-      <span>Showing {startRecord}-{endRecord} of {totalRecords}</span>
-    </div>
-  );
-};
-
-export default PaginationControl;
+export default Tooltip;
 ````
 - Ensure that every line of code is **faithfully recoded**. **No shortcuts, no omissions, no imports.** Every component should be rewritten as a **const** function and fully integrated into the file.
 

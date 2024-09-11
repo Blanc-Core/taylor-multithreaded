@@ -1,288 +1,361 @@
-### Page Name: Growth Metrics Page
+### Page Name: Dashboard Page
 
 #### 1. **Name and Purpose**
-   - **Name:** Growth Metrics Page
-   - **Purpose:** This page serves to display detailed growth metrics for each startup, enabling users to analyze performance against predefined KPIs.
-   - **Problems Solved:**
-     - Provides clear visibility into growth trends and metrics, aiding in performance assessment.
-     - Automates tracking of key performance indicators to ensure consistent evaluations.
-     - Facilitates comparisons of growth metrics across different startups for better insights.
-
-#### 2. **Component Structure**
-   - **Parent Components:**
-     - **MetricsOverview:** Displays an overview of growth metrics across startups.
-     - **MetricsTable:** Contains detailed tabular data of each startup's metrics.
-   - **Sub-Components (Children):**
-     - **MetricCard:** Displays individual metrics (e.g., MAU, Revenue) for each startup within the MetricsOverview.
-     - **FilterPanel:** Allows users to filter metrics by date range, startup, or metric type.
-     - **PaginationControl:** Manages pagination for the MetricsTable.
-   - **Component Breakdown:**
-     - **Hierarchy:** 
-       - MetricsOverview (Parent)
-         - MetricCard (Child)
-         - FilterPanel (Child)
-       - MetricsTable (Parent)
-         - TableRow (Child)
-         - TableCell (Child)
-         - PaginationControl (Child)
-     - **Dynamic Relationships:** The FilterPanel dynamically updates the MetricsTable and MetricsOverview based on user selections.
-     - **Reusability:** MetricCard can be reused in other pages such as Health Dashboard for displaying individual metrics.
-
-#### 3. **User Interaction and Flow**
-   - **Component Interactions:** Users will interact with the FilterPanel to select filters, which will update the MetricsOverview and MetricsTable in real-time.
-   - **Feedback Mechanisms:** Visual cues such as loading spinners during data fetch and highlighted metrics for significant changes will provide user feedback.
-   - **Adaptive Behavior:** The layout will adjust based on screen size to ensure metrics remain readable and accessible.
-
-#### 4. **Data Handling**
-   - **Data Flow:** The FilterPanel sends filter criteria to the MetricsTable, which fetches updated mock data, such as `[{startup: "TechInnovate", metric: "MAU", value: 5000}]`.
-   - **State Management:** State is managed using React's `useState` and `useEffect` hooks to ensure data consistency across components when filters change.
-   - **Mock Data Implementation:** Mock data simulating backend responses will be implemented using a local JSON file or hardcoded values.
-
-#### 5. **Interconnectivity**
-   - **Intra-Module Interactions:** The Growth Metrics Page interacts with the Health Dashboard Page by sharing metric data.
-   - **Data Sharing:** Data shared includes growth metrics which can be pulled from the MetricsTable to provide insights in other metrics-related pages.
-   - **Integration Points:** The FilterPanel can utilize shared context providers to gather filters that might be relevant across different pages.
-
-#### 6. **Scalability and Performance**
-   - **Scalability Considerations:** The component structure allows for easy addition of new metrics or filters without significant changes to existing components.
-   - **Performance Metrics:** Metrics such as loading times and response times will be monitored using performance profiling tools like React Profiler.
-
-#### 7. **Navigation and User Flow**
-   - **Navigation To This Page:** Users can navigate to this page via the main dashboard link or a menu option labeled "Growth Metrics".
-   - **Navigation From This Page:** Users can navigate back to the Health Dashboard Page or to the Cohort Analytics Page using a breadcrumb navigation or sidebar.
-
-#### 8. **Innovative Features**
-   - **Unique Features:** Implementation of a heatmap visualization within the MetricsOverview to show performance trends visually.
-   - **Components Needed for Innovative Features:** 
-     - **Heatmap:** A specialized component to visualize metrics in a heatmap format for quick insights.
-
-#### 9. **Page URL**
-   - **URL for This Page (React):** `/metrics/growth`### Page Name: Mentor Overview Page
-
-#### 1. **Name and Purpose**
-   - **Name:** Mentor Overview Page
-   - **Purpose:** This page provides a comprehensive view of each mentor's profile, including their expertise, availability, and the startups they are mentoring. It serves as a dashboard for mentors to see their assigned startups and for startups to find relevant mentors.
-   - **Problems Solved:**
-     - Centralizes mentor information for easy access.
-     - Helps startups identify the right mentors based on expertise.
-     - Displays mentor availability for scheduling purposes.
-
-#### 2. **Component Structure**
-   - **Parent Components:**
-     - **MentorDashboard**: Responsible for rendering the overall layout and fetching mentor data.
-       - **Components:** 
-         - **MentorProfileList**: Displays a list of mentors.
-         - **MentorFilter**: Provides filtering options for expertise and availability.
-   - **Sub-Components (Children):**
-     - **MentorCard**: Displays individual mentor details, including name, expertise, and availability.
-     - **AvailabilityIndicator**: Shows whether a mentor is available for new startups.
-     - **ExpertiseTag**: Highlights the mentor's areas of expertise with tags.
-
-   - **Component Breakdown:**
-     - **Hierarchy:** 
-       - MentorDashboard
-         - MentorProfileList
-           - MentorCard
-             - AvailabilityIndicator
-             - ExpertiseTag
-     - **Dynamic Relationships:** The MentorProfileList updates in real-time based on filters applied through MentorFilter.
-     - **Reusability:** MentorCard can be reused in other pages where mentor information is displayed, such as the Feedback Log Page.
-
-#### 3. **User Interaction and Flow**
-   - **Component Interactions:** Users can interact with the MentorFilter to dynamically update the MentorProfileList based on selected criteria. Clicking on a MentorCard opens a detailed modal with further information.
-   - **Feedback Mechanisms:** Real-time updates will be indicated with a loading spinner during data fetches, and visual cues will highlight active filters.
-   - **Adaptive Behavior:** The layout adjusts to accommodate different screen sizes, ensuring that the mentor cards remain visually appealing and accessible on desktop views.
-
-#### 4. **Data Handling**
-   - **Data Flow:** MentorDashboard fetches data from a mock API, such as `[{name: "John Doe", expertise: "Marketing", available: true}, {...}]`, and passes it down to the MentorProfileList and MentorCard components.
-   - **State Management:** State is managed within MentorDashboard, using React's useState and useEffect hooks to handle data fetching and updates.
-   - **Mock Data Implementation:** Implement mock data directly within the component for testing, simulating the structure of fetched data for demonstration purposes.
-
-#### 5. **Interconnectivity**
-   - **Intra-Module Interactions:** Components within MentorOverview Page interact with the Feedback Log Page by providing access to mentor profiles for feedback sessions.
-   - **Data Sharing:** Mentor details and availability data are shared across pages, allowing for seamless transitions and consistent user experience.
-   - **Integration Points:** Utilizes a shared context provider for mentor data that can be accessed across the entire module.
-
-#### 6. **Scalability and Performance**
-   - **Scalability Considerations:** The component structure allows for additional mentor profiles or filters to be added without significant changes to the existing components.
-   - **Performance Metrics:** Load times and rendering performance will be monitored using React Profiler, ensuring components load efficiently even with a larger dataset.
-
-#### 7. **Navigation and User Flow**
-   - **Navigation To This Page:** Users can navigate to this page from the main dashboard via a "Mentors" tab in the sidebar.
-   - **Navigation From This Page:** Users can click on a mentor's name to navigate to their detailed profile page or use the back button to return to the main dashboard.
-
-#### 8. **Innovative Features**
-   - **Unique Features:** Real-time availability indicators and advanced filtering options enhance user experience by enabling quick access to relevant mentors.
-   - **Components Needed for Innovative Features:** MentorFilter for filtering, AvailabilityIndicator for real-time status updates.
-
-#### 9. **Page URL**
-   - **URL for This Page (React):** `/mentors/overview`### Page Name: Investor Overview Page
-
-#### 1. **Name and Purpose**
-   - **Name:** Investor Overview Page
-   - **Purpose:** This page provides a comprehensive view of individual investor profiles, displaying their preferences, engagement history, and potential matches with startups. It helps users manage relationships and assess investor interests effectively.
+   - **Name:** Dashboard Page
+   - **Purpose:** This page serves as the central hub for viewing the overall performance metrics of startups within the Y Combinator portfolio. It aggregates key performance indicators (KPIs) and success scores, providing users with a comprehensive overview of startup health.
    - **Problems Solved:** 
-     - **Fragmented Data Access:** Centralizes investor information for easy access.
-     - **Engagement History Tracking:** Logs interactions with investors for better relationship management.
-     - **Profile Management:** Allows users to easily edit and update investor details.
+     - Provides a centralized location for tracking multiple startups' performance.
+     - Enables quick identification of startups needing assistance based on their metrics.
+     - Supports informed decision-making through visualized data.
 
 #### 2. **Component Structure**
    - **Parent Components:**
-     - **InvestorProfileContainer**
-       - **Core Role:** Displays the main investor profile along with details and interactions.
-       - **Components:** InvestorProfileCard, InvestorPreferences, EngagementHistory, MatchSuggestions.
-   - **Sub-Components (Children):** 
-     - **InvestorProfileCard:** Displays basic investor information (name, organization, contact).
-     - **InvestorPreferences:** Lists investment preferences (e.g., sectors, funding range).
-     - **EngagementHistory:** Shows a timeline of interactions and communications with the investor.
-     - **MatchSuggestions:** Provides a list of startups that match the investor's preferences.
+     - **DashboardContainer**: Core component responsible for layout and state management.
+       - **Components**: 
+         - **KPIDashboard**: Displays key performance indicators in a card format.
+         - **SuccessScoreChart**: Visualizes success scores using a unique tree map, illustrating performance clusters.
+         - **AlertsSection**: Shows alerts for startups needing immediate attention.
+
+   - **Sub-Components (Children):**
+     - **KpiCard**: Individual card displaying a specific KPI (e.g., MRR, MAUs).
+     - **SuccessScoreTreeMap**: Component rendering a tree map to represent success scores visually.
+     - **AlertItem**: Displays individual alerts for startups that require immediate review.
+
+   - **Component Breakdown:**
+     - **Hierarchy:**
+       - DashboardContainer
+         - KPIDashboard
+           - KpiCard
+         - SuccessScoreChart
+           - SuccessScoreTreeMap
+         - AlertsSection
+           - AlertItem
+     - **Dynamic Relationships:** 
+       - KPIDashboard updates KpiCard components based on real-time data inputs.
+       - SuccessScoreChart reflects changes in success scores dynamically.
+     - **Reusability:** 
+       - KpiCard can be reused in Cohort Analytics Page.
+       - AlertItem can be implemented in Peer Review Page.
+
+#### 3. **User Interaction and Flow**
+   - **Component Interactions:** Users can click on individual KpiCard components to get detailed views or historical data, while hovering over the SuccessScoreTreeMap provides tooltips with detailed metrics.
+   - **Feedback Mechanisms:** 
+     - KpiCard components display loading indicators when data is being fetched.
+     - AlertsSection provides visual cues (like color changes) for urgent alerts.
+   - **Adaptive Behavior:** 
+     - Dashboard adjusts layout based on screen size (responsive design) ensuring usability on various resolutions.
+
+#### 4. **Data Handling**
+   - **Data Flow:** Data for KPIs and success scores flows from the DashboardContainer to its child components:
+     ```json
+     {
+       "startupMetrics": [
+         {
+           "name": "FinTech Innovations",
+           "mrr": "$10,000",
+           "maus": 500,
+           "successScore": 85
+         }
+       ]
+     }
+     ```
+   - **State Management:** State is managed within DashboardContainer, using React hooks for real-time updates.
+   - **Mock Data Implementation:** Mock data will be used to simulate startup performance, allowing for testing of visualizations without backend dependency.
+
+#### 5. **Interconnectivity**
+   - **Intra-Module Interactions:** The Dashboard Page pulls data from the Startup Portfolio module, ensuring it reflects the latest metrics and scores.
+   - **Data Sharing:** The success scores computed on the Success Score Page are utilized in the SuccessScoreChart of this page.
+   - **Integration Points:** Shares Alert and KpiCard components with the Peer Review and Cohort Analytics pages.
+
+#### 6. **Scalability and Performance**
+   - **Scalability Considerations:** The component structure allows for the addition of more KPIs or startup metrics without major refactoring.
+   - **Performance Metrics:** Load times and responsiveness will be monitored using tools like Google Lighthouse, ensuring optimal performance across different data volumes.
+
+#### 7. **Navigation and User Flow**
+   - **Navigation To This Page:** Users can navigate to the Dashboard Page via a sidebar menu item labeled "Dashboard."
+   - **Navigation From This Page:** Users can click on success scores or alerts to navigate to detailed views on the Success Score Page or Peer Review Page.
+
+#### 8. **Innovative Features**
+   - **Unique Features:** Use of a tree map for visualizing success scores provides a unique perspective on performance clustering.
+   - **Components Needed for Innovative Features:** SuccessScoreTreeMap component to illustrate performance distribution.
+
+#### 9. **Page URL**
+   - **URL for This Page (React):** `/dashboard`### Page Name: Investor Profiles Page
+
+#### 1. **Name and Purpose**
+   - **Name:** Investor Profiles Page
+   - **Purpose:** This page displays comprehensive profiles of all investors, highlighting their preferences, engagement history, and potential interests in startups.
+   - **Problems Solved:** 
+     - Provides a centralized view of investor information, aiding startups in targeting the right investors.
+     - Enhances understanding of investor preferences, facilitating better matchmaking.
+     - Tracks investor engagement history to optimize follow-up strategies.
+
+#### 2. **Component Structure**
+   - **Parent Components:**
+     - **InvestorProfilesContainer**
+       - **Core Role:** Acts as the main container for displaying investor profiles, managing the state of investor data.
+       - **Components:** InvestorProfileCard, InvestorFilter, InvestorDetailModal.
+
+   - **Sub-Components (Children):**
+     - **InvestorProfileCard**
+       - **Functionality:** Displays individual investor information, including name, preferences, and engagement summary.
+       - **Contribution:** Provides a visual representation of each investor, allowing for easy scanning and selection.
+
+     - **InvestorFilter**
+       - **Functionality:** Filters investor profiles based on preferences and investment history.
+       - **Contribution:** Enables users to narrow down investor lists based on specific criteria.
+
+     - **InvestorDetailModal**
+       - **Functionality:** Shows detailed information about a selected investor, including engagement history and contact information.
+       - **Contribution:** Offers deeper insights into investor profiles when needed.
+
+   - **Component Breakdown:**
+     - **Hierarchy:**
+       - InvestorProfilesContainer
+         - InvestorFilter
+         - InvestorProfileCard (mapped over investor data)
+         - InvestorDetailModal (conditionally rendered)
+
+     - **Dynamic Relationships:** 
+       - Real-time filtering updates the displayed InvestorProfileCards based on user input in the InvestorFilter.
+       - Clicking on an InvestorProfileCard opens the InvestorDetailModal to show detailed information.
+
+     - **Reusability:** 
+       - InvestorProfileCard can be reused in the Matchmaking Page to display possible investor matches.
+
+#### 3. **User Interaction and Flow**
+   - **Component Interactions:** Users can interact with the InvestorFilter to refine the investor list, click on InvestorProfileCards to view more details, and close the InvestorDetailModal after viewing it.
+   - **Feedback Mechanisms:** 
+     - Visual cues such as loading spinners during data fetch.
+     - Alerts or notifications to confirm successful filtering or selection of profiles.
+   - **Adaptive Behavior:** 
+     - The layout adjusts based on the screen size, ensuring a responsive design that maintains usability.
+
+#### 4. **Data Handling**
+   - **Data Flow:** Data flows from the parent InvestorProfilesContainer to child components through props, with mock data simulating backend interactions:
+     ```json
+     {
+       "investors": [
+         {
+           "name": "Investor A",
+           "preferences": ["FinTech", "HealthTech"],
+           "engagementHistory": [{"startup": "FinTech Innovations", "amount": "$500,000"}]
+         }
+       ]
+     }
+     ```
+   - **State Management:** State is managed using React hooks (useState) within InvestorProfilesContainer to maintain the list of investors and filtered results.
+   - **Mock Data Implementation:** Use mock data for initial development and testing, with tools like Faker.js for generating investor profiles.
+
+#### 5. **Interconnectivity**
+   - **Intra-Module Interactions:** Components on this page may share data with the Matchmaking Page to suggest relevant investors based on filtered preferences.
+   - **Data Sharing:** Filtering results can affect the active investors displayed on the Matchmaking Page, sharing the same investor dataset.
+   - **Integration Points:** The InvestorFilter may integrate with analytics components to provide insights based on investor filtering patterns.
+
+#### 6. **Scalability and Performance**
+   - **Scalability Considerations:** The component structure supports scalability by allowing additional filters or sorting options to be added without significant refactoring.
+   - **Performance Metrics:** Measure load times for data fetching, responsiveness during filtering, and resource usage in rendering large lists of investors.
+
+#### 7. **Navigation and User Flow**
+   - **Navigation To This Page:** Users navigate to this page via a sidebar link labeled "Investor Profiles".
+   - **Navigation From This Page:** Users can navigate to the Funding Rounds Page or Matchmaking Page via buttons or links in the header.
+
+#### 8. **Innovative Features**
+   - **Unique Features:** The integration of a heat map visualization of investor preferences could be introduced to provide a quick visual summary of investor interests across various sectors.
+   - **Components Needed for Innovative Features:** HeatMapComponent, which would visualize investor preferences across categories.
+
+#### 9. **Page URL**
+   - **URL for This Page (React):** `/investor-profiles`### Page Name: Mentor Profiles Page
+
+#### 1. **Name and Purpose**
+   - **Name:** Mentor Profiles Page
+   - **Purpose:** This page serves as a centralized hub to display all mentor profiles, showcasing their expertise, assigned startups, and feedback logs. It facilitates easy access to mentor information for startups and provides insights into mentor engagement.
+   - **Problems Solved:** 
+     - Provides a clear overview of available mentors and their qualifications.
+     - Enhances communication by summarizing mentor engagements with startups.
+     - Allows startups to quickly find relevant mentors based on expertise.
+
+#### 2. **Component Structure**
+   - **Parent Components:**
+     - **MentorList**: Displays a list of all mentors with their brief details and links to their profiles.
+       - **Core Role:** To aggregate and render mentor data efficiently.
+       - **Components Used:** 
+         - MentorCard (to display individual mentor details).
+         - MentorFilter (to filter mentors based on expertise).
+   - **Sub-Components (Children):**
+     - **MentorCard**: Represents individual mentor profiles with their name, expertise, and assigned startups.
+       - **Functionality:** Clickable to view detailed profile.
+     - **MentorFilter**: A filtering component to search for mentors based on expertise or name.
+       - **Functionality:** Allows users to refine the list of mentors displayed.
+
    - **Component Breakdown:**
      - **Hierarchy:** 
-       - InvestorProfileContainer (Parent)
-         - InvestorProfileCard (Child)
-         - InvestorPreferences (Child)
-         - EngagementHistory (Child)
-         - MatchSuggestions (Child)
+       - MentorList (Parent)
+         - MentorFilter (Child)
+         - MentorCard (Child)
      - **Dynamic Relationships:** 
-       - When an investor is selected from a list, the InvestorProfileContainer updates to display relevant information in all child components.
+       - MentorFilter updates the MentorList in real-time based on search input.
+       - MentorCard links to a detailed MentorDetailPage upon click.
      - **Reusability:** 
-       - InvestorProfileCard can be reused in other pages where investor details are needed.
+       - MentorCard can be used in the Meeting Scheduler and Feedback Management pages for displaying mentors.
 
 #### 3. **User Interaction and Flow**
    - **Component Interactions:** 
-     - Users can click on an investor's name from a list to load their profile in InvestorProfileContainer.
-     - Each child component can be updated dynamically based on user interactions (e.g., clicking “Edit” in InvestorProfileCard).
+     - Users can type in the MentorFilter to dynamically filter the MentorList. Clicking on a MentorCard will navigate to the Mentor Detail Page.
    - **Feedback Mechanisms:** 
-     - Visual cues (e.g., loaders) during data fetches and success alerts when updates are made.
+     - Visual cues like loading spinners during filtering and highlighting selected cards to indicate active selections.
    - **Adaptive Behavior:** 
-     - Components adjust sizes responsively based on the viewport, ensuring usability on larger screens.
+     - The MentorFilter adjusts its layout based on screen size, ensuring usability on various resolutions.
 
 #### 4. **Data Handling**
    - **Data Flow:** 
-     - Mock data example: `{name: "Venture Capitalist Inc.", preferences: ["SaaS", "HealthTech"], engagementHistory: [...]}`.
-     - Data flows from the parent InvestorProfileContainer to children and vice versa (e.g., updates in engagement history).
-   - **State Management:**
-     - State is maintained using React's useState and useEffect hooks to manage the current investor and their data.
-   - **Mock Data Implementation:** 
-     - Use a local JSON file or hardcoded data to simulate backend responses for the initial development phase.
-
-#### 5. **Interconnectivity**
-   - **Intra-Module Interactions:**
-     - InvestorOverviewPage interacts with the Active Funding Rounds Page to pull relevant startup data.
-   - **Data Sharing:** 
-     - Preferences and engagement data shared between InvestorOverviewPage and Matchmaking Page for improved recommendations.
-   - **Integration Points:** 
-     - Shared context provider for investor data to maintain consistency across multiple pages.
-
-#### 6. **Scalability and Performance**
-   - **Scalability Considerations:**
-     - The component structure allows for easy addition of new components (e.g., additional engagement metrics) without significant refactoring.
-   - **Performance Metrics:** 
-     - Load times and data fetching times will be monitored; lazy loading techniques can be implemented for large datasets.
-
-#### 7. **Navigation and User Flow**
-   - **Navigation To This Page:** 
-     - Users navigate from a general Investor List Page by clicking on an investor's name or profile link.
-   - **Navigation From This Page:** 
-     - Users can navigate back to the Investor List Page or to the Active Funding Rounds Page via breadcrumb navigation or buttons.
-
-#### 8. **Innovative Features**
-   - **Unique Features:** 
-     - Interactive timeline visualizations for engagement history, potentially using a tree graph or heat map to display frequency and nature of interactions.
-   - **Components Needed for Innovative Features:** 
-     - EngagementTimeline (for visual representation of engagement history), HeatMap (for engagement intensity).
-
-#### 9. **Page URL**
-   - **URL for This Page (React):** `/investor-overview/:investorId`### Page Name: Startup Overview Page
-
-#### 1. **Name and Purpose**
-   - **Name:** Startup Overview Page
-   - **Purpose:** This page serves to present a comprehensive profile of individual startups within the YC program, showcasing key metrics, team members, funding status, and project details while allowing for edits and updates.
-   - **Problems Solved:** 
-     - Centralizes critical information about startups for easy access and management.
-     - Provides a clear view of team structure and funding information.
-     - Facilitates real-time updates and edits to maintain current data.
-
-#### 2. **Component Structure**
-   - **Parent Components:** 
-     - **StartupProfileCard**: Displays the startup's primary information.
-       - **Core Role:** Present essential startup details including name, industry, and team members.
-       - **Components:** 
-         - **Title**: Displays the startup name.
-         - **Description**: Provides a brief overview of the startup's mission.
-         - **TeamList**: Shows the list of founders and team members with roles.
-     - **FundingStatus**: Provides information on funding rounds and current financial metrics.
-       - **Core Role:** Display funding rounds and financial health indicators.
-       - **Components:** 
-         - **FundingRoundsTable**: Lists each funding round with amounts and dates.
-         - **BurnRateIndicator**: Visualizes the burn rate.
-     - **EditButton**: Allows users to enter edit mode for the startup's profile.
-
-   - **Sub-Components (Children):** 
-     - **Title**: Displays the name of the startup.
-     - **Description**: Shows a summary of the startup’s goals.
-     - **TeamList**: Renders a list of team members, allowing user interaction for editing.
-     - **FundingRoundsTable**: A table format to display funding details.
-     - **BurnRateIndicator**: A gauge or progress bar to visualize the burn rate.
-
-   - **Component Breakdown:**
-     - **Hierarchy:** 
-       - `StartupOverviewPage`
-         - `StartupProfileCard`
-           - `Title`
-           - `Description`
-           - `TeamList`
-         - `FundingStatus`
-           - `FundingRoundsTable`
-           - `BurnRateIndicator`
-         - `EditButton`
-     - **Dynamic Relationships:** 
-       - The `EditButton` toggles the edit mode for the `StartupProfileCard`, allowing users to update the fields.
-     - **Reusability:** 
-       - Components like `TeamList` and `FundingRoundsTable` can be reused in the `Funding Overview Page` for consistent presentation.
-
-#### 3. **User Interaction and Flow**
-   - **Component Interactions:** 
-     - Users click on the `EditButton` to toggle edit mode, allowing them to update the startup’s information directly within the `StartupProfileCard`.
-   - **Feedback Mechanisms:** 
-     - Upon editing, users receive visual confirmation (e.g., toast notifications) indicating successful updates or errors.
-   - **Adaptive Behavior:** 
-     - The layout adjusts based on screen size, ensuring readability across devices; components stack vertically on smaller screens.
-
-#### 4. **Data Handling**
-   - **Data Flow:** 
-     - Data flows from the parent component `StartupOverviewPage` to child components such as `StartupProfileCard` and `FundingStatus` using props. 
-     - Example mock data: `[{name: "TechInnovate", industry: "FinTech", founders: ["Alice Smith", "Bob Johnson"], fundingRounds: [{round: "Seed", amount: "$500K"}]}]`.
+     - The MentorList fetches data from a mock data source and passes it to MentorCard components, which display individual mentor information.
+     - Example mock data:
+       ```json
+       {
+         "mentors": [
+           {
+             "name": "Bob Johnson",
+             "expertise": ["Product Development", "Marketing"],
+             "assignedStartups": ["FinTech Innovations"]
+           },
+           {
+             "name": "Alice Smith",
+             "expertise": ["Finance", "Operations"],
+             "assignedStartups": ["HealthTech Solutions"]
+           }
+         ]
+       }
+       ```
    - **State Management:** 
-     - State is managed using React's `useState` hook within the parent component to ensure updates propagate to child components.
+     - State is managed using React's useState hook for filtering capabilities, ensuring that user inputs reflect in real-time.
    - **Mock Data Implementation:** 
-     - Fake data is utilized to simulate startup profiles, allowing for demonstration of editing and viewing functionalities without backend interaction.
+     - Utilize a mock API service to simulate backend interactions, allowing for testing and demonstration without needing an active backend.
 
 #### 5. **Interconnectivity**
    - **Intra-Module Interactions:** 
-     - The `StartupOverviewPage` interacts with the `Mentorship Page` to pull mentor assignments for the startup.
+     - The MentorList interacts with the Feedback Management Page by linking to specific mentor profiles and displaying relevant feedback.
    - **Data Sharing:** 
-     - Data such as funding information can be shared with the `Funding Overview Page` to maintain consistency.
+     - Mentor data can be shared with the Meeting Scheduler to suggest mentors based on availability and expertise.
    - **Integration Points:** 
-     - Shared components like notifications and modals can be utilized for feedback and alerts.
+     - Shared components like the SearchBar can enhance filtering capabilities across this page and others.
 
 #### 6. **Scalability and Performance**
    - **Scalability Considerations:** 
-     - The structure allows for adding more components, like additional financial metrics or performance indicators, without major refactoring.
+     - The MentorList can easily accommodate additional MentorCard components as new mentors are added, with minimal performance impact due to lazy loading techniques.
    - **Performance Metrics:** 
-     - Load times and responsiveness are monitored using tools like Lighthouse, with optimization strategies in place for large datasets.
+     - Monitor load times for mentor lists, responsiveness of the filter, and overall user interaction rates to ensure optimal performance.
 
 #### 7. **Navigation and User Flow**
    - **Navigation To This Page:** 
-     - Users navigate to this page from the main dashboard via a sidebar link labeled "Startup Overview".
+     - Users can access this page from the main dashboard via a sidebar link labeled “Mentors” or from the Startup Portfolio.
    - **Navigation From This Page:** 
-     - Users can navigate to the **Funding Overview Page** and **Mentorship Page** through links provided in the navigation bar or action buttons.
+     - Users can navigate to the Mentor Detail Page by clicking on a MentorCard, and can return to the Dashboard using a breadcrumb or back button.
 
 #### 8. **Innovative Features**
    - **Unique Features:** 
-     - Real-time updates for funding rounds using a websocket connection, allowing instant reflection of changes made by mentors or investors.
+     - Advanced filtering capabilities that utilize tag-based search for expertise.
+     - A hover-over tooltip on MentorCards showing quick stats such as the number of startups mentored and last feedback date.
    - **Components Needed for Innovative Features:** 
-     - **WebSocketManager**: To handle real-time data flow, updating UI components instantly.
+     - Tooltip component for hover interactions.
+     - Tag component for expertise filtering.
 
 #### 9. **Page URL**
-   - **URL for This Page (React):** `/startup-overview/:startupId`
+   - **URL for This Page (React):** `/mentor-profiles`### Page Name: Startup Profiles Page
+
+#### 1. **Name and Purpose**
+   - **Name:** Startup Profiles Page
+   - **Purpose:** This page serves as a centralized hub for viewing and managing the profiles of all startups within the Y Combinator portfolio. It allows users to access detailed information about each startup, facilitating effective management and oversight.
+   - **Problems Solved:** 
+     - Provides a consolidated view of all startups, enhancing visibility into their status.
+     - Enables quick access to startup profiles for efficient monitoring and support.
+     - Addresses the challenge of inadequate tracking by offering detailed information and easy navigation.
+
+#### 2. **Component Structure**
+   - **Parent Components:** 
+     - **StartupProfilesContainer:** Manages the overall layout and state of the startup profiles.
+       - **Core Role:** Fetches and stores the list of startups, handles user interactions, and routes to detailed profiles.
+       - **Components:** 
+         - **StartupList:** Displays the list of startup summaries.
+         - **SearchBar:** Allows users to search for specific startups.
+         - **Filters:** Provides options to filter startups by industry or cohort.
+   - **Sub-Components (Children):** 
+     - **StartupCard:** Represents individual startup summaries with key information and action buttons.
+       - **Functionality:** Displays startup name, industry, cohort, and a button to view details.
+     - **Pagination:** Manages navigation through multiple pages of startup results.
+       - **Functionality:** Allows users to navigate through large lists of startups.
+
+   - **Component Breakdown:**
+     - **Hierarchy:** 
+       - StartupProfilesContainer
+         - StartupList
+           - StartupCard
+         - SearchBar
+         - Filters
+         - Pagination
+     - **Dynamic Relationships:** The StartupProfilesContainer fetches data and passes it to StartupList, which maps through the startup data to render StartupCards. The SearchBar and Filters update the state in StartupProfilesContainer to filter results dynamically.
+     - **Reusability:** StartupCard can be reused on the Funding Overview Page and Mentorship Page for displaying relevant startup summaries.
+
+#### 3. **User Interaction and Flow**
+   - **Component Interactions:** Users can type in the SearchBar to filter startups, click on a StartupCard to view more details, and use filters to refine their search results.
+   - **Feedback Mechanisms:** 
+     - Visual cues such as loading spinners while data is being fetched.
+     - Alerts for no results found if the search returns no startups.
+     - Dynamic updates to the list as filters are applied or search terms are entered.
+   - **Adaptive Behavior:** The layout adjusts based on the number of startups returned, ensuring a responsive design that accommodates different screen sizes.
+
+#### 4. **Data Handling**
+   - **Data Flow:** 
+     - Mock data for startups is fetched and stored in the StartupProfilesContainer. 
+     - When a user types in the SearchBar or applies a filter, the state is updated, and the StartupList re-renders with the filtered data.
+   - **State Management:** State is managed using React's useState and useEffect hooks to ensure data consistency across components.
+   - **Mock Data Implementation:** 
+     ```json
+     {
+       "startups": [
+         {
+           "name": "FinTech Innovations",
+           "industry": "FinTech",
+           "cohort": "Summer 2024",
+           "founders": [{"name": "Alice Smith", "role": "CEO", "contact": "alice@fintech.com"}]
+         },
+         {
+           "name": "HealthTech Solutions",
+           "industry": "HealthTech",
+           "cohort": "Winter 2024",
+           "founders": [{"name": "Bob Johnson", "role": "CTO", "contact": "bob@healthtech.com"}]
+         }
+       ]
+     }
+     ```
+
+#### 5. **Interconnectivity**
+   - **Intra-Module Interactions:** 
+     - The StartupProfilesPage interacts with the Mentorship Page to display relevant mentor information when a startup is selected.
+   - **Data Sharing:** 
+     - Shares data with the Funding Overview Page to provide insights on funding needs for selected startups.
+   - **Integration Points:** 
+     - Utilizes a shared notification component to alert users when updates occur (e.g., new funding rounds).
+
+#### 6. **Scalability and Performance**
+   - **Scalability Considerations:** 
+     - The component structure allows for the addition of more filters (e.g., funding stage, geographical location) without significant redesign.
+   - **Performance Metrics:** 
+     - Load times, responsiveness (time taken to filter results), and memory usage will be monitored using performance profiling tools.
+
+#### 7. **Navigation and User Flow**
+   - **Navigation To This Page:** 
+     - Users access the Startup Profiles Page from the main dashboard or a dedicated sidebar menu item labeled "Startups."
+   - **Navigation From This Page:** 
+     - Users can click on a StartupCard to navigate to the detailed Startup Profile Page. They can also return to the main dashboard via a breadcrumb navigation component.
+
+#### 8. **Innovative Features**
+   - **Unique Features:** 
+     - Real-time search and filter capabilities provide immediate feedback as users type or apply filters.
+     - Dynamic pagination to handle large datasets without compromising performance.
+   - **Components Needed for Innovative Features:** 
+     - Custom debounce function in the SearchBar to optimize input handling.
+     - Advanced filtering options that can be reused across other pages.
+
+#### 9. **Page URL**
+   - **URL for This Page (React):** `/startups/profiles`

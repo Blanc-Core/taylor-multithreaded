@@ -1,0 +1,516 @@
+
+You are a seasoned software architect. Your task is to design the pages within a module, ensuring they deliver **intuitive user experiences**, **modular 
+consistency**, and **robust component design**. Each page should be structured with a clear **parent-child component hierarchy**. 
+
+### Objectives:
+- **Modular Consistency:** Align all pages with the module’s overall purpose and aesthetic. Ensure components are reusable, adaptable, and consistent across the module.
+- **Component-Centric Design:** Focus on defining parent and child components, ensuring they work together seamlessly to create an intuitive user experience.
+- **User-Centric Approach:** Design components with user navigation, interaction, and feedback in mind.
+
+### Module Overview:
+<Overall Module Plan>
+### Module Name:Startup Portfolio and Mentorship Management  
+1. **Name and Purpose:**
+   - **Name**: Startup Portfolio and Mentorship Management
+   - **Purpose**: This module is designed to manage all aspects of startups within the Y Combinator portfolio, including profiles, mentorship, and progress tracking. It aims to streamline the relationship management between startups, mentors, and the YC teams, ensuring that startups receive the necessary support and resources throughout their lifecycle.
+   - **ProblemSolved**: 
+     - Inadequate tracking of startup progress hinders timely interventions.
+     - Lack of structured mentorship hampers startup growth and development.
+     - Difficulty in accessing consolidated information about startups and their financial health.
+     - Inefficient communication between startups and mentors leads to missed opportunities for guidance.
+     - Poor visibility into workload and project timelines can delay critical deliverables.
+
+2. **Logic:**
+   - **Responsibilities:**
+     - **Primary Tasks**:
+       - Create and manage startup profiles, including industry categorization and lifecycle tracking.
+       - Assign mentors to startups and log their feedback.
+       - Track funding rounds, financial data, and key performance metrics.
+       - Visualize project statuses with Gantt charts and progress indicators.
+     - **Secondary Tasks**:
+       - Generate reports on startup progress and mentorship effectiveness.
+       - Enable real-time collaboration between startups and mentors.
+       - Provide alerts for high-risk indicators, such as high burn rates or delayed milestones.
+     - **Key Features**:
+       - Comprehensive startup profiles with financial and progress tracking.
+       - Mentor assignment functionality with feedback logging.
+       - Interactive Gantt charts for project tracking.
+       - Risk indicator alerts based on predefined thresholds.
+
+   - **Frontend Logic:**
+     - **User Interactions**: Users can create, view, and edit startup profiles. They can assign mentors and log feedback, as well as visualize project progress through Gantt charts.
+     - **Data Handling**: Utilize fake data such as:
+       ```json
+       {
+         "startups": [
+           {
+             "name": "FinTech Innovations",
+             "industry": "FinTech",
+             "cohort": "Summer 2024",
+             "founders": [{"name": "Alice Smith", "role": "CEO", "contact": "alice@fintech.com"}],
+             "fundingRounds": [{"type": "Seed", "amount": "$500,000", "investors": ["Investor A"]}],
+             "burnRate": "$20,000",
+             "mrr": "$10,000"
+           }
+         ]
+       }
+       ```
+       Validation will ensure all fields are filled before submission, and usage involves dynamic updates in the UI when data changes.
+     - **Dynamic Behaviors**: The Gantt chart updates in real-time as task statuses change. Conditional rendering displays alerts when a startup exceeds its burn rate.
+
+3. **Interconnectivity:**
+   - **Interactions**: The module interacts with the Investor and Fundraising Management module to update investor interests based on startup progress.
+   - **Data Exchange**: Share data on startup funding needs with the Investor module using fake data like:
+     ```json
+     {
+       "fundingNeeds": "$300,000"
+     }
+     ```
+   - **Integration Points**: Integration with a shared notification component to alert users when mentorship feedback is logged or when project milestones are reached.
+
+4. **Additional Notes:**
+   - **Strict Module Adherence:** Only include functionalities explicitly mentioned. No extra modules included.
+   - **Component Grouping:** All functionalities grouped under this module.
+   - **Frontend Focus:** Complete focus on frontend aspects. No backend interactions.
+
+5. **Page Breakdown:**
+   - **Startup Profiles Page**: Displays a list of all startups, allowing users to click on any startup for detailed information.
+   - **Mentorship Page**: Manages mentor assignments, displaying current mentors and their feedback.
+   - **Funding Overview Page**: Shows funding rounds and financial data for each startup.
+   - **Project Tracking Page**: Visualizes project timelines and task statuses with Gantt charts.
+   - **Risk Management Page**: Displays alerts for startups with high-risk indicators.
+</Overall Module Plan>
+
+### Page Name: [Page Name]
+
+#### 1. **Name and Purpose**
+   - **Name:** Provide the exact name of the page.
+   - **Purpose:** Explain the page’s role within the module and its functionality.
+   - **Problems Solved:** List the specific problems this page addresses.
+
+#### 2. **Component Structure**
+   - **Parent Components:** Identify the core components forming the page's structure.
+     - **Core Role:** Define each parent component's main responsibilities.
+     - ** Components:** Specify which components will be used.
+   - **Sub-Components (Children):** List and describe each child component, highlighting their functionality and contribution to the parent component’s role.
+   - **Component Breakdown:**
+     - **Hierarchy:** Detail the parent-child component structure, explaining their interactions.
+     - **Dynamic Relationships:** Describe any real-time data exchanges or user interactions between components.
+     - **Reusability:** Discuss how child components can be reused within this page or across other module pages.
+
+#### 3. **User Interaction and Flow**
+   - **Component Interactions:** Explain how users will interact with each component, focusing on information flow and actions.
+   - **Feedback Mechanisms:** Define how components will provide feedback (e.g., visual cues, alerts, real-time updates).
+   - **Adaptive Behavior:** Describe any responsive behaviors based on user input or screen size.
+
+#### 4. **Data Handling**
+   - **Data Flow:** Outline how data flows between parent and child components, using mock data to simulate backend interactions.
+   - **State Management:** Explain how state is managed within the component hierarchy to ensure data consistency.
+   - **Mock Data Implementation:** Detail strategies for using mock data to demonstrate functionality without backend dependency.
+
+#### 5. **Interconnectivity**
+   - **Intra-Module Interactions:** Explain how this page’s components interact with components on other pages within the module.
+   - **Data Sharing:** Detail how data is shared between this page’s components and those on other pages.
+   - **Integration Points:** Highlight any shared components or context providers that influence this page’s components.
+
+#### 6. **Scalability and Performance**
+   - **Scalability Considerations:** Discuss how the component structure supports scaling (e.g., adding more child components or handling increased data volume).
+   - **Performance Metrics:** Define metrics for measuring component performance (e.g., load times, responsiveness, resource usage). Describe how these metrics will be monitored and optimized.
+
+#### 7. **Navigation and User Flow** [ONLY MENTION THE PAGES THAT YOU ARE CURRENTLY CREATING]
+   - **Navigation To This Page:** Describe how users will navigate to this page, focusing on the components facilitating navigation.
+   - **Navigation From This Page:** Explain how users will navigate from this page to others, detailing the components responsible for guiding the user.
+
+#### 8. **Innovative Features**
+   - **Unique Features:** Describe any innovative features or techniques that enhance the user experience or page functionality.
+   - **Components Needed for Innovative Features:** List the components required to support these innovative features.
+
+#### 9. **Page URL**
+   - **URL for This Page (React):** Provide the URL structure for this page.
+
+
+
+You are a seasoned software architect. Your task is to design the pages within a module, ensuring they deliver **intuitive user experiences**, **modular 
+consistency**, and **robust component design**. Each page should be structured with a clear **parent-child component hierarchy**. 
+
+### Objectives:
+- **Modular Consistency:** Align all pages with the module’s overall purpose and aesthetic. Ensure components are reusable, adaptable, and consistent across the module.
+- **Component-Centric Design:** Focus on defining parent and child components, ensuring they work together seamlessly to create an intuitive user experience.
+- **User-Centric Approach:** Design components with user navigation, interaction, and feedback in mind.
+
+### Module Overview:
+<Overall Module Plan>
+### Module Name:Performance and Success Metrics
+1. **Name and Purpose:**
+   - **Name**: Performance and Success Metrics
+   - **Purpose**: This module provides insights into the performance and success metrics of startups within Y Combinator's portfolio. By tracking key performance indicators (KPIs), it aims to identify successful startups and those needing additional support, ensuring optimal resource allocation from YC.
+   - **ProblemSolved**: 
+     - Inability to assess startup performance comprehensively leads to inefficient resource allocation.
+     - Lack of visibility into critical growth metrics can result in missed opportunities for intervention.
+     - Difficulty in tracking cohort performance hinders strategic decision-making for future batches.
+     - Absence of success scoring makes it challenging to prioritize support for startups.
+
+2. **Logic:**
+   - **Responsibilities:**
+     - **Primary Tasks**:
+       - Track growth metrics such as revenue and user acquisition.
+       - Generate dashboards displaying startup health indicators.
+       - Compute success scores based on predefined criteria.
+     - **Secondary Tasks**:
+       - Facilitate peer and mentor reviews of startup performance.
+       - Visualize cohort performance analytics.
+       - Provide alerts on startups that need immediate attention based on their metrics.
+     - **Key Features**:
+       - Real-time dashboards displaying key metrics and health indicators.
+       - Automated success score generation for each startup.
+       - Peer review functionality for continuous improvement.
+
+   - **Frontend Logic:**
+     - **User Interactions**: Users can view dashboards, track KPIs, and generate reports on startup success.
+     - **Data Handling**: Fake data example:
+       ```json
+       {
+         "startupMetrics": [
+           {
+             "name": "FinTech Innovations",
+             "mrr": "$10,000",
+             "maus": 500,
+             "successScore": 85
+           }
+         ]
+       }
+       ```
+       Validation ensures all metrics are entered correctly and usage involves updating visual indicators as metrics change.
+     - **Dynamic Behaviors**: Dashboard metrics update automatically based on real-time data inputs.
+
+3. **Interconnectivity:**
+   - **Interactions**: This module shares data with the Startup Portfolio to provide updated metrics and performance indicators.
+   - **Data Exchange**: Metrics and success scores are exchanged in the format:
+     ```json
+     {
+       "performanceData": {
+         "startup": "FinTech Innovations",
+         "successScore": 85
+       }
+     }
+     ```
+   - **Integration Points**: Integration with shared reporting components for generating performance summaries.
+
+4. **Additional Notes:**
+   - **Strict Module Adherence:** Only functionalities explicitly mentioned are included.
+   - **Component Grouping:** All features grouped under this module.
+   - **Frontend Focus:** Focus entirely on frontend aspects.
+
+5. **Page Breakdown:**
+   - **Dashboard Page**: Displays overall performance metrics for startups, including KPIs and success scores.
+   - **Cohort Analytics Page**: Tracks overall performance of specific cohorts over time.
+   - **Peer Review Page**: Allows mentors and partners to provide feedback on startup performance.
+   - **Success Score Page**: Displays calculated success scores and the factors contributing to them.
+</Overall Module Plan>
+
+### Page Name: [Page Name]
+
+#### 1. **Name and Purpose**
+   - **Name:** Provide the exact name of the page.
+   - **Purpose:** Explain the page’s role within the module and its functionality.
+   - **Problems Solved:** List the specific problems this page addresses.
+
+#### 2. **Component Structure**
+   - **Parent Components:** Identify the core components forming the page's structure.
+     - **Core Role:** Define each parent component's main responsibilities.
+     - ** Components:** Specify which components will be used.
+   - **Sub-Components (Children):** List and describe each child component, highlighting their functionality and contribution to the parent component’s role.
+   - **Component Breakdown:**
+     - **Hierarchy:** Detail the parent-child component structure, explaining their interactions.
+     - **Dynamic Relationships:** Describe any real-time data exchanges or user interactions between components.
+     - **Reusability:** Discuss how child components can be reused within this page or across other module pages.
+
+#### 3. **User Interaction and Flow**
+   - **Component Interactions:** Explain how users will interact with each component, focusing on information flow and actions.
+   - **Feedback Mechanisms:** Define how components will provide feedback (e.g., visual cues, alerts, real-time updates).
+   - **Adaptive Behavior:** Describe any responsive behaviors based on user input or screen size.
+
+#### 4. **Data Handling**
+   - **Data Flow:** Outline how data flows between parent and child components, using mock data to simulate backend interactions.
+   - **State Management:** Explain how state is managed within the component hierarchy to ensure data consistency.
+   - **Mock Data Implementation:** Detail strategies for using mock data to demonstrate functionality without backend dependency.
+
+#### 5. **Interconnectivity**
+   - **Intra-Module Interactions:** Explain how this page’s components interact with components on other pages within the module.
+   - **Data Sharing:** Detail how data is shared between this page’s components and those on other pages.
+   - **Integration Points:** Highlight any shared components or context providers that influence this page’s components.
+
+#### 6. **Scalability and Performance**
+   - **Scalability Considerations:** Discuss how the component structure supports scaling (e.g., adding more child components or handling increased data volume).
+   - **Performance Metrics:** Define metrics for measuring component performance (e.g., load times, responsiveness, resource usage). Describe how these metrics will be monitored and optimized.
+
+#### 7. **Navigation and User Flow** [ONLY MENTION THE PAGES THAT YOU ARE CURRENTLY CREATING]
+   - **Navigation To This Page:** Describe how users will navigate to this page, focusing on the components facilitating navigation.
+   - **Navigation From This Page:** Explain how users will navigate from this page to others, detailing the components responsible for guiding the user.
+
+#### 8. **Innovative Features**
+   - **Unique Features:** Describe any innovative features or techniques that enhance the user experience or page functionality.
+   - **Components Needed for Innovative Features:** List the components required to support these innovative features.
+
+#### 9. **Page URL**
+   - **URL for This Page (React):** Provide the URL structure for this page.
+
+
+
+You are a seasoned software architect. Your task is to design the pages within a module, ensuring they deliver **intuitive user experiences**, **modular 
+consistency**, and **robust component design**. Each page should be structured with a clear **parent-child component hierarchy**. 
+
+### Objectives:
+- **Modular Consistency:** Align all pages with the module’s overall purpose and aesthetic. Ensure components are reusable, adaptable, and consistent across the module.
+- **Component-Centric Design:** Focus on defining parent and child components, ensuring they work together seamlessly to create an intuitive user experience.
+- **User-Centric Approach:** Design components with user navigation, interaction, and feedback in mind.
+
+### Module Overview:
+<Overall Module Plan>
+### Module Name:Mentor and Startup Collaboration
+1. **Name and Purpose:**
+   - **Name**: Mentor and Startup Collaboration
+   - **Purpose**: This module facilitates effective collaboration between mentors and startups, ensuring that startups can easily access guidance and support from experienced mentors. It aims to enhance communication, feedback, and overall engagement between these key stakeholders.
+   - **ProblemSolved**: 
+     - Poor communication channels lead to inefficiencies in mentorship.
+     - Lack of structured feedback tracking can result in missed improvement opportunities.
+     - Difficulty in scheduling meetings creates scheduling conflicts.
+     - Ineffective document sharing hinders collaborative efforts on projects.
+
+2. **Logic:**
+   - **Responsibilities:**
+     - **Primary Tasks**:
+       - Manage mentor profiles and their assignments to startups.
+       - Log feedback from mentorship sessions.
+       - Facilitate scheduling of meetings between mentors and startups.
+     - **Secondary Tasks**:
+       - Provide a platform for secure document sharing.
+       - Generate summaries of mentorship sessions for future reference.
+       - Track mentor engagement metrics over time.
+     - **Key Features**:
+       - Comprehensive mentor profiles with feedback logs.
+       - Integrated meeting scheduler with calendar functionalities.
+       - Document sharing capabilities for collaboration on key resources.
+
+   - **Frontend Logic:**
+     - **User Interactions**: Users can view mentor profiles, log feedback, and schedule meetings.
+     - **Data Handling**: Fake data example:
+       ```json
+       {
+         "mentors": [
+           {
+             "name": "Bob Johnson",
+             "expertise": ["Product Development", "Marketing"],
+             "assignedStartups": ["FinTech Innovations"],
+             "feedback": [{"session": "Session 1", "notes": "Focus on user acquisition."}]
+           }
+         ]
+       }
+       ```
+       Validation ensures feedback submissions include all necessary information, and usage involves dynamically updating the UI as feedback is logged.
+     - **Dynamic Behaviors**: The meeting scheduler updates in real-time, showing available slots and confirmed meetings.
+
+3. **Interconnectivity:**
+   - **Interactions**: This module interacts with the Startup Portfolio to visualize mentor assignments and feedback.
+   - **Data Exchange**: Share feedback and meeting outcomes with the Startup module using data like:
+     ```json
+     {
+       "feedback": [
+         {
+           "mentor": "Bob Johnson",
+           "startup": "FinTech Innovations",
+           "notes": "Increase marketing efforts."
+         }
+       ]
+     }
+     ```
+   - **Integration Points**: Integration with shared messaging components for real-time communication.
+
+4. **Additional Notes:**
+   - **Strict Module Adherence:** Only functionalities specified are included.
+   - **Component Grouping:** All relevant features are grouped under this module.
+   - **Frontend Focus:** Focus entirely on frontend interactions.
+
+5. **Page Breakdown:**
+   - **Mentor Profiles Page**: Displays all mentor profiles with assignments and feedback logs.
+   - **Feedback Management Page**: Allows users to log and view feedback from mentoring sessions.
+   - **Meeting Scheduler Page**: Manages scheduling of meetings between mentors and startups.
+   - **Document Sharing Page**: Facilitates sharing of key documents and resources between mentors and startups.
+</Overall Module Plan>
+
+### Page Name: [Page Name]
+
+#### 1. **Name and Purpose**
+   - **Name:** Provide the exact name of the page.
+   - **Purpose:** Explain the page’s role within the module and its functionality.
+   - **Problems Solved:** List the specific problems this page addresses.
+
+#### 2. **Component Structure**
+   - **Parent Components:** Identify the core components forming the page's structure.
+     - **Core Role:** Define each parent component's main responsibilities.
+     - ** Components:** Specify which components will be used.
+   - **Sub-Components (Children):** List and describe each child component, highlighting their functionality and contribution to the parent component’s role.
+   - **Component Breakdown:**
+     - **Hierarchy:** Detail the parent-child component structure, explaining their interactions.
+     - **Dynamic Relationships:** Describe any real-time data exchanges or user interactions between components.
+     - **Reusability:** Discuss how child components can be reused within this page or across other module pages.
+
+#### 3. **User Interaction and Flow**
+   - **Component Interactions:** Explain how users will interact with each component, focusing on information flow and actions.
+   - **Feedback Mechanisms:** Define how components will provide feedback (e.g., visual cues, alerts, real-time updates).
+   - **Adaptive Behavior:** Describe any responsive behaviors based on user input or screen size.
+
+#### 4. **Data Handling**
+   - **Data Flow:** Outline how data flows between parent and child components, using mock data to simulate backend interactions.
+   - **State Management:** Explain how state is managed within the component hierarchy to ensure data consistency.
+   - **Mock Data Implementation:** Detail strategies for using mock data to demonstrate functionality without backend dependency.
+
+#### 5. **Interconnectivity**
+   - **Intra-Module Interactions:** Explain how this page’s components interact with components on other pages within the module.
+   - **Data Sharing:** Detail how data is shared between this page’s components and those on other pages.
+   - **Integration Points:** Highlight any shared components or context providers that influence this page’s components.
+
+#### 6. **Scalability and Performance**
+   - **Scalability Considerations:** Discuss how the component structure supports scaling (e.g., adding more child components or handling increased data volume).
+   - **Performance Metrics:** Define metrics for measuring component performance (e.g., load times, responsiveness, resource usage). Describe how these metrics will be monitored and optimized.
+
+#### 7. **Navigation and User Flow** [ONLY MENTION THE PAGES THAT YOU ARE CURRENTLY CREATING]
+   - **Navigation To This Page:** Describe how users will navigate to this page, focusing on the components facilitating navigation.
+   - **Navigation From This Page:** Explain how users will navigate from this page to others, detailing the components responsible for guiding the user.
+
+#### 8. **Innovative Features**
+   - **Unique Features:** Describe any innovative features or techniques that enhance the user experience or page functionality.
+   - **Components Needed for Innovative Features:** List the components required to support these innovative features.
+
+#### 9. **Page URL**
+   - **URL for This Page (React):** Provide the URL structure for this page.
+
+
+
+You are a seasoned software architect. Your task is to design the pages within a module, ensuring they deliver **intuitive user experiences**, **modular 
+consistency**, and **robust component design**. Each page should be structured with a clear **parent-child component hierarchy**. 
+
+### Objectives:
+- **Modular Consistency:** Align all pages with the module’s overall purpose and aesthetic. Ensure components are reusable, adaptable, and consistent across the module.
+- **Component-Centric Design:** Focus on defining parent and child components, ensuring they work together seamlessly to create an intuitive user experience.
+- **User-Centric Approach:** Design components with user navigation, interaction, and feedback in mind.
+
+### Module Overview:
+<Overall Module Plan>
+### Module Name:Investor and Fundraising Management
+1. **Name and Purpose:**
+   - **Name**: Investor and Fundraising Management
+   - **Purpose**: This module manages the relationships and engagements with investors, facilitating effective fundraising for startups. It allows Y Combinator to track investor preferences, past investments, and current fundraising activities, enhancing the overall fundraising process for startups.
+   - **ProblemSolved**: 
+     - Inefficient tracking of investor engagement can lead to missed fundraising opportunities.
+     - Lack of visibility into investor preferences prevents optimal matchmaking with startups.
+     - Difficulty in managing active funding rounds can lead to poor fundraising outcomes.
+     - Inadequate communication logs can result in lost context regarding investor discussions.
+
+2. **Logic:**
+   - **Responsibilities:**
+     - **Primary Tasks**:
+       - Maintain comprehensive profiles for each investor, including engagement history.
+       - Track active funding rounds and match them with suitable investors.
+       - Log communication history with investors to maintain context.
+     - **Secondary Tasks**:
+       - Visualize fundraising progress and investor interest.
+       - Generate reports on investor engagement and funding round successes.
+       - Provide alerts for key investor meetings or follow-ups needed.
+     - **Key Features**:
+       - Investor matchmaking functionality based on preferences and past investments.
+       - A centralized log of communication with investors.
+       - Interactive fundraising pipeline visualization.
+
+   - **Frontend Logic:**
+     - **User Interactions**: Users can view investor profiles, track active rounds, and log communication history.
+     - **Data Handling**: Utilize fake data such as:
+       ```json
+       {
+         "investors": [
+           {
+             "name": "Investor A",
+             "preferences": ["FinTech", "HealthTech"],
+             "engagementHistory": [{"startup": "FinTech Innovations", "amount": "$500,000"}]
+           }
+         ]
+       }
+       ```
+       Validation will ensure that all required fields are filled when logging communications and usage involves filtering investors based on preferences.
+     - **Dynamic Behaviors**: Real-time updates show new investor engagements or changes in funding round statuses.
+
+3. **Interconnectivity:**
+   - **Interactions**: This module shares data with the Startup Portfolio module to present funding needs and align investor interests.
+   - **Data Exchange**: Data such as funding round details is exchanged, e.g.,
+     ```json
+     {
+       "activeRounds": [
+         {
+           "startup": "FinTech Innovations",
+           "amount": "$300,000"
+         }
+       ]
+     }
+     ```
+   - **Integration Points**: Integration with shared analytics components to visualize investor trends across startups.
+
+4. **Additional Notes:**
+   - **Strict Module Adherence:** Only the specified functionalities included.
+   - **Component Grouping:** All functionalities grouped as per the module specifications.
+   - **Frontend Focus:** Focus entirely on frontend interactions.
+
+5. **Page Breakdown:**
+   - **Investor Profiles Page**: Displays all investor profiles with detailed preferences and engagement history.
+   - **Funding Rounds Page**: Manages and visualizes active funding rounds.
+   - **Matchmaking Page**: Suggests potential investor matches for each startup based on preferences.
+   - **Communication Log Page**: Logs all communication with investors, allowing for easy access to conversation history.
+</Overall Module Plan>
+
+### Page Name: [Page Name]
+
+#### 1. **Name and Purpose**
+   - **Name:** Provide the exact name of the page.
+   - **Purpose:** Explain the page’s role within the module and its functionality.
+   - **Problems Solved:** List the specific problems this page addresses.
+
+#### 2. **Component Structure**
+   - **Parent Components:** Identify the core components forming the page's structure.
+     - **Core Role:** Define each parent component's main responsibilities.
+     - ** Components:** Specify which components will be used.
+   - **Sub-Components (Children):** List and describe each child component, highlighting their functionality and contribution to the parent component’s role.
+   - **Component Breakdown:**
+     - **Hierarchy:** Detail the parent-child component structure, explaining their interactions.
+     - **Dynamic Relationships:** Describe any real-time data exchanges or user interactions between components.
+     - **Reusability:** Discuss how child components can be reused within this page or across other module pages.
+
+#### 3. **User Interaction and Flow**
+   - **Component Interactions:** Explain how users will interact with each component, focusing on information flow and actions.
+   - **Feedback Mechanisms:** Define how components will provide feedback (e.g., visual cues, alerts, real-time updates).
+   - **Adaptive Behavior:** Describe any responsive behaviors based on user input or screen size.
+
+#### 4. **Data Handling**
+   - **Data Flow:** Outline how data flows between parent and child components, using mock data to simulate backend interactions.
+   - **State Management:** Explain how state is managed within the component hierarchy to ensure data consistency.
+   - **Mock Data Implementation:** Detail strategies for using mock data to demonstrate functionality without backend dependency.
+
+#### 5. **Interconnectivity**
+   - **Intra-Module Interactions:** Explain how this page’s components interact with components on other pages within the module.
+   - **Data Sharing:** Detail how data is shared between this page’s components and those on other pages.
+   - **Integration Points:** Highlight any shared components or context providers that influence this page’s components.
+
+#### 6. **Scalability and Performance**
+   - **Scalability Considerations:** Discuss how the component structure supports scaling (e.g., adding more child components or handling increased data volume).
+   - **Performance Metrics:** Define metrics for measuring component performance (e.g., load times, responsiveness, resource usage). Describe how these metrics will be monitored and optimized.
+
+#### 7. **Navigation and User Flow** [ONLY MENTION THE PAGES THAT YOU ARE CURRENTLY CREATING]
+   - **Navigation To This Page:** Describe how users will navigate to this page, focusing on the components facilitating navigation.
+   - **Navigation From This Page:** Explain how users will navigate from this page to others, detailing the components responsible for guiding the user.
+
+#### 8. **Innovative Features**
+   - **Unique Features:** Describe any innovative features or techniques that enhance the user experience or page functionality.
+   - **Components Needed for Innovative Features:** List the components required to support these innovative features.
+
+#### 9. **Page URL**
+   - **URL for This Page (React):** Provide the URL structure for this page.
+
+
